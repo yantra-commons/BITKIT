@@ -1,0 +1,13 @@
+node_modules
+dist
+coverage
+.turbo
+.astro
+storybook-static
+playwright-report
+test-results
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example

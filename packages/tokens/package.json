@@ -1,0 +1,37 @@
+{
+  "name": "@bitkit-ui/tokens",
+  "version": "0.0.0",
+  "description": "Design tokens for bitkit-ui: JSON source, CSS custom properties and TS constants.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./tokens.css": "./dist/tokens.css",
+    "./tokens.json": "./src/tokens.json"
+  },
+  "files": [
+    "dist",
+    "src/tokens.json"
+  ],
+  "scripts": {
+    "build": "node scripts/build.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/bitkit-ui",
+    "directory": "packages/tokens"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

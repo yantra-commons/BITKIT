@@ -1,0 +1,9 @@
+dist
+coverage
+node_modules
+storybook-static
+custom-elements.json
+pnpm-lock.yaml
+.astro
+.turbo
+CHANGELOG.md

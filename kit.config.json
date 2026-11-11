@@ -1,0 +1,9 @@
+{
+  "name": "bitkit-ui",
+  "scope": "@bitkit-ui",
+  "elementPrefix": "bk",
+  "displayName": "Bitkit UI",
+  "repo": "your-org/bitkit-ui",
+  "siteUrl": "https://your-org.github.io",
+  "siteBase": "/bitkit-ui"
+}
