@@ -1,0 +1,45 @@
+[
+  {
+    "name": "CDN bundle (all components + adapters + core + Lit)",
+    "path": "packages/elements/dist/cdn/bitkit-ui.js",
+    "limit": "78 kB"
+  },
+  {
+    "name": "<bk-pay-button> (incl. checkout)",
+    "path": "packages/elements/dist/components/pay-button/index.js",
+    "limit": "32 kB"
+  },
+  {
+    "name": "<bk-amount-display>",
+    "path": "packages/elements/dist/components/amount-display/index.js",
+    "limit": "18 kB"
+  },
+  {
+    "name": "<bk-address-input>",
+    "path": "packages/elements/dist/components/address-input/index.js",
+    "limit": "32 kB"
+  },
+  {
+    "name": "<bk-mnemonic-input> (incl. BIP39 wordlist)",
+    "path": "packages/elements/dist/components/mnemonic-input/index.js",
+    "limit": "26 kB"
+  },
+  {
+    "name": "core: parsePaymentInput",
+    "path": "packages/core/dist/index.js",
+    "import": "{ parsePaymentInput }",
+    "limit": "12 kB"
+  },
+  {
+    "name": "core: formatAmount",
+    "path": "packages/core/dist/index.js",
+    "import": "{ formatAmount }",
+    "limit": "2.5 kB"
+  },
+  {
+    "name": "adapters: MockAdapter",
+    "path": "packages/adapters/dist/index.js",
+    "import": "{ MockAdapter }",
+    "limit": "9 kB"
+  }
+]

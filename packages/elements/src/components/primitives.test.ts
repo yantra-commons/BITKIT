@@ -318,3 +318,22 @@ describe('bk-qr-code', () => {
     expect($(el, '.empty').textContent).toContain('Too much data');
   });
 });
+
+describe('bk-dialog focus restore', () => {
+  it('returns focus to the deepest focused element inside shadow roots', async () => {
+    const host = await fixture<HTMLElement>(
+      '<div><bk-button id="opener">Open</bk-button><bk-dialog label="x"></bk-dialog></div>',
+    );
+    const btn = host.querySelector('bk-button')!;
+    await (btn as unknown as { updateComplete: Promise<unknown> }).updateComplete;
+    const inner = btn.shadowRoot!.querySelector('button')!;
+    inner.focus();
+    const dlg = host.querySelector('bk-dialog')!;
+    dlg.show();
+    await dlg.updateComplete;
+    const spy = vi.spyOn(inner, 'focus');
+    dlg.hide();
+    await dlg.updateComplete;
+    expect(spy).toHaveBeenCalled();
+  });
+});

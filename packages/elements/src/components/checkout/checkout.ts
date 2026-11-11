@@ -466,8 +466,13 @@ export class BkCheckout extends BitkitElement {
 
   #walletLink(inv: Invoice): string {
     if (this._view === 'lightning' && inv.lightning) return `lightning:${inv.lightning}`;
-    if (this._view === 'onchain' && inv.onchain)
-      return inv.onchain.uri ?? `bitcoin:${inv.onchain.address}`;
+    if (this._view === 'onchain' && inv.onchain) {
+      // Adapter data is untrusted: only ever link to bitcoin: URIs (never javascript: etc.).
+      const uri = inv.onchain.uri;
+      return uri && /^bitcoin:/i.test(uri)
+        ? uri
+        : `bitcoin:${encodeURIComponent(inv.onchain.address)}`;
+    }
     return buildBip21({
       address: inv.onchain?.address,
       amountSats: inv.onchain ? inv.amountSats : undefined,

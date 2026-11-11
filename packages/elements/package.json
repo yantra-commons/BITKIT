@@ -42,8 +42,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o storybook-static --quiet",
-    "size": "size-limit"
+    "build-storybook": "storybook build -o storybook-static --quiet"
   },
   "dependencies": {
     "@bitkit-ui/adapters": "workspace:*",
@@ -67,5 +66,18 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "keywords": [
+    "bitcoin",
+    "lightning",
+    "web-components",
+    "lit",
+    "checkout",
+    "wallet",
+    "ui-kit"
+  ],
+  "homepage": "https://your-org.github.io/bitkit-ui/",
+  "bugs": {
+    "url": "https://github.com/your-org/bitkit-ui/issues"
   }
 }

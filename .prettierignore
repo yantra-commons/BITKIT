@@ -11,3 +11,5 @@ storybook-static
 .next
 next-env.d.ts
 apps/website/dist
+playwright-report
+test-results

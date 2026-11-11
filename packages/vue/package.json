@@ -40,5 +40,15 @@
     "type": "git",
     "url": "https://github.com/your-org/bitkit-ui",
     "directory": "packages/vue"
+  },
+  "keywords": [
+    "bitcoin",
+    "lightning",
+    "vue",
+    "components"
+  ],
+  "homepage": "https://your-org.github.io/bitkit-ui/",
+  "bugs": {
+    "url": "https://github.com/your-org/bitkit-ui/issues"
   }
 }

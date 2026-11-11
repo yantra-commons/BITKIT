@@ -38,5 +38,18 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "keywords": [
+    "bitcoin",
+    "lightning",
+    "bolt11",
+    "bip21",
+    "bech32",
+    "lnurl",
+    "sats"
+  ],
+  "homepage": "https://your-org.github.io/bitkit-ui/",
+  "bugs": {
+    "url": "https://github.com/your-org/bitkit-ui/issues"
   }
 }

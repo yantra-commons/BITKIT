@@ -359,398 +359,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/amount-display/amount-display.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkAmountDisplay",
-          "cssParts": [
-            {
-              "description": "Wrapper.",
-              "name": "base"
-            },
-            {
-              "description": "The formatted amount (number + unit).",
-              "name": "value"
-            },
-            {
-              "description": "The number.",
-              "name": "number"
-            },
-            {
-              "description": "The unit label.",
-              "name": "unit"
-            },
-            {
-              "description": "Secondary fiat line.",
-              "name": "fiat"
-            },
-            {
-              "description": "Show/hide button.",
-              "name": "privacy-toggle"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "amount",
-              "privacy": "public",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Amount in sats.",
-              "attribute": "amount"
-            },
-            {
-              "kind": "field",
-              "name": "msat",
-              "privacy": "public",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Amount in millisats (takes precedence over `amount`).",
-              "attribute": "msat"
-            },
-            {
-              "kind": "field",
-              "name": "unit",
-              "privacy": "public",
-              "type": {
-                "text": "DisplayUnit | undefined"
-              },
-              "description": "Display unit; defaults to the global config unit (`sats`).",
-              "attribute": "unit",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "units",
-              "privacy": "public",
-              "type": {
-                "text": "DisplayUnit[] | undefined"
-              },
-              "description": "Units cycled by the toggle. Default sats → BTC (→ fiat when a rate is set).",
-              "attribute": "units"
-            },
-            {
-              "kind": "field",
-              "name": "fiatRate",
-              "privacy": "public",
-              "type": {
-                "text": "FiatRate | undefined"
-              },
-              "description": "Fiat rate object (property only)."
-            },
-            {
-              "kind": "field",
-              "name": "fiatCurrency",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Fiat currency code (attribute alternative to `fiatRate`).",
-              "attribute": "fiat-currency"
-            },
-            {
-              "kind": "field",
-              "name": "fiatPrice",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Price of 1 BTC in `fiat-currency`.",
-              "attribute": "fiat-price"
-            },
-            {
-              "kind": "field",
-              "name": "showFiat",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show a secondary fiat line.",
-              "default": "false",
-              "attribute": "show-fiat"
-            },
-            {
-              "kind": "field",
-              "name": "toggle",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Clicking the amount cycles units.",
-              "default": "false",
-              "attribute": "toggle"
-            },
-            {
-              "kind": "field",
-              "name": "privacy",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Hide the amount (privacy mode).",
-              "default": "false",
-              "attribute": "privacy",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "privacyToggle",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show an eye button to toggle privacy.",
-              "default": "false",
-              "attribute": "privacy-toggle"
-            },
-            {
-              "kind": "field",
-              "name": "locale",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "attribute": "locale"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "privacy": "public",
-              "type": {
-                "text": "'sm' | 'md' | 'lg' | 'xl'"
-              },
-              "default": "'md'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "signDisplay",
-              "privacy": "public",
-              "type": {
-                "text": "'auto' | 'always' | 'never' | undefined"
-              },
-              "attribute": "sign-display"
-            },
-            {
-              "kind": "field",
-              "name": "direction",
-              "privacy": "public",
-              "type": {
-                "text": "'incoming' | 'outgoing' | undefined"
-              },
-              "description": "`incoming` colors the amount as received.",
-              "attribute": "direction"
-            },
-            {
-              "kind": "field",
-              "name": "btcStyle",
-              "privacy": "public",
-              "type": {
-                "text": "'code' | 'symbol' | undefined"
-              },
-              "description": "`code` → \"0.5 BTC\", `symbol` → \"₿0.5\".",
-              "attribute": "btc-style"
-            },
-            {
-              "kind": "field",
-              "name": "loading",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show a loading skeleton.",
-              "default": "false",
-              "attribute": "loading"
-            },
-            {
-              "kind": "field",
-              "name": "formatted",
-              "type": {
-                "text": "FormattedAmount | undefined"
-              },
-              "description": "Formatted result for the current state (undefined when no amount).",
-              "readonly": true
-            }
-          ],
-          "events": [
-            {
-              "description": "When the user toggles the unit. Detail: `{ unit }`.",
-              "name": "bk-unit-change"
-            },
-            {
-              "description": "When the privacy toggle is used. Detail: `{ hidden: boolean }`.",
-              "name": "bk-privacy-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "amount",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Amount in sats.",
-              "fieldName": "amount"
-            },
-            {
-              "name": "msat",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Amount in millisats (takes precedence over `amount`).",
-              "fieldName": "msat"
-            },
-            {
-              "name": "unit",
-              "type": {
-                "text": "DisplayUnit | undefined"
-              },
-              "description": "Display unit; defaults to the global config unit (`sats`).",
-              "fieldName": "unit"
-            },
-            {
-              "name": "units",
-              "type": {
-                "text": "DisplayUnit[] | undefined"
-              },
-              "description": "Units cycled by the toggle. Default sats → BTC (→ fiat when a rate is set).",
-              "fieldName": "units"
-            },
-            {
-              "name": "fiat-currency",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Fiat currency code (attribute alternative to `fiatRate`).",
-              "fieldName": "fiatCurrency"
-            },
-            {
-              "name": "fiat-price",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Price of 1 BTC in `fiat-currency`.",
-              "fieldName": "fiatPrice"
-            },
-            {
-              "name": "show-fiat",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show a secondary fiat line.",
-              "default": "false",
-              "fieldName": "showFiat"
-            },
-            {
-              "name": "toggle",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Clicking the amount cycles units.",
-              "default": "false",
-              "fieldName": "toggle"
-            },
-            {
-              "name": "privacy",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Hide the amount (privacy mode).",
-              "default": "false",
-              "fieldName": "privacy"
-            },
-            {
-              "name": "privacy-toggle",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show an eye button to toggle privacy.",
-              "default": "false",
-              "fieldName": "privacyToggle"
-            },
-            {
-              "name": "locale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "fieldName": "locale"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg' | 'xl'"
-              },
-              "default": "'md'",
-              "fieldName": "size"
-            },
-            {
-              "name": "sign-display",
-              "type": {
-                "text": "'auto' | 'always' | 'never' | undefined"
-              },
-              "fieldName": "signDisplay"
-            },
-            {
-              "name": "direction",
-              "type": {
-                "text": "'incoming' | 'outgoing' | undefined"
-              },
-              "description": "`incoming` colors the amount as received.",
-              "fieldName": "direction"
-            },
-            {
-              "name": "btc-style",
-              "type": {
-                "text": "'code' | 'symbol' | undefined"
-              },
-              "description": "`code` → \"0.5 BTC\", `symbol` → \"₿0.5\".",
-              "fieldName": "btcStyle"
-            },
-            {
-              "name": "loading",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show a loading skeleton.",
-              "default": "false",
-              "fieldName": "loading"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-amount-display",
-          "customElement": true,
-          "summary": "Displays a bitcoin amount in sats, BTC or fiat. Optional unit toggle, fiat secondary\nline and privacy mode. All math is exact (bigint)."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BkAmountDisplay",
-          "declaration": {
-            "name": "BkAmountDisplay",
-            "module": "src/components/amount-display/amount-display.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/address-input/address-input.ts",
       "declarations": [
         {
@@ -1268,6 +876,398 @@
           "declaration": {
             "name": "BkAddressInput",
             "module": "src/components/address-input/address-input.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/amount-display/amount-display.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkAmountDisplay",
+          "cssParts": [
+            {
+              "description": "Wrapper.",
+              "name": "base"
+            },
+            {
+              "description": "The formatted amount (number + unit).",
+              "name": "value"
+            },
+            {
+              "description": "The number.",
+              "name": "number"
+            },
+            {
+              "description": "The unit label.",
+              "name": "unit"
+            },
+            {
+              "description": "Secondary fiat line.",
+              "name": "fiat"
+            },
+            {
+              "description": "Show/hide button.",
+              "name": "privacy-toggle"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "amount",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount in sats.",
+              "attribute": "amount"
+            },
+            {
+              "kind": "field",
+              "name": "msat",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount in millisats (takes precedence over `amount`).",
+              "attribute": "msat"
+            },
+            {
+              "kind": "field",
+              "name": "unit",
+              "privacy": "public",
+              "type": {
+                "text": "DisplayUnit | undefined"
+              },
+              "description": "Display unit; defaults to the global config unit (`sats`).",
+              "attribute": "unit",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "units",
+              "privacy": "public",
+              "type": {
+                "text": "DisplayUnit[] | undefined"
+              },
+              "description": "Units cycled by the toggle. Default sats → BTC (→ fiat when a rate is set).",
+              "attribute": "units"
+            },
+            {
+              "kind": "field",
+              "name": "fiatRate",
+              "privacy": "public",
+              "type": {
+                "text": "FiatRate | undefined"
+              },
+              "description": "Fiat rate object (property only)."
+            },
+            {
+              "kind": "field",
+              "name": "fiatCurrency",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Fiat currency code (attribute alternative to `fiatRate`).",
+              "attribute": "fiat-currency"
+            },
+            {
+              "kind": "field",
+              "name": "fiatPrice",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Price of 1 BTC in `fiat-currency`.",
+              "attribute": "fiat-price"
+            },
+            {
+              "kind": "field",
+              "name": "showFiat",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a secondary fiat line.",
+              "default": "false",
+              "attribute": "show-fiat"
+            },
+            {
+              "kind": "field",
+              "name": "toggle",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Clicking the amount cycles units.",
+              "default": "false",
+              "attribute": "toggle"
+            },
+            {
+              "kind": "field",
+              "name": "privacy",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide the amount (privacy mode).",
+              "default": "false",
+              "attribute": "privacy",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "privacyToggle",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show an eye button to toggle privacy.",
+              "default": "false",
+              "attribute": "privacy-toggle"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "'sm' | 'md' | 'lg' | 'xl'"
+              },
+              "default": "'md'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "signDisplay",
+              "privacy": "public",
+              "type": {
+                "text": "'auto' | 'always' | 'never' | undefined"
+              },
+              "attribute": "sign-display"
+            },
+            {
+              "kind": "field",
+              "name": "direction",
+              "privacy": "public",
+              "type": {
+                "text": "'incoming' | 'outgoing' | undefined"
+              },
+              "description": "`incoming` colors the amount as received.",
+              "attribute": "direction"
+            },
+            {
+              "kind": "field",
+              "name": "btcStyle",
+              "privacy": "public",
+              "type": {
+                "text": "'code' | 'symbol' | undefined"
+              },
+              "description": "`code` → \"0.5 BTC\", `symbol` → \"₿0.5\".",
+              "attribute": "btc-style"
+            },
+            {
+              "kind": "field",
+              "name": "loading",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a loading skeleton.",
+              "default": "false",
+              "attribute": "loading"
+            },
+            {
+              "kind": "field",
+              "name": "formatted",
+              "type": {
+                "text": "FormattedAmount | undefined"
+              },
+              "description": "Formatted result for the current state (undefined when no amount).",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "description": "When the user toggles the unit. Detail: `{ unit }`.",
+              "name": "bk-unit-change"
+            },
+            {
+              "description": "When the privacy toggle is used. Detail: `{ hidden: boolean }`.",
+              "name": "bk-privacy-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "amount",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount in sats.",
+              "fieldName": "amount"
+            },
+            {
+              "name": "msat",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount in millisats (takes precedence over `amount`).",
+              "fieldName": "msat"
+            },
+            {
+              "name": "unit",
+              "type": {
+                "text": "DisplayUnit | undefined"
+              },
+              "description": "Display unit; defaults to the global config unit (`sats`).",
+              "fieldName": "unit"
+            },
+            {
+              "name": "units",
+              "type": {
+                "text": "DisplayUnit[] | undefined"
+              },
+              "description": "Units cycled by the toggle. Default sats → BTC (→ fiat when a rate is set).",
+              "fieldName": "units"
+            },
+            {
+              "name": "fiat-currency",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Fiat currency code (attribute alternative to `fiatRate`).",
+              "fieldName": "fiatCurrency"
+            },
+            {
+              "name": "fiat-price",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Price of 1 BTC in `fiat-currency`.",
+              "fieldName": "fiatPrice"
+            },
+            {
+              "name": "show-fiat",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a secondary fiat line.",
+              "default": "false",
+              "fieldName": "showFiat"
+            },
+            {
+              "name": "toggle",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Clicking the amount cycles units.",
+              "default": "false",
+              "fieldName": "toggle"
+            },
+            {
+              "name": "privacy",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide the amount (privacy mode).",
+              "default": "false",
+              "fieldName": "privacy"
+            },
+            {
+              "name": "privacy-toggle",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show an eye button to toggle privacy.",
+              "default": "false",
+              "fieldName": "privacyToggle"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg' | 'xl'"
+              },
+              "default": "'md'",
+              "fieldName": "size"
+            },
+            {
+              "name": "sign-display",
+              "type": {
+                "text": "'auto' | 'always' | 'never' | undefined"
+              },
+              "fieldName": "signDisplay"
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "'incoming' | 'outgoing' | undefined"
+              },
+              "description": "`incoming` colors the amount as received.",
+              "fieldName": "direction"
+            },
+            {
+              "name": "btc-style",
+              "type": {
+                "text": "'code' | 'symbol' | undefined"
+              },
+              "description": "`code` → \"0.5 BTC\", `symbol` → \"₿0.5\".",
+              "fieldName": "btcStyle"
+            },
+            {
+              "name": "loading",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a loading skeleton.",
+              "default": "false",
+              "fieldName": "loading"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-amount-display",
+          "customElement": true,
+          "summary": "Displays a bitcoin amount in sats, BTC or fiat. Optional unit toggle, fiat secondary\nline and privacy mode. All math is exact (bigint)."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkAmountDisplay",
+          "declaration": {
+            "name": "BkAmountDisplay",
+            "module": "src/components/amount-display/amount-display.ts"
           }
         }
       ]
@@ -1845,6 +1845,141 @@
           "declaration": {
             "name": "BkAmountInput",
             "module": "src/components/amount-input/amount-input.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/backup-check/backup-check.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkBackupCheck",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "Question text.",
+              "name": "question"
+            },
+            {
+              "description": "Each answer button.",
+              "name": "choice"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "words",
+              "privacy": "public",
+              "type": {
+                "text": "string[]"
+              },
+              "description": "Recovery words (property only).",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "count",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "How many words to ask for. Default 3.",
+              "default": "3",
+              "attribute": "count"
+            },
+            {
+              "kind": "field",
+              "name": "choicesPerQuestion",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Answers per question. Default 4.",
+              "default": "4",
+              "attribute": "choices"
+            },
+            {
+              "kind": "field",
+              "name": "random",
+              "privacy": "public",
+              "type": {
+                "text": "((max: number) => number) | undefined"
+              },
+              "description": "Injectable random source (max) => int, for tests. Defaults to crypto randomness."
+            },
+            {
+              "kind": "method",
+              "name": "restart",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "(Re)start the check with new random positions."
+            }
+          ],
+          "events": [
+            {
+              "description": "All answers correct.",
+              "name": "bk-verified"
+            },
+            {
+              "description": "A wrong answer. Detail: `{ position: number }` (1-based word number).",
+              "name": "bk-fail"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "count",
+              "type": {
+                "text": "number"
+              },
+              "description": "How many words to ask for. Default 3.",
+              "default": "3",
+              "fieldName": "count"
+            },
+            {
+              "name": "choices",
+              "type": {
+                "text": "number"
+              },
+              "description": "Answers per question. Default 4.",
+              "default": "4",
+              "fieldName": "choicesPerQuestion"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-backup-check",
+          "customElement": true,
+          "summary": "SECURITY-SENSITIVE. \"Verify your backup\" flow: asks for randomly chosen words of the\nrecovery phrase as multiple choice. Words are set via the `words` property only and are\nnever emitted."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkBackupCheck",
+          "declaration": {
+            "name": "BkBackupCheck",
+            "module": "src/components/backup-check/backup-check.ts"
           }
         }
       ]
@@ -3769,6 +3904,256 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/fee-selector/fee-selector.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkFeeSelector",
+          "cssParts": [
+            {
+              "description": "Fieldset.",
+              "name": "base"
+            },
+            {
+              "description": "Each tier option.",
+              "name": "option"
+            },
+            {
+              "description": "Custom rate input.",
+              "name": "custom"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "fees",
+              "privacy": "public",
+              "type": {
+                "text": "RecommendedFees | undefined"
+              },
+              "description": "Static recommended fees (skips fetching)."
+            },
+            {
+              "kind": "field",
+              "name": "source",
+              "privacy": "public",
+              "type": {
+                "text": "FeeRateAdapter | undefined"
+              },
+              "description": "Custom fee source."
+            },
+            {
+              "kind": "field",
+              "name": "mempoolUrl",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "mempool.space-compatible API base used when no `fees`/`source` is set.",
+              "attribute": "mempool-url"
+            },
+            {
+              "kind": "field",
+              "name": "vsize",
+              "privacy": "public",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Transaction virtual size in vbytes, for total-fee display.",
+              "attribute": "vsize"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "FeeTier"
+              },
+              "description": "Selected tier. Default `normal`.",
+              "default": "'normal'",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "customRate",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Custom sat/vB when `value` is `custom`.",
+              "default": "''",
+              "attribute": "custom-rate"
+            },
+            {
+              "kind": "field",
+              "name": "allowCustom",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "allow-custom"
+            },
+            {
+              "kind": "field",
+              "name": "fiatCurrency",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "fiat-currency"
+            },
+            {
+              "kind": "field",
+              "name": "fiatPrice",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "fiat-price"
+            },
+            {
+              "kind": "field",
+              "name": "fiatRate",
+              "privacy": "public",
+              "type": {
+                "text": "FiatRate | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            },
+            {
+              "kind": "method",
+              "name": "refresh",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "description": "Re-fetch fee estimates."
+            },
+            {
+              "kind": "field",
+              "name": "selection",
+              "type": {
+                "text": "FeeSelection | undefined"
+              },
+              "description": "The current selection.",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "description": "Detail: `FeeSelection`.",
+              "name": "bk-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "mempool-url",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "mempool.space-compatible API base used when no `fees`/`source` is set.",
+              "fieldName": "mempoolUrl"
+            },
+            {
+              "name": "vsize",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Transaction virtual size in vbytes, for total-fee display.",
+              "fieldName": "vsize"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "FeeTier"
+              },
+              "description": "Selected tier. Default `normal`.",
+              "default": "'normal'",
+              "fieldName": "value"
+            },
+            {
+              "name": "custom-rate",
+              "type": {
+                "text": "string"
+              },
+              "description": "Custom sat/vB when `value` is `custom`.",
+              "default": "''",
+              "fieldName": "customRate"
+            },
+            {
+              "name": "allow-custom",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "fieldName": "allowCustom"
+            },
+            {
+              "name": "fiat-currency",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "fiatCurrency"
+            },
+            {
+              "name": "fiat-price",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "fiatPrice"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-fee-selector",
+          "customElement": true,
+          "summary": "Network fee picker: fast / normal / slow tiers with sat/vB, total fee, fiat cost and\nETA, plus a validated custom rate. Rates come from a FeeRateAdapter (mempool.space by default,\nconfigurable via `mempool-url`) or a static `fees` object."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkFeeSelector",
+          "declaration": {
+            "name": "BkFeeSelector",
+            "module": "src/components/fee-selector/fee-selector.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/icon/icon.ts",
       "declarations": [
         {
@@ -4090,391 +4475,6 @@
           "declaration": {
             "name": "BkIconButton",
             "module": "src/components/icon-button/icon-button.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/backup-check/backup-check.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkBackupCheck",
-          "cssParts": [
-            {
-              "description": "Container.",
-              "name": "base"
-            },
-            {
-              "description": "Question text.",
-              "name": "question"
-            },
-            {
-              "description": "Each answer button.",
-              "name": "choice"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "words",
-              "privacy": "public",
-              "type": {
-                "text": "string[]"
-              },
-              "description": "Recovery words (property only).",
-              "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "count",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "description": "How many words to ask for. Default 3.",
-              "default": "3",
-              "attribute": "count"
-            },
-            {
-              "kind": "field",
-              "name": "choicesPerQuestion",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "description": "Answers per question. Default 4.",
-              "default": "4",
-              "attribute": "choices"
-            },
-            {
-              "kind": "field",
-              "name": "random",
-              "privacy": "public",
-              "type": {
-                "text": "((max: number) => number) | undefined"
-              },
-              "description": "Injectable random source (max) => int, for tests. Defaults to crypto randomness."
-            },
-            {
-              "kind": "method",
-              "name": "restart",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "(Re)start the check with new random positions."
-            }
-          ],
-          "events": [
-            {
-              "description": "All answers correct.",
-              "name": "bk-verified"
-            },
-            {
-              "description": "A wrong answer. Detail: `{ position: number }` (1-based word number).",
-              "name": "bk-fail"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "count",
-              "type": {
-                "text": "number"
-              },
-              "description": "How many words to ask for. Default 3.",
-              "default": "3",
-              "fieldName": "count"
-            },
-            {
-              "name": "choices",
-              "type": {
-                "text": "number"
-              },
-              "description": "Answers per question. Default 4.",
-              "default": "4",
-              "fieldName": "choicesPerQuestion"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-backup-check",
-          "customElement": true,
-          "summary": "SECURITY-SENSITIVE. \"Verify your backup\" flow: asks for randomly chosen words of the\nrecovery phrase as multiple choice. Words are set via the `words` property only and are\nnever emitted."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BkBackupCheck",
-          "declaration": {
-            "name": "BkBackupCheck",
-            "module": "src/components/backup-check/backup-check.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/fee-selector/fee-selector.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkFeeSelector",
-          "cssParts": [
-            {
-              "description": "Fieldset.",
-              "name": "base"
-            },
-            {
-              "description": "Each tier option.",
-              "name": "option"
-            },
-            {
-              "description": "Custom rate input.",
-              "name": "custom"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "fees",
-              "privacy": "public",
-              "type": {
-                "text": "RecommendedFees | undefined"
-              },
-              "description": "Static recommended fees (skips fetching)."
-            },
-            {
-              "kind": "field",
-              "name": "source",
-              "privacy": "public",
-              "type": {
-                "text": "FeeRateAdapter | undefined"
-              },
-              "description": "Custom fee source."
-            },
-            {
-              "kind": "field",
-              "name": "mempoolUrl",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "mempool.space-compatible API base used when no `fees`/`source` is set.",
-              "attribute": "mempool-url"
-            },
-            {
-              "kind": "field",
-              "name": "vsize",
-              "privacy": "public",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Transaction virtual size in vbytes, for total-fee display.",
-              "attribute": "vsize"
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "privacy": "public",
-              "type": {
-                "text": "FeeTier"
-              },
-              "description": "Selected tier. Default `normal`.",
-              "default": "'normal'",
-              "attribute": "value",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "customRate",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "description": "Custom sat/vB when `value` is `custom`.",
-              "default": "''",
-              "attribute": "custom-rate"
-            },
-            {
-              "kind": "field",
-              "name": "allowCustom",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "true",
-              "attribute": "allow-custom"
-            },
-            {
-              "kind": "field",
-              "name": "fiatCurrency",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "attribute": "fiat-currency"
-            },
-            {
-              "kind": "field",
-              "name": "fiatPrice",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "attribute": "fiat-price"
-            },
-            {
-              "kind": "field",
-              "name": "fiatRate",
-              "privacy": "public",
-              "type": {
-                "text": "FiatRate | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "locale",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "attribute": "locale"
-            },
-            {
-              "kind": "method",
-              "name": "refresh",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              },
-              "description": "Re-fetch fee estimates."
-            },
-            {
-              "kind": "field",
-              "name": "selection",
-              "type": {
-                "text": "FeeSelection | undefined"
-              },
-              "description": "The current selection.",
-              "readonly": true
-            }
-          ],
-          "events": [
-            {
-              "description": "Detail: `FeeSelection`.",
-              "name": "bk-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "mempool-url",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "mempool.space-compatible API base used when no `fees`/`source` is set.",
-              "fieldName": "mempoolUrl"
-            },
-            {
-              "name": "vsize",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Transaction virtual size in vbytes, for total-fee display.",
-              "fieldName": "vsize"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "FeeTier"
-              },
-              "description": "Selected tier. Default `normal`.",
-              "default": "'normal'",
-              "fieldName": "value"
-            },
-            {
-              "name": "custom-rate",
-              "type": {
-                "text": "string"
-              },
-              "description": "Custom sat/vB when `value` is `custom`.",
-              "default": "''",
-              "fieldName": "customRate"
-            },
-            {
-              "name": "allow-custom",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "true",
-              "fieldName": "allowCustom"
-            },
-            {
-              "name": "fiat-currency",
-              "type": {
-                "text": "string | undefined"
-              },
-              "fieldName": "fiatCurrency"
-            },
-            {
-              "name": "fiat-price",
-              "type": {
-                "text": "string | undefined"
-              },
-              "fieldName": "fiatPrice"
-            },
-            {
-              "name": "locale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "fieldName": "locale"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-fee-selector",
-          "customElement": true,
-          "summary": "Network fee picker: fast / normal / slow tiers with sat/vB, total fee, fiat cost and\nETA, plus a validated custom rate. Rates come from a FeeRateAdapter (mempool.space by default,\nconfigurable via `mempool-url`) or a static `fees` object."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BkFeeSelector",
-          "declaration": {
-            "name": "BkFeeSelector",
-            "module": "src/components/fee-selector/fee-selector.ts"
           }
         }
       ]
@@ -5169,186 +5169,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lightning-address-card/lightning-address-card.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkLightningAddressCard",
-          "cssParts": [
-            {
-              "description": "Card.",
-              "name": "base"
-            },
-            {
-              "description": "Avatar.",
-              "name": "avatar"
-            },
-            {
-              "description": "Address text.",
-              "name": "address"
-            },
-            {
-              "description": "QR code.",
-              "name": "qr"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Extra content under the address.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "address",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "description": "Lightning Address, e.g. `satoshi@example.com`.",
-              "default": "''",
-              "attribute": "address"
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Display name. Defaults to the username.",
-              "attribute": "name"
-            },
-            {
-              "kind": "field",
-              "name": "avatar",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Avatar image URL.",
-              "attribute": "avatar"
-            },
-            {
-              "kind": "field",
-              "name": "description",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "attribute": "description"
-            },
-            {
-              "kind": "field",
-              "name": "qr",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show the QR code. Default true.",
-              "default": "true",
-              "attribute": "qr"
-            },
-            {
-              "kind": "field",
-              "name": "fetchMetadata",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Fetch LNURL-pay limits/description from the domain. Off by default (privacy).",
-              "default": "false",
-              "attribute": "fetch-metadata"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "address",
-              "type": {
-                "text": "string"
-              },
-              "description": "Lightning Address, e.g. `satoshi@example.com`.",
-              "default": "''",
-              "fieldName": "address"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Display name. Defaults to the username.",
-              "fieldName": "name"
-            },
-            {
-              "name": "avatar",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Avatar image URL.",
-              "fieldName": "avatar"
-            },
-            {
-              "name": "description",
-              "type": {
-                "text": "string | undefined"
-              },
-              "fieldName": "description"
-            },
-            {
-              "name": "qr",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show the QR code. Default true.",
-              "default": "true",
-              "fieldName": "qr"
-            },
-            {
-              "name": "fetch-metadata",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Fetch LNURL-pay limits/description from the domain. Off by default (privacy).",
-              "default": "false",
-              "fieldName": "fetchMetadata"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-lightning-address-card",
-          "customElement": true,
-          "summary": "Shareable card for a Lightning Address (LUD-16): avatar, name, copy, QR code (LNURL)\nand open-in-wallet. Optionally fetches LNURL-pay metadata (off by default for privacy).",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BkLightningAddressCard",
-          "declaration": {
-            "name": "BkLightningAddressCard",
-            "module": "src/components/lightning-address-card/lightning-address-card.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/mnemonic-display/mnemonic-display.ts",
       "declarations": [
         {
@@ -5540,6 +5360,186 @@
           "declaration": {
             "name": "BkMnemonicDisplay",
             "module": "src/components/mnemonic-display/mnemonic-display.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lightning-address-card/lightning-address-card.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkLightningAddressCard",
+          "cssParts": [
+            {
+              "description": "Card.",
+              "name": "base"
+            },
+            {
+              "description": "Avatar.",
+              "name": "avatar"
+            },
+            {
+              "description": "Address text.",
+              "name": "address"
+            },
+            {
+              "description": "QR code.",
+              "name": "qr"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Extra content under the address.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "address",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Lightning Address, e.g. `satoshi@example.com`.",
+              "default": "''",
+              "attribute": "address"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Display name. Defaults to the username.",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "avatar",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Avatar image URL.",
+              "attribute": "avatar"
+            },
+            {
+              "kind": "field",
+              "name": "description",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "description"
+            },
+            {
+              "kind": "field",
+              "name": "qr",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the QR code. Default true.",
+              "default": "true",
+              "attribute": "qr"
+            },
+            {
+              "kind": "field",
+              "name": "fetchMetadata",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Fetch LNURL-pay limits/description from the domain. Off by default (privacy).",
+              "default": "false",
+              "attribute": "fetch-metadata"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "address",
+              "type": {
+                "text": "string"
+              },
+              "description": "Lightning Address, e.g. `satoshi@example.com`.",
+              "default": "''",
+              "fieldName": "address"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Display name. Defaults to the username.",
+              "fieldName": "name"
+            },
+            {
+              "name": "avatar",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Avatar image URL.",
+              "fieldName": "avatar"
+            },
+            {
+              "name": "description",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "description"
+            },
+            {
+              "name": "qr",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the QR code. Default true.",
+              "default": "true",
+              "fieldName": "qr"
+            },
+            {
+              "name": "fetch-metadata",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Fetch LNURL-pay limits/description from the domain. Off by default (privacy).",
+              "default": "false",
+              "fieldName": "fetchMetadata"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-lightning-address-card",
+          "customElement": true,
+          "summary": "Shareable card for a Lightning Address (LUD-16): avatar, name, copy, QR code (LNURL)\nand open-in-wallet. Optionally fetches LNURL-pay metadata (off by default for privacy).",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkLightningAddressCard",
+          "declaration": {
+            "name": "BkLightningAddressCard",
+            "module": "src/components/lightning-address-card/lightning-address-card.ts"
           }
         }
       ]
@@ -5805,6 +5805,247 @@
           "declaration": {
             "name": "BkMnemonicInput",
             "module": "src/components/mnemonic-input/mnemonic-input.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/payment-status/payment-status.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkPaymentStatus",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "Status icon.",
+              "name": "icon"
+            },
+            {
+              "description": "Headline.",
+              "name": "title"
+            },
+            {
+              "description": "Explanation.",
+              "name": "body"
+            },
+            {
+              "description": "Confirmation progress bar.",
+              "name": "progress"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "status",
+              "privacy": "public",
+              "type": {
+                "text": "PaymentStatus"
+              },
+              "default": "'pending'",
+              "attribute": "status",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "confirmations",
+              "privacy": "public",
+              "type": {
+                "text": "number | undefined"
+              },
+              "attribute": "confirmations"
+            },
+            {
+              "kind": "field",
+              "name": "requiredConfirmations",
+              "privacy": "public",
+              "type": {
+                "text": "number | undefined"
+              },
+              "attribute": "required-confirmations"
+            },
+            {
+              "kind": "field",
+              "name": "amountReceived",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Sats received so far (under/overpayment messages).",
+              "attribute": "amount-received"
+            },
+            {
+              "kind": "field",
+              "name": "amountDue",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Sats requested.",
+              "attribute": "amount-due"
+            },
+            {
+              "kind": "field",
+              "name": "method",
+              "privacy": "public",
+              "type": {
+                "text": "'lightning' | 'onchain' | undefined"
+              },
+              "attribute": "method"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "'compact' | 'large'"
+              },
+              "description": "`compact` (inline row) or `large` (centered, for success screens).",
+              "default": "'compact'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "heading",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Override the headline.",
+              "attribute": "heading"
+            },
+            {
+              "kind": "field",
+              "name": "message",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Override the explanation.",
+              "attribute": "message"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "status",
+              "type": {
+                "text": "PaymentStatus"
+              },
+              "default": "'pending'",
+              "fieldName": "status"
+            },
+            {
+              "name": "confirmations",
+              "type": {
+                "text": "number | undefined"
+              },
+              "fieldName": "confirmations"
+            },
+            {
+              "name": "required-confirmations",
+              "type": {
+                "text": "number | undefined"
+              },
+              "fieldName": "requiredConfirmations"
+            },
+            {
+              "name": "amount-received",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Sats received so far (under/overpayment messages).",
+              "fieldName": "amountReceived"
+            },
+            {
+              "name": "amount-due",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Sats requested.",
+              "fieldName": "amountDue"
+            },
+            {
+              "name": "method",
+              "type": {
+                "text": "'lightning' | 'onchain' | undefined"
+              },
+              "fieldName": "method"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'compact' | 'large'"
+              },
+              "description": "`compact` (inline row) or `large` (centered, for success screens).",
+              "default": "'compact'",
+              "fieldName": "size"
+            },
+            {
+              "name": "heading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Override the headline.",
+              "fieldName": "heading"
+            },
+            {
+              "name": "message",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Override the explanation.",
+              "fieldName": "message"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-payment-status",
+          "customElement": true,
+          "summary": "Shows where a payment is in its lifecycle: pending, detected, confirming (n/N), paid,\nunderpaid/overpaid, expired, failed or cancelled. Announced to screen readers; animations\nrespect reduced motion.",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkPaymentStatus",
+          "declaration": {
+            "name": "BkPaymentStatus",
+            "module": "src/components/payment-status/payment-status.ts"
           }
         }
       ]
@@ -6114,247 +6355,6 @@
           "declaration": {
             "name": "BkPayButton",
             "module": "src/components/pay-button/pay-button.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/payment-status/payment-status.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkPaymentStatus",
-          "cssParts": [
-            {
-              "description": "Container.",
-              "name": "base"
-            },
-            {
-              "description": "Status icon.",
-              "name": "icon"
-            },
-            {
-              "description": "Headline.",
-              "name": "title"
-            },
-            {
-              "description": "Explanation.",
-              "name": "body"
-            },
-            {
-              "description": "Confirmation progress bar.",
-              "name": "progress"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "status",
-              "privacy": "public",
-              "type": {
-                "text": "PaymentStatus"
-              },
-              "default": "'pending'",
-              "attribute": "status",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "confirmations",
-              "privacy": "public",
-              "type": {
-                "text": "number | undefined"
-              },
-              "attribute": "confirmations"
-            },
-            {
-              "kind": "field",
-              "name": "requiredConfirmations",
-              "privacy": "public",
-              "type": {
-                "text": "number | undefined"
-              },
-              "attribute": "required-confirmations"
-            },
-            {
-              "kind": "field",
-              "name": "amountReceived",
-              "privacy": "public",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Sats received so far (under/overpayment messages).",
-              "attribute": "amount-received"
-            },
-            {
-              "kind": "field",
-              "name": "amountDue",
-              "privacy": "public",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Sats requested.",
-              "attribute": "amount-due"
-            },
-            {
-              "kind": "field",
-              "name": "method",
-              "privacy": "public",
-              "type": {
-                "text": "'lightning' | 'onchain' | undefined"
-              },
-              "attribute": "method"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "privacy": "public",
-              "type": {
-                "text": "'compact' | 'large'"
-              },
-              "description": "`compact` (inline row) or `large` (centered, for success screens).",
-              "default": "'compact'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "heading",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Override the headline.",
-              "attribute": "heading"
-            },
-            {
-              "kind": "field",
-              "name": "message",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Override the explanation.",
-              "attribute": "message"
-            },
-            {
-              "kind": "field",
-              "name": "locale",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "attribute": "locale"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "status",
-              "type": {
-                "text": "PaymentStatus"
-              },
-              "default": "'pending'",
-              "fieldName": "status"
-            },
-            {
-              "name": "confirmations",
-              "type": {
-                "text": "number | undefined"
-              },
-              "fieldName": "confirmations"
-            },
-            {
-              "name": "required-confirmations",
-              "type": {
-                "text": "number | undefined"
-              },
-              "fieldName": "requiredConfirmations"
-            },
-            {
-              "name": "amount-received",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Sats received so far (under/overpayment messages).",
-              "fieldName": "amountReceived"
-            },
-            {
-              "name": "amount-due",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Sats requested.",
-              "fieldName": "amountDue"
-            },
-            {
-              "name": "method",
-              "type": {
-                "text": "'lightning' | 'onchain' | undefined"
-              },
-              "fieldName": "method"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'compact' | 'large'"
-              },
-              "description": "`compact` (inline row) or `large` (centered, for success screens).",
-              "default": "'compact'",
-              "fieldName": "size"
-            },
-            {
-              "name": "heading",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Override the headline.",
-              "fieldName": "heading"
-            },
-            {
-              "name": "message",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Override the explanation.",
-              "fieldName": "message"
-            },
-            {
-              "name": "locale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "fieldName": "locale"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-payment-status",
-          "customElement": true,
-          "summary": "Shows where a payment is in its lifecycle: pending, detected, confirming (n/N), paid,\nunderpaid/overpaid, expired, failed or cancelled. Announced to screen readers; animations\nrespect reduced motion.",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BkPaymentStatus",
-          "declaration": {
-            "name": "BkPaymentStatus",
-            "module": "src/components/payment-status/payment-status.ts"
           }
         }
       ]

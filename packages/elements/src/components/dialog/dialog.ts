@@ -180,7 +180,11 @@ export class BkDialog extends BitkitElement {
     const dlg = this.dialog;
     if (!dlg) return;
     if (this.open && !dlg.open) {
-      this.#opener = (document.activeElement as Element | null) ?? null;
+      // Record the deepest focused element: document.activeElement is only the outermost
+      // shadow host, which may not be focusable (WebKit doesn't restore focus for us).
+      let active = document.activeElement;
+      while (active?.shadowRoot?.activeElement) active = active.shadowRoot.activeElement;
+      this.#opener = active ?? null;
       if (typeof dlg.showModal === 'function') dlg.showModal();
       else dlg.setAttribute('open', '');
       this.emit('bk-open');

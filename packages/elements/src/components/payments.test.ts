@@ -246,6 +246,29 @@ describe('bk-checkout', () => {
     await until(() => el.state === 'expired', 3000);
   });
 
+  it('never links to non-bitcoin URIs supplied by an adapter (XSS guard)', async () => {
+    const el = await fixture<BkCheckout>('<bk-checkout></bk-checkout>');
+    el.autoStart = false;
+    el.invoice = {
+      id: 'evil',
+      amountSats: 1000n,
+      onchain: {
+        address: 'bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4',
+        uri: 'javascript:alert(1)',
+      },
+      network: 'mainnet',
+      status: 'pending',
+      createdAt: Date.now(),
+    };
+    await until(() => el.state === 'awaiting');
+    await settle(el);
+    const links = [...el.shadowRoot!.querySelectorAll('bk-button')].map(
+      (b) => b.shadowRoot!.querySelector('a')?.getAttribute('href') ?? '',
+    );
+    expect(links.some((h) => h.startsWith('bitcoin:bc1q'))).toBe(true);
+    expect(links.some((h) => /javascript:/i.test(h))).toBe(false);
+  });
+
   it('pays with WebLN when available', async () => {
     const sendPayment = vi.fn(async () => ({ preimage: 'pre' }));
     vi.stubGlobal('webln', { enable: vi.fn(async () => {}), sendPayment });

@@ -104,7 +104,19 @@ const data = PICK.map((slug) => components.find((c) => c.slug === slug))
   const fromUrl = new URL(location.href).searchParams.get('c');
   if (fromUrl && data.some((d) => d.slug === fromUrl)) select.value = fromUrl;
 
-  const literals = (t: string) => {
+  const ALIASES: Record<string, string> = {
+    DisplayUnit: "'sats' | 'btc' | 'mbtc' | 'bits' | 'msat' | 'fiat' | 'auto'",
+    Network: "'mainnet' | 'testnet' | 'testnet4' | 'signet' | 'regtest'",
+    PaymentStatus: "'pending' | 'detected' | 'confirming' | 'paid' | 'underpaid' | 'overpaid' | 'expired' | 'failed' | 'cancelled'",
+    ButtonVariant: "'primary' | 'secondary' | 'ghost' | 'danger'",
+    ButtonSize: "'sm' | 'md' | 'lg'",
+    BadgeVariant: "'neutral' | 'accent' | 'success' | 'warning' | 'danger' | 'info'",
+    AmountInputUnit: "'sats' | 'btc' | 'fiat'",
+    TxDirection: "'incoming' | 'outgoing' | 'self'",
+    TxStatus: "'pending' | 'confirmed' | 'failed'",
+  };
+  const literals = (raw: string) => {
+    const t = raw.replace(/[A-Z][A-Za-z0-9]+/g, (m) => ALIASES[m] ?? m);
     const parts = t.replace(/\s*\|\s*undefined/g, '').split('|').map((s) => s.trim());
     return parts.every((p) => /^'[^']*'$/.test(p)) ? parts.map((p) => p.slice(1, -1)) : null;
   };

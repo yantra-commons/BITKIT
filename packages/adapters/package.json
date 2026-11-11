@@ -60,5 +60,18 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "keywords": [
+    "bitcoin",
+    "lightning",
+    "btcpay",
+    "lnbits",
+    "nwc",
+    "opennode",
+    "payments"
+  ],
+  "homepage": "https://your-org.github.io/bitkit-ui/",
+  "bugs": {
+    "url": "https://github.com/your-org/bitkit-ui/issues"
   }
 }

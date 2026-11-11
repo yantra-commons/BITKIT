@@ -51,7 +51,7 @@ const reactName = c.name;
     (c.attributes.length > 0 || propOnly.length > 0) && (
       <>
         <h3>Properties &amp; attributes</h3>
-        <table class="api-table">
+        <table class="api-table" tabindex="0">
           <thead>
             <tr><th>Attribute</th><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
           </thead>
@@ -83,7 +83,7 @@ const reactName = c.name;
     c.events.length > 0 && (
       <>
         <h3>Events</h3>
-        <table class="api-table">
+        <table class="api-table" tabindex="0">
           <thead><tr><th>Event</th><th>React</th><th>Vue</th><th>Description</th></tr></thead>
           <tbody>
             {c.events.map((e) => {
@@ -106,7 +106,7 @@ const reactName = c.name;
     c.methods.length > 0 && (
       <>
         <h3>Methods</h3>
-        <table class="api-table">
+        <table class="api-table" tabindex="0">
           <thead><tr><th>Method</th><th>Description</th></tr></thead>
           <tbody>
             {c.methods.map((m) => (
@@ -124,7 +124,7 @@ const reactName = c.name;
     c.slots.length > 0 && (
       <>
         <h3>Slots</h3>
-        <table class="api-table">
+        <table class="api-table" tabindex="0">
           <thead><tr><th>Slot</th><th>Description</th></tr></thead>
           <tbody>
             {c.slots.map((s) => (
@@ -140,7 +140,7 @@ const reactName = c.name;
       <>
         <h3>CSS parts</h3>
         <p>Style internals with <code>{`${c.tag}::part(name)`}</code>.</p>
-        <table class="api-table">
+        <table class="api-table" tabindex="0">
           <thead><tr><th>Part</th><th>Description</th></tr></thead>
           <tbody>
             {c.cssParts.map((p) => (
@@ -154,7 +154,7 @@ const reactName = c.name;
   <h3>CSS custom properties</h3>
   {
     c.cssProperties.length > 0 && (
-      <table class="api-table">
+      <table class="api-table" tabindex="0">
         <thead><tr><th>Property</th><th>Description</th></tr></thead>
         <tbody>
           {c.cssProperties.map((p) => (

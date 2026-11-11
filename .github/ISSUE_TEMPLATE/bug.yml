@@ -1,0 +1,45 @@
+name: Bug report
+description: Something doesn't work as documented.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! **Security issues must be reported privately**, see SECURITY.md.
+        Never paste real recovery phrases, private keys or API keys.
+  - type: input
+    id: packages
+    attributes:
+      label: Packages and versions
+      placeholder: '@bitkit-ui/elements@0.1.0, @bitkit-ui/react@0.1.0'
+    validations:
+      required: true
+  - type: input
+    id: component
+    attributes:
+      label: Component or function
+      placeholder: bk-amount-input / parsePaymentInput
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: Minimal HTML, a StackBlitz link, or steps. Use testnet/signet data.
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Browser, OS and framework
+      placeholder: Safari 18 / iOS 18 / React 19
+  - type: checkboxes
+    id: a11y
+    attributes:
+      label: Accessibility
+      options:
+        - label: This is an accessibility issue (keyboard, screen reader, contrast, motion)

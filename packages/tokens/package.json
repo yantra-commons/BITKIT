@@ -33,5 +33,14 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "keywords": [
+    "design-tokens",
+    "bitcoin",
+    "css-variables"
+  ],
+  "homepage": "https://your-org.github.io/bitkit-ui/",
+  "bugs": {
+    "url": "https://github.com/your-org/bitkit-ui/issues"
   }
 }
