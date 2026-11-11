@@ -88,9 +88,9 @@ export function normalizeNumberInput(input: string, locale = 'en-US'): string {
   const { decimal, group } = localeSymbols(locale);
   let s = input
     .trim()
-    .replace(/[\s  _'’]/g, '')
-    .replace(/^−/, '-');
-  const groups = group.trim() && group !== "'" && group !== '’' ? [group] : [];
+    .replace(/[\s\u00a0\u202f_'\u2019]/g, '')
+    .replace(/^\u2212/, '-');
+  const groups = group.trim() && group !== "'" && group !== '\u2019' ? [group] : [];
   if (decimal !== '.' && s.includes(decimal)) {
     for (const g of groups) s = s.split(g).join('');
     return s.replace(decimal, '.');
@@ -124,7 +124,7 @@ export function formatAmount(msat: Msat, opts: FormatAmountOptions = {}): Format
       throw new BitkitError('invalid-number', 'A fiat rate is required to show fiat values.');
     const fiat = msatToFiat(msat, opts.fiatRate);
     const text = formatFiatDecimal(sign(fiat.value), fiat.currency, locale);
-    const symbolPart = text.replace(/[\d\s.,  '’+\-−]/g, '') || fiat.currency;
+    const symbolPart = text.replace(/[\d\s.,\u00a0\u202f'\u2019+\-\u2212]/g, '') || fiat.currency;
     const symbolIndex = text.indexOf(symbolPart);
     return {
       text,
@@ -189,7 +189,7 @@ export function formatAmount(msat: Msat, opts: FormatAmountOptions = {}): Format
 }
 
 const signedPrefix = (number: string, symbol: string) =>
-  /^[+\-−]/.test(number) ? `${number[0]}${symbol}${number.slice(1)}` : `${symbol}${number}`;
+  /^[+\-\u2212]/.test(number) ? `${number[0]}${symbol}${number.slice(1)}` : `${symbol}${number}`;
 
 /** Format a plain decimal fiat value with currency symbol, bigint-safe. */
 export function formatFiatDecimal(plain: string, currency: string, locale = 'en-US'): string {
