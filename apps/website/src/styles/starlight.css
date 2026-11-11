@@ -1,0 +1,183 @@
+/* Starlight theme: bitcoin orange accent, neutral grays. Values meet WCAG AA in both themes. */
+:root {
+  --sl-color-accent-low: #3a2406;
+  --sl-color-accent: #f7931a;
+  --sl-color-accent-high: #ffd8a8;
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #eeeef2;
+  --sl-color-gray-2: #c4c4cc;
+  --sl-color-gray-3: #9a9aa5;
+  --sl-color-gray-4: #5e5e69;
+  --sl-color-gray-5: #3a3a44;
+  --sl-color-gray-6: #26262e;
+  --sl-color-black: #121216;
+  --sl-font: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --sl-font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+:root[data-theme='light'] {
+  --sl-color-accent-low: #ffe9cc;
+  --sl-color-accent: #a65800;
+  --sl-color-accent-high: #5c3100;
+  --sl-color-white: #121216;
+  --sl-color-gray-1: #26262e;
+  --sl-color-gray-2: #3a3a44;
+  --sl-color-gray-3: #5e5e69;
+  --sl-color-gray-4: #8c8c96;
+  --sl-color-gray-5: #c4c4cc;
+  --sl-color-gray-6: #eeeef2;
+  --sl-color-gray-7: #f7f7f9;
+  --sl-color-black: #ffffff;
+}
+
+/* Live component demos inside docs. */
+.bk-demo {
+  margin-block: 1.5rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.bk-demo__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--sl-color-gray-5);
+  background: var(--sl-color-gray-6);
+  font-size: 0.8rem;
+}
+.bk-demo__bar label {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+  color: var(--sl-color-gray-2);
+}
+.bk-demo__bar select {
+  padding: 0.15rem 0.35rem;
+  border-radius: 6px;
+  border: 1px solid var(--sl-color-gray-4);
+  background: var(--sl-color-black);
+  color: var(--sl-color-white);
+}
+.bk-demo__preview {
+  padding: 2rem 1.25rem;
+  background: var(--bk-color-bg);
+  color: var(--bk-color-text);
+  min-height: 6rem;
+  overflow-x: auto;
+}
+.bk-demo__preview > * + * {
+  margin-top: 0.75rem;
+}
+.bk-demo .expressive-code {
+  margin: 0;
+}
+
+/* API tables */
+.api-table td:first-child,
+.api-table th:first-child {
+  white-space: nowrap;
+}
+.api-table code {
+  font-size: 0.8rem;
+}
+.api-table td {
+  vertical-align: top;
+}
+
+/* Tools pages */
+.tool-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (max-width: 64rem) {
+  .tool-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.tool-panel {
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 12px;
+  padding: 1rem;
+  background: var(--sl-color-gray-6);
+}
+.tool-panel fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+.tool-panel legend {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.tool-field {
+  display: grid;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+.tool-field input[type='text'],
+.tool-field input[type='number'],
+.tool-field select {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--sl-color-gray-4);
+  background: var(--sl-color-black);
+  color: var(--sl-color-white);
+  font: inherit;
+}
+.tool-check {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+.tool-preview {
+  padding: 2rem 1.25rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 12px;
+  background: var(--bk-color-bg);
+  color: var(--bk-color-text);
+  min-height: 12rem;
+}
+.tool-code {
+  margin-top: 1rem;
+}
+.tool-code pre {
+  max-height: 22rem;
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 10px;
+  background: var(--sl-color-gray-6);
+  border: 1px solid var(--sl-color-gray-5);
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.tool-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+.tool-tabs button,
+.tool-btn {
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--sl-color-gray-4);
+  background: transparent;
+  color: var(--sl-color-white);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+}
+.tool-tabs button[aria-selected='true'],
+.tool-btn.primary {
+  background: var(--sl-color-accent);
+  border-color: var(--sl-color-accent);
+  color: var(--sl-color-black);
+}

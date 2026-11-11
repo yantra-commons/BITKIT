@@ -1,0 +1,41 @@
+---
+title: Accessibility
+description: Our accessibility statement and how each component behaves for keyboard and assistive technology users.
+---
+
+Bitkit UI targets **WCAG 2.2 level AA**. Accessibility is tested, not assumed:
+
+- **Automated audits.** Every component's shadow DOM is checked with axe-core in unit tests, and
+  real-browser audits run in Chromium, Firefox and WebKit with Playwright.
+- **Contrast.** Every text/background token pair in both themes is tested against AA thresholds
+  (4.5:1 for text, 3:1 for focus indicators and borders).
+- **Keyboard.** Everything is reachable and operable with the keyboard, with a visible focus ring
+  (`--bk-focus-ring`).
+- **Reduced motion.** All animation durations drop to zero under `prefers-reduced-motion`. Spinners
+  switch from rotating to a gentle opacity pulse.
+- **Forced colors.** Focus and selection stay visible in Windows High Contrast mode.
+
+## Component behavior
+
+| Component               | What assistive technology gets                                                                                                                |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Amount display          | A spoken label like "0.0025 bitcoin" or "1 sat". Privacy mode says "Amount hidden".                                                           |
+| Address display         | The address read in four-character groups, letter by letter, with "capital" announced for case-sensitive (base58) addresses.                  |
+| Address / amount inputs | Labelled fields, `aria-invalid`, and errors announced politely via `aria-describedby`. Errors appear after blur, so typing isn't interrupted. |
+| Dialog                  | Native `<dialog>`: focus is contained, the page is inert, Escape closes, and focus returns to the opener.                                     |
+| Tabs                    | WAI-ARIA tabs pattern with arrow/Home/End keys and automatic activation.                                                                      |
+| Tooltip                 | Appears on focus and hover, stays while hovered, dismisses with Escape (WCAG 1.4.13).                                                         |
+| Payment status          | `role="status"` (polite). Failures use `role="alert"`.                                                                                        |
+| Checkout countdown      | Visible as `mm:ss`, announced in minutes so screen readers aren't flooded.                                                                    |
+| QR code                 | `role="img"` labelled "QR code for …", always next to copyable text.                                                                          |
+| Mnemonic input          | Each word is a combobox with a listbox of suggestions (`aria-activedescendant`).                                                              |
+
+## Known limitations
+
+- QR scanning needs a camera and the `BarcodeDetector` API. Paste and image upload are always
+  offered as alternatives.
+- Translations of core error messages are the integrator's responsibility (see
+  [Localization](../localization/)).
+
+Found a barrier? Please [open an issue](https://github.com/your-org/bitkit-ui/issues/new?template=bug.yml).
+We treat accessibility bugs as high priority.

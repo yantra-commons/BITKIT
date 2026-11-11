@@ -1,0 +1,41 @@
+---
+title: Vue
+description: Typed Vue 3 components.
+---
+
+```sh
+npm install @bitkit-ui/vue @bitkit-ui/adapters
+```
+
+Tell Vue's compiler that `bk-*` tags are custom elements (needed only if you also use the raw
+tags in templates):
+
+```ts title="vite.config.ts"
+import vue from '@vitejs/plugin-vue';
+
+export default {
+  plugins: [
+    vue({ template: { compilerOptions: { isCustomElement: (tag) => tag.startsWith('bk-') } } }),
+  ],
+};
+```
+
+Then use the wrappers. Props are always set as DOM properties (so `21000n` stays a bigint) and
+events use Vue names: `bk-paid` → `@paid`, `bk-status-change` → `@status-change`.
+
+```vue
+<script setup lang="ts">
+import { MockAdapter } from '@bitkit-ui/adapters/mock';
+import { Checkout, AmountInput } from '@bitkit-ui/vue';
+
+const adapter = new MockAdapter();
+</script>
+
+<template>
+  <AmountInput label="Amount" :balance="250000n" @change="(e) => console.log(e.detail.amount)" />
+  <Checkout :adapter="adapter" :amount="21000n" @paid="(e) => console.log(e.detail.invoice.id)" />
+</template>
+```
+
+Nuxt works the same way. Render payment components on the client (`<ClientOnly>`), because they
+create invoices when they mount.

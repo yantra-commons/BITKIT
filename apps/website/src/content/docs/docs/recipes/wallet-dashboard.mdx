@@ -1,0 +1,50 @@
+---
+title: Wallet dashboard
+description: Balance, send form with fee selection, and transaction history.
+---
+
+The kit gives you the screens. Your wallet backend (a node, an SDK, a watch-only xpub service)
+provides the data.
+
+```html
+<bk-balance-card id="balance" fiat-currency="USD" fiat-price="97250">
+  <div slot="actions">
+    <bk-button id="send">Send</bk-button><bk-button variant="secondary">Receive</bk-button>
+  </div>
+</bk-balance-card>
+
+<form id="send-form">
+  <bk-address-input name="to" label="To" accept="onchain-address,bip21" required></bk-address-input>
+  <bk-amount-input name="amount" label="Amount" required></bk-amount-input>
+  <bk-fee-selector id="fees" vsize="141"></bk-fee-selector>
+  <bk-button type="submit" block>Review transaction</bk-button>
+</form>
+
+<bk-transaction-list id="history" interactive has-more></bk-transaction-list>
+```
+
+```ts
+const wallet = await myWalletBackend();
+
+balance.balance = wallet.confirmedSats; // bigint
+balance.pending = wallet.unconfirmedSats;
+document.querySelector('bk-amount-input').balance = wallet.confirmedSats;
+history.transactions = await wallet.transactions(); // TransactionData[]
+
+// Inputs are form-associated: FormData just works.
+document.querySelector('#send-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const data = new FormData(e.target); // { to: 'bc1…', amount: '21000' }
+  const fee = document.querySelector('#fees').selection; // { tier, satPerVb, feeSats }
+});
+
+// When paste or scan yields a BIP21 link with an amount, prefill it.
+document.querySelector('bk-address-input').addEventListener('bk-change', (e) => {
+  const r = e.detail.result;
+  if (r?.type === 'bip21' && r.uri.amountMsat)
+    document.querySelector('bk-amount-input').amount = r.uri.amountMsat / 1000n;
+});
+```
+
+For coin control, add `<bk-utxo-list>` and set `target` to the amount plus fee. See the full
+[wallet dashboard template](../../../templates/#wallet-dashboard).

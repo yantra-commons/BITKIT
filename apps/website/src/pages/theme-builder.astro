@@ -1,0 +1,231 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+---
+
+<StarlightPage frontmatter={{ title: 'Theme builder', description: 'Tweak design tokens visually, check contrast and export CSS variables.', tableOfContents: false }}>
+  <p>
+    Change tokens on the left and every component on the right updates. Contrast is checked against WCAG 2.2 AA as you go.
+    Export only writes the tokens you changed.
+  </p>
+  <div class="tool-grid not-content">
+    <div class="tool-panel">
+      <div class="tool-field">
+        <label for="tb-theme">Editing theme</label>
+        <select id="tb-theme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+      <div class="tool-field">
+        <label for="tb-preset">Start from a preset</label>
+        <select id="tb-preset">
+          <option value="">Default (Bitcoin orange)</option>
+          <option value="lightning">Lightning purple</option>
+          <option value="mint">Mint</option>
+          <option value="mono">Monochrome</option>
+        </select>
+      </div>
+      <fieldset>
+        <legend>Shape &amp; type</legend>
+        <div class="tool-field">
+          <label for="tb-radius">Corner radius: <output id="tb-radius-out">10</output>px</label>
+          <input id="tb-radius" type="range" min="0" max="24" value="10" />
+        </div>
+        <div class="tool-field">
+          <label for="tb-font">Font</label>
+          <select id="tb-font">
+            <option value="">System sans (default)</option>
+            <option value="Georgia, 'Times New Roman', serif">Serif</option>
+            <option value="ui-monospace, Menlo, Consolas, monospace">Monospace</option>
+            <option value="'Trebuchet MS', 'Segoe UI', sans-serif">Humanist</option>
+          </select>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Colors</legend>
+        <div id="tb-colors"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Contrast (WCAG AA)</legend>
+        <ul id="tb-contrast" style="margin:0;padding-left:1.1rem;font-size:0.85rem"></ul>
+      </fieldset>
+      <button type="button" class="tool-btn" id="tb-reset">Reset</button>
+    </div>
+    <div>
+      <div class="tool-preview" id="tb-preview" data-bk-theme="light">
+        <div style="display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))">
+          <div style="display:grid;gap:1rem;align-content:start">
+            <bk-balance-card balance="2450000" pending="21000" fiat-currency="USD" fiat-price="97250"></bk-balance-card>
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+              <bk-button>Send</bk-button><bk-button variant="secondary">Receive</bk-button><bk-badge variant="success">Paid</bk-badge><bk-badge variant="warning">Pending</bk-badge>
+            </div>
+            <bk-amount-input label="Amount" balance="250000" fiat-currency="USD" fiat-price="97250"></bk-amount-input>
+            <bk-payment-status status="confirming" confirmations="2" required-confirmations="3"></bk-payment-status>
+          </div>
+          <bk-checkout amount="21000" adapter="mock" description="Theme preview" fiat-currency="USD" fiat-price="97250"></bk-checkout>
+        </div>
+      </div>
+      <div class="tool-code">
+        <div class="tool-tabs">
+          <strong style="align-self:center">Your CSS</strong>
+          <button type="button" class="tool-btn primary" id="tb-copy" style="margin-left:auto">Copy CSS</button>
+        </div>
+        <pre><code id="tb-css"></code></pre>
+      </div>
+    </div>
+  </div>
+</StarlightPage>
+
+<script>
+  import '../scripts/kit';
+  import { tokens } from '@bitkit-ui/tokens';
+
+  type Theme = 'light' | 'dark';
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const preview = $('tb-preview');
+  const defaults = { light: { ...tokens.themes.light.color }, dark: { ...tokens.themes.dark.color } } as Record<Theme, Record<string, string>>;
+  let edits: Record<Theme, Record<string, string>> = { light: {}, dark: {} };
+  let radius = 10;
+  let font = '';
+  let theme: Theme = 'light';
+
+  const PRESETS: Record<string, Partial<Record<Theme, Record<string, string>>>> = {
+    lightning: {
+      light: { accent: '#7B3FE4', 'accent-hover': '#6A2FD3', 'on-accent': '#FFFFFF', 'accent-text': '#6A2FD3', focus: '#6A2FD3' },
+      dark: { accent: '#A77BFF', 'accent-hover': '#B993FF', 'on-accent': '#16161A', 'accent-text': '#B993FF', focus: '#B993FF' },
+    },
+    mint: {
+      light: { accent: '#0E9F6E', 'accent-hover': '#057A55', 'on-accent': '#FFFFFF', 'accent-text': '#046C4E', focus: '#046C4E' },
+      dark: { accent: '#31C48D', 'accent-hover': '#84E1BC', 'on-accent': '#0E0E11', 'accent-text': '#84E1BC', focus: '#84E1BC' },
+    },
+    mono: {
+      light: { accent: '#16161A', 'accent-hover': '#33333D', 'on-accent': '#FFFFFF', 'accent-text': '#16161A', focus: '#16161A' },
+      dark: { accent: '#F3F3F6', 'accent-hover': '#D4D4DA', 'on-accent': '#0E0E11', 'accent-text': '#F3F3F6', focus: '#F3F3F6' },
+    },
+  };
+  const PAIRS: [string, string, number][] = [
+    ['text', 'bg', 4.5],
+    ['text-muted', 'surface', 4.5],
+    ['on-accent', 'accent', 4.5],
+    ['accent-text', 'bg', 4.5],
+    ['success', 'bg', 4.5],
+    ['danger', 'bg', 4.5],
+    ['focus', 'bg', 3],
+  ];
+
+  const lum = (hex: string) => {
+    const n = hex.replace('#', '');
+    const c = [0, 2, 4].map((i) => parseInt(n.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * c[0]! + 0.7152 * c[1]! + 0.0722 * c[2]!;
+  };
+  const ratio = (a: string, b: string) => {
+    const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+    return (x! + 0.05) / (y! + 0.05);
+  };
+  const value = (t: Theme, k: string) => edits[t][k] ?? defaults[t][k]!;
+
+  function apply() {
+    preview.setAttribute('data-bk-theme', theme);
+    preview.removeAttribute('style');
+    for (const [k, v] of Object.entries(edits[theme])) preview.style.setProperty(`--bk-color-${k}`, v);
+    if (radius !== 10) {
+      preview.style.setProperty('--bk-radius-sm', `${Math.round(radius * 0.6)}px`);
+      preview.style.setProperty('--bk-radius-md', `${radius}px`);
+      preview.style.setProperty('--bk-radius-lg', `${Math.round(radius * 1.6)}px`);
+    }
+    if (font) preview.style.setProperty('--bk-font-sans', font);
+    renderContrast();
+    renderCss();
+  }
+
+  function renderColors() {
+    const box = $('tb-colors');
+    box.replaceChildren();
+    for (const k of Object.keys(defaults[theme])) {
+      const v = value(theme, k);
+      const wrap = document.createElement('div');
+      wrap.className = 'tool-field';
+      wrap.style.gridTemplateColumns = '1fr auto';
+      wrap.style.alignItems = 'center';
+      const label = Object.assign(document.createElement('label'), { htmlFor: `tb-c-${k}`, textContent: k });
+      const isHex = /^#[0-9a-f]{6}$/i.test(v);
+      const input = Object.assign(document.createElement('input'), { id: `tb-c-${k}`, type: isHex ? 'color' : 'text', value: v });
+      input.addEventListener('input', () => {
+        edits[theme][k] = input.value.toUpperCase();
+        apply();
+      });
+      wrap.append(label, input);
+      box.append(wrap);
+    }
+  }
+
+  function renderContrast() {
+    const list = $('tb-contrast');
+    list.replaceChildren(
+      ...PAIRS.map(([fg, bg, min]) => {
+        const r = ratio(value(theme, fg), value(theme, bg));
+        const li = document.createElement('li');
+        li.textContent = `${fg} on ${bg}: ${r.toFixed(2)}:1 ${r >= min ? '✓ pass' : `✗ needs ${min}:1`}`;
+        li.style.color = r >= min ? '' : 'var(--sl-color-red, #e5484d)';
+        return li;
+      }),
+    );
+  }
+
+  function renderCss() {
+    const block = (sel: string, t: Theme) => {
+      const lines = Object.entries(edits[t]).map(([k, v]) => `  --bk-color-${k}: ${v};`);
+      return lines.length ? `${sel} {\n${lines.join('\n')}\n}` : '';
+    };
+    const base: string[] = [];
+    if (radius !== 10) base.push(`  --bk-radius-sm: ${Math.round(radius * 0.6)}px;`, `  --bk-radius-md: ${radius}px;`, `  --bk-radius-lg: ${Math.round(radius * 1.6)}px;`);
+    if (font) base.push(`  --bk-font-sans: ${font};`);
+    const out = [
+      base.length ? `:root {\n${base.join('\n')}\n}` : '',
+      block(":root, [data-bk-theme='light']", 'light'),
+      edits.dark && Object.keys(edits.dark).length
+        ? `${block("[data-bk-theme='dark']", 'dark')}\n@media (prefers-color-scheme: dark) {\n  ${block(":root:not([data-bk-theme='light'])", 'dark').split('\n').join('\n  ')}\n}`
+        : '',
+    ].filter(Boolean);
+    $('tb-css').textContent = out.length ? out.join('\n\n') : '/* Change a token to generate CSS. */';
+  }
+
+  $<HTMLSelectElement>('tb-theme').addEventListener('change', (e) => {
+    theme = (e.target as HTMLSelectElement).value as Theme;
+    renderColors();
+    apply();
+  });
+  $<HTMLSelectElement>('tb-preset').addEventListener('change', (e) => {
+    const p = PRESETS[(e.target as HTMLSelectElement).value];
+    edits = { light: { ...(p?.light ?? {}) }, dark: { ...(p?.dark ?? {}) } };
+    renderColors();
+    apply();
+  });
+  $<HTMLInputElement>('tb-radius').addEventListener('input', (e) => {
+    radius = Number((e.target as HTMLInputElement).value);
+    $('tb-radius-out').textContent = String(radius);
+    apply();
+  });
+  $<HTMLSelectElement>('tb-font').addEventListener('change', (e) => {
+    font = (e.target as HTMLSelectElement).value;
+    apply();
+  });
+  $('tb-reset').addEventListener('click', () => {
+    edits = { light: {}, dark: {} };
+    radius = 10;
+    font = '';
+    $<HTMLInputElement>('tb-radius').value = '10';
+    $('tb-radius-out').textContent = '10';
+    $<HTMLSelectElement>('tb-font').value = '';
+    $<HTMLSelectElement>('tb-preset').value = '';
+    renderColors();
+    apply();
+  });
+  $('tb-copy').addEventListener('click', async () => {
+    await navigator.clipboard?.writeText($('tb-css').textContent ?? '');
+    $('tb-copy').textContent = 'Copied';
+    setTimeout(() => ($('tb-copy').textContent = 'Copy CSS'), 1500);
+  });
+  renderColors();
+  apply();
+</script>

@@ -1,0 +1,56 @@
+---
+title: Plain HTML (CDN)
+description: Use the kit with a single script tag and no build step.
+---
+
+The CDN bundle contains every component, the adapters and a pre-registered `mock` adapter.
+Paste this into any HTML file:
+
+```html
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/@bitkit-ui/elements/dist/cdn/bitkit-ui.js"
+></script>
+
+<bk-pay-button amount="21000" adapter="mock" description="Flat white"></bk-pay-button>
+```
+
+Open the file in a browser and click the button: a full checkout appears, simulating a Lightning
+payment on signet. Pin a version in production, for example
+`@bitkit-ui/elements@0.1.0/dist/cdn/bitkit-ui.js`.
+
+## Connect a real provider
+
+Register your adapter under a name and refer to it from HTML:
+
+```html
+<script type="module">
+  import {
+    registerAdapter,
+    createHttpAdapter,
+  } from 'https://cdn.jsdelivr.net/npm/@bitkit-ui/elements/dist/cdn/bitkit-ui.js';
+
+  // Your server creates invoices with the provider's secret key.
+  registerAdapter('store', createHttpAdapter({ baseUrl: '/api/payments' }));
+</script>
+
+<bk-pay-button amount="21000" adapter="store"></bk-pay-button>
+```
+
+See [Payment adapters](../../guides/adapters/) and the [server proxy pattern](../../guides/server-proxy/).
+
+## Listen for payments
+
+Events bubble out of components, so one listener covers the page:
+
+```js
+document.addEventListener('bk-paid', (e) => {
+  const { invoice, update } = e.detail;
+  console.log(`Paid ${invoice.amountSats} sats via ${update.method}`);
+});
+```
+
+:::caution[Fulfil orders on your server]
+Use `bk-paid` to update the UI. Ship goods only after your server receives the provider's webhook
+or verifies the payment itself. Anything that happens in a browser can be faked.
+:::

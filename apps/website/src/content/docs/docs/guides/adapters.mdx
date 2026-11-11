@@ -1,0 +1,131 @@
+---
+title: Payment adapters
+description: Connect payment components to BTCPay Server, LNbits, OpenNode, Nostr Wallet Connect, or your own backend.
+---
+
+Payment components never call a provider directly. They talk to a `PaymentAdapter`:
+
+```ts
+interface PaymentAdapter {
+  readonly name: string;
+  createInvoice(req: CreateInvoiceRequest, opts?: { signal?: AbortSignal }): Promise<Invoice>;
+  getStatus(invoiceId: string): Promise<PaymentUpdate>;
+  subscribe(invoiceId: string, onUpdate: (u: PaymentUpdate) => void): () => void;
+  cancel(invoiceId: string): Promise<void>;
+}
+```
+
+Statuses: `pending → detected → confirming → paid`, plus `underpaid`, `overpaid`, `expired`,
+`failed` and `cancelled`. Amounts are `bigint` sats.
+
+## Built-in adapters
+
+| Adapter              | Import                         | Methods                          | Runs in the browser?                |
+| -------------------- | ------------------------------ | -------------------------------- | ----------------------------------- |
+| Mock                 | `@bitkit-ui/adapters/mock`     | Lightning + on-chain (simulated) | Yes                                 |
+| HTTP (your backend)  | `@bitkit-ui/adapters/http`     | Whatever your server supports    | Yes, recommended                    |
+| BTCPay Server        | `@bitkit-ui/adapters/btcpay`   | Lightning + on-chain             | Only through a proxy                |
+| LNbits               | `@bitkit-ui/adapters/lnbits`   | Lightning                        | Only through a proxy                |
+| OpenNode             | `@bitkit-ui/adapters/opennode` | Lightning + on-chain             | Only through a proxy                |
+| Nostr Wallet Connect | `@bitkit-ui/adapters/nwc`      | Lightning                        | Yes, with a receive-only connection |
+
+:::danger[API keys never go in the browser]
+Adapters that need a secret refuse to start in a browser when given `apiKey`. Run them on your
+server, or point their `baseUrl` at a proxy that adds the key. See the
+[server proxy pattern](../server-proxy/).
+:::
+
+## Mock
+
+Deterministic and fully offline, for demos, tests and Storybook. It runs on signet by default, so
+its addresses can never receive real bitcoin.
+
+```ts
+import { MockAdapter } from '@bitkit-ui/adapters/mock';
+
+const mock = new MockAdapter({ scenario: 'onchain', stepMs: 2000, requiredConfirmations: 3 });
+// scenarios: lightning | onchain | underpaid | overpaid | expired | failed | manual
+mock.simulatePayment(invoiceId); // drive it manually
+```
+
+## HTTP (recommended for production)
+
+Your server creates invoices with any provider and handles webhooks. The browser only sees your
+API:
+
+```ts
+import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+
+const adapter = createHttpAdapter({
+  baseUrl: '/api/payments', // POST → Invoice, GET /:id → PaymentUpdate
+  sse: true, // optional: GET /:id/events pushes updates, with polling as fallback
+});
+```
+
+## BTCPay Server (server-side)
+
+```ts
+import { BtcPayAdapter } from '@bitkit-ui/adapters/btcpay';
+
+const btcpay = new BtcPayAdapter({
+  baseUrl: 'https://btcpay.example.com',
+  storeId: process.env.BTCPAY_STORE_ID,
+  apiKey: process.env.BTCPAY_API_KEY, // needs btcpay.store.cancreateinvoice + canviewinvoices
+});
+```
+
+## LNbits and OpenNode
+
+```ts
+new LnbitsAdapter({ baseUrl: 'https://legend.lnbits.com', apiKey: process.env.LNBITS_INVOICE_KEY });
+new OpenNodeAdapter({ apiKey: process.env.OPENNODE_KEY });
+```
+
+## Nostr Wallet Connect
+
+The NWC adapter receives payments straight into a wallet. It doesn't ship Nostr crypto; pass any
+NIP-47 client, such as Alby's SDK:
+
+```ts
+import { nwc } from '@getalby/sdk';
+import { NwcAdapter } from '@bitkit-ui/adapters/nwc';
+
+const client = new nwc.NWCClient({ nostrWalletConnectUrl });
+const adapter = new NwcAdapter({ client });
+```
+
+Only use a connection limited to `make_invoice` and `lookup_invoice` in a browser. Anyone who can
+read the page can read the connection string.
+
+## Write your own
+
+Implement the interface. `pollStatus` turns any `getStatus` into a subscription:
+
+```ts
+import { pollStatus, type PaymentAdapter } from '@bitkit-ui/adapters';
+
+export const myAdapter: PaymentAdapter = {
+  name: 'my-provider',
+  async createInvoice(req) {
+    /* ... */
+  },
+  async getStatus(id) {
+    /* ... */
+  },
+  subscribe: (id, cb, opts) =>
+    pollStatus((signal) => myAdapter.getStatus(id, { signal }), cb, opts),
+  async cancel() {},
+};
+```
+
+## Prices and fees
+
+```ts
+import { MempoolRates } from '@bitkit-ui/adapters/rates';
+
+const rates = new MempoolRates({ baseUrl: 'https://mempool.space/api' }); // self-hostable
+await rates.getRate('USD'); // { currency: 'USD', price: '97250.12' }
+await rates.getRecommendedFees(); // { fastestFee, halfHourFee, hourFee, … }
+```
+
+Responses are cached (60 s default) and concurrent requests are shared.

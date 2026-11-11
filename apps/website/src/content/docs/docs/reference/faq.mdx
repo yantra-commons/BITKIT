@@ -1,0 +1,48 @@
+---
+title: FAQ
+description: Common questions about Bitkit UI.
+---
+
+### Is this a wallet?
+
+No. It's a UI kit. It shows amounts, addresses, invoices and payment flows, and talks to providers
+through adapters. It never holds keys.
+
+### Can I use it with a custodial provider?
+
+Yes. Adapters are provider-agnostic. The kit itself is non-custodial; your choice of backend
+determines custody.
+
+### Why web components?
+
+So the same component works in every framework, and in plain HTML, without a rewrite for each.
+React and Vue wrappers add types and idiomatic events.
+
+### Does it work with server-side rendering?
+
+Yes. Importing components on the server is a no-op, and they upgrade in the browser. Payment
+components create invoices only after they mount.
+
+### Why are amounts `bigint`?
+
+`0.1 + 0.2 !== 0.3` in floating point. Money must be exact, so everything is integer millisatoshis
+internally.
+
+### Are invoice signatures verified?
+
+No. Decoding is for display. Your wallet or provider verifies signatures. See the
+[security model](../../guides/security/).
+
+### What does the demo checkout charge?
+
+Nothing. The mock adapter creates unpayable invoices and signet addresses.
+
+### How big is it?
+
+The all-in-one CDN bundle (every component, adapters, core, Lit) is about 70 KB gzipped. Per-component
+imports through a bundler are much smaller. See the size report in CI.
+
+### Which browsers are supported?
+
+Current Chrome, Edge, Firefox and Safari (15.4+). Camera QR scanning needs the `BarcodeDetector`
+API or a plugged-in decoder; paste and upload work everywhere.

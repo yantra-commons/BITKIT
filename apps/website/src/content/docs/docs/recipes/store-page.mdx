@@ -1,0 +1,63 @@
+---
+title: Accept bitcoin on a store page
+description: Add a pay button to a product page, backed by BTCPay Server through your own API.
+---
+
+**Goal:** a product page where customers pay with Lightning or on-chain, and your server marks
+the order paid.
+
+## 1. Add the button
+
+```html
+<bk-amount-display
+  amount="21000"
+  show-fiat
+  fiat-currency="USD"
+  fiat-price="97250"
+></bk-amount-display>
+<bk-pay-button
+  id="buy"
+  amount="21000"
+  order-id="sku-flat-white"
+  description="Flat white"
+></bk-pay-button>
+```
+
+## 2. Point it at your server
+
+```ts
+import '@bitkit-ui/elements/pay-button';
+import '@bitkit-ui/elements/amount-display';
+import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+
+document.querySelector('#buy').adapter = createHttpAdapter({ baseUrl: '/api/payments' });
+```
+
+## 3. Create invoices server-side
+
+Use the [proxy example](../../guides/server-proxy/) or your framework's API routes. Look up the
+price from the `orderId` instead of trusting the browser:
+
+```js
+const product = await db.products.find(body.orderId);
+return btcpay.createInvoice({
+  amountSats: product.priceSats,
+  orderId: body.orderId,
+  description: product.name,
+});
+```
+
+## 4. Fulfil from the webhook
+
+Configure a BTCPay webhook for `InvoiceSettled` and ship the order there. Meanwhile, the
+checkout shows the customer live status: detected, confirming n/N, paid.
+
+## 5. Show a thank-you
+
+```ts
+document.addEventListener('bk-paid', (e) => {
+  location.href = `/thanks?order=${e.detail.invoice.id}`;
+});
+```
+
+Try it end to end with the [merchant checkout template](../../../templates/#merchant-checkout).

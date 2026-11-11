@@ -1,0 +1,214 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { components } from '../lib/manifest';
+
+// Components worth playing with, in display order.
+const PICK = ['pay-button', 'checkout', 'amount-display', 'amount-input', 'address-display', 'address-input', 'payment-status', 'invoice-display', 'donation-widget', 'balance-card', 'fee-selector', 'confirmation-progress', 'qr-code', 'network-badge', 'button', 'badge', 'lightning-address-card', 'transaction-item'];
+const SKIP_ATTRS = new Set(['name', 'help-text', 'error', 'invalid', 'required', 'disabled', 'locale', 'explorer-base-url', 'mempool-url', 'adapter']);
+const DEFAULTS: Record<string, Record<string, string | boolean>> = {
+  'pay-button': { amount: '21000', description: 'Flat white', 'fiat-currency': 'USD', 'fiat-price': '97250' },
+  checkout: { amount: '21000', description: 'Coffee and pastry', 'fiat-currency': 'USD', 'fiat-price': '97250' },
+  'amount-display': { amount: '1234567', size: 'xl', toggle: true, 'show-fiat': true, 'fiat-currency': 'USD', 'fiat-price': '97250' },
+  'amount-input': { label: 'Amount', balance: '250000', min: '1000', 'fiat-currency': 'USD', 'fiat-price': '97250' },
+  'address-display': { address: 'bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqzk5jj0', qr: true, 'show-type': true, 'show-network': true },
+  'address-input': { label: 'Send to', accept: 'onchain-address,bip21,bolt11,lightning-address' },
+  'payment-status': { status: 'confirming', confirmations: '1', 'required-confirmations': '3', 'amount-received': '12000', 'amount-due': '21000' },
+  'invoice-display': { qr: true },
+  'donation-widget': { heading: 'Support this project', 'fiat-currency': 'USD', 'fiat-price': '97250' },
+  'balance-card': { balance: '2450000', pending: '21000', 'fiat-currency': 'USD', 'fiat-price': '97250' },
+  'fee-selector': { vsize: '141', 'fiat-currency': 'USD', 'fiat-price': '97250' },
+  'confirmation-progress': { confirmations: '2', required: '6', 'show-eta': true },
+  'qr-code': { value: 'BITCOIN:BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4?amount=0.0025', size: '220', label: 'payment request' },
+  'network-badge': { network: 'signet' },
+  button: { variant: 'primary', size: 'md' },
+  badge: { variant: 'success' },
+  'lightning-address-card': { address: 'satoshi@example.com', name: 'Satoshi' },
+  'transaction-item': { direction: 'incoming', amount: '21000', method: 'lightning', label: 'Zap from Alice', status: 'confirmed' },
+};
+const SLOT_TEXT: Record<string, string> = { button: 'Pay with bitcoin', badge: 'Paid', 'pay-button': '' };
+
+const data = PICK.map((slug) => components.find((c) => c.slug === slug))
+  .filter((c) => !!c)
+  .map((c) => ({
+    slug: c.slug,
+    tag: c.tag,
+    summary: c.summary.replace(/^SECURITY-SENSITIVE\.\s*/, ''),
+    defaults: DEFAULTS[c.slug] ?? {},
+    slot: SLOT_TEXT[c.slug] ?? '',
+    payments: ['pay-button', 'checkout', 'donation-widget'].includes(c.slug),
+    attrs: c.attributes
+      .filter((a) => !SKIP_ATTRS.has(a.name))
+      .map((a) => ({ name: a.name, type: a.type?.text ?? 'string', description: (a.description ?? '').replace(/\s+/g, ' ').trim() })),
+  }));
+---
+
+<StarlightPage frontmatter={{ title: 'Playground', description: 'Edit component properties live and copy the generated HTML, React or Vue code.', tableOfContents: false }}>
+  <p>Pick a component, change its properties, and copy the code. Payments run against the mock adapter on signet, so nothing here can move real bitcoin.</p>
+  <div class="tool-grid not-content">
+    <div class="tool-panel">
+      <div class="tool-field">
+        <label for="pg-component">Component</label>
+        <select id="pg-component">
+          {data.map((d) => <option value={d.slug}>{d.tag}</option>)}
+        </select>
+      </div>
+      <div class="tool-field" id="pg-scenario-wrap">
+        <label for="pg-scenario">Mock payment outcome</label>
+        <select id="pg-scenario">
+          <option value="lightning">Lightning paid</option>
+          <option value="onchain">On-chain with confirmations</option>
+          <option value="underpaid">Underpaid</option>
+          <option value="overpaid">Overpaid</option>
+          <option value="expired">Expired</option>
+          <option value="failed">Failed</option>
+          <option value="manual">Never pays</option>
+        </select>
+      </div>
+      <p id="pg-summary" style="font-size:0.85rem;color:var(--sl-color-gray-2)"></p>
+      <form id="pg-controls" aria-label="Properties"></form>
+    </div>
+    <div>
+      <div class="tool-preview" id="pg-preview" aria-live="off"></div>
+      <div class="tool-code">
+        <div class="tool-tabs" role="tablist" aria-label="Code format">
+          <button type="button" role="tab" aria-selected="true" data-fmt="html">HTML</button>
+          <button type="button" role="tab" aria-selected="false" data-fmt="react">React</button>
+          <button type="button" role="tab" aria-selected="false" data-fmt="vue">Vue</button>
+          <button type="button" class="tool-btn primary" id="pg-copy" style="margin-left:auto">Copy code</button>
+        </div>
+        <pre><code id="pg-code"></code></pre>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" id="pg-data" set:html={JSON.stringify(data)} />
+</StarlightPage>
+
+<script>
+  import { demoAdapter } from '../scripts/kit';
+  import { toReact, toVue } from '../lib/codegen';
+  import { encodeUnsignedBolt11 } from '@bitkit-ui/core';
+  import type { MockScenario } from '@bitkit-ui/adapters/mock';
+
+  interface Attr { name: string; type: string; description: string }
+  interface Item { slug: string; tag: string; summary: string; defaults: Record<string, string | boolean>; slot: string; payments: boolean; attrs: Attr[] }
+
+  const data = JSON.parse(document.getElementById('pg-data')!.textContent!) as Item[];
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const select = $<HTMLSelectElement>('pg-component');
+  const form = $<HTMLFormElement>('pg-controls');
+  const preview = $('pg-preview');
+  const codeEl = $('pg-code');
+  let fmt: 'html' | 'react' | 'vue' = 'html';
+  let state: Record<string, string | boolean> = {};
+
+  const fromUrl = new URL(location.href).searchParams.get('c');
+  if (fromUrl && data.some((d) => d.slug === fromUrl)) select.value = fromUrl;
+
+  const literals = (t: string) => {
+    const parts = t.replace(/\s*\|\s*undefined/g, '').split('|').map((s) => s.trim());
+    return parts.every((p) => /^'[^']*'$/.test(p)) ? parts.map((p) => p.slice(1, -1)) : null;
+  };
+
+  function current() {
+    return data.find((d) => d.slug === select.value)!;
+  }
+
+  function html(item: Item) {
+    const attrs = Object.entries(state)
+      .filter(([, v]) => v !== '' && v !== false)
+      .map(([k, v]) => (v === true ? k : `${k}="${String(v).replace(/"/g, '&quot;')}"`));
+    if (item.payments) attrs.push('adapter="mock"');
+    const open = `<${item.tag}${attrs.length ? ' ' + attrs.join(' ') : ''}>`;
+    return `${open}${item.slot}</${item.tag}>`;
+  }
+
+  function renderCode() {
+    const item = current();
+    const h = html(item);
+    codeEl.textContent = fmt === 'react' ? toReact(h) : fmt === 'vue' ? toVue(h) : h;
+  }
+
+  function renderPreview() {
+    const item = current();
+    preview.innerHTML = html(item);
+    const el = preview.firstElementChild as HTMLElement & Record<string, unknown>;
+    if (item.slug === 'invoice-display') {
+      el.invoice = encodeUnsignedBolt11({
+        network: 'mainnet',
+        amountMsat: 21_000_000n,
+        timestamp: Math.floor(Date.now() / 1000),
+        paymentHash: crypto.getRandomValues(new Uint8Array(32)),
+        paymentSecret: crypto.getRandomValues(new Uint8Array(32)),
+        description: 'Playground invoice',
+        expiry: 600,
+      });
+    }
+    if (item.slug === 'fee-selector') el.fees = { fastestFee: 24, halfHourFee: 12, hourFee: 6, economyFee: 3, minimumFee: 1 };
+    renderCode();
+  }
+
+  function buildControls() {
+    const item = current();
+    state = { ...item.defaults };
+    $('pg-summary').textContent = item.summary;
+    $('pg-scenario-wrap').hidden = !item.payments;
+    form.replaceChildren();
+    for (const a of item.attrs) {
+      const id = `pg-${a.name}`;
+      const wrap = document.createElement('div');
+      const opts = literals(a.type);
+      const isBool = a.type.trim() === 'boolean';
+      if (isBool) {
+        wrap.className = 'tool-check';
+        const input = Object.assign(document.createElement('input'), { type: 'checkbox', id, checked: state[a.name] === true });
+        input.addEventListener('change', () => {
+          state[a.name] = input.checked;
+          renderPreview();
+        });
+        const label = Object.assign(document.createElement('label'), { htmlFor: id, textContent: a.name, title: a.description });
+        wrap.append(input, label);
+      } else {
+        wrap.className = 'tool-field';
+        const label = Object.assign(document.createElement('label'), { htmlFor: id, textContent: a.name, title: a.description });
+        let input: HTMLInputElement | HTMLSelectElement;
+        if (opts) {
+          input = document.createElement('select');
+          input.append(new Option('(default)', ''), ...opts.map((o) => new Option(o, o)));
+        } else {
+          input = Object.assign(document.createElement('input'), { type: a.type.includes('number') ? 'number' : 'text' });
+        }
+        input.id = id;
+        input.value = String(state[a.name] ?? '');
+        input.addEventListener('change', () => {
+          state[a.name] = input.value;
+          renderPreview();
+        });
+        wrap.append(label, input);
+      }
+      form.append(wrap);
+    }
+    renderPreview();
+  }
+
+  select.addEventListener('change', () => {
+    history.replaceState(null, '', `?c=${select.value}`);
+    buildControls();
+  });
+  $<HTMLSelectElement>('pg-scenario').addEventListener('change', (e) => {
+    demoAdapter.scenario = (e.target as HTMLSelectElement).value as MockScenario;
+    renderPreview();
+  });
+  document.querySelectorAll<HTMLButtonElement>('[data-fmt]').forEach((b) =>
+    b.addEventListener('click', () => {
+      fmt = b.dataset.fmt as typeof fmt;
+      document.querySelectorAll('[data-fmt]').forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+      renderCode();
+    }),
+  );
+  $('pg-copy').addEventListener('click', async () => {
+    await navigator.clipboard?.writeText(codeEl.textContent ?? '');
+    $('pg-copy').textContent = 'Copied';
+    setTimeout(() => ($('pg-copy').textContent = 'Copy code'), 1500);
+  });
+  buildControls();
+</script>

@@ -1,0 +1,57 @@
+---
+title: Security model
+description: What the kit protects, what it does not, and how to use the sensitive components safely.
+---
+
+## Guarantees
+
+1. **No private keys, ever.** No component requests, derives, stores or transmits private keys. The
+   kit contains no key-derivation code in UI paths.
+2. **Recovery phrases stay in memory.** `<bk-mnemonic-display>`, `<bk-mnemonic-input>` and
+   `<bk-backup-check>`:
+   - take words only through a JavaScript property, never an HTML attribute, so they never appear in
+     serialized HTML;
+   - never render hidden words into the DOM (blur can't be defeated by inspecting elements);
+   - never include words in events (`bk-change` reports only validity);
+   - block copy, cut and the context menu unless you opt in with `allow-copy`;
+   - hide automatically when the tab is hidden and after a timeout;
+   - turn off autocomplete, spellcheck, autocorrect and password-manager capture on inputs;
+   - expose `clear()` to drop references. JavaScript strings can't be zeroed in memory, and we
+     say so plainly.
+3. **No secret API keys in browsers.** Adapters that need provider keys throw if given one in a
+   browser. Use the [server proxy pattern](../server-proxy/).
+4. **No third-party requests by default** except where documented: `<bk-fee-selector>` fetches fee
+   estimates from mempool.space unless you pass `fees` or a custom `source`, and
+   `<bk-lightning-address-card fetch-metadata>` contacts the address's domain. Both are configurable.
+5. **Exact money math.** Amounts are `bigint` millisatoshis. Floating point is never used for amounts,
+   and lint rules ban it in the units module.
+
+## Decoding is not verification
+
+The core decodes BOLT11 invoices and BOLT12 offers for **display**. It checks structure, checksums
+and required fields, but does not verify secp256k1 signatures. A wallet must verify signatures
+before paying. Never treat a decoded invoice as proof of who created it.
+
+Likewise, `bk-paid` is a UI signal. Fulfil orders only after your server confirms payment with the
+provider (webhook or authenticated API call).
+
+## Mock adapter safety
+
+The mock adapter produces well-formed but unpayable invoices (zero signatures) and **signet**
+addresses by default, and the checkout shows a "Demo payment — do not send real bitcoin" notice.
+
+## Threat model summary
+
+| Threat                                       | Mitigation                                                                                                                      |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| XSS on the host page reads a recovery phrase | Out of scope: any script on the page can read memory. Use a strict CSP and keep seed handling on dedicated pages.               |
+| Phrase leaks via analytics or session replay | Words are never in attributes or events. Exclude elements marked `data-sensitive` from your recording tool.                     |
+| Phrase copied to the clipboard               | Copy blocked by default.                                                                                                        |
+| Shoulder surfing                             | Hidden until revealed, auto-hide on tab switch and after a timeout.                                                             |
+| Address swapped by malware                   | Chunked display for visual verification, a QR toggle, and explorer links. Validation catches typos, not malicious substitution. |
+| Wrong-network funds                          | Inputs validate the network and explain mismatches ("This is a Testnet address…").                                              |
+| Leaked provider API keys                     | Adapters refuse keys in browsers. Proxy example with allow-listed routes.                                                       |
+| Tampered amounts                             | Server-side price lookup recommended. The proxy example validates ranges.                                                       |
+
+Report vulnerabilities privately as described in
+[SECURITY.md](https://github.com/your-org/bitkit-ui/blob/main/SECURITY.md).

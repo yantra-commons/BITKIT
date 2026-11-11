@@ -1,0 +1,179 @@
+---
+import Site from '../layouts/Site.astro';
+
+const base = import.meta.env.BASE_URL;
+const features = [
+  { icon: 'link', title: 'Any framework', body: 'Standard Web Components. Plain HTML, React, Vue, Svelte, Angular, Astro. Typed React and Vue wrappers included.' },
+  { icon: 'shield', title: 'Correct to the sat', body: 'bigint millisatoshi math, BIP-173/350 vectors, BOLT11 spec vectors, BIP21 and unified QR. 98% test coverage.' },
+  { icon: 'visible', title: 'Accessible by default', body: 'WCAG 2.2 AA tokens, full keyboard support, real focus management, and addresses read out character by character.' },
+  { icon: 'edit', title: 'Themeable', body: 'Design tokens as CSS custom properties, light and dark themes, and ::part() hooks for deep styling.' },
+  { icon: 'lock', title: 'Non-custodial', body: 'No keys, ever. Recovery-phrase components are memory-only, never in attributes, events, storage or the network.' },
+  { icon: 'exchange', title: 'Any provider', body: 'A tiny adapter interface: mock, BTCPay Server, LNbits, OpenNode, Nostr Wallet Connect or your own backend.' },
+  { icon: 'lightning', title: 'Lightning native', body: 'Invoices, LNURL, Lightning Addresses, BOLT12 offers, WebLN one-click pay and live payment status.' },
+  { icon: 'coins', title: 'Small and fast', body: 'Per-component imports, tree-shakeable, SSR-safe. Everything in one CDN file when you want zero build steps.' },
+] as const;
+const frameworks = ['HTML', 'React', 'Vue', 'Svelte', 'Angular', 'Astro', 'Next.js'];
+const htmlSnippet = `<script type="module"
+  src="https://cdn.jsdelivr.net/npm/@bitkit-ui/elements/dist/cdn/bitkit-ui.js">
+</script>
+
+<bk-pay-button amount="21000" adapter="store">
+  Pay with bitcoin
+</bk-pay-button>`;
+const reactSnippet = `import { PayButton } from '@bitkit-ui/react';
+import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+
+const adapter = createHttpAdapter({ baseUrl: '/api/payments' });
+
+export const Buy = () => (
+  <PayButton adapter={adapter} amount={21000n}
+    onPaid={(e) => console.log(e.detail.invoice.id)} />
+);`;
+---
+
+<Site title="Bitkit UI — Bitcoin & Lightning UI components" description="Open-source, accessible web components for Bitcoin and Lightning apps: amounts, addresses, invoices, payments, wallets and transactions.">
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Open source · MIT · Web Components</p>
+        <h1>The UI kit for <em>Bitcoin</em> apps.</h1>
+        <p class="lede">
+          Drop-in components for amounts, addresses, invoices, payments, wallets and transactions. Accessible, themeable,
+          provider-agnostic and correct to the last sat.
+        </p>
+        <div class="ctas">
+          <a class="btn btn--primary" href={`${base}docs/getting-started/installation/`}>Get started</a>
+          <a class="btn btn--secondary" href={`${base}playground/`}>Open the playground</a>
+        </div>
+        <div class="install">
+          <code><span class="prompt">$ </span>npm i @bitkit-ui/elements</code>
+          <bk-copy-button value="npm i @bitkit-ui/elements" label="Copy install command"></bk-copy-button>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-card__label">
+          <span>Live demo: mock backend on signet</span>
+          <span class="chips" role="group" aria-label="Simulate a payment outcome">
+            <button class="chip" type="button" data-scenario="lightning" aria-pressed="true">Lightning</button>
+            <button class="chip" type="button" data-scenario="onchain" aria-pressed="false">On-chain</button>
+            <button class="chip" type="button" data-scenario="underpaid" aria-pressed="false">Underpaid</button>
+            <button class="chip" type="button" data-scenario="expired" aria-pressed="false">Expired</button>
+          </span>
+        </div>
+        <bk-checkout id="hero-checkout" mode="inline" amount="21000" adapter="mock" description="Flat white, to go" fiat-currency="USD" fiat-price="97250"></bk-checkout>
+      </div>
+    </div>
+  </section>
+
+  <div class="frameworks">
+    <div class="wrap frameworks__inner">
+      <p>Works everywhere</p>
+      <ul>{frameworks.map((f) => <li>{f}</li>)}</ul>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Everything a Bitcoin app needs on screen</h2>
+        <p>37 components, one headless core, and adapters for the providers you already use.</p>
+      </div>
+      <ul class="features">
+        {
+          features.map((f) => (
+            <li class="feature">
+              <bk-icon name={f.icon} />
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Real components, not screenshots</h2>
+        <p>Every tile below is the actual kit running on this page. Click around.</p>
+      </div>
+      <div class="bento">
+        <div class="tile">
+          <p class="tile__title">Amount display</p>
+          <bk-amount-display amount="1234567" size="xl" toggle show-fiat privacy-toggle fiat-currency="USD" fiat-price="97250"></bk-amount-display>
+          <small>Tap the amount to switch sats → BTC → USD.</small>
+        </div>
+        <div class="tile tile--wide">
+          <p class="tile__title">Address display</p>
+          <bk-address-display address="bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqzk5jj0" qr show-type></bk-address-display>
+        </div>
+        <div class="tile tile--wide">
+          <p class="tile__title">Destination input</p>
+          <bk-address-input label="Pay to" accept="onchain-address,bip21,bolt11,bolt12-offer,lnurl,lightning-address" help-text="Paste an address, invoice or Lightning Address."></bk-address-input>
+        </div>
+        <div class="tile">
+          <p class="tile__title">Payment status</p>
+          <bk-payment-status status="confirming" confirmations="2" required-confirmations="3"></bk-payment-status>
+          <bk-confirmation-progress confirmations="4" required="6" show-eta></bk-confirmation-progress>
+        </div>
+        <div class="tile">
+          <p class="tile__title">Amount input</p>
+          <bk-amount-input label="Send" balance="250000" fiat-currency="USD" fiat-price="97250"></bk-amount-input>
+        </div>
+        <div class="tile tile--wide">
+          <p class="tile__title">Fee selector</p>
+          <bk-fee-selector id="landing-fees" vsize="141" fiat-currency="USD" fiat-price="97250"></bk-fee-selector>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Accept bitcoin in a few lines</h2>
+        <p>No build step required. Keep provider API keys on your server with the HTTP adapter.</p>
+      </div>
+      <div class="code-grid">
+        <figure class="code"><figcaption>index.html</figcaption><pre><code>{htmlSnippet}</code></pre></figure>
+        <figure class="code"><figcaption>Buy.tsx</figcaption><pre><code>{reactSnippet}</code></pre></figure>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="band">
+        <bk-icon name="bitcoin-circle"></bk-icon>
+        <div>
+          <h2>Built on the Bitcoin Design Guide</h2>
+          <p>Chunked addresses, unified QR codes, sats-first amounts, clear payment states and safe backup flows follow the community's open design patterns.</p>
+        </div>
+        <a class="btn btn--secondary" href="https://bitcoin.design/guide/" rel="noopener">Read the guide</a>
+      </div>
+    </div>
+  </section>
+</Site>
+
+<script>
+  import { demoAdapter } from '../scripts/kit';
+  import type { MockScenario } from '@bitkit-ui/adapters/mock';
+
+  const checkout = document.getElementById('hero-checkout') as HTMLElement & { start(): Promise<void> };
+  const chips = document.querySelectorAll<HTMLButtonElement>('[data-scenario]');
+  chips.forEach((chip) =>
+    chip.addEventListener('click', () => {
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      demoAdapter.scenario = chip.dataset.scenario as MockScenario;
+      void checkout.start();
+    }),
+  );
+  // Restart the demo a few seconds after it finishes so visitors always see it working.
+  checkout.addEventListener('bk-paid', () => setTimeout(() => void checkout.start(), 6000));
+
+  // Static fee estimates on the landing page: no third-party request on first load.
+  Object.assign(document.getElementById('landing-fees')!, {
+    fees: { fastestFee: 24, halfHourFee: 12, hourFee: 6, economyFee: 3, minimumFee: 1 },
+  });
+</script>

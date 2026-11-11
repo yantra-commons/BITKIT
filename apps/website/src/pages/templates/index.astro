@@ -1,0 +1,33 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { Code } from '@astrojs/starlight/components';
+import { templates, templateSource } from '../../lib/templates';
+
+const base = import.meta.env.BASE_URL;
+const headings = templates.map((t) => ({ depth: 2, slug: t.slug, text: t.title }));
+---
+
+<StarlightPage frontmatter={{ title: 'Templates', description: 'Copyable full-page templates built with the kit.' }} headings={headings}>
+  <p>
+    Each template is a single HTML file with no build step. Open the live version, then copy the source. Every template uses the mock
+    adapter. Swap <code>adapter="mock"</code> for your own adapter before going live.
+  </p>
+  {
+    templates.map((t) => (
+      <section>
+        <h2 id={t.slug}>{t.title}</h2>
+        <p>{t.description}</p>
+        <p>
+          <a href={`${base}templates/${t.slug}/`}>Open the live template →</a>
+        </p>
+        <div class="not-content" style="border:1px solid var(--sl-color-gray-5);border-radius:12px;overflow:hidden;margin:1rem 0">
+          <iframe src={`${base}templates/${t.slug}/`} title={`${t.title} preview`} loading="lazy" style="width:100%;height:520px;border:0;display:block" />
+        </div>
+        <details>
+          <summary>Show the HTML source</summary>
+          <Code code={templateSource(t)} lang="html" title={`${t.slug}.html`} />
+        </details>
+      </section>
+    ))
+  }
+</StarlightPage>

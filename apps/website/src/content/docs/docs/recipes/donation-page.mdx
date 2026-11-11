@@ -1,0 +1,38 @@
+---
+title: Donation page
+description: Preset amounts, custom amounts, a message, and a Lightning Address for zaps.
+---
+
+```html
+<bk-donation-widget
+  adapter="donations"
+  heading="Support the project"
+  presets="2100,21000,100000"
+  message-max="140"
+  fiat-currency="USD"
+  fiat-price="97250"
+>
+  <p slot="description">Every sat helps us keep building.</p>
+</bk-donation-widget>
+
+<bk-lightning-address-card
+  address="tips@example.com"
+  name="Our project"
+></bk-lightning-address-card>
+
+<script type="module">
+  import { registerAdapter } from '@bitkit-ui/elements';
+  import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+  registerAdapter('donations', createHttpAdapter({ baseUrl: '/api/donations' }));
+
+  document.addEventListener('bk-donate', (e) => {
+    // e.detail = { amount: 21000n, message: '…' }, emitted before the checkout opens
+  });
+</script>
+```
+
+No server? Receive donations straight into your wallet with the
+[Nostr Wallet Connect adapter](../../guides/adapters/#nostr-wallet-connect) and a receive-only
+connection, or show only the Lightning Address card. Visitors can scan it with any Lightning wallet.
+
+A full page is in the [templates gallery](../../../templates/#donation).

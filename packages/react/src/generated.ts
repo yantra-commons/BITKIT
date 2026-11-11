@@ -75,323 +75,112 @@ import type { BkWalletConnect } from '@bitkit-ui/elements/wallet-connect';
 import '@bitkit-ui/elements/wallet-connect';
 
 /** Shows a Bitcoin address in readable 4-character chunks (Bitcoin Design Guide), with */
-export const AddressDisplay = wrap<BkAddressDisplay, 'onCopy' | 'onName'>(
-  'bk-address-display',
-  { onCopy: 'bk-copy', onName: 'name' } as Record<'onCopy' | 'onName', string>,
-  'AddressDisplay',
-);
+export const AddressDisplay = wrap<BkAddressDisplay, 'onCopy' | 'onName'>('bk-address-display', {"onCopy":"bk-copy","onName":"name"} as Record<'onCopy' | 'onName', string>, 'AddressDisplay');
 
 /** Destination input that validates as you type and accepts paste and QR scan. Uses */
-export const AddressInput = wrap<BkAddressInput, 'onInput' | 'onChange' | 'onName'>(
-  'bk-address-input',
-  { onInput: 'bk-input', onChange: 'bk-change', onName: 'name' } as Record<
-    'onInput' | 'onChange' | 'onName',
-    string
-  >,
-  'AddressInput',
-);
+export const AddressInput = wrap<BkAddressInput, 'onInput' | 'onChange' | 'onName'>('bk-address-input', {"onInput":"bk-input","onChange":"bk-change","onName":"name"} as Record<'onInput' | 'onChange' | 'onName', string>, 'AddressInput');
 
 /** Displays a bitcoin amount in sats, BTC or fiat. Optional unit toggle, fiat secondary */
-export const AmountDisplay = wrap<BkAmountDisplay, 'onUnitChange' | 'onPrivacyChange' | 'onName'>(
-  'bk-amount-display',
-  {
-    onUnitChange: 'bk-unit-change',
-    onPrivacyChange: 'bk-privacy-change',
-    onName: 'name',
-  } as Record<'onUnitChange' | 'onPrivacyChange' | 'onName', string>,
-  'AmountDisplay',
-);
+export const AmountDisplay = wrap<BkAmountDisplay, 'onUnitChange' | 'onPrivacyChange' | 'onName'>('bk-amount-display', {"onUnitChange":"bk-unit-change","onPrivacyChange":"bk-privacy-change","onName":"name"} as Record<'onUnitChange' | 'onPrivacyChange' | 'onName', string>, 'AmountDisplay');
 
 /** Bigint-safe amount entry with unit switcher (sats / BTC / fiat), fiat preview, */
-export const AmountInput = wrap<BkAmountInput, 'onInput' | 'onChange' | 'onUnitChange' | 'onName'>(
-  'bk-amount-input',
-  {
-    onInput: 'bk-input',
-    onChange: 'bk-change',
-    onUnitChange: 'bk-unit-change',
-    onName: 'name',
-  } as Record<'onInput' | 'onChange' | 'onUnitChange' | 'onName', string>,
-  'AmountInput',
-);
+export const AmountInput = wrap<BkAmountInput, 'onInput' | 'onChange' | 'onUnitChange' | 'onName'>('bk-amount-input', {"onInput":"bk-input","onChange":"bk-change","onUnitChange":"bk-unit-change","onName":"name"} as Record<'onInput' | 'onChange' | 'onUnitChange' | 'onName', string>, 'AmountInput');
 
 /** SECURITY-SENSITIVE. "Verify your backup" flow: asks for randomly chosen words of the */
-export const BackupCheck = wrap<BkBackupCheck, 'onVerified' | 'onFail' | 'onName'>(
-  'bk-backup-check',
-  { onVerified: 'bk-verified', onFail: 'bk-fail', onName: 'name' } as Record<
-    'onVerified' | 'onFail' | 'onName',
-    string
-  >,
-  'BackupCheck',
-);
+export const BackupCheck = wrap<BkBackupCheck, 'onVerified' | 'onFail' | 'onName'>('bk-backup-check', {"onVerified":"bk-verified","onFail":"bk-fail","onName":"name"} as Record<'onVerified' | 'onFail' | 'onName', string>, 'BackupCheck');
 
 /** Small status label. */
-export const Badge = wrap<BkBadge, 'onName'>(
-  'bk-badge',
-  { onName: 'name' } as Record<'onName', string>,
-  'Badge',
-);
+export const Badge = wrap<BkBadge, 'onName'>('bk-badge', {"onName":"name"} as Record<'onName', string>, 'Badge');
 
 /** Wallet balance with fiat value, pending amount, privacy toggle and an actions slot */
-export const BalanceCard = wrap<BkBalanceCard, 'onName'>(
-  'bk-balance-card',
-  { onName: 'name' } as Record<'onName', string>,
-  'BalanceCard',
-);
+export const BalanceCard = wrap<BkBalanceCard, 'onName'>('bk-balance-card', {"onName":"name"} as Record<'onName', string>, 'BalanceCard');
 
 /** Accessible button with primary/secondary/ghost/danger variants and a loading state. */
-export const Button = wrap<BkButton, 'onClick' | 'onName'>(
-  'bk-button',
-  { onClick: 'click', onName: 'name' } as Record<'onClick' | 'onName', string>,
-  'Button',
-);
+export const Button = wrap<BkButton, 'onClick' | 'onName'>('bk-button', {"onClick":"click","onName":"name"} as Record<'onClick' | 'onName', string>, 'Button');
 
 /** Complete "pay with bitcoin" flow: creates a payment request through an adapter, shows */
-export const Checkout = wrap<
-  BkCheckout,
-  'onInvoiceCreated' | 'onStatusChange' | 'onPaid' | 'onExpired' | 'onError' | 'onClose' | 'onName'
->(
-  'bk-checkout',
-  {
-    onInvoiceCreated: 'bk-invoice-created',
-    onStatusChange: 'bk-status-change',
-    onPaid: 'bk-paid',
-    onExpired: 'bk-expired',
-    onError: 'bk-error',
-    onClose: 'bk-close',
-    onName: 'name',
-  } as Record<
-    | 'onInvoiceCreated'
-    | 'onStatusChange'
-    | 'onPaid'
-    | 'onExpired'
-    | 'onError'
-    | 'onClose'
-    | 'onName',
-    string
-  >,
-  'Checkout',
-);
+export const Checkout = wrap<BkCheckout, 'onInvoiceCreated' | 'onStatusChange' | 'onPaid' | 'onExpired' | 'onError' | 'onClose' | 'onName'>('bk-checkout', {"onInvoiceCreated":"bk-invoice-created","onStatusChange":"bk-status-change","onPaid":"bk-paid","onExpired":"bk-expired","onError":"bk-error","onClose":"bk-close","onName":"name"} as Record<'onInvoiceCreated' | 'onStatusChange' | 'onPaid' | 'onExpired' | 'onError' | 'onClose' | 'onName', string>, 'Checkout');
 
 /** On-chain confirmation progress using the Bitcoin Icons confirmation glyphs, with a */
-export const ConfirmationProgress = wrap<BkConfirmationProgress, 'onName'>(
-  'bk-confirmation-progress',
-  { onName: 'name' } as Record<'onName', string>,
-  'ConfirmationProgress',
-);
+export const ConfirmationProgress = wrap<BkConfirmationProgress, 'onName'>('bk-confirmation-progress', {"onName":"name"} as Record<'onName', string>, 'ConfirmationProgress');
 
 /** Copies a value to the clipboard and confirms visually and to screen readers. */
-export const CopyButton = wrap<BkCopyButton, 'onCopy' | 'onCopyError' | 'onName'>(
-  'bk-copy-button',
-  { onCopy: 'bk-copy', onCopyError: 'bk-copy-error', onName: 'name' } as Record<
-    'onCopy' | 'onCopyError' | 'onName',
-    string
-  >,
-  'CopyButton',
-);
+export const CopyButton = wrap<BkCopyButton, 'onCopy' | 'onCopyError' | 'onName'>('bk-copy-button', {"onCopy":"bk-copy","onCopyError":"bk-copy-error","onName":"name"} as Record<'onCopy' | 'onCopyError' | 'onName', string>, 'CopyButton');
 
 /** Modal dialog built on the native `<dialog>` element: focus is trapped, the page is */
-export const Dialog = wrap<BkDialog, 'onOpen' | 'onRequestClose' | 'onClose' | 'onName'>(
-  'bk-dialog',
-  {
-    onOpen: 'bk-open',
-    onRequestClose: 'bk-request-close',
-    onClose: 'bk-close',
-    onName: 'name',
-  } as Record<'onOpen' | 'onRequestClose' | 'onClose' | 'onName', string>,
-  'Dialog',
-);
+export const Dialog = wrap<BkDialog, 'onOpen' | 'onRequestClose' | 'onClose' | 'onName'>('bk-dialog', {"onOpen":"bk-open","onRequestClose":"bk-request-close","onClose":"bk-close","onName":"name"} as Record<'onOpen' | 'onRequestClose' | 'onClose' | 'onName', string>, 'Dialog');
 
 /** Donation form: preset amounts, custom amount, optional message, then a checkout. */
-export const DonationWidget = wrap<BkDonationWidget, 'onDonate' | 'onName'>(
-  'bk-donation-widget',
-  { onDonate: 'bk-donate', onName: 'name' } as Record<'onDonate' | 'onName', string>,
-  'DonationWidget',
-);
+export const DonationWidget = wrap<BkDonationWidget, 'onDonate' | 'onName'>('bk-donation-widget', {"onDonate":"bk-donate","onName":"name"} as Record<'onDonate' | 'onName', string>, 'DonationWidget');
 
 /** Network fee picker: fast / normal / slow tiers with sat/vB, total fee, fiat cost and */
-export const FeeSelector = wrap<BkFeeSelector, 'onChange' | 'onName'>(
-  'bk-fee-selector',
-  { onChange: 'bk-change', onName: 'name' } as Record<'onChange' | 'onName', string>,
-  'FeeSelector',
-);
+export const FeeSelector = wrap<BkFeeSelector, 'onChange' | 'onName'>('bk-fee-selector', {"onChange":"bk-change","onName":"name"} as Record<'onChange' | 'onName', string>, 'FeeSelector');
 
 /** An icon from the Bitcoin Icons set (bitcoinicons.com). */
-export const Icon = wrap<BkIcon, 'onName'>(
-  'bk-icon',
-  { onName: 'name' } as Record<'onName', string>,
-  'Icon',
-);
+export const Icon = wrap<BkIcon, 'onName'>('bk-icon', {"onName":"name"} as Record<'onName', string>, 'Icon');
 
 /** Square button showing only an icon. `label` is required for accessibility and is */
-export const IconButton = wrap<BkIconButton, 'onName'>(
-  'bk-icon-button',
-  { onName: 'name' } as Record<'onName', string>,
-  'IconButton',
-);
+export const IconButton = wrap<BkIconButton, 'onName'>('bk-icon-button', {"onName":"name"} as Record<'onName', string>, 'IconButton');
 
 /** Labelled text input with help text, error state, prefix/suffix slots and native form */
-export const Input = wrap<BkInput, 'onInput' | 'onChange' | 'onName'>(
-  'bk-input',
-  { onInput: 'bk-input', onChange: 'bk-change', onName: 'name' } as Record<
-    'onInput' | 'onChange' | 'onName',
-    string
-  >,
-  'Input',
-);
+export const Input = wrap<BkInput, 'onInput' | 'onChange' | 'onName'>('bk-input', {"onInput":"bk-input","onChange":"bk-change","onName":"name"} as Record<'onInput' | 'onChange' | 'onName', string>, 'Input');
 
 /** Decodes a BOLT11 Lightning invoice and shows amount, description, expiry countdown, */
-export const InvoiceDisplay = wrap<BkInvoiceDisplay, 'onExpired' | 'onName'>(
-  'bk-invoice-display',
-  { onExpired: 'bk-expired', onName: 'name' } as Record<'onExpired' | 'onName', string>,
-  'InvoiceDisplay',
-);
+export const InvoiceDisplay = wrap<BkInvoiceDisplay, 'onExpired' | 'onName'>('bk-invoice-display', {"onExpired":"bk-expired","onName":"name"} as Record<'onExpired' | 'onName', string>, 'InvoiceDisplay');
 
 /** Shareable card for a Lightning Address (LUD-16): avatar, name, copy, QR code (LNURL) */
-export const LightningAddressCard = wrap<BkLightningAddressCard, 'onName'>(
-  'bk-lightning-address-card',
-  { onName: 'name' } as Record<'onName', string>,
-  'LightningAddressCard',
-);
+export const LightningAddressCard = wrap<BkLightningAddressCard, 'onName'>('bk-lightning-address-card', {"onName":"name"} as Record<'onName', string>, 'LightningAddressCard');
 
 /** SECURITY-SENSITIVE. Shows a recovery phrase on demand. Words are set via the `words` */
-export const MnemonicDisplay = wrap<BkMnemonicDisplay, 'onReveal' | 'onHide' | 'onName'>(
-  'bk-mnemonic-display',
-  { onReveal: 'bk-reveal', onHide: 'bk-hide', onName: 'name' } as Record<
-    'onReveal' | 'onHide' | 'onName',
-    string
-  >,
-  'MnemonicDisplay',
-);
+export const MnemonicDisplay = wrap<BkMnemonicDisplay, 'onReveal' | 'onHide' | 'onName'>('bk-mnemonic-display', {"onReveal":"bk-reveal","onHide":"bk-hide","onName":"name"} as Record<'onReveal' | 'onHide' | 'onName', string>, 'MnemonicDisplay');
 
 /** SECURITY-SENSITIVE. Word-by-word recovery phrase entry with BIP39 autocomplete and */
-export const MnemonicInput = wrap<BkMnemonicInput, 'onChange' | 'onName'>(
-  'bk-mnemonic-input',
-  { onChange: 'bk-change', onName: 'name' } as Record<'onChange' | 'onName', string>,
-  'MnemonicInput',
-);
+export const MnemonicInput = wrap<BkMnemonicInput, 'onChange' | 'onName'>('bk-mnemonic-input', {"onChange":"bk-change","onName":"name"} as Record<'onChange' | 'onName', string>, 'MnemonicInput');
 
 /** Shows which Bitcoin network is in use. Test networks are highlighted so users never */
-export const NetworkBadge = wrap<BkNetworkBadge, 'onName'>(
-  'bk-network-badge',
-  { onName: 'name' } as Record<'onName', string>,
-  'NetworkBadge',
-);
+export const NetworkBadge = wrap<BkNetworkBadge, 'onName'>('bk-network-badge', {"onName":"name"} as Record<'onName', string>, 'NetworkBadge');
 
 /** Drop-in "Pay with bitcoin" button. Give it an amount and an adapter; clicking opens */
-export const PayButton = wrap<BkPayButton, 'onName'>(
-  'bk-pay-button',
-  { onName: 'name' } as Record<'onName', string>,
-  'PayButton',
-);
+export const PayButton = wrap<BkPayButton, 'onName'>('bk-pay-button', {"onName":"name"} as Record<'onName', string>, 'PayButton');
 
 /** Shows where a payment is in its lifecycle: pending, detected, confirming (n/N), paid, */
-export const PaymentStatus = wrap<BkPaymentStatus, 'onName'>(
-  'bk-payment-status',
-  { onName: 'name' } as Record<'onName', string>,
-  'PaymentStatus',
-);
+export const PaymentStatus = wrap<BkPaymentStatus, 'onName'>('bk-payment-status', {"onName":"name"} as Record<'onName', string>, 'PaymentStatus');
 
 /** Renders a value as a QR code (SVG, fully client-side). Colors stay dark-on-light in */
-export const QrCode = wrap<BkQrCode, 'onName'>(
-  'bk-qr-code',
-  { onName: 'name' } as Record<'onName', string>,
-  'QrCode',
-);
+export const QrCode = wrap<BkQrCode, 'onName'>('bk-qr-code', {"onName":"name"} as Record<'onName', string>, 'QrCode');
 
 /** Camera QR scanner. Uses the native BarcodeDetector when available; plug in any */
-export const QrScanner = wrap<BkQrScanner, 'onScan' | 'onError' | 'onName'>(
-  'bk-qr-scanner',
-  { onScan: 'bk-scan', onError: 'bk-error', onName: 'name' } as Record<
-    'onScan' | 'onError' | 'onName',
-    string
-  >,
-  'QrScanner',
-);
+export const QrScanner = wrap<BkQrScanner, 'onScan' | 'onError' | 'onName'>('bk-qr-scanner', {"onScan":"bk-scan","onError":"bk-error","onName":"name"} as Record<'onScan' | 'onError' | 'onName', string>, 'QrScanner');
 
 /** Labelled native select. Options come from the `options` property or from light-DOM */
-export const Select = wrap<BkSelect, 'onChange' | 'onName'>(
-  'bk-select',
-  { onChange: 'bk-change', onName: 'name' } as Record<'onChange' | 'onName', string>,
-  'Select',
-);
+export const Select = wrap<BkSelect, 'onChange' | 'onName'>('bk-select', {"onChange":"bk-change","onName":"name"} as Record<'onChange' | 'onName', string>, 'Select');
 
 /** Placeholder shimmer shown while content loads. Hidden from assistive technology; */
-export const Skeleton = wrap<BkSkeleton, 'onName'>(
-  'bk-skeleton',
-  { onName: 'name' } as Record<'onName', string>,
-  'Skeleton',
-);
+export const Skeleton = wrap<BkSkeleton, 'onName'>('bk-skeleton', {"onName":"name"} as Record<'onName', string>, 'Skeleton');
 
 /** Indeterminate loading indicator. Announces its label politely to screen readers. */
-export const Spinner = wrap<BkSpinner, 'onName'>(
-  'bk-spinner',
-  { onName: 'name' } as Record<'onName', string>,
-  'Spinner',
-);
+export const Spinner = wrap<BkSpinner, 'onName'>('bk-spinner', {"onName":"name"} as Record<'onName', string>, 'Spinner');
 
 /** Accessible tabs (WAI-ARIA tabs pattern, automatic activation). Each child element */
-export const Tabs = wrap<BkTabs, 'onChange' | 'onName'>(
-  'bk-tabs',
-  { onChange: 'bk-change', onName: 'name' } as Record<'onChange' | 'onName', string>,
-  'Tabs',
-);
+export const Tabs = wrap<BkTabs, 'onChange' | 'onName'>('bk-tabs', {"onChange":"bk-change","onName":"name"} as Record<'onChange' | 'onName', string>, 'Tabs');
 
 /** A notification message. Usually created with the `toast()` helper, which places it */
-export const Toast = wrap<BkToast, 'onClose' | 'onName'>(
-  'bk-toast',
-  { onClose: 'bk-close', onName: 'name' } as Record<'onClose' | 'onName', string>,
-  'Toast',
-);
+export const Toast = wrap<BkToast, 'onClose' | 'onName'>('bk-toast', {"onClose":"bk-close","onName":"name"} as Record<'onClose' | 'onName', string>, 'Toast');
 
 /** Fixed region that stacks toasts. Created automatically by `toast()`. */
-export const Toaster = wrap<BkToaster, 'onName'>(
-  'bk-toaster',
-  { onName: 'name' } as Record<'onName', string>,
-  'Toaster',
-);
+export const Toaster = wrap<BkToaster, 'onName'>('bk-toaster', {"onName":"name"} as Record<'onName', string>, 'Toaster');
 
 /** Tooltip for the slotted trigger. Opens on hover and keyboard focus, stays open while */
-export const Tooltip = wrap<BkTooltip, 'onName'>(
-  'bk-tooltip',
-  { onName: 'name' } as Record<'onName', string>,
-  'Tooltip',
-);
+export const Tooltip = wrap<BkTooltip, 'onName'>('bk-tooltip', {"onName":"name"} as Record<'onName', string>, 'Tooltip');
 
 /** One transaction row: direction icon, label, relative time, status/confirmations and a */
-export const TransactionItem = wrap<BkTransactionItem, 'onSelect' | 'onName'>(
-  'bk-transaction-item',
-  { onSelect: 'bk-select', onName: 'name' } as Record<'onSelect' | 'onName', string>,
-  'TransactionItem',
-);
+export const TransactionItem = wrap<BkTransactionItem, 'onSelect' | 'onName'>('bk-transaction-item', {"onSelect":"bk-select","onName":"name"} as Record<'onSelect' | 'onName', string>, 'TransactionItem');
 
 /** Transaction history with date groups, loading skeletons, empty state and "load more". */
-export const TransactionList = wrap<BkTransactionList, 'onSelect' | 'onLoadMore' | 'onName'>(
-  'bk-transaction-list',
-  { onSelect: 'bk-select', onLoadMore: 'bk-load-more', onName: 'name' } as Record<
-    'onSelect' | 'onLoadMore' | 'onName',
-    string
-  >,
-  'TransactionList',
-);
+export const TransactionList = wrap<BkTransactionList, 'onSelect' | 'onLoadMore' | 'onName'>('bk-transaction-list', {"onSelect":"bk-select","onLoadMore":"bk-load-more","onName":"name"} as Record<'onSelect' | 'onLoadMore' | 'onName', string>, 'TransactionList');
 
 /** Coin control: a sortable table of UTXOs with checkboxes, select all/none, and the */
-export const UtxoList = wrap<BkUtxoList, 'onChange' | 'onName'>(
-  'bk-utxo-list',
-  { onChange: 'bk-change', onName: 'name' } as Record<'onChange' | 'onName', string>,
-  'UtxoList',
-);
+export const UtxoList = wrap<BkUtxoList, 'onChange' | 'onName'>('bk-utxo-list', {"onChange":"bk-change","onName":"name"} as Record<'onChange' | 'onName', string>, 'UtxoList');
 
 /** Connect a Lightning wallet via WebLN (browser extension) or Nostr Wallet Connect. */
-export const WalletConnect = wrap<
-  BkWalletConnect,
-  'onConnect' | 'onDisconnect' | 'onError' | 'onName'
->(
-  'bk-wallet-connect',
-  {
-    onConnect: 'bk-connect',
-    onDisconnect: 'bk-disconnect',
-    onError: 'bk-error',
-    onName: 'name',
-  } as Record<'onConnect' | 'onDisconnect' | 'onError' | 'onName', string>,
-  'WalletConnect',
-);
+export const WalletConnect = wrap<BkWalletConnect, 'onConnect' | 'onDisconnect' | 'onError' | 'onName'>('bk-wallet-connect', {"onConnect":"bk-connect","onDisconnect":"bk-disconnect","onError":"bk-error","onName":"name"} as Record<'onConnect' | 'onDisconnect' | 'onError' | 'onName', string>, 'WalletConnect');

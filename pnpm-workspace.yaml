@@ -5,6 +5,7 @@ packages:
 allowBuilds:
   esbuild: true
   rs-module-lexer: false
+  sharp: false
 minimumReleaseAgeExclude:
   - '@turbo/darwin-64@2.11.11'
   - '@turbo/darwin-arm64@2.11.11'
@@ -15,3 +16,7 @@ minimumReleaseAgeExclude:
   - prettier@3.10.0
   - turbo@2.11.11
   - vite@8.3.8
+  - '@astrojs/markdown-satteri@0.4.9'
+  - '@astrojs/runtime@0.1.1'
+  - '@astrojs/vite-plugin-astro@0.1.2'
+  - astro@7.4.11

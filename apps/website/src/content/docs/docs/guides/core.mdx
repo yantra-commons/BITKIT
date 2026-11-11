@@ -1,0 +1,67 @@
+---
+title: Headless core
+description: Pure TypeScript Bitcoin logic you can use without any UI.
+---
+
+`@bitkit-ui/core` has no DOM dependency. It runs in browsers, Node, Deno, Bun and workers.
+
+```sh
+npm install @bitkit-ui/core
+```
+
+## Amounts
+
+```ts
+import { toMsat, fromMsat, formatAmount, fiatToMsat, msatToFiat } from '@bitkit-ui/core';
+
+const msat = toMsat('0.0025', 'btc'); // 250000000n
+fromMsat(msat, 'sat'); // "250000"
+formatAmount(msat, { unit: 'auto', locale: 'en-IN' }).text; // "2,50,000 sats"
+msatToFiat(msat, { currency: 'USD', price: '97250' }).value; // "243.13"
+toMsat('0.1', 'btc') + toMsat('0.2', 'btc') === toMsat('0.3', 'btc'); // true
+```
+
+## Parse anything a user pastes
+
+```ts
+import { parsePaymentInput } from '@bitkit-ui/core';
+
+const r = parsePaymentInput(text, { network: 'mainnet' });
+switch (r.type) {
+  case 'onchain-address':
+    r.address.type;
+    break; // 'p2tr' | 'p2wpkh' | …
+  case 'bip21':
+    r.uri.amountMsat;
+    break; // plus r.invoice for unified QR
+  case 'bolt11':
+    r.invoice.description;
+    break;
+  case 'bolt12-offer':
+    r.offer.description;
+    break;
+  case 'lnurl':
+    r.lnurl.kind;
+    break; // 'pay' | 'withdraw' | …
+  case 'lightning-address':
+    r.lightningAddress.lnurlpUrl;
+    break;
+  case 'invalid':
+    r.error.message;
+    break; // "This address has a typo…"
+}
+```
+
+## Also included
+
+- `decodeAddress` / `validateAddress`: P2PKH, P2SH, P2WPKH, P2WSH, P2TR and future SegWit
+  versions on every network, with BIP-173/350 test vectors.
+- `parseBip21` / `buildBip21`: including `lightning=` and `lno=`, plus upper-case unified QR.
+- `decodeBolt11`: all BOLT11 spec vectors (display-level, no signature verification).
+- `decodeLnurl`, `encodeLnurl`, `parseLightningAddress`, `decodeBolt12Offer`, `parseNwcUri`.
+- `estimateVsize`, `feeForVsize`, `feeTiersFromRecommended`, `checkFeeRate`.
+- `@bitkit-ui/core/mnemonic`: BIP39 word validation, suggestions, checksum checks and backup-quiz
+  helpers. Imported separately so the 2048-word list only ships when used.
+
+Every function that can fail throws a `BitkitError` with a stable `code` and a user-facing
+`message`, or has a non-throwing `validate*` variant.

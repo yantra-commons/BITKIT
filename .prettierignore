@@ -10,3 +10,4 @@ CHANGELOG.md
 storybook-static
 .next
 next-env.d.ts
+apps/website/dist

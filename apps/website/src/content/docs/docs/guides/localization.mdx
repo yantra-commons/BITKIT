@@ -1,0 +1,42 @@
+---
+title: Localization
+description: Number formats, locales and translating component copy.
+---
+
+## Number formatting
+
+Amounts use `Intl.NumberFormat` grouping and decimal symbols for the active locale, without ever
+converting to floating point:
+
+| Locale  | 12,345,678 sats  | 0.0015 BTC |
+| ------- | ---------------- | ---------- |
+| `en-US` | 12,345,678 sats  | 0.0015 BTC |
+| `en-IN` | 1,23,45,678 sats | 0.0015 BTC |
+| `de-DE` | 12.345.678 sats  | 0,0015 BTC |
+| `fr-FR` | 12 345 678 sats  | 0,0015 BTC |
+
+The locale comes from, in order: the component's `locale` attribute, `configure({ locale })`,
+the page's `<html lang>`, then `en-US`. Amount inputs accept the locale's decimal separator, and
+also `.` as a fallback.
+
+## Translating copy
+
+All component strings live in one table. Override any of them:
+
+```ts
+import { configure, DEFAULT_STRINGS } from '@bitkit-ui/elements';
+
+configure({
+  strings: {
+    copy: 'Kopieren',
+    copied: 'Kopiert',
+    recipient: 'Empfänger',
+    notEnoughFunds: 'Nicht genug Guthaben. Verfügbar: {amount}.',
+  },
+});
+```
+
+`{placeholders}` are filled in by the component. See `DEFAULT_STRINGS` for every key.
+
+The core's user-facing error messages (for example "This address has a typo…") are English. Map
+them by their stable `code` (such as `invalid-checksum` or `wrong-network`) to translate them.

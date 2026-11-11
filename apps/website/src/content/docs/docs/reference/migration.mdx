@@ -1,0 +1,38 @@
+---
+title: Migration & versioning
+description: How releases are versioned and how to upgrade.
+---
+
+All `@bitkit-ui/*` packages are versioned together with [Changesets](https://github.com/changesets/changesets),
+so matching versions are always compatible.
+
+- **0.x**: the API may change in minor releases. Breaking changes are listed under
+  "Breaking" in each package's `CHANGELOG.md`.
+- **1.0 and later**: semantic versioning. Breaking changes only in major versions, with a
+  migration section on this page.
+
+## What counts as breaking
+
+- Removing or renaming a tag, attribute, property, event, slot, CSS part or token.
+- Changing an event's `detail` shape.
+- Changing default behavior that affects payments (for example default methods or expiry).
+
+Visual refinements that keep the public API are not breaking. Pin exact versions if you rely on
+pixel-perfect snapshots.
+
+## Upgrading
+
+```sh
+npx npm-check-updates "@bitkit-ui/*" -u && npm install
+```
+
+Then read the changelog for each version you skipped.
+
+## From other libraries
+
+| You used                                     | Bitkit UI equivalent                                                 |
+| -------------------------------------------- | -------------------------------------------------------------------- |
+| A custom amount formatter with `Number` math | `formatAmount` from `@bitkit-ui/core`                                |
+| `bitcoin-address-validation`                 | `validateAddress` (adds Taproot, network checks and friendly errors) |
+| `bolt11` decoder                             | `decodeBolt11` (display-level, no signature check)                   |
+| A hand-built checkout modal                  | `<bk-pay-button>` or `<bk-checkout mode="modal">`                    |

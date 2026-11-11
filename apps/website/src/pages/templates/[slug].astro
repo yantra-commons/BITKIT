@@ -1,0 +1,30 @@
+---
+import Site from '../../layouts/Site.astro';
+import { templates, type Template } from '../../lib/templates';
+
+export function getStaticPaths() {
+  return templates.map((t) => ({ params: { slug: t.slug }, props: { t } }));
+}
+const { t } = Astro.props as { t: Template };
+---
+
+<Site title={`${t.title} — Bitkit UI template`} description={t.description} bare>
+  <Fragment set:html={`<style>${t.css}</style>${t.body}`} />
+</Site>
+
+<script>
+  import '../../scripts/kit';
+  // Template-specific setup mirrors the copyable source. Kept declarative to avoid eval.
+  const now = Date.now();
+  const fees = document.querySelector('#fees') as (HTMLElement & { fees?: unknown }) | null;
+  if (fees) fees.fees = { fastestFee: 24, halfHourFee: 12, hourFee: 6, economyFee: 3, minimumFee: 1 };
+  const txs = document.querySelector('#txs') as (HTMLElement & { transactions?: unknown }) | null;
+  if (txs) {
+    txs.transactions = [
+      { id: 'a', direction: 'incoming', amount: 21000, timestamp: now - 300000, method: 'lightning', label: 'Zap from Alice' },
+      { id: 'b', direction: 'outgoing', amount: 150000, fee: 1410, timestamp: now - 7200000, status: 'pending', confirmations: 2 },
+      { id: 'c', direction: 'incoming', amount: 1250000, timestamp: now - 86400000 * 1.5, label: 'Salary' },
+      { id: 'd', direction: 'outgoing', amount: 99000, timestamp: now - 86400000 * 9, method: 'lightning', label: 'VPN subscription' },
+    ];
+  }
+</script>

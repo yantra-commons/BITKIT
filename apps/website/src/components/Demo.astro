@@ -1,0 +1,61 @@
+---
+import { Code, TabItem, Tabs } from '@astrojs/starlight/components';
+import { toReact, toVue } from '../lib/codegen';
+import type { Example } from '../lib/examples';
+
+interface Props {
+  slug: string;
+  example: Example;
+  payments?: boolean;
+}
+const { slug, example, payments } = Astro.props;
+const htmlCode = example.js ? `${example.html}\n\n<script type="module">\n${example.js}\n</script>` : example.html;
+---
+
+<div class="bk-demo not-content" data-demo={slug}>
+  <div class="bk-demo__bar">
+    <label>Theme
+      <select data-control="theme" aria-label="Preview theme">
+        <option value="auto">Match site</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </label>
+    <label>Network
+      <select data-control="network" aria-label="Network">
+        <option value="mainnet">Mainnet</option>
+        <option value="testnet">Testnet</option>
+        <option value="signet">Signet</option>
+        <option value="regtest">Regtest</option>
+      </select>
+    </label>
+    {
+      payments && (
+        <label>
+          Mock scenario
+          <select data-control="scenario" aria-label="Mock payment scenario">
+            <option value="lightning">Lightning paid</option>
+            <option value="onchain">On-chain confirmations</option>
+            <option value="underpaid">Underpaid</option>
+            <option value="overpaid">Overpaid</option>
+            <option value="expired">Expired</option>
+            <option value="failed">Failed</option>
+            <option value="manual">Wait forever</option>
+          </select>
+        </label>
+      )
+    }
+  </div>
+  <div class="bk-demo__preview" set:html={example.html} />
+</div>
+
+<Tabs syncKey="framework">
+  <TabItem label="HTML"><Code code={htmlCode} lang="html" /></TabItem>
+  <TabItem label="React"><Code code={toReact(example.html) + (example.js ? `\n\n// Property setup (use a ref):\n// ${example.js.split('\n').join('\n// ')}` : '')} lang="tsx" /></TabItem>
+  <TabItem label="Vue"><Code code={toVue(example.html)} lang="vue" /></TabItem>
+</Tabs>
+
+<script>
+  import '../scripts/kit';
+  import '../scripts/demo-setup';
+</script>

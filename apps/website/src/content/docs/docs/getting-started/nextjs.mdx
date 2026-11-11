@@ -1,0 +1,62 @@
+---
+title: Next.js
+description: Use the kit in the App Router with client components and Route Handlers.
+---
+
+The React wrappers are marked `'use client'`, so they work from any client component. Keep your
+provider's API key in a Route Handler and point the browser at it with the HTTP adapter.
+
+```tsx title="app/checkout.tsx"
+'use client';
+import { useMemo } from 'react';
+import { Checkout } from '@bitkit-ui/react';
+import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+
+export function PayForOrder({ orderId }: { orderId: string }) {
+  const adapter = useMemo(() => createHttpAdapter({ baseUrl: '/api/payments' }), []);
+  return <Checkout adapter={adapter} amount={21000n} orderId={orderId} />;
+}
+```
+
+```ts title="app/api/payments/route.ts"
+import { BtcPayAdapter } from '@bitkit-ui/adapters/btcpay';
+
+const btcpay = new BtcPayAdapter({
+  baseUrl: process.env.BTCPAY_URL!,
+  storeId: process.env.BTCPAY_STORE_ID!,
+  apiKey: process.env.BTCPAY_API_KEY!, // server-side only
+});
+
+const json = (v: unknown, status = 200) =>
+  new Response(
+    JSON.stringify(v, (_k, x) => (typeof x === 'bigint' ? x.toString() : x)),
+    {
+      status,
+      headers: { 'Content-Type': 'application/json' },
+    },
+  );
+
+export async function POST(req: Request) {
+  const { orderId } = await req.json();
+  const order = await lookUpOrder(orderId); // price comes from your database, not the browser
+  return json(
+    await btcpay.createInvoice({ amountSats: order.totalSats, orderId, description: order.title }),
+    201,
+  );
+}
+```
+
+Add `app/api/payments/[id]/route.ts` returning `btcpay.getStatus(id)` for status polling.
+
+```js title="next.config.mjs"
+export default {
+  transpilePackages: [
+    '@bitkit-ui/react',
+    '@bitkit-ui/elements',
+    '@bitkit-ui/adapters',
+    '@bitkit-ui/core',
+  ],
+};
+```
+
+A runnable version lives in `apps/examples/nextjs`.

@@ -1,0 +1,43 @@
+---
+title: Introduction
+description: Open-source UI components for Bitcoin and Lightning web apps.
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Bitkit UI is a set of accessible, themeable web components for the things every Bitcoin app needs:
+amounts, addresses, invoices, payments, wallets and transactions.
+
+- **Framework-agnostic.** Standard Web Components (Lit) that work in plain HTML, React, Vue,
+  Svelte, Angular and Astro, with typed wrappers for React and Vue.
+- **Correct by construction.** All Bitcoin logic lives in a headless, fully tested core:
+  bigint money math, BIP-173/350 address validation, BIP21 and unified QR, BOLT11/BOLT12, LNURL.
+- **Built on the [Bitcoin Design Guide](https://bitcoin.design).** Terminology, chunked
+  addresses, unified QR, payment states and backup flows follow its patterns.
+- **Non-custodial.** Components never request, store or transmit private keys. Recovery-phrase
+  components are memory-only.
+- **Provider-agnostic.** Payments go through a tiny adapter interface: mock, BTCPay Server,
+  LNbits, OpenNode, Nostr Wallet Connect, or your own backend.
+
+<CardGrid>
+  <LinkCard
+    title="Install"
+    href="getting-started/installation/"
+    description="npm, CDN, React, Vue, Next.js, Astro."
+  />
+  <LinkCard
+    title="Accept bitcoin in 5 minutes"
+    href="recipes/store-page/"
+    description="A pay button on a store page."
+  />
+  <LinkCard
+    title="Components"
+    href="components/checkout/"
+    description="Live examples and API reference."
+  />
+  <LinkCard
+    title="Playground"
+    href="../playground/"
+    description="Edit props live and copy the code."
+  />
+</CardGrid>
