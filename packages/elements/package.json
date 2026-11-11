@@ -46,6 +46,7 @@
     "size": "size-limit"
   },
   "dependencies": {
+    "@bitkit-ui/adapters": "workspace:*",
     "@bitkit-ui/core": "workspace:*",
     "@bitkit-ui/tokens": "workspace:*",
     "lit": "^3.3.3",

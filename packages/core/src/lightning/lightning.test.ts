@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import vectors from '../../test/fixtures/bolt11-invoice-test.json' with { type: 'json' };
 import { bech32 } from '@scure/base';
 import { decodeBolt11, isInvoiceExpired, looksLikeBolt11, secondsUntilExpiry } from './bolt11.js';
+import { encodeUnsignedBolt11 } from './bolt11-encode.js';
 import { bolt12Kind, decodeBolt12Offer, looksLikeBolt12Offer } from './bolt12.js';
 import { decodeLnurl, encodeLnurl, looksLikeLnurl } from './lnurl.js';
 import { looksLikeLightningAddress, parseLightningAddress } from './lightning-address.js';
@@ -263,5 +264,49 @@ describe('BOLT12 offers (display-level)', () => {
     expect(() => decodeBolt12Offer(encodeOffer([[10, utf8('abc')]]).slice(0, -2))).toThrow(
       /malformed/,
     );
+  });
+});
+
+describe('encodeUnsignedBolt11', () => {
+  const hash = Uint8Array.from({ length: 32 }, (_, i) => i);
+  const secret = new Uint8Array(32).fill(0x11);
+  it.each([
+    [null, 'mainnet'],
+    [100_000_000_000n, 'mainnet'],
+    [250_000_000n, 'testnet'],
+    [21_000_000n, 'signet'],
+    [1_500n, 'regtest'],
+    [1n, 'mainnet'],
+  ] as const)('round-trips %s msat on %s', (amountMsat, network) => {
+    const pr = encodeUnsignedBolt11({
+      network,
+      amountMsat,
+      timestamp: 1700000000,
+      paymentHash: hash,
+      paymentSecret: secret,
+      description: 'Mock ☕',
+      expiry: 900,
+    });
+    const inv = decodeBolt11(pr);
+    expect(inv).toMatchObject({
+      network,
+      amountMsat,
+      timestamp: 1700000000,
+      description: 'Mock ☕',
+      expiry: 900,
+      features: [8, 14],
+    });
+    expect(inv.paymentHash).toBe(Buffer.from(hash).toString('hex'));
+    expect(inv.signature).toBe('0'.repeat(128));
+  });
+
+  it('omits expiry when not given', () => {
+    const pr = encodeUnsignedBolt11({
+      network: 'mainnet',
+      timestamp: 1,
+      paymentHash: hash,
+      paymentSecret: secret,
+    });
+    expect(decodeBolt11(pr)).toMatchObject({ expiry: 3600, description: '' });
   });
 });

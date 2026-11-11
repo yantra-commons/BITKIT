@@ -1,0 +1,64 @@
+{
+  "name": "@bitkit-ui/adapters",
+  "version": "0.0.0",
+  "description": "Provider-agnostic payment adapters (mock, BTCPay Server, LNbits, NWC, OpenNode, HTTP) and rate/fee sources for bitkit-ui.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./mock": {
+      "types": "./dist/mock.d.ts",
+      "default": "./dist/mock.js"
+    },
+    "./btcpay": {
+      "types": "./dist/btcpay.d.ts",
+      "default": "./dist/btcpay.js"
+    },
+    "./lnbits": {
+      "types": "./dist/lnbits.d.ts",
+      "default": "./dist/lnbits.js"
+    },
+    "./opennode": {
+      "types": "./dist/opennode.d.ts",
+      "default": "./dist/opennode.js"
+    },
+    "./nwc": {
+      "types": "./dist/nwc.d.ts",
+      "default": "./dist/nwc.js"
+    },
+    "./http": {
+      "types": "./dist/http.d.ts",
+      "default": "./dist/http.js"
+    },
+    "./rates": {
+      "types": "./dist/rates.d.ts",
+      "default": "./dist/rates.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@bitkit-ui/core": "workspace:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/bitkit-ui",
+    "directory": "packages/adapters"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

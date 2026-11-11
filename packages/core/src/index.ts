@@ -16,6 +16,7 @@ export * from './address/display.js';
 export * from './bip21/bip21.js';
 
 export * from './lightning/bolt11.js';
+export * from './lightning/bolt11-encode.js';
 export * from './lightning/bolt12.js';
 export * from './lightning/lnurl.js';
 export * from './lightning/lightning-address.js';

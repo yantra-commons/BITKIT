@@ -7,7 +7,7 @@ export default defineConfig({
     emptyOutDir: true,
     sourcemap: true,
     target: 'es2022',
-    lib: { entry: 'src/index.ts', formats: ['es'], fileName: () => 'bitkit-ui.js' },
+    lib: { entry: 'src/cdn.ts', formats: ['es'], fileName: () => 'bitkit-ui.js' },
     rollupOptions: { external: [] },
   },
 });
