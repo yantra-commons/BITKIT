@@ -1,0 +1,13 @@
+{
+  "name": "@bitkit-ui/example-proxy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.mjs",
+    "start": "node src/server.mjs",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@bitkit-ui/adapters": "workspace:*"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@bitkit-ui/example-vanilla",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node serve.mjs",
+    "build": "node -e \"console.log('static example, nothing to build')\""
+  }
+}

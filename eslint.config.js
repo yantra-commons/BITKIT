@@ -11,6 +11,7 @@ export default tseslint.config(
       '**/storybook-static/**',
       '**/.astro/**',
       '**/.next/**',
+      '**/next-env.d.ts',
       '**/custom-elements.json',
       'apps/website/src/generated/**',
     ],

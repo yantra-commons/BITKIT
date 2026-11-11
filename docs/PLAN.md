@@ -57,17 +57,17 @@ Lint rule bans `parseFloat`/`Number(...)` on amount paths inside `core/src/units
 
 ## 3. Packages and runtime dependencies
 
-| Package    | Runtime deps    | Justification                                                                                                                                |
-| ---------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `core`     | `@scure/base`   | Audited bech32/bech32m/base58/base58check codecs (paulmillr, zero deps). Needed for address validation, BOLT11, LNURL.                       |
-| `core`     | `@noble/hashes` | Audited sha256 (base58check checksum, BIP39 checksum). Already a dependency of `@scure/base`'s ecosystem.                                    |
-| `core`     | `@scure/bip39`  | Audited English wordlist + checksum validation. Only the wordlist + `validateMnemonic` are used; no key derivation anywhere in UI paths.     |
-| `tokens`   | —               | Build-time node script, no deps.                                                                                                             |
-| `elements` | `lit`           | Web component base (≈6 kB gz).                                                                                                               |
-| `elements` | `uqr`           | Tiny zero-dep QR encoder → SVG (unjs, MIT). Runs fully client side.                                                                          |
-| `adapters` | —               | Uses `fetch`/`WebSocket`. NWC crypto (NIP-04/44) is delegated to a user-supplied signer or `@getalby/sdk` peer (optional peer, not bundled). |
-| `react`    | `@lit/react`    | Official Lit → React wrapper, maps events to `onX` props.                                                                                    |
-| `vue`      | —               | Vue natively supports custom elements; wrappers are `defineComponent` shims for typing.                                                      |
+| Package    | Runtime deps    | Justification                                                                                                                                                                                                     |
+| ---------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `core`     | `@scure/base`   | Audited bech32/bech32m/base58/base58check codecs (paulmillr, zero deps). Needed for address validation, BOLT11, LNURL.                                                                                            |
+| `core`     | `@noble/hashes` | Audited sha256 (base58check checksum, BIP39 checksum). Already a dependency of `@scure/base`'s ecosystem.                                                                                                         |
+| `core`     | `@scure/bip39`  | Audited English wordlist + checksum validation. Only the wordlist + `validateMnemonic` are used; no key derivation anywhere in UI paths.                                                                          |
+| `tokens`   | —               | Build-time node script, no deps.                                                                                                                                                                                  |
+| `elements` | `lit`           | Web component base (≈6 kB gz).                                                                                                                                                                                    |
+| `elements` | `uqr`           | Tiny zero-dep QR encoder → SVG (unjs, MIT). Runs fully client side.                                                                                                                                               |
+| `adapters` | —               | Uses `fetch`/`WebSocket`. NWC crypto (NIP-04/44) is delegated to a user-supplied signer or `@getalby/sdk` peer (optional peer, not bundled).                                                                      |
+| `react`    | —               | Own ~80-line wrapper (`wrap.ts`): sets DOM properties via ref + layout effect and maps events to `on*` props. `@lit/react` 1.0.8 was evaluated and dropped: it failed to pass properties under React 19 in tests. |
+| `vue`      | —               | Vue natively supports custom elements; wrappers are `defineComponent` shims for typing.                                                                                                                           |
 
 Not added: a BOLT11 library (we implement a display-level decoder on `@scure/base` — ~200 LOC,
 tested against BOLT11 spec vectors), a QR _scanning_ library (we use the native

@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bk-color-bg, #fff);
+  color: var(--bk-color-text, #16161a);
+}
+main {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+.product {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  border: 1px solid var(--bk-color-border, #ddd);
+  border-radius: 16px;
+}
+.product h2 {
+  margin: 0;
+  flex-basis: 100%;
+  font-size: 1.1rem;
+}

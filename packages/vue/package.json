@@ -1,0 +1,44 @@
+{
+  "name": "@bitkit-ui/vue",
+  "description": "Typed Vue 3 components for bitkit-ui (generated from the custom elements manifest).",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "build": "node scripts/generate.mjs && tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@bitkit-ui/elements": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": ">=3.3"
+  },
+  "devDependencies": {
+    "@bitkit-ui/adapters": "workspace:*",
+    "vue": "^3.5.45"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/bitkit-ui",
+    "directory": "packages/vue"
+  }
+}

@@ -13,7 +13,7 @@ import { iconSvg } from '../icon/icon.js';
 import '../copy-button/copy-button.js';
 import '../qr-code/qr-code.js';
 
-interface LnurlPayMetadata {
+export interface LnurlPayMetadata {
   minSendable: number;
   maxSendable: number;
   description?: string;

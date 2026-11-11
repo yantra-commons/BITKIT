@@ -882,398 +882,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/amount-display/amount-display.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkAmountDisplay",
-          "cssParts": [
-            {
-              "description": "Wrapper.",
-              "name": "base"
-            },
-            {
-              "description": "The formatted amount (number + unit).",
-              "name": "value"
-            },
-            {
-              "description": "The number.",
-              "name": "number"
-            },
-            {
-              "description": "The unit label.",
-              "name": "unit"
-            },
-            {
-              "description": "Secondary fiat line.",
-              "name": "fiat"
-            },
-            {
-              "description": "Show/hide button.",
-              "name": "privacy-toggle"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "amount",
-              "privacy": "public",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Amount in sats.",
-              "attribute": "amount"
-            },
-            {
-              "kind": "field",
-              "name": "msat",
-              "privacy": "public",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Amount in millisats (takes precedence over `amount`).",
-              "attribute": "msat"
-            },
-            {
-              "kind": "field",
-              "name": "unit",
-              "privacy": "public",
-              "type": {
-                "text": "DisplayUnit | undefined"
-              },
-              "description": "Display unit; defaults to the global config unit (`sats`).",
-              "attribute": "unit",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "units",
-              "privacy": "public",
-              "type": {
-                "text": "DisplayUnit[] | undefined"
-              },
-              "description": "Units cycled by the toggle. Default sats → BTC (→ fiat when a rate is set).",
-              "attribute": "units"
-            },
-            {
-              "kind": "field",
-              "name": "fiatRate",
-              "privacy": "public",
-              "type": {
-                "text": "FiatRate | undefined"
-              },
-              "description": "Fiat rate object (property only)."
-            },
-            {
-              "kind": "field",
-              "name": "fiatCurrency",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Fiat currency code (attribute alternative to `fiatRate`).",
-              "attribute": "fiat-currency"
-            },
-            {
-              "kind": "field",
-              "name": "fiatPrice",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Price of 1 BTC in `fiat-currency`.",
-              "attribute": "fiat-price"
-            },
-            {
-              "kind": "field",
-              "name": "showFiat",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show a secondary fiat line.",
-              "default": "false",
-              "attribute": "show-fiat"
-            },
-            {
-              "kind": "field",
-              "name": "toggle",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Clicking the amount cycles units.",
-              "default": "false",
-              "attribute": "toggle"
-            },
-            {
-              "kind": "field",
-              "name": "privacy",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Hide the amount (privacy mode).",
-              "default": "false",
-              "attribute": "privacy",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "privacyToggle",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show an eye button to toggle privacy.",
-              "default": "false",
-              "attribute": "privacy-toggle"
-            },
-            {
-              "kind": "field",
-              "name": "locale",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "attribute": "locale"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "privacy": "public",
-              "type": {
-                "text": "'sm' | 'md' | 'lg' | 'xl'"
-              },
-              "default": "'md'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "signDisplay",
-              "privacy": "public",
-              "type": {
-                "text": "'auto' | 'always' | 'never' | undefined"
-              },
-              "attribute": "sign-display"
-            },
-            {
-              "kind": "field",
-              "name": "direction",
-              "privacy": "public",
-              "type": {
-                "text": "'incoming' | 'outgoing' | undefined"
-              },
-              "description": "`incoming` colors the amount as received.",
-              "attribute": "direction"
-            },
-            {
-              "kind": "field",
-              "name": "btcStyle",
-              "privacy": "public",
-              "type": {
-                "text": "'code' | 'symbol' | undefined"
-              },
-              "description": "`code` → \"0.5 BTC\", `symbol` → \"₿0.5\".",
-              "attribute": "btc-style"
-            },
-            {
-              "kind": "field",
-              "name": "loading",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show a loading skeleton.",
-              "default": "false",
-              "attribute": "loading"
-            },
-            {
-              "kind": "field",
-              "name": "formatted",
-              "type": {
-                "text": "FormattedAmount | undefined"
-              },
-              "description": "Formatted result for the current state (undefined when no amount).",
-              "readonly": true
-            }
-          ],
-          "events": [
-            {
-              "description": "When the user toggles the unit. Detail: `{ unit }`.",
-              "name": "bk-unit-change"
-            },
-            {
-              "description": "When the privacy toggle is used. Detail: `{ hidden: boolean }`.",
-              "name": "bk-privacy-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "amount",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Amount in sats.",
-              "fieldName": "amount"
-            },
-            {
-              "name": "msat",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Amount in millisats (takes precedence over `amount`).",
-              "fieldName": "msat"
-            },
-            {
-              "name": "unit",
-              "type": {
-                "text": "DisplayUnit | undefined"
-              },
-              "description": "Display unit; defaults to the global config unit (`sats`).",
-              "fieldName": "unit"
-            },
-            {
-              "name": "units",
-              "type": {
-                "text": "DisplayUnit[] | undefined"
-              },
-              "description": "Units cycled by the toggle. Default sats → BTC (→ fiat when a rate is set).",
-              "fieldName": "units"
-            },
-            {
-              "name": "fiat-currency",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Fiat currency code (attribute alternative to `fiatRate`).",
-              "fieldName": "fiatCurrency"
-            },
-            {
-              "name": "fiat-price",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Price of 1 BTC in `fiat-currency`.",
-              "fieldName": "fiatPrice"
-            },
-            {
-              "name": "show-fiat",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show a secondary fiat line.",
-              "default": "false",
-              "fieldName": "showFiat"
-            },
-            {
-              "name": "toggle",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Clicking the amount cycles units.",
-              "default": "false",
-              "fieldName": "toggle"
-            },
-            {
-              "name": "privacy",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Hide the amount (privacy mode).",
-              "default": "false",
-              "fieldName": "privacy"
-            },
-            {
-              "name": "privacy-toggle",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show an eye button to toggle privacy.",
-              "default": "false",
-              "fieldName": "privacyToggle"
-            },
-            {
-              "name": "locale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "fieldName": "locale"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg' | 'xl'"
-              },
-              "default": "'md'",
-              "fieldName": "size"
-            },
-            {
-              "name": "sign-display",
-              "type": {
-                "text": "'auto' | 'always' | 'never' | undefined"
-              },
-              "fieldName": "signDisplay"
-            },
-            {
-              "name": "direction",
-              "type": {
-                "text": "'incoming' | 'outgoing' | undefined"
-              },
-              "description": "`incoming` colors the amount as received.",
-              "fieldName": "direction"
-            },
-            {
-              "name": "btc-style",
-              "type": {
-                "text": "'code' | 'symbol' | undefined"
-              },
-              "description": "`code` → \"0.5 BTC\", `symbol` → \"₿0.5\".",
-              "fieldName": "btcStyle"
-            },
-            {
-              "name": "loading",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show a loading skeleton.",
-              "default": "false",
-              "fieldName": "loading"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-amount-display",
-          "customElement": true,
-          "summary": "Displays a bitcoin amount in sats, BTC or fiat. Optional unit toggle, fiat secondary\nline and privacy mode. All math is exact (bigint)."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BkAmountDisplay",
-          "declaration": {
-            "name": "BkAmountDisplay",
-            "module": "src/components/amount-display/amount-display.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/amount-input/amount-input.ts",
       "declarations": [
         {
@@ -1851,6 +1459,479 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/amount-display/amount-display.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkAmountDisplay",
+          "cssParts": [
+            {
+              "description": "Wrapper.",
+              "name": "base"
+            },
+            {
+              "description": "The formatted amount (number + unit).",
+              "name": "value"
+            },
+            {
+              "description": "The number.",
+              "name": "number"
+            },
+            {
+              "description": "The unit label.",
+              "name": "unit"
+            },
+            {
+              "description": "Secondary fiat line.",
+              "name": "fiat"
+            },
+            {
+              "description": "Show/hide button.",
+              "name": "privacy-toggle"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "amount",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount in sats.",
+              "attribute": "amount"
+            },
+            {
+              "kind": "field",
+              "name": "msat",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount in millisats (takes precedence over `amount`).",
+              "attribute": "msat"
+            },
+            {
+              "kind": "field",
+              "name": "unit",
+              "privacy": "public",
+              "type": {
+                "text": "DisplayUnit | undefined"
+              },
+              "description": "Display unit; defaults to the global config unit (`sats`).",
+              "attribute": "unit",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "units",
+              "privacy": "public",
+              "type": {
+                "text": "DisplayUnit[] | undefined"
+              },
+              "description": "Units cycled by the toggle. Default sats → BTC (→ fiat when a rate is set).",
+              "attribute": "units"
+            },
+            {
+              "kind": "field",
+              "name": "fiatRate",
+              "privacy": "public",
+              "type": {
+                "text": "FiatRate | undefined"
+              },
+              "description": "Fiat rate object (property only)."
+            },
+            {
+              "kind": "field",
+              "name": "fiatCurrency",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Fiat currency code (attribute alternative to `fiatRate`).",
+              "attribute": "fiat-currency"
+            },
+            {
+              "kind": "field",
+              "name": "fiatPrice",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Price of 1 BTC in `fiat-currency`.",
+              "attribute": "fiat-price"
+            },
+            {
+              "kind": "field",
+              "name": "showFiat",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a secondary fiat line.",
+              "default": "false",
+              "attribute": "show-fiat"
+            },
+            {
+              "kind": "field",
+              "name": "toggle",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Clicking the amount cycles units.",
+              "default": "false",
+              "attribute": "toggle"
+            },
+            {
+              "kind": "field",
+              "name": "privacy",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide the amount (privacy mode).",
+              "default": "false",
+              "attribute": "privacy",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "privacyToggle",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show an eye button to toggle privacy.",
+              "default": "false",
+              "attribute": "privacy-toggle"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "'sm' | 'md' | 'lg' | 'xl'"
+              },
+              "default": "'md'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "signDisplay",
+              "privacy": "public",
+              "type": {
+                "text": "'auto' | 'always' | 'never' | undefined"
+              },
+              "attribute": "sign-display"
+            },
+            {
+              "kind": "field",
+              "name": "direction",
+              "privacy": "public",
+              "type": {
+                "text": "'incoming' | 'outgoing' | undefined"
+              },
+              "description": "`incoming` colors the amount as received.",
+              "attribute": "direction"
+            },
+            {
+              "kind": "field",
+              "name": "btcStyle",
+              "privacy": "public",
+              "type": {
+                "text": "'code' | 'symbol' | undefined"
+              },
+              "description": "`code` → \"0.5 BTC\", `symbol` → \"₿0.5\".",
+              "attribute": "btc-style"
+            },
+            {
+              "kind": "field",
+              "name": "loading",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a loading skeleton.",
+              "default": "false",
+              "attribute": "loading"
+            },
+            {
+              "kind": "field",
+              "name": "formatted",
+              "type": {
+                "text": "FormattedAmount | undefined"
+              },
+              "description": "Formatted result for the current state (undefined when no amount).",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "description": "When the user toggles the unit. Detail: `{ unit }`.",
+              "name": "bk-unit-change"
+            },
+            {
+              "description": "When the privacy toggle is used. Detail: `{ hidden: boolean }`.",
+              "name": "bk-privacy-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "amount",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount in sats.",
+              "fieldName": "amount"
+            },
+            {
+              "name": "msat",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount in millisats (takes precedence over `amount`).",
+              "fieldName": "msat"
+            },
+            {
+              "name": "unit",
+              "type": {
+                "text": "DisplayUnit | undefined"
+              },
+              "description": "Display unit; defaults to the global config unit (`sats`).",
+              "fieldName": "unit"
+            },
+            {
+              "name": "units",
+              "type": {
+                "text": "DisplayUnit[] | undefined"
+              },
+              "description": "Units cycled by the toggle. Default sats → BTC (→ fiat when a rate is set).",
+              "fieldName": "units"
+            },
+            {
+              "name": "fiat-currency",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Fiat currency code (attribute alternative to `fiatRate`).",
+              "fieldName": "fiatCurrency"
+            },
+            {
+              "name": "fiat-price",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Price of 1 BTC in `fiat-currency`.",
+              "fieldName": "fiatPrice"
+            },
+            {
+              "name": "show-fiat",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a secondary fiat line.",
+              "default": "false",
+              "fieldName": "showFiat"
+            },
+            {
+              "name": "toggle",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Clicking the amount cycles units.",
+              "default": "false",
+              "fieldName": "toggle"
+            },
+            {
+              "name": "privacy",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide the amount (privacy mode).",
+              "default": "false",
+              "fieldName": "privacy"
+            },
+            {
+              "name": "privacy-toggle",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show an eye button to toggle privacy.",
+              "default": "false",
+              "fieldName": "privacyToggle"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg' | 'xl'"
+              },
+              "default": "'md'",
+              "fieldName": "size"
+            },
+            {
+              "name": "sign-display",
+              "type": {
+                "text": "'auto' | 'always' | 'never' | undefined"
+              },
+              "fieldName": "signDisplay"
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "'incoming' | 'outgoing' | undefined"
+              },
+              "description": "`incoming` colors the amount as received.",
+              "fieldName": "direction"
+            },
+            {
+              "name": "btc-style",
+              "type": {
+                "text": "'code' | 'symbol' | undefined"
+              },
+              "description": "`code` → \"0.5 BTC\", `symbol` → \"₿0.5\".",
+              "fieldName": "btcStyle"
+            },
+            {
+              "name": "loading",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a loading skeleton.",
+              "default": "false",
+              "fieldName": "loading"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-amount-display",
+          "customElement": true,
+          "summary": "Displays a bitcoin amount in sats, BTC or fiat. Optional unit toggle, fiat secondary\nline and privacy mode. All math is exact (bigint)."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkAmountDisplay",
+          "declaration": {
+            "name": "BkAmountDisplay",
+            "module": "src/components/amount-display/amount-display.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/badge/badge.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkBadge",
+          "cssParts": [
+            {
+              "description": "The badge container.",
+              "name": "base"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Badge text.",
+              "name": ""
+            },
+            {
+              "description": "Optional leading icon.",
+              "name": "icon"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "variant",
+              "privacy": "public",
+              "type": {
+                "text": "BadgeVariant"
+              },
+              "description": "Color variant.",
+              "default": "'neutral'",
+              "attribute": "variant",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "BadgeVariant"
+              },
+              "description": "Color variant.",
+              "default": "'neutral'",
+              "fieldName": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-badge",
+          "customElement": true,
+          "summary": "Small status label.",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkBadge",
+          "declaration": {
+            "name": "BkBadge",
+            "module": "src/components/badge/badge.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/backup-check/backup-check.ts",
       "declarations": [
         {
@@ -1980,87 +2061,6 @@
           "declaration": {
             "name": "BkBackupCheck",
             "module": "src/components/backup-check/backup-check.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/badge/badge.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkBadge",
-          "cssParts": [
-            {
-              "description": "The badge container.",
-              "name": "base"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Badge text.",
-              "name": ""
-            },
-            {
-              "description": "Optional leading icon.",
-              "name": "icon"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "variant",
-              "privacy": "public",
-              "type": {
-                "text": "BadgeVariant"
-              },
-              "description": "Color variant.",
-              "default": "'neutral'",
-              "attribute": "variant",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "variant",
-              "type": {
-                "text": "BadgeVariant"
-              },
-              "description": "Color variant.",
-              "default": "'neutral'",
-              "fieldName": "variant"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-badge",
-          "customElement": true,
-          "summary": "Small status label.",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BkBadge",
-          "declaration": {
-            "name": "BkBadge",
-            "module": "src/components/badge/badge.ts"
           }
         }
       ]
@@ -3055,142 +3055,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/confirmation-progress/confirmation-progress.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkConfirmationProgress",
-          "cssParts": [
-            {
-              "description": "Container.",
-              "name": "base"
-            },
-            {
-              "description": "Confirmation icon.",
-              "name": "icon"
-            },
-            {
-              "description": "Text label.",
-              "name": "label"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "confirmations",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "attribute": "confirmations"
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "description": "Confirmations considered final. Default 6.",
-              "default": "6",
-              "attribute": "required"
-            },
-            {
-              "kind": "field",
-              "name": "showEta",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show the remaining-time estimate.",
-              "default": "false",
-              "attribute": "show-eta"
-            },
-            {
-              "kind": "field",
-              "name": "compact",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Icon + \"3/6\" only.",
-              "default": "false",
-              "attribute": "compact"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "confirmations",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "fieldName": "confirmations"
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "number"
-              },
-              "description": "Confirmations considered final. Default 6.",
-              "default": "6",
-              "fieldName": "required"
-            },
-            {
-              "name": "show-eta",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show the remaining-time estimate.",
-              "default": "false",
-              "fieldName": "showEta"
-            },
-            {
-              "name": "compact",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Icon + \"3/6\" only.",
-              "default": "false",
-              "fieldName": "compact"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-confirmation-progress",
-          "customElement": true,
-          "summary": "On-chain confirmation progress using the Bitcoin Icons confirmation glyphs, with a\ntext label and an estimated time remaining (~10 minutes per block).",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BkConfirmationProgress",
-          "declaration": {
-            "name": "BkConfirmationProgress",
-            "module": "src/components/confirmation-progress/confirmation-progress.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/copy-button/copy-button.ts",
       "declarations": [
         {
@@ -3382,6 +3246,142 @@
           "declaration": {
             "name": "BkCopyButton",
             "module": "src/components/copy-button/copy-button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/confirmation-progress/confirmation-progress.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkConfirmationProgress",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "Confirmation icon.",
+              "name": "icon"
+            },
+            {
+              "description": "Text label.",
+              "name": "label"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "confirmations",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "confirmations"
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Confirmations considered final. Default 6.",
+              "default": "6",
+              "attribute": "required"
+            },
+            {
+              "kind": "field",
+              "name": "showEta",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the remaining-time estimate.",
+              "default": "false",
+              "attribute": "show-eta"
+            },
+            {
+              "kind": "field",
+              "name": "compact",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Icon + \"3/6\" only.",
+              "default": "false",
+              "attribute": "compact"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "confirmations",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "confirmations"
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "number"
+              },
+              "description": "Confirmations considered final. Default 6.",
+              "default": "6",
+              "fieldName": "required"
+            },
+            {
+              "name": "show-eta",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the remaining-time estimate.",
+              "default": "false",
+              "fieldName": "showEta"
+            },
+            {
+              "name": "compact",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Icon + \"3/6\" only.",
+              "default": "false",
+              "fieldName": "compact"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-confirmation-progress",
+          "customElement": true,
+          "summary": "On-chain confirmation progress using the Bitcoin Icons confirmation glyphs, with a\ntext label and an estimated time remaining (~10 minutes per block).",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkConfirmationProgress",
+          "declaration": {
+            "name": "BkConfirmationProgress",
+            "module": "src/components/confirmation-progress/confirmation-progress.ts"
           }
         }
       ]
@@ -5169,6 +5169,186 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lightning-address-card/lightning-address-card.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkLightningAddressCard",
+          "cssParts": [
+            {
+              "description": "Card.",
+              "name": "base"
+            },
+            {
+              "description": "Avatar.",
+              "name": "avatar"
+            },
+            {
+              "description": "Address text.",
+              "name": "address"
+            },
+            {
+              "description": "QR code.",
+              "name": "qr"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Extra content under the address.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "address",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Lightning Address, e.g. `satoshi@example.com`.",
+              "default": "''",
+              "attribute": "address"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Display name. Defaults to the username.",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "avatar",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Avatar image URL.",
+              "attribute": "avatar"
+            },
+            {
+              "kind": "field",
+              "name": "description",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "description"
+            },
+            {
+              "kind": "field",
+              "name": "qr",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the QR code. Default true.",
+              "default": "true",
+              "attribute": "qr"
+            },
+            {
+              "kind": "field",
+              "name": "fetchMetadata",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Fetch LNURL-pay limits/description from the domain. Off by default (privacy).",
+              "default": "false",
+              "attribute": "fetch-metadata"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "address",
+              "type": {
+                "text": "string"
+              },
+              "description": "Lightning Address, e.g. `satoshi@example.com`.",
+              "default": "''",
+              "fieldName": "address"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Display name. Defaults to the username.",
+              "fieldName": "name"
+            },
+            {
+              "name": "avatar",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Avatar image URL.",
+              "fieldName": "avatar"
+            },
+            {
+              "name": "description",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "description"
+            },
+            {
+              "name": "qr",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the QR code. Default true.",
+              "default": "true",
+              "fieldName": "qr"
+            },
+            {
+              "name": "fetch-metadata",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Fetch LNURL-pay limits/description from the domain. Off by default (privacy).",
+              "default": "false",
+              "fieldName": "fetchMetadata"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-lightning-address-card",
+          "customElement": true,
+          "summary": "Shareable card for a Lightning Address (LUD-16): avatar, name, copy, QR code (LNURL)\nand open-in-wallet. Optionally fetches LNURL-pay metadata (off by default for privacy).",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkLightningAddressCard",
+          "declaration": {
+            "name": "BkLightningAddressCard",
+            "module": "src/components/lightning-address-card/lightning-address-card.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/mnemonic-display/mnemonic-display.ts",
       "declarations": [
         {
@@ -5360,186 +5540,6 @@
           "declaration": {
             "name": "BkMnemonicDisplay",
             "module": "src/components/mnemonic-display/mnemonic-display.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lightning-address-card/lightning-address-card.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkLightningAddressCard",
-          "cssParts": [
-            {
-              "description": "Card.",
-              "name": "base"
-            },
-            {
-              "description": "Avatar.",
-              "name": "avatar"
-            },
-            {
-              "description": "Address text.",
-              "name": "address"
-            },
-            {
-              "description": "QR code.",
-              "name": "qr"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Extra content under the address.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "address",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "description": "Lightning Address, e.g. `satoshi@example.com`.",
-              "default": "''",
-              "attribute": "address"
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Display name. Defaults to the username.",
-              "attribute": "name"
-            },
-            {
-              "kind": "field",
-              "name": "avatar",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Avatar image URL.",
-              "attribute": "avatar"
-            },
-            {
-              "kind": "field",
-              "name": "description",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "attribute": "description"
-            },
-            {
-              "kind": "field",
-              "name": "qr",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show the QR code. Default true.",
-              "default": "true",
-              "attribute": "qr"
-            },
-            {
-              "kind": "field",
-              "name": "fetchMetadata",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Fetch LNURL-pay limits/description from the domain. Off by default (privacy).",
-              "default": "false",
-              "attribute": "fetch-metadata"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "address",
-              "type": {
-                "text": "string"
-              },
-              "description": "Lightning Address, e.g. `satoshi@example.com`.",
-              "default": "''",
-              "fieldName": "address"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Display name. Defaults to the username.",
-              "fieldName": "name"
-            },
-            {
-              "name": "avatar",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Avatar image URL.",
-              "fieldName": "avatar"
-            },
-            {
-              "name": "description",
-              "type": {
-                "text": "string | undefined"
-              },
-              "fieldName": "description"
-            },
-            {
-              "name": "qr",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show the QR code. Default true.",
-              "default": "true",
-              "fieldName": "qr"
-            },
-            {
-              "name": "fetch-metadata",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Fetch LNURL-pay limits/description from the domain. Off by default (privacy).",
-              "default": "false",
-              "fieldName": "fetchMetadata"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-lightning-address-card",
-          "customElement": true,
-          "summary": "Shareable card for a Lightning Address (LUD-16): avatar, name, copy, QR code (LNURL)\nand open-in-wallet. Optionally fetches LNURL-pay metadata (off by default for privacy).",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BkLightningAddressCard",
-          "declaration": {
-            "name": "BkLightningAddressCard",
-            "module": "src/components/lightning-address-card/lightning-address-card.ts"
           }
         }
       ]
@@ -6549,6 +6549,266 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/qr-scanner/qr-scanner.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "nativeQrDecoder",
+          "return": {
+            "type": {
+              "text": "QrDecoder | null"
+            }
+          },
+          "description": "Native BarcodeDetector-based decoder, or null when the browser lacks support."
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkQrScanner",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "The camera preview.",
+              "name": "video"
+            },
+            {
+              "description": "Status / fallback message.",
+              "name": "message"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "active",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Camera runs while true.",
+              "default": "false",
+              "attribute": "active",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "facing",
+              "privacy": "public",
+              "type": {
+                "text": "'environment' | 'user'"
+              },
+              "description": "Preferred camera. Default `environment` (rear).",
+              "default": "'environment'",
+              "attribute": "facing"
+            },
+            {
+              "kind": "field",
+              "name": "decoder",
+              "privacy": "public",
+              "type": {
+                "text": "QrDecoder | undefined"
+              },
+              "description": "Custom decoder; defaults to the native BarcodeDetector."
+            },
+            {
+              "kind": "method",
+              "name": "start",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "description": "Start the camera."
+            },
+            {
+              "kind": "method",
+              "name": "stop",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Stop the camera and release the stream."
+            }
+          ],
+          "events": [
+            {
+              "description": "When a code is read. Detail: `{ value: string, result: PaymentInput }`.",
+              "name": "bk-scan"
+            },
+            {
+              "description": "On camera errors. Detail: `{ code: 'denied' | 'unavailable' | 'unsupported' }`.",
+              "name": "bk-error"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "active",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Camera runs while true.",
+              "default": "false",
+              "fieldName": "active"
+            },
+            {
+              "name": "facing",
+              "type": {
+                "text": "'environment' | 'user'"
+              },
+              "description": "Preferred camera. Default `environment` (rear).",
+              "default": "'environment'",
+              "fieldName": "facing"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-qr-scanner",
+          "customElement": true,
+          "summary": "Camera QR scanner. Uses the native BarcodeDetector when available; plug in any\ndecoder (e.g. jsQR) via the `decoder` property for other browsers. Falls back to image upload\nand shows clear messages when the camera is denied or missing. Video never leaves the device."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "nativeQrDecoder",
+          "declaration": {
+            "name": "nativeQrDecoder",
+            "module": "src/components/qr-scanner/qr-scanner.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkQrScanner",
+          "declaration": {
+            "name": "BkQrScanner",
+            "module": "src/components/qr-scanner/qr-scanner.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/skeleton/skeleton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkSkeleton",
+          "cssParts": [
+            {
+              "description": "The placeholder block.",
+              "name": "base"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "shape",
+              "privacy": "public",
+              "type": {
+                "text": "'text' | 'rect' | 'circle'"
+              },
+              "description": "`text` (1em tall), `rect` or `circle`.",
+              "default": "'text'",
+              "attribute": "shape"
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "CSS width. Default 100%.",
+              "attribute": "width"
+            },
+            {
+              "kind": "field",
+              "name": "height",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "CSS height.",
+              "attribute": "height"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "shape",
+              "type": {
+                "text": "'text' | 'rect' | 'circle'"
+              },
+              "description": "`text` (1em tall), `rect` or `circle`.",
+              "default": "'text'",
+              "fieldName": "shape"
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "CSS width. Default 100%.",
+              "fieldName": "width"
+            },
+            {
+              "name": "height",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "CSS height.",
+              "fieldName": "height"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-skeleton",
+          "customElement": true,
+          "summary": "Placeholder shimmer shown while content loads. Hidden from assistive technology;\npair it with a `bk-spinner` or `aria-busy` on the region being loaded.",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkSkeleton",
+          "declaration": {
+            "name": "BkSkeleton",
+            "module": "src/components/skeleton/skeleton.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/select/select.ts",
       "declarations": [
         {
@@ -6917,98 +7177,54 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/qr-scanner/qr-scanner.ts",
+      "path": "src/components/tabs/tabs.ts",
       "declarations": [
-        {
-          "kind": "function",
-          "name": "nativeQrDecoder",
-          "return": {
-            "type": {
-              "text": "QrDecoder | null"
-            }
-          },
-          "description": "Native BarcodeDetector-based decoder, or null when the browser lacks support."
-        },
         {
           "kind": "class",
           "description": "",
-          "name": "BkQrScanner",
+          "name": "BkTabs",
           "cssParts": [
             {
-              "description": "Container.",
-              "name": "base"
+              "description": "The tab list.",
+              "name": "tablist"
             },
             {
-              "description": "The camera preview.",
-              "name": "video"
+              "description": "Each tab button.",
+              "name": "tab"
             },
             {
-              "description": "Status / fallback message.",
-              "name": "message"
+              "description": "Each panel wrapper.",
+              "name": "panel"
             }
           ],
           "members": [
             {
               "kind": "field",
-              "name": "active",
+              "name": "value",
               "privacy": "public",
               "type": {
-                "text": "boolean"
+                "text": "string"
               },
-              "description": "Camera runs while true.",
-              "default": "false",
-              "attribute": "active",
+              "description": "Name of the selected tab. Defaults to the first enabled tab.",
+              "default": "''",
+              "attribute": "value",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "facing",
+              "name": "label",
               "privacy": "public",
               "type": {
-                "text": "'environment' | 'user'"
+                "text": "string | undefined"
               },
-              "description": "Preferred camera. Default `environment` (rear).",
-              "default": "'environment'",
-              "attribute": "facing"
-            },
-            {
-              "kind": "field",
-              "name": "decoder",
-              "privacy": "public",
-              "type": {
-                "text": "QrDecoder | undefined"
-              },
-              "description": "Custom decoder; defaults to the native BarcodeDetector."
-            },
-            {
-              "kind": "method",
-              "name": "start",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              },
-              "description": "Start the camera."
-            },
-            {
-              "kind": "method",
-              "name": "stop",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Stop the camera and release the stream."
+              "description": "Accessible name for the tab list.",
+              "attribute": "label"
             }
           ],
           "events": [
             {
-              "description": "When a code is read. Detail: `{ value: string, result: PaymentInput }`.",
-              "name": "bk-scan"
-            },
-            {
-              "description": "On camera errors. Detail: `{ code: 'denied' | 'unavailable' | 'unsupported' }`.",
-              "name": "bk-error"
+              "description": "When the selected tab changes. Detail: `{ value: string }`.",
+              "name": "bk-change"
             },
             {
               "name": "name",
@@ -7023,154 +7239,39 @@
           ],
           "attributes": [
             {
-              "name": "active",
+              "name": "value",
               "type": {
-                "text": "boolean"
+                "text": "string"
               },
-              "description": "Camera runs while true.",
-              "default": "false",
-              "fieldName": "active"
+              "description": "Name of the selected tab. Defaults to the first enabled tab.",
+              "default": "''",
+              "fieldName": "value"
             },
             {
-              "name": "facing",
+              "name": "label",
               "type": {
-                "text": "'environment' | 'user'"
+                "text": "string | undefined"
               },
-              "description": "Preferred camera. Default `environment` (rear).",
-              "default": "'environment'",
-              "fieldName": "facing"
+              "description": "Accessible name for the tab list.",
+              "fieldName": "label"
             }
           ],
           "superclass": {
             "name": "BitkitElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-qr-scanner",
+          "tagName": "bk-tabs",
           "customElement": true,
-          "summary": "Camera QR scanner. Uses the native BarcodeDetector when available; plug in any\ndecoder (e.g. jsQR) via the `decoder` property for other browsers. Falls back to image upload\nand shows clear messages when the camera is denied or missing. Video never leaves the device."
+          "summary": "Accessible tabs (WAI-ARIA tabs pattern, automatic activation). Each child element\nwith a `slot` name and a `label` attribute becomes one tab and its panel.\n\n```html\n<bk-tabs>\n<div slot=\"lightning\" label=\"Lightning\">…</div>\n<div slot=\"onchain\" label=\"On-chain\">…</div>\n</bk-tabs>\n```"
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "nativeQrDecoder",
+          "name": "BkTabs",
           "declaration": {
-            "name": "nativeQrDecoder",
-            "module": "src/components/qr-scanner/qr-scanner.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "BkQrScanner",
-          "declaration": {
-            "name": "BkQrScanner",
-            "module": "src/components/qr-scanner/qr-scanner.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/skeleton/skeleton.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkSkeleton",
-          "cssParts": [
-            {
-              "description": "The placeholder block.",
-              "name": "base"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "shape",
-              "privacy": "public",
-              "type": {
-                "text": "'text' | 'rect' | 'circle'"
-              },
-              "description": "`text` (1em tall), `rect` or `circle`.",
-              "default": "'text'",
-              "attribute": "shape"
-            },
-            {
-              "kind": "field",
-              "name": "width",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "CSS width. Default 100%.",
-              "attribute": "width"
-            },
-            {
-              "kind": "field",
-              "name": "height",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "CSS height.",
-              "attribute": "height"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "shape",
-              "type": {
-                "text": "'text' | 'rect' | 'circle'"
-              },
-              "description": "`text` (1em tall), `rect` or `circle`.",
-              "default": "'text'",
-              "fieldName": "shape"
-            },
-            {
-              "name": "width",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "CSS width. Default 100%.",
-              "fieldName": "width"
-            },
-            {
-              "name": "height",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "CSS height.",
-              "fieldName": "height"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-skeleton",
-          "customElement": true,
-          "summary": "Placeholder shimmer shown while content loads. Hidden from assistive technology;\npair it with a `bk-spinner` or `aria-busy` on the region being loaded.",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BkSkeleton",
-          "declaration": {
-            "name": "BkSkeleton",
-            "module": "src/components/skeleton/skeleton.ts"
+            "name": "BkTabs",
+            "module": "src/components/tabs/tabs.ts"
           }
         }
       ]
@@ -7450,107 +7551,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/tabs/tabs.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkTabs",
-          "cssParts": [
-            {
-              "description": "The tab list.",
-              "name": "tablist"
-            },
-            {
-              "description": "Each tab button.",
-              "name": "tab"
-            },
-            {
-              "description": "Each panel wrapper.",
-              "name": "panel"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "value",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "description": "Name of the selected tab. Defaults to the first enabled tab.",
-              "default": "''",
-              "attribute": "value",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Accessible name for the tab list.",
-              "attribute": "label"
-            }
-          ],
-          "events": [
-            {
-              "description": "When the selected tab changes. Detail: `{ value: string }`.",
-              "name": "bk-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "description": "Name of the selected tab. Defaults to the first enabled tab.",
-              "default": "''",
-              "fieldName": "value"
-            },
-            {
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Accessible name for the tab list.",
-              "fieldName": "label"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-tabs",
-          "customElement": true,
-          "summary": "Accessible tabs (WAI-ARIA tabs pattern, automatic activation). Each child element\nwith a `slot` name and a `label` attribute becomes one tab and its panel.\n\n```html\n<bk-tabs>\n<div slot=\"lightning\" label=\"Lightning\">…</div>\n<div slot=\"onchain\" label=\"On-chain\">…</div>\n</bk-tabs>\n```"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BkTabs",
-          "declaration": {
-            "name": "BkTabs",
-            "module": "src/components/tabs/tabs.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/tooltip/tooltip.ts",
       "declarations": [
         {
@@ -7639,186 +7639,6 @@
           "declaration": {
             "name": "BkTooltip",
             "module": "src/components/tooltip/tooltip.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/utxo-list/utxo-list.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "outpoint",
-          "parameters": [
-            {
-              "name": "u",
-              "type": {
-                "text": "Pick<Utxo, 'txid' | 'vout'>"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkUtxoList",
-          "cssParts": [
-            {
-              "description": "Container.",
-              "name": "base"
-            },
-            {
-              "description": "The table.",
-              "name": "table"
-            },
-            {
-              "description": "Selected-total line.",
-              "name": "summary"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "utxos",
-              "privacy": "public",
-              "type": {
-                "text": "Utxo[]"
-              },
-              "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "selected",
-              "privacy": "public",
-              "type": {
-                "text": "string[]"
-              },
-              "description": "Selected outpoints (`txid:vout`).",
-              "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "target",
-              "privacy": "public",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Amount (sats) the selection should cover.",
-              "attribute": "target"
-            },
-            {
-              "kind": "field",
-              "name": "sortBy",
-              "privacy": "public",
-              "type": {
-                "text": "SortKey"
-              },
-              "default": "'value'",
-              "attribute": "sort-by"
-            },
-            {
-              "kind": "field",
-              "name": "sortDir",
-              "privacy": "public",
-              "type": {
-                "text": "'asc' | 'desc'"
-              },
-              "default": "'desc'",
-              "attribute": "sort-dir"
-            },
-            {
-              "kind": "field",
-              "name": "locale",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "attribute": "locale"
-            },
-            {
-              "kind": "field",
-              "name": "total",
-              "type": {
-                "text": "bigint"
-              },
-              "description": "Sum of the selected UTXO values in sats.",
-              "readonly": true
-            }
-          ],
-          "events": [
-            {
-              "description": "Detail: `{ selected: string[] (outpoints), total: bigint }`.",
-              "name": "bk-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "target",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Amount (sats) the selection should cover.",
-              "fieldName": "target"
-            },
-            {
-              "name": "sort-by",
-              "type": {
-                "text": "SortKey"
-              },
-              "default": "'value'",
-              "fieldName": "sortBy"
-            },
-            {
-              "name": "sort-dir",
-              "type": {
-                "text": "'asc' | 'desc'"
-              },
-              "default": "'desc'",
-              "fieldName": "sortDir"
-            },
-            {
-              "name": "locale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "fieldName": "locale"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-utxo-list",
-          "customElement": true,
-          "summary": "Coin control: a sortable table of UTXOs with checkboxes, select all/none, and the\nselected total compared to an optional target amount."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "outpoint",
-          "declaration": {
-            "name": "outpoint",
-            "module": "src/components/utxo-list/utxo-list.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "BkUtxoList",
-          "declaration": {
-            "name": "BkUtxoList",
-            "module": "src/components/utxo-list/utxo-list.ts"
           }
         }
       ]
@@ -8453,6 +8273,186 @@
           "declaration": {
             "name": "BkTransactionList",
             "module": "src/components/transaction-list/transaction-list.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/utxo-list/utxo-list.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "outpoint",
+          "parameters": [
+            {
+              "name": "u",
+              "type": {
+                "text": "Pick<Utxo, 'txid' | 'vout'>"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkUtxoList",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "The table.",
+              "name": "table"
+            },
+            {
+              "description": "Selected-total line.",
+              "name": "summary"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "utxos",
+              "privacy": "public",
+              "type": {
+                "text": "Utxo[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "privacy": "public",
+              "type": {
+                "text": "string[]"
+              },
+              "description": "Selected outpoints (`txid:vout`).",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "target",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount (sats) the selection should cover.",
+              "attribute": "target"
+            },
+            {
+              "kind": "field",
+              "name": "sortBy",
+              "privacy": "public",
+              "type": {
+                "text": "SortKey"
+              },
+              "default": "'value'",
+              "attribute": "sort-by"
+            },
+            {
+              "kind": "field",
+              "name": "sortDir",
+              "privacy": "public",
+              "type": {
+                "text": "'asc' | 'desc'"
+              },
+              "default": "'desc'",
+              "attribute": "sort-dir"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            },
+            {
+              "kind": "field",
+              "name": "total",
+              "type": {
+                "text": "bigint"
+              },
+              "description": "Sum of the selected UTXO values in sats.",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "description": "Detail: `{ selected: string[] (outpoints), total: bigint }`.",
+              "name": "bk-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "target",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount (sats) the selection should cover.",
+              "fieldName": "target"
+            },
+            {
+              "name": "sort-by",
+              "type": {
+                "text": "SortKey"
+              },
+              "default": "'value'",
+              "fieldName": "sortBy"
+            },
+            {
+              "name": "sort-dir",
+              "type": {
+                "text": "'asc' | 'desc'"
+              },
+              "default": "'desc'",
+              "fieldName": "sortDir"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-utxo-list",
+          "customElement": true,
+          "summary": "Coin control: a sortable table of UTXOs with checkboxes, select all/none, and the\nselected total compared to an optional target amount."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "outpoint",
+          "declaration": {
+            "name": "outpoint",
+            "module": "src/components/utxo-list/utxo-list.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkUtxoList",
+          "declaration": {
+            "name": "BkUtxoList",
+            "module": "src/components/utxo-list/utxo-list.ts"
           }
         }
       ]

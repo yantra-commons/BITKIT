@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>bitkit-ui — plain HTML example</title>
+    <!--
+      No build step. This page loads the self-contained CDN bundle. When running locally from
+      this repo, `pnpm --filter @bitkit-ui/example-vanilla dev` serves `local.html`, which loads
+      the bundle from packages/elements/dist instead.
+    -->
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@bitkit-ui/elements/dist/cdn/bitkit-ui.js"
+    ></script>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Satoshi's Coffee</h1>
+      <p>A single file, no bundler, no framework.</p>
+
+      <section class="product">
+        <h2>Flat white</h2>
+        <bk-amount-display
+          amount="21000"
+          show-fiat
+          fiat-currency="USD"
+          fiat-price="97250"
+        ></bk-amount-display>
+        <bk-pay-button
+          amount="21000"
+          adapter="mock"
+          description="Flat white"
+          fiat-currency="USD"
+          fiat-price="97250"
+        ></bk-pay-button>
+      </section>
+
+      <section>
+        <h2>Tip jar</h2>
+        <bk-donation-widget adapter="mock" presets="1000,5000,21000"></bk-donation-widget>
+      </section>
+
+      <p id="log" role="status"></p>
+    </main>
+    <script type="module">
+      document.addEventListener('bk-paid', (e) => {
+        document.getElementById('log').textContent =
+          `Paid invoice ${e.detail.invoice.id} (${e.detail.invoice.amountSats} sats)`;
+      });
+    </script>
+  </body>
+</html>
