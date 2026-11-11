@@ -1851,6 +1851,141 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/backup-check/backup-check.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkBackupCheck",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "Question text.",
+              "name": "question"
+            },
+            {
+              "description": "Each answer button.",
+              "name": "choice"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "words",
+              "privacy": "public",
+              "type": {
+                "text": "string[]"
+              },
+              "description": "Recovery words (property only).",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "count",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "How many words to ask for. Default 3.",
+              "default": "3",
+              "attribute": "count"
+            },
+            {
+              "kind": "field",
+              "name": "choicesPerQuestion",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Answers per question. Default 4.",
+              "default": "4",
+              "attribute": "choices"
+            },
+            {
+              "kind": "field",
+              "name": "random",
+              "privacy": "public",
+              "type": {
+                "text": "((max: number) => number) | undefined"
+              },
+              "description": "Injectable random source (max) => int, for tests. Defaults to crypto randomness."
+            },
+            {
+              "kind": "method",
+              "name": "restart",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "(Re)start the check with new random positions."
+            }
+          ],
+          "events": [
+            {
+              "description": "All answers correct.",
+              "name": "bk-verified"
+            },
+            {
+              "description": "A wrong answer. Detail: `{ position: number }` (1-based word number).",
+              "name": "bk-fail"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "count",
+              "type": {
+                "text": "number"
+              },
+              "description": "How many words to ask for. Default 3.",
+              "default": "3",
+              "fieldName": "count"
+            },
+            {
+              "name": "choices",
+              "type": {
+                "text": "number"
+              },
+              "description": "Answers per question. Default 4.",
+              "default": "4",
+              "fieldName": "choicesPerQuestion"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-backup-check",
+          "customElement": true,
+          "summary": "SECURITY-SENSITIVE. \"Verify your backup\" flow: asks for randomly chosen words of the\nrecovery phrase as multiple choice. Words are set via the `words` property only and are\nnever emitted."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkBackupCheck",
+          "declaration": {
+            "name": "BkBackupCheck",
+            "module": "src/components/backup-check/backup-check.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/badge/badge.ts",
       "declarations": [
         {
@@ -1926,6 +2061,555 @@
           "declaration": {
             "name": "BkBadge",
             "module": "src/components/badge/badge.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/balance-card/balance-card.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkBalanceCard",
+          "cssParts": [
+            {
+              "description": "Card.",
+              "name": "base"
+            },
+            {
+              "description": "The bk-amount-display.",
+              "name": "amount"
+            },
+            {
+              "description": "Pending line.",
+              "name": "pending"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Buttons under the balance.",
+              "name": "actions"
+            },
+            {
+              "description": "Replace the label row.",
+              "name": "header"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "balance",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Confirmed balance in sats.",
+              "attribute": "balance"
+            },
+            {
+              "kind": "field",
+              "name": "pending",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Unconfirmed incoming(+)/outgoing(−) sats.",
+              "attribute": "pending"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Balance'",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "unit",
+              "privacy": "public",
+              "type": {
+                "text": "DisplayUnit | undefined"
+              },
+              "attribute": "unit"
+            },
+            {
+              "kind": "field",
+              "name": "network",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "network"
+            },
+            {
+              "kind": "field",
+              "name": "fiatCurrency",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "fiat-currency"
+            },
+            {
+              "kind": "field",
+              "name": "fiatPrice",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "fiat-price"
+            },
+            {
+              "kind": "field",
+              "name": "fiatRate",
+              "privacy": "public",
+              "type": {
+                "text": "FiatRate | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "privacy",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "privacy",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "loading",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "loading"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "balance",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Confirmed balance in sats.",
+              "fieldName": "balance"
+            },
+            {
+              "name": "pending",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Unconfirmed incoming(+)/outgoing(−) sats.",
+              "fieldName": "pending"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Balance'",
+              "fieldName": "label"
+            },
+            {
+              "name": "unit",
+              "type": {
+                "text": "DisplayUnit | undefined"
+              },
+              "fieldName": "unit"
+            },
+            {
+              "name": "network",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "network"
+            },
+            {
+              "name": "fiat-currency",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "fiatCurrency"
+            },
+            {
+              "name": "fiat-price",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "fiatPrice"
+            },
+            {
+              "name": "privacy",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "privacy"
+            },
+            {
+              "name": "loading",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "loading"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-balance-card",
+          "customElement": true,
+          "summary": "Wallet balance with fiat value, pending amount, privacy toggle and an actions slot\nfor Send / Receive buttons.",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkBalanceCard",
+          "declaration": {
+            "name": "BkBalanceCard",
+            "module": "src/components/balance-card/balance-card.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/button/button.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "buttonStyles",
+          "default": "css` .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: var(--bk-space-2); width: 100%; min-height: var(--bk-control-height-md); padding: 0 var(--bk-space-4); border: 1px solid transparent; border-radius: var(--bk-radius-md); font: inherit; font-size: var(--bk-font-size-md); font-weight: var(--bk-font-weight-semibold); line-height: 1; text-decoration: none; white-space: nowrap; cursor: pointer; user-select: none; transition: background-color var(--bk-duration-fast) var(--bk-easing-standard), border-color var(--bk-duration-fast) var(--bk-easing-standard), transform var(--bk-duration-fast) var(--bk-easing-standard); } .btn:active:not([aria-disabled='true']) { transform: translateY(1px); } .sm { min-height: var(--bk-control-height-sm); padding: 0 var(--bk-space-3); font-size: var(--bk-font-size-sm); } .lg { min-height: var(--bk-control-height-lg); padding: 0 var(--bk-space-6); font-size: var(--bk-font-size-lg); } .primary { background: var(--bk-color-accent); color: var(--bk-color-on-accent); } .primary:hover:not([aria-disabled='true']) { background: var(--bk-color-accent-hover); } .secondary { background: var(--bk-color-surface); color: var(--bk-color-text); border-color: var(--bk-color-border-strong); } .secondary:hover:not([aria-disabled='true']) { background: var(--bk-color-surface-2); } .ghost { background: transparent; color: var(--bk-color-text); } .ghost:hover:not([aria-disabled='true']) { background: var(--bk-color-surface-2); } .danger { background: var(--bk-color-danger); color: var(--bk-color-bg); } .btn[aria-disabled='true'] { opacity: 0.55; cursor: not-allowed; } .btn.loading .content { visibility: hidden; } .btn bk-spinner { position: absolute; inset: 0; margin: auto; width: fit-content; height: fit-content; } .content { display: inline-flex; align-items: center; gap: var(--bk-space-2); } @media (forced-colors: active) { .btn { border-color: ButtonText; } } `",
+          "description": "Shared button look, reused by icon-button, copy-button and composite components."
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkButton",
+          "cssParts": [
+            {
+              "description": "The native button or link.",
+              "name": "base"
+            },
+            {
+              "description": "The label wrapper.",
+              "name": "label"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Button label.",
+              "name": ""
+            },
+            {
+              "description": "Content before the label (e.g. an icon).",
+              "name": "prefix"
+            },
+            {
+              "description": "Content after the label.",
+              "name": "suffix"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "privacy": "public",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "'primary'",
+              "attribute": "variant",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'md'",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "privacy": "public",
+              "type": {
+                "text": "'button' | 'submit' | 'reset'"
+              },
+              "description": "`button`, `submit` or `reset` (submits the closest form).",
+              "default": "'button'",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "loading",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a spinner and block interaction.",
+              "default": "false",
+              "attribute": "loading",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "block",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Stretch to the container width.",
+              "default": "false",
+              "attribute": "block",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "href",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Render as a link.",
+              "attribute": "href"
+            },
+            {
+              "kind": "field",
+              "name": "target",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "target"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible label override (when the visible label is not descriptive).",
+              "attribute": "label"
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "click",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "Native click (suppressed while disabled or loading).",
+              "name": "click"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "'primary'",
+              "fieldName": "variant"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'md'",
+              "fieldName": "size"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "'button' | 'submit' | 'reset'"
+              },
+              "description": "`button`, `submit` or `reset` (submits the closest form).",
+              "default": "'button'",
+              "fieldName": "type"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "loading",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a spinner and block interaction.",
+              "default": "false",
+              "fieldName": "loading"
+            },
+            {
+              "name": "block",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Stretch to the container width.",
+              "default": "false",
+              "fieldName": "block"
+            },
+            {
+              "name": "href",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Render as a link.",
+              "fieldName": "href"
+            },
+            {
+              "name": "target",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "target"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible label override (when the visible label is not descriptive).",
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-button",
+          "customElement": true,
+          "summary": "Accessible button with primary/secondary/ghost/danger variants and a loading state.\nWorks as a submit button inside forms."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "buttonStyles",
+          "declaration": {
+            "name": "buttonStyles",
+            "module": "src/components/button/button.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkButton",
+          "declaration": {
+            "name": "BkButton",
+            "module": "src/components/button/button.ts"
           }
         }
       ]
@@ -2371,191 +3055,116 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/button/button.ts",
+      "path": "src/components/confirmation-progress/confirmation-progress.ts",
       "declarations": [
-        {
-          "kind": "variable",
-          "name": "buttonStyles",
-          "default": "css` .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: var(--bk-space-2); width: 100%; min-height: var(--bk-control-height-md); padding: 0 var(--bk-space-4); border: 1px solid transparent; border-radius: var(--bk-radius-md); font: inherit; font-size: var(--bk-font-size-md); font-weight: var(--bk-font-weight-semibold); line-height: 1; text-decoration: none; white-space: nowrap; cursor: pointer; user-select: none; transition: background-color var(--bk-duration-fast) var(--bk-easing-standard), border-color var(--bk-duration-fast) var(--bk-easing-standard), transform var(--bk-duration-fast) var(--bk-easing-standard); } .btn:active:not([aria-disabled='true']) { transform: translateY(1px); } .sm { min-height: var(--bk-control-height-sm); padding: 0 var(--bk-space-3); font-size: var(--bk-font-size-sm); } .lg { min-height: var(--bk-control-height-lg); padding: 0 var(--bk-space-6); font-size: var(--bk-font-size-lg); } .primary { background: var(--bk-color-accent); color: var(--bk-color-on-accent); } .primary:hover:not([aria-disabled='true']) { background: var(--bk-color-accent-hover); } .secondary { background: var(--bk-color-surface); color: var(--bk-color-text); border-color: var(--bk-color-border-strong); } .secondary:hover:not([aria-disabled='true']) { background: var(--bk-color-surface-2); } .ghost { background: transparent; color: var(--bk-color-text); } .ghost:hover:not([aria-disabled='true']) { background: var(--bk-color-surface-2); } .danger { background: var(--bk-color-danger); color: var(--bk-color-bg); } .btn[aria-disabled='true'] { opacity: 0.55; cursor: not-allowed; } .btn.loading .content { visibility: hidden; } .btn bk-spinner { position: absolute; inset: 0; margin: auto; width: fit-content; height: fit-content; } .content { display: inline-flex; align-items: center; gap: var(--bk-space-2); } @media (forced-colors: active) { .btn { border-color: ButtonText; } } `",
-          "description": "Shared button look, reused by icon-button, copy-button and composite components."
-        },
         {
           "kind": "class",
           "description": "",
-          "name": "BkButton",
+          "name": "BkConfirmationProgress",
           "cssParts": [
             {
-              "description": "The native button or link.",
+              "description": "Container.",
               "name": "base"
             },
             {
-              "description": "The label wrapper.",
+              "description": "Confirmation icon.",
+              "name": "icon"
+            },
+            {
+              "description": "Text label.",
               "name": "label"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Button label.",
-              "name": ""
-            },
-            {
-              "description": "Content before the label (e.g. an icon).",
-              "name": "prefix"
-            },
-            {
-              "description": "Content after the label.",
-              "name": "suffix"
             }
           ],
           "members": [
             {
               "kind": "field",
-              "name": "formAssociated",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true"
-            },
-            {
-              "kind": "field",
-              "name": "shadowRootOptions",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }"
-            },
-            {
-              "kind": "field",
-              "name": "variant",
+              "name": "confirmations",
               "privacy": "public",
               "type": {
-                "text": "ButtonVariant"
+                "text": "number"
               },
-              "default": "'primary'",
-              "attribute": "variant",
-              "reflects": true
+              "default": "0",
+              "attribute": "confirmations"
             },
             {
               "kind": "field",
-              "name": "size",
+              "name": "required",
               "privacy": "public",
               "type": {
-                "text": "ButtonSize"
+                "text": "number"
               },
-              "default": "'md'",
-              "attribute": "size",
-              "reflects": true
+              "description": "Confirmations considered final. Default 6.",
+              "default": "6",
+              "attribute": "required"
             },
             {
               "kind": "field",
-              "name": "type",
-              "privacy": "public",
-              "type": {
-                "text": "'button' | 'submit' | 'reset'"
-              },
-              "description": "`button`, `submit` or `reset` (submits the closest form).",
-              "default": "'button'",
-              "attribute": "type"
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
+              "name": "showEta",
               "privacy": "public",
               "type": {
                 "text": "boolean"
               },
+              "description": "Show the remaining-time estimate.",
               "default": "false",
-              "attribute": "disabled",
-              "reflects": true
+              "attribute": "show-eta"
             },
             {
               "kind": "field",
-              "name": "loading",
+              "name": "compact",
               "privacy": "public",
               "type": {
                 "text": "boolean"
               },
-              "description": "Show a spinner and block interaction.",
+              "description": "Icon + \"3/6\" only.",
               "default": "false",
-              "attribute": "loading",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "block",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Stretch to the container width.",
-              "default": "false",
-              "attribute": "block",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "href",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Render as a link.",
-              "attribute": "href"
-            },
-            {
-              "kind": "field",
-              "name": "target",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "attribute": "target"
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Accessible label override (when the visible label is not descriptive).",
-              "attribute": "label"
-            },
-            {
-              "kind": "method",
-              "name": "focus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "click",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
+              "attribute": "compact"
             }
           ],
-          "events": [
+          "attributes": [
             {
-              "description": "Native click (suppressed while disabled or loading).",
-              "name": "click"
+              "name": "confirmations",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "confirmations"
             },
+            {
+              "name": "required",
+              "type": {
+                "text": "number"
+              },
+              "description": "Confirmations considered final. Default 6.",
+              "default": "6",
+              "fieldName": "required"
+            },
+            {
+              "name": "show-eta",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the remaining-time estimate.",
+              "default": "false",
+              "fieldName": "showEta"
+            },
+            {
+              "name": "compact",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Icon + \"3/6\" only.",
+              "default": "false",
+              "fieldName": "compact"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-confirmation-progress",
+          "customElement": true,
+          "summary": "On-chain confirmation progress using the Bitcoin Icons confirmation glyphs, with a\ntext label and an estimated time remaining (~10 minutes per block).",
+          "events": [
             {
               "name": "name",
               "type": {
@@ -2566,107 +3175,16 @@
                 "module": "src/internal/base.ts"
               }
             }
-          ],
-          "attributes": [
-            {
-              "name": "variant",
-              "type": {
-                "text": "ButtonVariant"
-              },
-              "default": "'primary'",
-              "fieldName": "variant"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'md'",
-              "fieldName": "size"
-            },
-            {
-              "name": "type",
-              "type": {
-                "text": "'button' | 'submit' | 'reset'"
-              },
-              "description": "`button`, `submit` or `reset` (submits the closest form).",
-              "default": "'button'",
-              "fieldName": "type"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "loading",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Show a spinner and block interaction.",
-              "default": "false",
-              "fieldName": "loading"
-            },
-            {
-              "name": "block",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Stretch to the container width.",
-              "default": "false",
-              "fieldName": "block"
-            },
-            {
-              "name": "href",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Render as a link.",
-              "fieldName": "href"
-            },
-            {
-              "name": "target",
-              "type": {
-                "text": "string | undefined"
-              },
-              "fieldName": "target"
-            },
-            {
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Accessible label override (when the visible label is not descriptive).",
-              "fieldName": "label"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-button",
-          "customElement": true,
-          "summary": "Accessible button with primary/secondary/ghost/danger variants and a loading state.\nWorks as a submit button inside forms."
+          ]
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "buttonStyles",
+          "name": "BkConfirmationProgress",
           "declaration": {
-            "name": "buttonStyles",
-            "module": "src/components/button/button.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "BkButton",
-          "declaration": {
-            "name": "BkButton",
-            "module": "src/components/button/button.ts"
+            "name": "BkConfirmationProgress",
+            "module": "src/components/confirmation-progress/confirmation-progress.ts"
           }
         }
       ]
@@ -2864,6 +3382,298 @@
           "declaration": {
             "name": "BkCopyButton",
             "module": "src/components/copy-button/copy-button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/donation-widget/donation-widget.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkDonationWidget",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "Preset amount group.",
+              "name": "presets"
+            },
+            {
+              "description": "Each preset button.",
+              "name": "preset"
+            },
+            {
+              "description": "Message textarea.",
+              "name": "message"
+            },
+            {
+              "description": "Donate button.",
+              "name": "submit"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Text under the heading.",
+              "name": "description"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "adapter",
+              "privacy": "public",
+              "type": {
+                "text": "PaymentAdapter | string | undefined"
+              },
+              "attribute": "adapter"
+            },
+            {
+              "kind": "field",
+              "name": "heading",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Support this project'",
+              "attribute": "heading"
+            },
+            {
+              "kind": "field",
+              "name": "presets",
+              "privacy": "public",
+              "type": {
+                "text": "string[]"
+              },
+              "description": "Preset amounts in sats. Default `1000,5000,21000,100000`.",
+              "default": "['1000', '5000', '21000', '100000']",
+              "attribute": "presets"
+            },
+            {
+              "kind": "field",
+              "name": "allowCustom",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "allow-custom"
+            },
+            {
+              "kind": "field",
+              "name": "allowMessage",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "allow-message"
+            },
+            {
+              "kind": "field",
+              "name": "messageMax",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "140",
+              "attribute": "message-max"
+            },
+            {
+              "kind": "field",
+              "name": "min",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Minimum donation in sats. Default 100.",
+              "attribute": "min"
+            },
+            {
+              "kind": "field",
+              "name": "defaultAmount",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "attribute": "default-amount"
+            },
+            {
+              "kind": "field",
+              "name": "fiatCurrency",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "fiat-currency"
+            },
+            {
+              "kind": "field",
+              "name": "fiatPrice",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "fiat-price"
+            },
+            {
+              "kind": "field",
+              "name": "fiatRate",
+              "privacy": "public",
+              "type": {
+                "text": "FiatRate | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "methods",
+              "privacy": "public",
+              "type": {
+                "text": "PaymentMethod[]"
+              },
+              "default": "['lightning', 'onchain']",
+              "attribute": "methods"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            }
+          ],
+          "events": [
+            {
+              "description": "Before the checkout opens. Detail: `{ amount: bigint, message: string }`.",
+              "name": "bk-donate"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "adapter",
+              "type": {
+                "text": "PaymentAdapter | string | undefined"
+              },
+              "fieldName": "adapter"
+            },
+            {
+              "name": "heading",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Support this project'",
+              "fieldName": "heading"
+            },
+            {
+              "name": "presets",
+              "type": {
+                "text": "string[]"
+              },
+              "description": "Preset amounts in sats. Default `1000,5000,21000,100000`.",
+              "default": "['1000', '5000', '21000', '100000']",
+              "fieldName": "presets"
+            },
+            {
+              "name": "allow-custom",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "fieldName": "allowCustom"
+            },
+            {
+              "name": "allow-message",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "fieldName": "allowMessage"
+            },
+            {
+              "name": "message-max",
+              "type": {
+                "text": "number"
+              },
+              "default": "140",
+              "fieldName": "messageMax"
+            },
+            {
+              "name": "min",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Minimum donation in sats. Default 100.",
+              "fieldName": "min"
+            },
+            {
+              "name": "default-amount",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "fieldName": "defaultAmount"
+            },
+            {
+              "name": "fiat-currency",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "fiatCurrency"
+            },
+            {
+              "name": "fiat-price",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "fiatPrice"
+            },
+            {
+              "name": "methods",
+              "type": {
+                "text": "PaymentMethod[]"
+              },
+              "default": "['lightning', 'onchain']",
+              "fieldName": "methods"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-donation-widget",
+          "customElement": true,
+          "summary": "Donation form: preset amounts, custom amount, optional message, then a checkout."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkDonationWidget",
+          "declaration": {
+            "name": "BkDonationWidget",
+            "module": "src/components/donation-widget/donation-widget.ts"
           }
         }
       ]
@@ -3231,70 +4041,87 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/donation-widget/donation-widget.ts",
+      "path": "src/components/fee-selector/fee-selector.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "BkDonationWidget",
+          "name": "BkFeeSelector",
           "cssParts": [
             {
-              "description": "Container.",
+              "description": "Fieldset.",
               "name": "base"
             },
             {
-              "description": "Preset amount group.",
-              "name": "presets"
+              "description": "Each tier option.",
+              "name": "option"
             },
             {
-              "description": "Each preset button.",
-              "name": "preset"
-            },
-            {
-              "description": "Message textarea.",
-              "name": "message"
-            },
-            {
-              "description": "Donate button.",
-              "name": "submit"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Text under the heading.",
-              "name": "description"
+              "description": "Custom rate input.",
+              "name": "custom"
             }
           ],
           "members": [
             {
               "kind": "field",
-              "name": "adapter",
+              "name": "fees",
               "privacy": "public",
               "type": {
-                "text": "PaymentAdapter | string | undefined"
+                "text": "RecommendedFees | undefined"
               },
-              "attribute": "adapter"
+              "description": "Static recommended fees (skips fetching)."
             },
             {
               "kind": "field",
-              "name": "heading",
+              "name": "source",
+              "privacy": "public",
+              "type": {
+                "text": "FeeRateAdapter | undefined"
+              },
+              "description": "Custom fee source."
+            },
+            {
+              "kind": "field",
+              "name": "mempoolUrl",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "mempool.space-compatible API base used when no `fees`/`source` is set.",
+              "attribute": "mempool-url"
+            },
+            {
+              "kind": "field",
+              "name": "vsize",
+              "privacy": "public",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Transaction virtual size in vbytes, for total-fee display.",
+              "attribute": "vsize"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "FeeTier"
+              },
+              "description": "Selected tier. Default `normal`.",
+              "default": "'normal'",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "customRate",
               "privacy": "public",
               "type": {
                 "text": "string"
               },
-              "default": "'Support this project'",
-              "attribute": "heading"
-            },
-            {
-              "kind": "field",
-              "name": "presets",
-              "privacy": "public",
-              "type": {
-                "text": "string[]"
-              },
-              "description": "Preset amounts in sats. Default `1000,5000,21000,100000`.",
-              "default": "['1000', '5000', '21000', '100000']",
-              "attribute": "presets"
+              "description": "Custom sat/vB when `value` is `custom`.",
+              "default": "''",
+              "attribute": "custom-rate"
             },
             {
               "kind": "field",
@@ -3305,45 +4132,6 @@
               },
               "default": "true",
               "attribute": "allow-custom"
-            },
-            {
-              "kind": "field",
-              "name": "allowMessage",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "true",
-              "attribute": "allow-message"
-            },
-            {
-              "kind": "field",
-              "name": "messageMax",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "140",
-              "attribute": "message-max"
-            },
-            {
-              "kind": "field",
-              "name": "min",
-              "privacy": "public",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Minimum donation in sats. Default 100.",
-              "attribute": "min"
-            },
-            {
-              "kind": "field",
-              "name": "defaultAmount",
-              "privacy": "public",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "attribute": "default-amount"
             },
             {
               "kind": "field",
@@ -3373,28 +4161,37 @@
             },
             {
               "kind": "field",
-              "name": "methods",
-              "privacy": "public",
-              "type": {
-                "text": "PaymentMethod[]"
-              },
-              "default": "['lightning', 'onchain']",
-              "attribute": "methods"
-            },
-            {
-              "kind": "field",
               "name": "locale",
               "privacy": "public",
               "type": {
                 "text": "string | undefined"
               },
               "attribute": "locale"
+            },
+            {
+              "kind": "method",
+              "name": "refresh",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "description": "Re-fetch fee estimates."
+            },
+            {
+              "kind": "field",
+              "name": "selection",
+              "type": {
+                "text": "FeeSelection | undefined"
+              },
+              "description": "The current selection.",
+              "readonly": true
             }
           ],
           "events": [
             {
-              "description": "Before the checkout opens. Detail: `{ amount: bigint, message: string }`.",
-              "name": "bk-donate"
+              "description": "Detail: `FeeSelection`.",
+              "name": "bk-change"
             },
             {
               "name": "name",
@@ -3409,28 +4206,38 @@
           ],
           "attributes": [
             {
-              "name": "adapter",
+              "name": "mempool-url",
               "type": {
-                "text": "PaymentAdapter | string | undefined"
+                "text": "string | undefined"
               },
-              "fieldName": "adapter"
+              "description": "mempool.space-compatible API base used when no `fees`/`source` is set.",
+              "fieldName": "mempoolUrl"
             },
             {
-              "name": "heading",
+              "name": "vsize",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Transaction virtual size in vbytes, for total-fee display.",
+              "fieldName": "vsize"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "FeeTier"
+              },
+              "description": "Selected tier. Default `normal`.",
+              "default": "'normal'",
+              "fieldName": "value"
+            },
+            {
+              "name": "custom-rate",
               "type": {
                 "text": "string"
               },
-              "default": "'Support this project'",
-              "fieldName": "heading"
-            },
-            {
-              "name": "presets",
-              "type": {
-                "text": "string[]"
-              },
-              "description": "Preset amounts in sats. Default `1000,5000,21000,100000`.",
-              "default": "['1000', '5000', '21000', '100000']",
-              "fieldName": "presets"
+              "description": "Custom sat/vB when `value` is `custom`.",
+              "default": "''",
+              "fieldName": "customRate"
             },
             {
               "name": "allow-custom",
@@ -3439,37 +4246,6 @@
               },
               "default": "true",
               "fieldName": "allowCustom"
-            },
-            {
-              "name": "allow-message",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "true",
-              "fieldName": "allowMessage"
-            },
-            {
-              "name": "message-max",
-              "type": {
-                "text": "number"
-              },
-              "default": "140",
-              "fieldName": "messageMax"
-            },
-            {
-              "name": "min",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Minimum donation in sats. Default 100.",
-              "fieldName": "min"
-            },
-            {
-              "name": "default-amount",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "fieldName": "defaultAmount"
             },
             {
               "name": "fiat-currency",
@@ -3486,14 +4262,6 @@
               "fieldName": "fiatPrice"
             },
             {
-              "name": "methods",
-              "type": {
-                "text": "PaymentMethod[]"
-              },
-              "default": "['lightning', 'onchain']",
-              "fieldName": "methods"
-            },
-            {
               "name": "locale",
               "type": {
                 "text": "string | undefined"
@@ -3505,18 +4273,18 @@
             "name": "BitkitElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-donation-widget",
+          "tagName": "bk-fee-selector",
           "customElement": true,
-          "summary": "Donation form: preset amounts, custom amount, optional message, then a checkout."
+          "summary": "Network fee picker: fast / normal / slow tiers with sat/vB, total fee, fiat cost and\nETA, plus a validated custom rate. Rates come from a FeeRateAdapter (mempool.space by default,\nconfigurable via `mempool-url`) or a static `fees` object."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "BkDonationWidget",
+          "name": "BkFeeSelector",
           "declaration": {
-            "name": "BkDonationWidget",
-            "module": "src/components/donation-widget/donation-widget.ts"
+            "name": "BkFeeSelector",
+            "module": "src/components/fee-selector/fee-selector.ts"
           }
         }
       ]
@@ -4401,6 +5169,203 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/mnemonic-display/mnemonic-display.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkMnemonicDisplay",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "Warning box.",
+              "name": "warning"
+            },
+            {
+              "description": "Word grid.",
+              "name": "words"
+            },
+            {
+              "description": "Each word.",
+              "name": "word"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Replace the default warning text.",
+              "name": "warning"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "words",
+              "privacy": "public",
+              "type": {
+                "text": "string[]"
+              },
+              "description": "The recovery words (property only).",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "revealed",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the words are visible.",
+              "default": "false",
+              "attribute": "revealed",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "allowCopy",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Allow selecting/copying the words. Default false (clipboards are readable by other apps).",
+              "default": "false",
+              "attribute": "allow-copy"
+            },
+            {
+              "kind": "field",
+              "name": "columns",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Grid columns. Default 3.",
+              "default": "3",
+              "attribute": "columns"
+            },
+            {
+              "kind": "field",
+              "name": "autoHideMs",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Hide again after this many ms (0 = never). Default 120000.",
+              "default": "120_000",
+              "attribute": "auto-hide-ms"
+            },
+            {
+              "kind": "method",
+              "name": "reveal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Show the words."
+            },
+            {
+              "kind": "method",
+              "name": "hide",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Hide the words."
+            },
+            {
+              "kind": "method",
+              "name": "clear",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Drop references to the words. JavaScript strings are immutable, so this cannot zero memory,\nbut it removes every reference this component holds so they can be garbage-collected."
+            }
+          ],
+          "events": [
+            {
+              "description": "When the phrase is shown.",
+              "name": "bk-reveal"
+            },
+            {
+              "description": "When the phrase is hidden.",
+              "name": "bk-hide"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "revealed",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the words are visible.",
+              "default": "false",
+              "fieldName": "revealed"
+            },
+            {
+              "name": "allow-copy",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Allow selecting/copying the words. Default false (clipboards are readable by other apps).",
+              "default": "false",
+              "fieldName": "allowCopy"
+            },
+            {
+              "name": "columns",
+              "type": {
+                "text": "number"
+              },
+              "description": "Grid columns. Default 3.",
+              "default": "3",
+              "fieldName": "columns"
+            },
+            {
+              "name": "auto-hide-ms",
+              "type": {
+                "text": "number"
+              },
+              "description": "Hide again after this many ms (0 = never). Default 120000.",
+              "default": "120_000",
+              "fieldName": "autoHideMs"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-mnemonic-display",
+          "customElement": true,
+          "summary": "SECURITY-SENSITIVE. Shows a recovery phrase on demand. Words are set via the `words`\nproperty only (never an attribute), are not rendered into the DOM while hidden, cannot be\ncopied unless `allow-copy` is set, and are hidden automatically when the page is hidden.\nNothing is stored or sent anywhere. Call `clear()` when done."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkMnemonicDisplay",
+          "declaration": {
+            "name": "BkMnemonicDisplay",
+            "module": "src/components/mnemonic-display/mnemonic-display.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lightning-address-card/lightning-address-card.ts",
       "declarations": [
         {
@@ -4575,6 +5540,182 @@
           "declaration": {
             "name": "BkLightningAddressCard",
             "module": "src/components/lightning-address-card/lightning-address-card.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/mnemonic-input/mnemonic-input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkMnemonicInput",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "Word grid.",
+              "name": "grid"
+            },
+            {
+              "description": "Each word field.",
+              "name": "field"
+            },
+            {
+              "description": "Suggestion list.",
+              "name": "suggestions"
+            },
+            {
+              "description": "Validation message.",
+              "name": "status"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "wordCount",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Number of words. Default 12.",
+              "default": "12",
+              "attribute": "word-count"
+            },
+            {
+              "kind": "field",
+              "name": "allowedCounts",
+              "privacy": "public",
+              "type": {
+                "text": "number[]"
+              },
+              "description": "Lengths offered in the selector; empty array hides it. Default [12, 24].",
+              "default": "[12, 24]"
+            },
+            {
+              "kind": "field",
+              "name": "columns",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "3",
+              "attribute": "columns"
+            },
+            {
+              "kind": "field",
+              "name": "masked",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Mask the characters while typing.",
+              "default": "false",
+              "attribute": "masked"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Recovery phrase'",
+              "attribute": "label"
+            },
+            {
+              "kind": "method",
+              "name": "getMnemonic",
+              "return": {
+                "type": {
+                  "text": "string | null"
+                }
+              },
+              "description": "The phrase as a single string, or null unless it is complete and valid."
+            },
+            {
+              "kind": "method",
+              "name": "clear",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Erase every entered word."
+            }
+          ],
+          "events": [
+            {
+              "description": "Detail: `MnemonicInputDetail` (never includes the words).",
+              "name": "bk-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "word-count",
+              "type": {
+                "text": "number"
+              },
+              "description": "Number of words. Default 12.",
+              "default": "12",
+              "fieldName": "wordCount"
+            },
+            {
+              "name": "columns",
+              "type": {
+                "text": "number"
+              },
+              "default": "3",
+              "fieldName": "columns"
+            },
+            {
+              "name": "masked",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Mask the characters while typing.",
+              "default": "false",
+              "fieldName": "masked"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Recovery phrase'",
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-mnemonic-input",
+          "customElement": true,
+          "summary": "SECURITY-SENSITIVE. Word-by-word recovery phrase entry with BIP39 autocomplete and\nchecksum validation. Words live only in this component's memory: they are never stored,\nnever sent, never placed in events. Read them with `getMnemonic()` once valid, then `clear()`.\nBrowser autocomplete, spellcheck and password managers are disabled on every field."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkMnemonicInput",
+          "declaration": {
+            "name": "BkMnemonicInput",
+            "module": "src/components/mnemonic-input/mnemonic-input.ts"
           }
         }
       ]
@@ -5408,160 +6549,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/qr-scanner/qr-scanner.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "nativeQrDecoder",
-          "return": {
-            "type": {
-              "text": "QrDecoder | null"
-            }
-          },
-          "description": "Native BarcodeDetector-based decoder, or null when the browser lacks support."
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkQrScanner",
-          "cssParts": [
-            {
-              "description": "Container.",
-              "name": "base"
-            },
-            {
-              "description": "The camera preview.",
-              "name": "video"
-            },
-            {
-              "description": "Status / fallback message.",
-              "name": "message"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "active",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Camera runs while true.",
-              "default": "false",
-              "attribute": "active",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "facing",
-              "privacy": "public",
-              "type": {
-                "text": "'environment' | 'user'"
-              },
-              "description": "Preferred camera. Default `environment` (rear).",
-              "default": "'environment'",
-              "attribute": "facing"
-            },
-            {
-              "kind": "field",
-              "name": "decoder",
-              "privacy": "public",
-              "type": {
-                "text": "QrDecoder | undefined"
-              },
-              "description": "Custom decoder; defaults to the native BarcodeDetector."
-            },
-            {
-              "kind": "method",
-              "name": "start",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              },
-              "description": "Start the camera."
-            },
-            {
-              "kind": "method",
-              "name": "stop",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Stop the camera and release the stream."
-            }
-          ],
-          "events": [
-            {
-              "description": "When a code is read. Detail: `{ value: string, result: PaymentInput }`.",
-              "name": "bk-scan"
-            },
-            {
-              "description": "On camera errors. Detail: `{ code: 'denied' | 'unavailable' | 'unsupported' }`.",
-              "name": "bk-error"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "active",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Camera runs while true.",
-              "default": "false",
-              "fieldName": "active"
-            },
-            {
-              "name": "facing",
-              "type": {
-                "text": "'environment' | 'user'"
-              },
-              "description": "Preferred camera. Default `environment` (rear).",
-              "default": "'environment'",
-              "fieldName": "facing"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-qr-scanner",
-          "customElement": true,
-          "summary": "Camera QR scanner. Uses the native BarcodeDetector when available; plug in any\ndecoder (e.g. jsQR) via the `decoder` property for other browsers. Falls back to image upload\nand shows clear messages when the camera is denied or missing. Video never leaves the device."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "nativeQrDecoder",
-          "declaration": {
-            "name": "nativeQrDecoder",
-            "module": "src/components/qr-scanner/qr-scanner.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "BkQrScanner",
-          "declaration": {
-            "name": "BkQrScanner",
-            "module": "src/components/qr-scanner/qr-scanner.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/select/select.ts",
       "declarations": [
         {
@@ -5930,58 +6917,99 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/spinner/spinner.ts",
+      "path": "src/components/qr-scanner/qr-scanner.ts",
       "declarations": [
+        {
+          "kind": "function",
+          "name": "nativeQrDecoder",
+          "return": {
+            "type": {
+              "text": "QrDecoder | null"
+            }
+          },
+          "description": "Native BarcodeDetector-based decoder, or null when the browser lacks support."
+        },
         {
           "kind": "class",
           "description": "",
-          "name": "BkSpinner",
-          "cssProperties": [
-            {
-              "description": "Diameter. Default `1.25em`.",
-              "name": "--bk-spinner-size"
-            },
-            {
-              "description": "Arc color. Default `currentColor`.",
-              "name": "--bk-spinner-color"
-            }
-          ],
+          "name": "BkQrScanner",
           "cssParts": [
             {
-              "description": "The spinning ring.",
+              "description": "Container.",
               "name": "base"
+            },
+            {
+              "description": "The camera preview.",
+              "name": "video"
+            },
+            {
+              "description": "Status / fallback message.",
+              "name": "message"
             }
           ],
           "members": [
             {
               "kind": "field",
-              "name": "label",
+              "name": "active",
               "privacy": "public",
               "type": {
-                "text": "string | undefined"
+                "text": "boolean"
               },
-              "description": "Accessible label. Default \"Loading\".",
-              "attribute": "label"
-            }
-          ],
-          "attributes": [
+              "description": "Camera runs while true.",
+              "default": "false",
+              "attribute": "active",
+              "reflects": true
+            },
             {
-              "name": "label",
+              "kind": "field",
+              "name": "facing",
+              "privacy": "public",
               "type": {
-                "text": "string | undefined"
+                "text": "'environment' | 'user'"
               },
-              "description": "Accessible label. Default \"Loading\".",
-              "fieldName": "label"
+              "description": "Preferred camera. Default `environment` (rear).",
+              "default": "'environment'",
+              "attribute": "facing"
+            },
+            {
+              "kind": "field",
+              "name": "decoder",
+              "privacy": "public",
+              "type": {
+                "text": "QrDecoder | undefined"
+              },
+              "description": "Custom decoder; defaults to the native BarcodeDetector."
+            },
+            {
+              "kind": "method",
+              "name": "start",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "description": "Start the camera."
+            },
+            {
+              "kind": "method",
+              "name": "stop",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Stop the camera and release the stream."
             }
           ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-spinner",
-          "customElement": true,
-          "summary": "Indeterminate loading indicator. Announces its label politely to screen readers.",
           "events": [
+            {
+              "description": "When a code is read. Detail: `{ value: string, result: PaymentInput }`.",
+              "name": "bk-scan"
+            },
+            {
+              "description": "On camera errors. Detail: `{ code: 'denied' | 'unavailable' | 'unsupported' }`.",
+              "name": "bk-error"
+            },
             {
               "name": "name",
               "type": {
@@ -5992,16 +7020,51 @@
                 "module": "src/internal/base.ts"
               }
             }
-          ]
+          ],
+          "attributes": [
+            {
+              "name": "active",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Camera runs while true.",
+              "default": "false",
+              "fieldName": "active"
+            },
+            {
+              "name": "facing",
+              "type": {
+                "text": "'environment' | 'user'"
+              },
+              "description": "Preferred camera. Default `environment` (rear).",
+              "default": "'environment'",
+              "fieldName": "facing"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-qr-scanner",
+          "customElement": true,
+          "summary": "Camera QR scanner. Uses the native BarcodeDetector when available; plug in any\ndecoder (e.g. jsQR) via the `decoder` property for other browsers. Falls back to image upload\nand shows clear messages when the camera is denied or missing. Video never leaves the device."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "BkSpinner",
+          "name": "nativeQrDecoder",
           "declaration": {
-            "name": "BkSpinner",
-            "module": "src/components/spinner/spinner.ts"
+            "name": "nativeQrDecoder",
+            "module": "src/components/qr-scanner/qr-scanner.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkQrScanner",
+          "declaration": {
+            "name": "BkQrScanner",
+            "module": "src/components/qr-scanner/qr-scanner.ts"
           }
         }
       ]
@@ -6114,39 +7177,29 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/tabs/tabs.ts",
+      "path": "src/components/spinner/spinner.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "BkTabs",
+          "name": "BkSpinner",
+          "cssProperties": [
+            {
+              "description": "Diameter. Default `1.25em`.",
+              "name": "--bk-spinner-size"
+            },
+            {
+              "description": "Arc color. Default `currentColor`.",
+              "name": "--bk-spinner-color"
+            }
+          ],
           "cssParts": [
             {
-              "description": "The tab list.",
-              "name": "tablist"
-            },
-            {
-              "description": "Each tab button.",
-              "name": "tab"
-            },
-            {
-              "description": "Each panel wrapper.",
-              "name": "panel"
+              "description": "The spinning ring.",
+              "name": "base"
             }
           ],
           "members": [
-            {
-              "kind": "field",
-              "name": "value",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "description": "Name of the selected tab. Defaults to the first enabled tab.",
-              "default": "''",
-              "attribute": "value",
-              "reflects": true
-            },
             {
               "kind": "field",
               "name": "label",
@@ -6154,15 +7207,28 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Accessible name for the tab list.",
+              "description": "Accessible label. Default \"Loading\".",
               "attribute": "label"
             }
           ],
-          "events": [
+          "attributes": [
             {
-              "description": "When the selected tab changes. Detail: `{ value: string }`.",
-              "name": "bk-change"
-            },
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible label. Default \"Loading\".",
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-spinner",
+          "customElement": true,
+          "summary": "Indeterminate loading indicator. Announces its label politely to screen readers.",
+          "events": [
             {
               "name": "name",
               "type": {
@@ -6173,42 +7239,16 @@
                 "module": "src/internal/base.ts"
               }
             }
-          ],
-          "attributes": [
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "description": "Name of the selected tab. Defaults to the first enabled tab.",
-              "default": "''",
-              "fieldName": "value"
-            },
-            {
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Accessible name for the tab list.",
-              "fieldName": "label"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-tabs",
-          "customElement": true,
-          "summary": "Accessible tabs (WAI-ARIA tabs pattern, automatic activation). Each child element\nwith a `slot` name and a `label` attribute becomes one tab and its panel.\n\n```html\n<bk-tabs>\n<div slot=\"lightning\" label=\"Lightning\">…</div>\n<div slot=\"onchain\" label=\"On-chain\">…</div>\n</bk-tabs>\n```"
+          ]
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "BkTabs",
+          "name": "BkSpinner",
           "declaration": {
-            "name": "BkTabs",
-            "module": "src/components/tabs/tabs.ts"
+            "name": "BkSpinner",
+            "module": "src/components/spinner/spinner.ts"
           }
         }
       ]
@@ -6410,6 +7450,107 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/tabs/tabs.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkTabs",
+          "cssParts": [
+            {
+              "description": "The tab list.",
+              "name": "tablist"
+            },
+            {
+              "description": "Each tab button.",
+              "name": "tab"
+            },
+            {
+              "description": "Each panel wrapper.",
+              "name": "panel"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Name of the selected tab. Defaults to the first enabled tab.",
+              "default": "''",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible name for the tab list.",
+              "attribute": "label"
+            }
+          ],
+          "events": [
+            {
+              "description": "When the selected tab changes. Detail: `{ value: string }`.",
+              "name": "bk-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "description": "Name of the selected tab. Defaults to the first enabled tab.",
+              "default": "''",
+              "fieldName": "value"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible name for the tab list.",
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-tabs",
+          "customElement": true,
+          "summary": "Accessible tabs (WAI-ARIA tabs pattern, automatic activation). Each child element\nwith a `slot` name and a `label` attribute becomes one tab and its panel.\n\n```html\n<bk-tabs>\n<div slot=\"lightning\" label=\"Lightning\">…</div>\n<div slot=\"onchain\" label=\"On-chain\">…</div>\n</bk-tabs>\n```"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkTabs",
+          "declaration": {
+            "name": "BkTabs",
+            "module": "src/components/tabs/tabs.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/tooltip/tooltip.ts",
       "declarations": [
         {
@@ -6498,6 +7639,972 @@
           "declaration": {
             "name": "BkTooltip",
             "module": "src/components/tooltip/tooltip.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/utxo-list/utxo-list.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "outpoint",
+          "parameters": [
+            {
+              "name": "u",
+              "type": {
+                "text": "Pick<Utxo, 'txid' | 'vout'>"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkUtxoList",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "The table.",
+              "name": "table"
+            },
+            {
+              "description": "Selected-total line.",
+              "name": "summary"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "utxos",
+              "privacy": "public",
+              "type": {
+                "text": "Utxo[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "privacy": "public",
+              "type": {
+                "text": "string[]"
+              },
+              "description": "Selected outpoints (`txid:vout`).",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "target",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount (sats) the selection should cover.",
+              "attribute": "target"
+            },
+            {
+              "kind": "field",
+              "name": "sortBy",
+              "privacy": "public",
+              "type": {
+                "text": "SortKey"
+              },
+              "default": "'value'",
+              "attribute": "sort-by"
+            },
+            {
+              "kind": "field",
+              "name": "sortDir",
+              "privacy": "public",
+              "type": {
+                "text": "'asc' | 'desc'"
+              },
+              "default": "'desc'",
+              "attribute": "sort-dir"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            },
+            {
+              "kind": "field",
+              "name": "total",
+              "type": {
+                "text": "bigint"
+              },
+              "description": "Sum of the selected UTXO values in sats.",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "description": "Detail: `{ selected: string[] (outpoints), total: bigint }`.",
+              "name": "bk-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "target",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount (sats) the selection should cover.",
+              "fieldName": "target"
+            },
+            {
+              "name": "sort-by",
+              "type": {
+                "text": "SortKey"
+              },
+              "default": "'value'",
+              "fieldName": "sortBy"
+            },
+            {
+              "name": "sort-dir",
+              "type": {
+                "text": "'asc' | 'desc'"
+              },
+              "default": "'desc'",
+              "fieldName": "sortDir"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-utxo-list",
+          "customElement": true,
+          "summary": "Coin control: a sortable table of UTXOs with checkboxes, select all/none, and the\nselected total compared to an optional target amount."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "outpoint",
+          "declaration": {
+            "name": "outpoint",
+            "module": "src/components/utxo-list/utxo-list.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkUtxoList",
+          "declaration": {
+            "name": "BkUtxoList",
+            "module": "src/components/utxo-list/utxo-list.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/transaction-item/transaction-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkTransactionItem",
+          "cssParts": [
+            {
+              "description": "Row.",
+              "name": "base"
+            },
+            {
+              "description": "Direction icon.",
+              "name": "icon"
+            },
+            {
+              "description": "Title.",
+              "name": "label"
+            },
+            {
+              "description": "Time and status line.",
+              "name": "meta"
+            },
+            {
+              "description": "Amount.",
+              "name": "amount"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "txId",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "tx-id"
+            },
+            {
+              "kind": "field",
+              "name": "direction",
+              "privacy": "public",
+              "type": {
+                "text": "TxDirection"
+              },
+              "default": "'incoming'",
+              "attribute": "direction",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "amount",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Sats (absolute).",
+              "attribute": "amount"
+            },
+            {
+              "kind": "field",
+              "name": "fee",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "attribute": "fee"
+            },
+            {
+              "kind": "field",
+              "name": "status",
+              "privacy": "public",
+              "type": {
+                "text": "TxStatus"
+              },
+              "default": "'confirmed'",
+              "attribute": "status",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "confirmations",
+              "privacy": "public",
+              "type": {
+                "text": "number | undefined"
+              },
+              "attribute": "confirmations"
+            },
+            {
+              "kind": "field",
+              "name": "requiredConfirmations",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "6",
+              "attribute": "required-confirmations"
+            },
+            {
+              "kind": "field",
+              "name": "timestamp",
+              "privacy": "public",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Unix ms.",
+              "attribute": "timestamp"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "method",
+              "privacy": "public",
+              "type": {
+                "text": "'lightning' | 'onchain'"
+              },
+              "default": "'onchain'",
+              "attribute": "method"
+            },
+            {
+              "kind": "field",
+              "name": "txid",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "txid"
+            },
+            {
+              "kind": "field",
+              "name": "network",
+              "privacy": "public",
+              "type": {
+                "text": "Network | undefined"
+              },
+              "attribute": "network"
+            },
+            {
+              "kind": "field",
+              "name": "interactive",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Render as a button and emit bk-select.",
+              "default": "false",
+              "attribute": "interactive"
+            },
+            {
+              "kind": "field",
+              "name": "explorer",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Link the txid to a block explorer (ignored when `interactive`, to avoid nested controls).",
+              "default": "false",
+              "attribute": "explorer"
+            },
+            {
+              "kind": "field",
+              "name": "privacy",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "privacy"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            },
+            {
+              "kind": "field",
+              "name": "data",
+              "description": "Populate from a TransactionData object."
+            }
+          ],
+          "events": [
+            {
+              "description": "When activated. Detail: `{ id }`.",
+              "name": "bk-select"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tx-id",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "txId"
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "TxDirection"
+              },
+              "default": "'incoming'",
+              "fieldName": "direction"
+            },
+            {
+              "name": "amount",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Sats (absolute).",
+              "fieldName": "amount"
+            },
+            {
+              "name": "fee",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "fieldName": "fee"
+            },
+            {
+              "name": "status",
+              "type": {
+                "text": "TxStatus"
+              },
+              "default": "'confirmed'",
+              "fieldName": "status"
+            },
+            {
+              "name": "confirmations",
+              "type": {
+                "text": "number | undefined"
+              },
+              "fieldName": "confirmations"
+            },
+            {
+              "name": "required-confirmations",
+              "type": {
+                "text": "number"
+              },
+              "default": "6",
+              "fieldName": "requiredConfirmations"
+            },
+            {
+              "name": "timestamp",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Unix ms.",
+              "fieldName": "timestamp"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "label"
+            },
+            {
+              "name": "method",
+              "type": {
+                "text": "'lightning' | 'onchain'"
+              },
+              "default": "'onchain'",
+              "fieldName": "method"
+            },
+            {
+              "name": "txid",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "txid"
+            },
+            {
+              "name": "network",
+              "type": {
+                "text": "Network | undefined"
+              },
+              "fieldName": "network"
+            },
+            {
+              "name": "interactive",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Render as a button and emit bk-select.",
+              "default": "false",
+              "fieldName": "interactive"
+            },
+            {
+              "name": "explorer",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Link the txid to a block explorer (ignored when `interactive`, to avoid nested controls).",
+              "default": "false",
+              "fieldName": "explorer"
+            },
+            {
+              "name": "privacy",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "privacy"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-transaction-item",
+          "customElement": true,
+          "summary": "One transaction row: direction icon, label, relative time, status/confirmations and a\nsigned amount. Activates with click/Enter when `interactive`."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkTransactionItem",
+          "declaration": {
+            "name": "BkTransactionItem",
+            "module": "src/components/transaction-item/transaction-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/transaction-list/transaction-list.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "dateGroup",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "ts",
+              "type": {
+                "text": "number | undefined"
+              }
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "now",
+              "default": "Date.now()"
+            }
+          ],
+          "description": "Group label for a timestamp: Today, Yesterday, or a localized date."
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkTransactionList",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "Date group heading.",
+              "name": "group"
+            },
+            {
+              "description": "Each bk-transaction-item.",
+              "name": "item"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Custom empty state.",
+              "name": "empty"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "transactions",
+              "privacy": "public",
+              "type": {
+                "text": "TransactionData[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "loading",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "loading"
+            },
+            {
+              "kind": "field",
+              "name": "hasMore",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "has-more"
+            },
+            {
+              "kind": "field",
+              "name": "groupByDate",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Group rows under Today / Yesterday / date headings. Default true.",
+              "default": "true",
+              "attribute": "group-by-date"
+            },
+            {
+              "kind": "field",
+              "name": "interactive",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "interactive"
+            },
+            {
+              "kind": "field",
+              "name": "explorer",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "explorer"
+            },
+            {
+              "kind": "field",
+              "name": "network",
+              "privacy": "public",
+              "type": {
+                "text": "Network | undefined"
+              },
+              "attribute": "network"
+            },
+            {
+              "kind": "field",
+              "name": "privacy",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "privacy"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            },
+            {
+              "kind": "field",
+              "name": "emptyText",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'No transactions yet'",
+              "attribute": "empty-text"
+            }
+          ],
+          "events": [
+            {
+              "description": "When a transaction is activated. Detail: `{ id }`.",
+              "name": "bk-select"
+            },
+            {
+              "description": "When \"Load more\" is pressed.",
+              "name": "bk-load-more"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "loading",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "loading"
+            },
+            {
+              "name": "has-more",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasMore"
+            },
+            {
+              "name": "group-by-date",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Group rows under Today / Yesterday / date headings. Default true.",
+              "default": "true",
+              "fieldName": "groupByDate"
+            },
+            {
+              "name": "interactive",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "interactive"
+            },
+            {
+              "name": "explorer",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "explorer"
+            },
+            {
+              "name": "network",
+              "type": {
+                "text": "Network | undefined"
+              },
+              "fieldName": "network"
+            },
+            {
+              "name": "privacy",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "privacy"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            },
+            {
+              "name": "empty-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "'No transactions yet'",
+              "fieldName": "emptyText"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-transaction-list",
+          "customElement": true,
+          "summary": "Transaction history with date groups, loading skeletons, empty state and \"load more\"."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "dateGroup",
+          "declaration": {
+            "name": "dateGroup",
+            "module": "src/components/transaction-list/transaction-list.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkTransactionList",
+          "declaration": {
+            "name": "BkTransactionList",
+            "module": "src/components/transaction-list/transaction-list.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/wallet-connect/wallet-connect.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkWalletConnect",
+          "cssParts": [
+            {
+              "description": "Connect button.",
+              "name": "button"
+            },
+            {
+              "description": "Connected summary.",
+              "name": "connected"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "methods",
+              "privacy": "public",
+              "type": {
+                "text": "('webln' | 'nwc')[]"
+              },
+              "description": "Offered methods. Default `['webln', 'nwc']`.",
+              "default": "['webln', 'nwc']",
+              "attribute": "methods"
+            },
+            {
+              "kind": "field",
+              "name": "bitcoinConnect",
+              "privacy": "public",
+              "type": {
+                "text": "BitcoinConnectLike | undefined"
+              },
+              "description": "Optional Bitcoin Connect module to delegate the connection UI to."
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Connect wallet'",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "showBalance",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the wallet balance when the provider exposes it.",
+              "default": "false",
+              "attribute": "show-balance"
+            },
+            {
+              "kind": "field",
+              "name": "connected",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether a wallet is connected.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "disconnect",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Forget the connection."
+            }
+          ],
+          "events": [
+            {
+              "description": "Detail: `WalletConnection`.",
+              "name": "bk-connect"
+            },
+            {
+              "description": "When the user disconnects.",
+              "name": "bk-disconnect"
+            },
+            {
+              "description": "Detail: `{ message }`.",
+              "name": "bk-error"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "methods",
+              "type": {
+                "text": "('webln' | 'nwc')[]"
+              },
+              "description": "Offered methods. Default `['webln', 'nwc']`.",
+              "default": "['webln', 'nwc']",
+              "fieldName": "methods"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Connect wallet'",
+              "fieldName": "label"
+            },
+            {
+              "name": "show-balance",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the wallet balance when the provider exposes it.",
+              "default": "false",
+              "fieldName": "showBalance"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-wallet-connect",
+          "customElement": true,
+          "summary": "Connect a Lightning wallet via WebLN (browser extension) or Nostr Wallet Connect.\nIf Alby's Bitcoin Connect is supplied, it is used for the connection UI instead of\nreimplementing it. NWC connection strings stay in memory and are handed to your app in the\n`bk-connect` event; the component never stores or transmits them."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkWalletConnect",
+          "declaration": {
+            "name": "BkWalletConnect",
+            "module": "src/components/wallet-connect/wallet-connect.ts"
           }
         }
       ]

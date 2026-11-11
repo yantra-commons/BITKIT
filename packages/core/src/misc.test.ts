@@ -20,6 +20,7 @@ import {
 } from './mnemonic/index.js';
 import { countdownForScreenReader, formatCountdown, formatRelativeTime } from './time.js';
 import { wordsToInt } from './encoding.js';
+import { looksLikeNwcUri, parseNwcUri } from './lightning/nwc.js';
 
 describe('fees', () => {
   const rec = { fastestFee: 25, halfHourFee: 12, hourFee: 8, economyFee: 4, minimumFee: 1 };
@@ -158,5 +159,31 @@ describe('errors and encoding', () => {
 
   it('converts words to ints', () => {
     expect(wordsToInt([1, 28])).toBe(60);
+  });
+});
+
+describe('parseNwcUri', () => {
+  const pk = 'b889ff5b1513b641e2a139f661a661364979c5beee91842f8f0ef42ab558e9d4';
+  const secret = '71a8c14c1407c113601079c4302dab36460f0ccd0ad506f1f2dc73b5100e4f3c';
+  it('parses a valid connection string', () => {
+    const c = parseNwcUri(
+      `nostr+walletconnect://${pk}?relay=wss%3A%2F%2Frelay.damus.io&relay=wss://nos.lol&secret=${secret}&lud16=me@example.com`,
+    );
+    expect(c).toEqual({
+      walletPubkey: pk,
+      relays: ['wss://relay.damus.io', 'wss://nos.lol'],
+      secret,
+      lud16: 'me@example.com',
+    });
+    expect(looksLikeNwcUri(' NOSTR+WALLETCONNECT://x')).toBe(true);
+  });
+  it.each([
+    ['nostr:xyz', /not a Nostr Wallet Connect/],
+    [`nostr+walletconnect://abc?relay=wss://r&secret=${secret}`, /wallet key/],
+    [`nostr+walletconnect://${pk}?secret=${secret}`, /no relay/],
+    [`nostr+walletconnect://${pk}?relay=wss://r&secret=short`, /secret/],
+    [`nostr+walletconnect://${pk}`, /no relay/],
+  ])('rejects %s', (uri, msg) => {
+    expect(() => parseNwcUri(uri)).toThrow(msg);
   });
 });

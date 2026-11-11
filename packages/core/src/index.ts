@@ -20,6 +20,7 @@ export * from './lightning/bolt11-encode.js';
 export * from './lightning/bolt12.js';
 export * from './lightning/lnurl.js';
 export * from './lightning/lightning-address.js';
+export * from './lightning/nwc.js';
 
 export * from './parse/parse-payment-input.js';
 export * from './fees/fees.js';

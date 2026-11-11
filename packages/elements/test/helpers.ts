@@ -47,3 +47,17 @@ export async function expectAccessible(el: Element, disable: string[] = []): Pro
 }
 
 export const nextFrame = () => new Promise((r) => setTimeout(r, 0));
+
+/** Create an element, set properties before it connects (avoids side effects of defaults), then attach. */
+export async function mount<T extends HTMLElement>(
+  tag: string,
+  props: Partial<T> = {},
+  attrs: Record<string, string> = {},
+): Promise<T> {
+  const el = document.createElement(tag) as T;
+  Object.assign(el, props);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+  document.body.append(el);
+  await settle(el);
+  return el;
+}
