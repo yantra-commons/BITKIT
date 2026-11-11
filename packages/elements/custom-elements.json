@@ -1,0 +1,5183 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/components/address-display/address-display.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkAddressDisplay",
+          "cssParts": [
+            {
+              "description": "Wrapper.",
+              "name": "base"
+            },
+            {
+              "description": "The address text.",
+              "name": "address"
+            },
+            {
+              "description": "Each chunk.",
+              "name": "chunk"
+            },
+            {
+              "description": "Action buttons.",
+              "name": "actions"
+            },
+            {
+              "description": "The QR code.",
+              "name": "qr"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "address",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "address"
+            },
+            {
+              "kind": "field",
+              "name": "network",
+              "privacy": "public",
+              "type": {
+                "text": "Network | undefined"
+              },
+              "description": "Network for explorer links; detected from the address when omitted.",
+              "attribute": "network"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Label shown above the address.",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "chunked",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Split into 4-character chunks. Default true.",
+              "default": "true",
+              "attribute": "chunked"
+            },
+            {
+              "kind": "field",
+              "name": "chunkSize",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "4",
+              "attribute": "chunk-size"
+            },
+            {
+              "kind": "field",
+              "name": "truncate",
+              "privacy": "public",
+              "type": {
+                "text": "'none' | 'middle'"
+              },
+              "description": "`none` or `middle` (\"bc1qar0s…zwf5mdq\", click to expand).",
+              "default": "'none'",
+              "attribute": "truncate"
+            },
+            {
+              "kind": "field",
+              "name": "truncateStart",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "10",
+              "attribute": "truncate-start"
+            },
+            {
+              "kind": "field",
+              "name": "truncateEnd",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "8",
+              "attribute": "truncate-end"
+            },
+            {
+              "kind": "field",
+              "name": "copyable",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a copy button. Default true.",
+              "default": "true",
+              "attribute": "copyable"
+            },
+            {
+              "kind": "field",
+              "name": "qr",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a QR toggle button.",
+              "default": "false",
+              "attribute": "qr"
+            },
+            {
+              "kind": "field",
+              "name": "qrOpen",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the QR code is visible.",
+              "default": "false",
+              "attribute": "qr-open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "explorer",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a block-explorer link.",
+              "default": "false",
+              "attribute": "explorer"
+            },
+            {
+              "kind": "field",
+              "name": "explorerBaseUrl",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "explorer-base-url"
+            },
+            {
+              "kind": "field",
+              "name": "showNetwork",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the network badge.",
+              "default": "false",
+              "attribute": "show-network"
+            },
+            {
+              "kind": "field",
+              "name": "showType",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the address type (e.g. Taproot).",
+              "default": "false",
+              "attribute": "show-type"
+            }
+          ],
+          "events": [
+            {
+              "description": "When the address is copied. Detail: `{ value }`.",
+              "name": "bk-copy"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "address",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "address"
+            },
+            {
+              "name": "network",
+              "type": {
+                "text": "Network | undefined"
+              },
+              "description": "Network for explorer links; detected from the address when omitted.",
+              "fieldName": "network"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Label shown above the address.",
+              "fieldName": "label"
+            },
+            {
+              "name": "chunked",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Split into 4-character chunks. Default true.",
+              "default": "true",
+              "fieldName": "chunked"
+            },
+            {
+              "name": "chunk-size",
+              "type": {
+                "text": "number"
+              },
+              "default": "4",
+              "fieldName": "chunkSize"
+            },
+            {
+              "name": "truncate",
+              "type": {
+                "text": "'none' | 'middle'"
+              },
+              "description": "`none` or `middle` (\"bc1qar0s…zwf5mdq\", click to expand).",
+              "default": "'none'",
+              "fieldName": "truncate"
+            },
+            {
+              "name": "truncate-start",
+              "type": {
+                "text": "number"
+              },
+              "default": "10",
+              "fieldName": "truncateStart"
+            },
+            {
+              "name": "truncate-end",
+              "type": {
+                "text": "number"
+              },
+              "default": "8",
+              "fieldName": "truncateEnd"
+            },
+            {
+              "name": "copyable",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a copy button. Default true.",
+              "default": "true",
+              "fieldName": "copyable"
+            },
+            {
+              "name": "qr",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a QR toggle button.",
+              "default": "false",
+              "fieldName": "qr"
+            },
+            {
+              "name": "qr-open",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the QR code is visible.",
+              "default": "false",
+              "fieldName": "qrOpen"
+            },
+            {
+              "name": "explorer",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a block-explorer link.",
+              "default": "false",
+              "fieldName": "explorer"
+            },
+            {
+              "name": "explorer-base-url",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "explorerBaseUrl"
+            },
+            {
+              "name": "show-network",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the network badge.",
+              "default": "false",
+              "fieldName": "showNetwork"
+            },
+            {
+              "name": "show-type",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the address type (e.g. Taproot).",
+              "default": "false",
+              "fieldName": "showType"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-address-display",
+          "customElement": true,
+          "summary": "Shows a Bitcoin address in readable 4-character chunks (Bitcoin Design Guide), with\ncopy, QR toggle, network badge and explorer link. Screen readers hear it character by character."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkAddressDisplay",
+          "declaration": {
+            "name": "BkAddressDisplay",
+            "module": "src/components/address-display/address-display.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/address-input/address-input.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "describePaymentInput",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "r",
+              "type": {
+                "text": "PaymentInput"
+              }
+            },
+            {
+              "name": "locale",
+              "optional": true,
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Short human description of a parsed destination."
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkAddressInput",
+          "cssParts": [
+            {
+              "description": "Label.",
+              "name": "label"
+            },
+            {
+              "description": "Bordered wrapper.",
+              "name": "control"
+            },
+            {
+              "description": "The textarea.",
+              "name": "input"
+            },
+            {
+              "description": "Detected-type line.",
+              "name": "status"
+            },
+            {
+              "description": "Error message.",
+              "name": "error"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "network",
+              "privacy": "public",
+              "type": {
+                "text": "Network | undefined"
+              },
+              "description": "Expected network; defaults to the global config network.",
+              "attribute": "network"
+            },
+            {
+              "kind": "field",
+              "name": "accept",
+              "privacy": "public",
+              "type": {
+                "text": "Accepted[]"
+              },
+              "description": "Accepted destination types. Default: `onchain-address,bip21`. Use\n`onchain-address,bip21,bolt11,bolt12-offer,lnurl,lightning-address` for \"anything payable\".",
+              "default": "['onchain-address', 'bip21']",
+              "attribute": "accept"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "scan",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the scan button. Default true.",
+              "default": "true",
+              "attribute": "scan"
+            },
+            {
+              "kind": "field",
+              "name": "paste",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the paste button (when the Clipboard API is available). Default true.",
+              "default": "true",
+              "attribute": "paste"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "result",
+              "type": {
+                "text": "PaymentInput | undefined"
+              },
+              "description": "The parsed result for the current value.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Form field name.",
+              "attribute": "name",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Visible label.",
+              "attribute": "label",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "helpText",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Help text shown under the field.",
+              "attribute": "help-text",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Error message (sets the field invalid).",
+              "attribute": "error",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflects whether the field currently shows an error.",
+              "default": "false",
+              "attribute": "invalid",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "The owning form, if any.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "On each edit. Detail: `AddressInputDetail`.",
+              "name": "bk-input"
+            },
+            {
+              "description": "When a value is committed (blur, paste, scan). Detail: `AddressInputDetail`.",
+              "name": "bk-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "value"
+            },
+            {
+              "name": "network",
+              "type": {
+                "text": "Network | undefined"
+              },
+              "description": "Expected network; defaults to the global config network.",
+              "fieldName": "network"
+            },
+            {
+              "name": "accept",
+              "type": {
+                "text": "Accepted[]"
+              },
+              "description": "Accepted destination types. Default: `onchain-address,bip21`. Use\n`onchain-address,bip21,bolt11,bolt12-offer,lnurl,lightning-address` for \"anything payable\".",
+              "default": "['onchain-address', 'bip21']",
+              "fieldName": "accept"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "scan",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the scan button. Default true.",
+              "default": "true",
+              "fieldName": "scan"
+            },
+            {
+              "name": "paste",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the paste button (when the Clipboard API is available). Default true.",
+              "default": "true",
+              "fieldName": "paste"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Form field name.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Visible label.",
+              "fieldName": "label",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "help-text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Help text shown under the field.",
+              "fieldName": "helpText",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "error",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Error message (sets the field invalid).",
+              "fieldName": "error",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflects whether the field currently shows an error.",
+              "default": "false",
+              "fieldName": "invalid",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "FormControlElement",
+            "module": "/src/internal/form-control.js"
+          },
+          "tagName": "bk-address-input",
+          "customElement": true,
+          "summary": "Destination input that validates as you type and accepts paste and QR scan. Uses\n`parsePaymentInput` from core, so it understands addresses, BIP21 / unified QR, BOLT11,\nBOLT12 offers, LNURL and Lightning Addresses (restrict with `accept`)."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "describePaymentInput",
+          "declaration": {
+            "name": "describePaymentInput",
+            "module": "src/components/address-input/address-input.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkAddressInput",
+          "declaration": {
+            "name": "BkAddressInput",
+            "module": "src/components/address-input/address-input.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/amount-input/amount-input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkAmountInput",
+          "cssParts": [
+            {
+              "description": "The label.",
+              "name": "label"
+            },
+            {
+              "description": "Bordered wrapper.",
+              "name": "control"
+            },
+            {
+              "description": "Native input.",
+              "name": "input"
+            },
+            {
+              "description": "The unit switcher.",
+              "name": "unit-select"
+            },
+            {
+              "description": "Fiat/sats preview line.",
+              "name": "secondary"
+            },
+            {
+              "description": "The Max button.",
+              "name": "max-button"
+            },
+            {
+              "description": "Error message.",
+              "name": "error"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "amount",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Value in sats (bigint). Set it to prefill; read it after `bk-change`.",
+              "attribute": "amount"
+            },
+            {
+              "kind": "field",
+              "name": "unit",
+              "privacy": "public",
+              "type": {
+                "text": "AmountInputUnit"
+              },
+              "description": "Current entry unit.",
+              "default": "'sats'",
+              "attribute": "unit",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "units",
+              "privacy": "public",
+              "type": {
+                "text": "AmountInputUnit[] | undefined"
+              },
+              "description": "Units offered in the switcher. Default `['sats', 'btc']` plus `fiat` when a rate is set.",
+              "attribute": "units"
+            },
+            {
+              "kind": "field",
+              "name": "fiatRate",
+              "privacy": "public",
+              "type": {
+                "text": "FiatRate | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "fiatCurrency",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "fiat-currency"
+            },
+            {
+              "kind": "field",
+              "name": "fiatPrice",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "fiat-price"
+            },
+            {
+              "kind": "field",
+              "name": "min",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Minimum in sats.",
+              "attribute": "min"
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Maximum in sats.",
+              "attribute": "max"
+            },
+            {
+              "kind": "field",
+              "name": "balance",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Available balance in sats; enables the Max button and an insufficient-funds check.",
+              "attribute": "balance"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "allowMsat",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Accept sub-sat precision (Lightning). Default false.",
+              "default": "false",
+              "attribute": "allow-msat"
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "msat",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Current value in msat (undefined when empty/invalid).",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Form field name.",
+              "attribute": "name",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Visible label.",
+              "attribute": "label",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "helpText",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Help text shown under the field.",
+              "attribute": "help-text",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Error message (sets the field invalid).",
+              "attribute": "error",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflects whether the field currently shows an error.",
+              "default": "false",
+              "attribute": "invalid",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "The owning form, if any.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "On every edit. Detail: `AmountInputDetail`.",
+              "name": "bk-input"
+            },
+            {
+              "description": "When the value is committed (blur, Max, unit change). Detail: `AmountInputDetail`.",
+              "name": "bk-change"
+            },
+            {
+              "description": "When the unit changes. Detail: `{ unit }`.",
+              "name": "bk-unit-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "amount",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Value in sats (bigint). Set it to prefill; read it after `bk-change`.",
+              "fieldName": "amount"
+            },
+            {
+              "name": "unit",
+              "type": {
+                "text": "AmountInputUnit"
+              },
+              "description": "Current entry unit.",
+              "default": "'sats'",
+              "fieldName": "unit"
+            },
+            {
+              "name": "units",
+              "type": {
+                "text": "AmountInputUnit[] | undefined"
+              },
+              "description": "Units offered in the switcher. Default `['sats', 'btc']` plus `fiat` when a rate is set.",
+              "fieldName": "units"
+            },
+            {
+              "name": "fiat-currency",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "fiatCurrency"
+            },
+            {
+              "name": "fiat-price",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "fiatPrice"
+            },
+            {
+              "name": "min",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Minimum in sats.",
+              "fieldName": "min"
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Maximum in sats.",
+              "fieldName": "max"
+            },
+            {
+              "name": "balance",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Available balance in sats; enables the Max button and an insufficient-funds check.",
+              "fieldName": "balance"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "allow-msat",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Accept sub-sat precision (Lightning). Default false.",
+              "default": "false",
+              "fieldName": "allowMsat"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Form field name.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Visible label.",
+              "fieldName": "label",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "help-text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Help text shown under the field.",
+              "fieldName": "helpText",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "error",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Error message (sets the field invalid).",
+              "fieldName": "error",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflects whether the field currently shows an error.",
+              "default": "false",
+              "fieldName": "invalid",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "FormControlElement",
+            "module": "/src/internal/form-control.js"
+          },
+          "tagName": "bk-amount-input",
+          "customElement": true,
+          "summary": "Bigint-safe amount entry with unit switcher (sats / BTC / fiat), fiat preview,\nmin/max validation and a \"Max\" button for the available balance."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkAmountInput",
+          "declaration": {
+            "name": "BkAmountInput",
+            "module": "src/components/amount-input/amount-input.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/amount-display/amount-display.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkAmountDisplay",
+          "cssParts": [
+            {
+              "description": "Wrapper.",
+              "name": "base"
+            },
+            {
+              "description": "The formatted amount (number + unit).",
+              "name": "value"
+            },
+            {
+              "description": "The number.",
+              "name": "number"
+            },
+            {
+              "description": "The unit label.",
+              "name": "unit"
+            },
+            {
+              "description": "Secondary fiat line.",
+              "name": "fiat"
+            },
+            {
+              "description": "Show/hide button.",
+              "name": "privacy-toggle"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "amount",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount in sats.",
+              "attribute": "amount"
+            },
+            {
+              "kind": "field",
+              "name": "msat",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount in millisats (takes precedence over `amount`).",
+              "attribute": "msat"
+            },
+            {
+              "kind": "field",
+              "name": "unit",
+              "privacy": "public",
+              "type": {
+                "text": "DisplayUnit | undefined"
+              },
+              "description": "Display unit; defaults to the global config unit (`sats`).",
+              "attribute": "unit",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "units",
+              "privacy": "public",
+              "type": {
+                "text": "DisplayUnit[] | undefined"
+              },
+              "description": "Units cycled by the toggle. Default sats → BTC (→ fiat when a rate is set).",
+              "attribute": "units"
+            },
+            {
+              "kind": "field",
+              "name": "fiatRate",
+              "privacy": "public",
+              "type": {
+                "text": "FiatRate | undefined"
+              },
+              "description": "Fiat rate object (property only)."
+            },
+            {
+              "kind": "field",
+              "name": "fiatCurrency",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Fiat currency code (attribute alternative to `fiatRate`).",
+              "attribute": "fiat-currency"
+            },
+            {
+              "kind": "field",
+              "name": "fiatPrice",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Price of 1 BTC in `fiat-currency`.",
+              "attribute": "fiat-price"
+            },
+            {
+              "kind": "field",
+              "name": "showFiat",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a secondary fiat line.",
+              "default": "false",
+              "attribute": "show-fiat"
+            },
+            {
+              "kind": "field",
+              "name": "toggle",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Clicking the amount cycles units.",
+              "default": "false",
+              "attribute": "toggle"
+            },
+            {
+              "kind": "field",
+              "name": "privacy",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide the amount (privacy mode).",
+              "default": "false",
+              "attribute": "privacy",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "privacyToggle",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show an eye button to toggle privacy.",
+              "default": "false",
+              "attribute": "privacy-toggle"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "'sm' | 'md' | 'lg' | 'xl'"
+              },
+              "default": "'md'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "signDisplay",
+              "privacy": "public",
+              "type": {
+                "text": "'auto' | 'always' | 'never' | undefined"
+              },
+              "attribute": "sign-display"
+            },
+            {
+              "kind": "field",
+              "name": "direction",
+              "privacy": "public",
+              "type": {
+                "text": "'incoming' | 'outgoing' | undefined"
+              },
+              "description": "`incoming` colors the amount as received.",
+              "attribute": "direction"
+            },
+            {
+              "kind": "field",
+              "name": "btcStyle",
+              "privacy": "public",
+              "type": {
+                "text": "'code' | 'symbol' | undefined"
+              },
+              "description": "`code` → \"0.5 BTC\", `symbol` → \"₿0.5\".",
+              "attribute": "btc-style"
+            },
+            {
+              "kind": "field",
+              "name": "loading",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a loading skeleton.",
+              "default": "false",
+              "attribute": "loading"
+            },
+            {
+              "kind": "field",
+              "name": "formatted",
+              "type": {
+                "text": "FormattedAmount | undefined"
+              },
+              "description": "Formatted result for the current state (undefined when no amount).",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "description": "When the user toggles the unit. Detail: `{ unit }`.",
+              "name": "bk-unit-change"
+            },
+            {
+              "description": "When the privacy toggle is used. Detail: `{ hidden: boolean }`.",
+              "name": "bk-privacy-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "amount",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount in sats.",
+              "fieldName": "amount"
+            },
+            {
+              "name": "msat",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Amount in millisats (takes precedence over `amount`).",
+              "fieldName": "msat"
+            },
+            {
+              "name": "unit",
+              "type": {
+                "text": "DisplayUnit | undefined"
+              },
+              "description": "Display unit; defaults to the global config unit (`sats`).",
+              "fieldName": "unit"
+            },
+            {
+              "name": "units",
+              "type": {
+                "text": "DisplayUnit[] | undefined"
+              },
+              "description": "Units cycled by the toggle. Default sats → BTC (→ fiat when a rate is set).",
+              "fieldName": "units"
+            },
+            {
+              "name": "fiat-currency",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Fiat currency code (attribute alternative to `fiatRate`).",
+              "fieldName": "fiatCurrency"
+            },
+            {
+              "name": "fiat-price",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Price of 1 BTC in `fiat-currency`.",
+              "fieldName": "fiatPrice"
+            },
+            {
+              "name": "show-fiat",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a secondary fiat line.",
+              "default": "false",
+              "fieldName": "showFiat"
+            },
+            {
+              "name": "toggle",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Clicking the amount cycles units.",
+              "default": "false",
+              "fieldName": "toggle"
+            },
+            {
+              "name": "privacy",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide the amount (privacy mode).",
+              "default": "false",
+              "fieldName": "privacy"
+            },
+            {
+              "name": "privacy-toggle",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show an eye button to toggle privacy.",
+              "default": "false",
+              "fieldName": "privacyToggle"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg' | 'xl'"
+              },
+              "default": "'md'",
+              "fieldName": "size"
+            },
+            {
+              "name": "sign-display",
+              "type": {
+                "text": "'auto' | 'always' | 'never' | undefined"
+              },
+              "fieldName": "signDisplay"
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "'incoming' | 'outgoing' | undefined"
+              },
+              "description": "`incoming` colors the amount as received.",
+              "fieldName": "direction"
+            },
+            {
+              "name": "btc-style",
+              "type": {
+                "text": "'code' | 'symbol' | undefined"
+              },
+              "description": "`code` → \"0.5 BTC\", `symbol` → \"₿0.5\".",
+              "fieldName": "btcStyle"
+            },
+            {
+              "name": "loading",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a loading skeleton.",
+              "default": "false",
+              "fieldName": "loading"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-amount-display",
+          "customElement": true,
+          "summary": "Displays a bitcoin amount in sats, BTC or fiat. Optional unit toggle, fiat secondary\nline and privacy mode. All math is exact (bigint)."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkAmountDisplay",
+          "declaration": {
+            "name": "BkAmountDisplay",
+            "module": "src/components/amount-display/amount-display.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/badge/badge.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkBadge",
+          "cssParts": [
+            {
+              "description": "The badge container.",
+              "name": "base"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Badge text.",
+              "name": ""
+            },
+            {
+              "description": "Optional leading icon.",
+              "name": "icon"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "variant",
+              "privacy": "public",
+              "type": {
+                "text": "BadgeVariant"
+              },
+              "description": "Color variant.",
+              "default": "'neutral'",
+              "attribute": "variant",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "BadgeVariant"
+              },
+              "description": "Color variant.",
+              "default": "'neutral'",
+              "fieldName": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-badge",
+          "customElement": true,
+          "summary": "Small status label.",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkBadge",
+          "declaration": {
+            "name": "BkBadge",
+            "module": "src/components/badge/badge.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/button/button.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "buttonStyles",
+          "default": "css` .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: var(--bk-space-2); width: 100%; min-height: var(--bk-control-height-md); padding: 0 var(--bk-space-4); border: 1px solid transparent; border-radius: var(--bk-radius-md); font: inherit; font-size: var(--bk-font-size-md); font-weight: var(--bk-font-weight-semibold); line-height: 1; text-decoration: none; white-space: nowrap; cursor: pointer; user-select: none; transition: background-color var(--bk-duration-fast) var(--bk-easing-standard), border-color var(--bk-duration-fast) var(--bk-easing-standard), transform var(--bk-duration-fast) var(--bk-easing-standard); } .btn:active:not([aria-disabled='true']) { transform: translateY(1px); } .sm { min-height: var(--bk-control-height-sm); padding: 0 var(--bk-space-3); font-size: var(--bk-font-size-sm); } .lg { min-height: var(--bk-control-height-lg); padding: 0 var(--bk-space-6); font-size: var(--bk-font-size-lg); } .primary { background: var(--bk-color-accent); color: var(--bk-color-on-accent); } .primary:hover:not([aria-disabled='true']) { background: var(--bk-color-accent-hover); } .secondary { background: var(--bk-color-surface); color: var(--bk-color-text); border-color: var(--bk-color-border-strong); } .secondary:hover:not([aria-disabled='true']) { background: var(--bk-color-surface-2); } .ghost { background: transparent; color: var(--bk-color-text); } .ghost:hover:not([aria-disabled='true']) { background: var(--bk-color-surface-2); } .danger { background: var(--bk-color-danger); color: var(--bk-color-bg); } .btn[aria-disabled='true'] { opacity: 0.55; cursor: not-allowed; } .btn.loading .content { visibility: hidden; } .btn bk-spinner { position: absolute; inset: 0; margin: auto; width: fit-content; height: fit-content; } .content { display: inline-flex; align-items: center; gap: var(--bk-space-2); } @media (forced-colors: active) { .btn { border-color: ButtonText; } } `",
+          "description": "Shared button look, reused by icon-button, copy-button and composite components."
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkButton",
+          "cssParts": [
+            {
+              "description": "The native button or link.",
+              "name": "base"
+            },
+            {
+              "description": "The label wrapper.",
+              "name": "label"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Button label.",
+              "name": ""
+            },
+            {
+              "description": "Content before the label (e.g. an icon).",
+              "name": "prefix"
+            },
+            {
+              "description": "Content after the label.",
+              "name": "suffix"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "privacy": "public",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "'primary'",
+              "attribute": "variant",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'md'",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "privacy": "public",
+              "type": {
+                "text": "'button' | 'submit' | 'reset'"
+              },
+              "description": "`button`, `submit` or `reset` (submits the closest form).",
+              "default": "'button'",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "loading",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a spinner and block interaction.",
+              "default": "false",
+              "attribute": "loading",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "block",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Stretch to the container width.",
+              "default": "false",
+              "attribute": "block",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "href",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Render as a link.",
+              "attribute": "href"
+            },
+            {
+              "kind": "field",
+              "name": "target",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "target"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible label override (when the visible label is not descriptive).",
+              "attribute": "label"
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "click",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "Native click (suppressed while disabled or loading).",
+              "name": "click"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "'primary'",
+              "fieldName": "variant"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'md'",
+              "fieldName": "size"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "'button' | 'submit' | 'reset'"
+              },
+              "description": "`button`, `submit` or `reset` (submits the closest form).",
+              "default": "'button'",
+              "fieldName": "type"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "loading",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a spinner and block interaction.",
+              "default": "false",
+              "fieldName": "loading"
+            },
+            {
+              "name": "block",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Stretch to the container width.",
+              "default": "false",
+              "fieldName": "block"
+            },
+            {
+              "name": "href",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Render as a link.",
+              "fieldName": "href"
+            },
+            {
+              "name": "target",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "target"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible label override (when the visible label is not descriptive).",
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-button",
+          "customElement": true,
+          "summary": "Accessible button with primary/secondary/ghost/danger variants and a loading state.\nWorks as a submit button inside forms."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "buttonStyles",
+          "declaration": {
+            "name": "buttonStyles",
+            "module": "src/components/button/button.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkButton",
+          "declaration": {
+            "name": "BkButton",
+            "module": "src/components/button/button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/copy-button/copy-button.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "copyText",
+          "return": {
+            "type": {
+              "text": "Promise<void>"
+            }
+          },
+          "parameters": [
+            {
+              "name": "text",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Write text to the clipboard with a fallback for older browsers / insecure contexts."
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkCopyButton",
+          "cssParts": [
+            {
+              "description": "The native button.",
+              "name": "base"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Text to copy.",
+              "default": "''",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Visible/accessible label. Default \"Copy\".",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "appearance",
+              "privacy": "public",
+              "type": {
+                "text": "'icon' | 'button'"
+              },
+              "description": "`icon` (icon only) or `button` (icon + label).",
+              "default": "'icon'",
+              "attribute": "appearance"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "privacy": "public",
+              "type": {
+                "text": "'ghost' | 'secondary' | 'primary'"
+              },
+              "default": "'ghost'",
+              "attribute": "variant"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "'sm' | 'md'"
+              },
+              "default": "'md'",
+              "attribute": "size"
+            },
+            {
+              "kind": "method",
+              "name": "copy",
+              "return": {
+                "type": {
+                  "text": "Promise<boolean>"
+                }
+              },
+              "description": "Copy the value programmatically."
+            }
+          ],
+          "events": [
+            {
+              "description": "After a successful copy. Detail: `{ value: string }`.",
+              "name": "bk-copy"
+            },
+            {
+              "description": "When copying fails. Detail: `{ error: unknown }`.",
+              "name": "bk-copy-error"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "description": "Text to copy.",
+              "default": "''",
+              "fieldName": "value"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Visible/accessible label. Default \"Copy\".",
+              "fieldName": "label"
+            },
+            {
+              "name": "appearance",
+              "type": {
+                "text": "'icon' | 'button'"
+              },
+              "description": "`icon` (icon only) or `button` (icon + label).",
+              "default": "'icon'",
+              "fieldName": "appearance"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "'ghost' | 'secondary' | 'primary'"
+              },
+              "default": "'ghost'",
+              "fieldName": "variant"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md'"
+              },
+              "default": "'md'",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-copy-button",
+          "customElement": true,
+          "summary": "Copies a value to the clipboard and confirms visually and to screen readers."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "copyText",
+          "declaration": {
+            "name": "copyText",
+            "module": "src/components/copy-button/copy-button.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkCopyButton",
+          "declaration": {
+            "name": "BkCopyButton",
+            "module": "src/components/copy-button/copy-button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/icon.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "ICON_NAMES",
+          "default": "Object.keys(ICONS)"
+        },
+        {
+          "kind": "function",
+          "name": "iconSvg",
+          "parameters": [
+            {
+              "name": "name",
+              "type": {
+                "text": "IconName"
+              }
+            }
+          ],
+          "description": "Render an icon SVG (for use inside other components' templates)."
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkIcon",
+          "cssProperties": [
+            {
+              "description": "Icon size. Default `1.25em`.",
+              "name": "--bk-icon-size"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The SVG element.",
+              "name": "svg"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "IconName"
+              },
+              "description": "Icon name, e.g. `copy`, `lightning`, `qr-code`.",
+              "default": "'bitcoin'",
+              "attribute": "name",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible label. When omitted the icon is decorative (hidden from assistive tech).",
+              "attribute": "label"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "IconName"
+              },
+              "description": "Icon name, e.g. `copy`, `lightning`, `qr-code`.",
+              "default": "'bitcoin'",
+              "fieldName": "name"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible label. When omitted the icon is decorative (hidden from assistive tech).",
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-icon",
+          "customElement": true,
+          "summary": "An icon from the Bitcoin Icons set (bitcoinicons.com).",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "IconName",
+          "declaration": {
+            "name": "IconName",
+            "module": "src/components/icon/icon.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ICON_NAMES",
+          "declaration": {
+            "name": "ICON_NAMES",
+            "module": "src/components/icon/icon.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "iconSvg",
+          "declaration": {
+            "name": "iconSvg",
+            "module": "src/components/icon/icon.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkIcon",
+          "declaration": {
+            "name": "BkIcon",
+            "module": "src/components/icon/icon.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input/input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkInput",
+          "cssParts": [
+            {
+              "description": "The label.",
+              "name": "label"
+            },
+            {
+              "description": "The bordered input wrapper.",
+              "name": "control"
+            },
+            {
+              "description": "The native input.",
+              "name": "input"
+            },
+            {
+              "description": "Help text.",
+              "name": "help"
+            },
+            {
+              "description": "Error message.",
+              "name": "error"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Content before the input.",
+              "name": "prefix"
+            },
+            {
+              "description": "Content after the input (e.g. a unit or button).",
+              "name": "suffix"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "privacy": "public",
+              "type": {
+                "text": "'text' | 'email' | 'url' | 'search' | 'password' | 'tel' | 'number'"
+              },
+              "default": "'text'",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "readonly",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "autocomplete",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "autocomplete"
+            },
+            {
+              "kind": "field",
+              "name": "inputmode",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "inputmode"
+            },
+            {
+              "kind": "field",
+              "name": "spellcheck",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "spellcheck"
+            },
+            {
+              "kind": "field",
+              "name": "monospace",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Use the monospace font (addresses, invoices).",
+              "default": "false",
+              "attribute": "monospace"
+            },
+            {
+              "kind": "field",
+              "name": "maxlength",
+              "privacy": "public",
+              "type": {
+                "text": "number | undefined"
+              },
+              "attribute": "maxlength"
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "input",
+              "type": {
+                "text": "HTMLInputElement | null"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "select",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Form field name.",
+              "attribute": "name",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Visible label.",
+              "attribute": "label",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "helpText",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Help text shown under the field.",
+              "attribute": "help-text",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Error message (sets the field invalid).",
+              "attribute": "error",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflects whether the field currently shows an error.",
+              "default": "false",
+              "attribute": "invalid",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "The owning form, if any.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "On every edit. Detail: `{ value: string }`.",
+              "name": "bk-input"
+            },
+            {
+              "description": "When the value is committed (blur/enter). Detail: `{ value: string }`.",
+              "name": "bk-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "value"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "'text' | 'email' | 'url' | 'search' | 'password' | 'tel' | 'number'"
+              },
+              "default": "'text'",
+              "fieldName": "type"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "readonly",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "readonly"
+            },
+            {
+              "name": "autocomplete",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "autocomplete"
+            },
+            {
+              "name": "inputmode",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "inputmode"
+            },
+            {
+              "name": "spellcheck",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "spellcheck"
+            },
+            {
+              "name": "monospace",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Use the monospace font (addresses, invoices).",
+              "default": "false",
+              "fieldName": "monospace"
+            },
+            {
+              "name": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "fieldName": "maxlength"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Form field name.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Visible label.",
+              "fieldName": "label",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "help-text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Help text shown under the field.",
+              "fieldName": "helpText",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "error",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Error message (sets the field invalid).",
+              "fieldName": "error",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflects whether the field currently shows an error.",
+              "default": "false",
+              "fieldName": "invalid",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "FormControlElement",
+            "module": "/src/internal/form-control.js"
+          },
+          "tagName": "bk-input",
+          "customElement": true,
+          "summary": "Labelled text input with help text, error state, prefix/suffix slots and native form\nparticipation."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkInput",
+          "declaration": {
+            "name": "BkInput",
+            "module": "src/components/input/input.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/network-badge/network-badge.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkNetworkBadge",
+          "cssParts": [
+            {
+              "description": "The badge.",
+              "name": "base"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "network",
+              "privacy": "public",
+              "type": {
+                "text": "Network | undefined"
+              },
+              "description": "Network; defaults to the global config network.",
+              "attribute": "network",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "hideMainnet",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Render nothing on mainnet (show only for test networks).",
+              "default": "false",
+              "attribute": "hide-mainnet"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "network",
+              "type": {
+                "text": "Network | undefined"
+              },
+              "description": "Network; defaults to the global config network.",
+              "fieldName": "network"
+            },
+            {
+              "name": "hide-mainnet",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Render nothing on mainnet (show only for test networks).",
+              "default": "false",
+              "fieldName": "hideMainnet"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-network-badge",
+          "customElement": true,
+          "summary": "Shows which Bitcoin network is in use. Test networks are highlighted so users never\nconfuse test coins with real ones.",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkNetworkBadge",
+          "declaration": {
+            "name": "BkNetworkBadge",
+            "module": "src/components/network-badge/network-badge.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon-button/icon-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkIconButton",
+          "cssParts": [
+            {
+              "description": "The native button.",
+              "name": "base"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }"
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "privacy": "public",
+              "type": {
+                "text": "IconName"
+              },
+              "default": "'bitcoin'",
+              "attribute": "icon"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Accessible name (required).",
+              "default": "''",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "privacy": "public",
+              "type": {
+                "text": "'ghost' | 'secondary' | 'primary'"
+              },
+              "default": "'ghost'",
+              "attribute": "variant",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "pressed",
+              "privacy": "public",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Toggle-button state; sets aria-pressed when defined.",
+              "attribute": "pressed"
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "icon",
+              "type": {
+                "text": "IconName"
+              },
+              "default": "'bitcoin'",
+              "fieldName": "icon"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "description": "Accessible name (required).",
+              "default": "''",
+              "fieldName": "label"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "'ghost' | 'secondary' | 'primary'"
+              },
+              "default": "'ghost'",
+              "fieldName": "variant"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "fieldName": "size"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "pressed",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Toggle-button state; sets aria-pressed when defined.",
+              "fieldName": "pressed"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-icon-button",
+          "customElement": true,
+          "summary": "Square button showing only an icon. `label` is required for accessibility and is\nalso shown as a native tooltip.",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkIconButton",
+          "declaration": {
+            "name": "BkIconButton",
+            "module": "src/components/icon-button/icon-button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/qr-code/qr-code.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "qrPath",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "data",
+              "type": {
+                "text": "boolean[][]"
+              }
+            }
+          ],
+          "description": "Build an SVG path for the dark modules of a QR matrix (one subpath per horizontal run)."
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkQrCode",
+          "cssProperties": [
+            {
+              "description": "Rendered size. Default from the `size` attribute.",
+              "name": "--bk-qr-size"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "The SVG.",
+              "name": "svg"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Optional centered logo.",
+              "name": "logo"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "The data to encode (BIP21 URI, invoice, address…).",
+              "default": "''",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Size in CSS pixels. Default 256.",
+              "default": "256",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "ecc",
+              "privacy": "public",
+              "type": {
+                "text": "QrEcc | undefined"
+              },
+              "description": "Error correction level. Default M (H when a logo is present).",
+              "attribute": "ecc"
+            },
+            {
+              "kind": "field",
+              "name": "margin",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Quiet zone in modules. Default 2 (rounded container adds visual margin).",
+              "default": "2",
+              "attribute": "margin"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "What the code contains, for the accessible name: \"QR code for {label}\".",
+              "attribute": "label"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "description": "The data to encode (BIP21 URI, invoice, address…).",
+              "default": "''",
+              "fieldName": "value"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "description": "Size in CSS pixels. Default 256.",
+              "default": "256",
+              "fieldName": "size"
+            },
+            {
+              "name": "ecc",
+              "type": {
+                "text": "QrEcc | undefined"
+              },
+              "description": "Error correction level. Default M (H when a logo is present).",
+              "fieldName": "ecc"
+            },
+            {
+              "name": "margin",
+              "type": {
+                "text": "number"
+              },
+              "description": "Quiet zone in modules. Default 2 (rounded container adds visual margin).",
+              "default": "2",
+              "fieldName": "margin"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "What the code contains, for the accessible name: \"QR code for {label}\".",
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-qr-code",
+          "customElement": true,
+          "summary": "Renders a value as a QR code (SVG, fully client-side). Colors stay dark-on-light in\nevery theme for scanner reliability. Put an image in the `logo` slot to overlay a logo (error\ncorrection is raised to H automatically).",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "qrPath",
+          "declaration": {
+            "name": "qrPath",
+            "module": "src/components/qr-code/qr-code.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkQrCode",
+          "declaration": {
+            "name": "BkQrCode",
+            "module": "src/components/qr-code/qr-code.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/qr-scanner/qr-scanner.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "nativeQrDecoder",
+          "return": {
+            "type": {
+              "text": "QrDecoder | null"
+            }
+          },
+          "description": "Native BarcodeDetector-based decoder, or null when the browser lacks support."
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkQrScanner",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "The camera preview.",
+              "name": "video"
+            },
+            {
+              "description": "Status / fallback message.",
+              "name": "message"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "active",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Camera runs while true.",
+              "default": "false",
+              "attribute": "active",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "facing",
+              "privacy": "public",
+              "type": {
+                "text": "'environment' | 'user'"
+              },
+              "description": "Preferred camera. Default `environment` (rear).",
+              "default": "'environment'",
+              "attribute": "facing"
+            },
+            {
+              "kind": "field",
+              "name": "decoder",
+              "privacy": "public",
+              "type": {
+                "text": "QrDecoder | undefined"
+              },
+              "description": "Custom decoder; defaults to the native BarcodeDetector."
+            },
+            {
+              "kind": "method",
+              "name": "start",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "description": "Start the camera."
+            },
+            {
+              "kind": "method",
+              "name": "stop",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Stop the camera and release the stream."
+            }
+          ],
+          "events": [
+            {
+              "description": "When a code is read. Detail: `{ value: string, result: PaymentInput }`.",
+              "name": "bk-scan"
+            },
+            {
+              "description": "On camera errors. Detail: `{ code: 'denied' | 'unavailable' | 'unsupported' }`.",
+              "name": "bk-error"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "active",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Camera runs while true.",
+              "default": "false",
+              "fieldName": "active"
+            },
+            {
+              "name": "facing",
+              "type": {
+                "text": "'environment' | 'user'"
+              },
+              "description": "Preferred camera. Default `environment` (rear).",
+              "default": "'environment'",
+              "fieldName": "facing"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-qr-scanner",
+          "customElement": true,
+          "summary": "Camera QR scanner. Uses the native BarcodeDetector when available; plug in any\ndecoder (e.g. jsQR) via the `decoder` property for other browsers. Falls back to image upload\nand shows clear messages when the camera is denied or missing. Video never leaves the device."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "nativeQrDecoder",
+          "declaration": {
+            "name": "nativeQrDecoder",
+            "module": "src/components/qr-scanner/qr-scanner.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkQrScanner",
+          "declaration": {
+            "name": "BkQrScanner",
+            "module": "src/components/qr-scanner/qr-scanner.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/dialog/dialog.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkDialog",
+          "cssParts": [
+            {
+              "description": "The native dialog.",
+              "name": "dialog"
+            },
+            {
+              "description": "Header with title and close button.",
+              "name": "header"
+            },
+            {
+              "description": "The title.",
+              "name": "title"
+            },
+            {
+              "description": "Scrollable body.",
+              "name": "body"
+            },
+            {
+              "description": "Footer.",
+              "name": "footer"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Dialog body.",
+              "name": ""
+            },
+            {
+              "description": "Actions area.",
+              "name": "footer"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the dialog is open.",
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Dialog title (also its accessible name).",
+              "default": "''",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "closeOnBackdrop",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Close when clicking the backdrop. Default true.",
+              "default": "true",
+              "attribute": "close-on-backdrop"
+            },
+            {
+              "kind": "field",
+              "name": "hideClose",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide the close button (Escape still closes unless prevented).",
+              "default": "false",
+              "attribute": "hide-close"
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | null"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Open the dialog."
+            },
+            {
+              "kind": "method",
+              "name": "hide",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "reason",
+                  "default": "'method'",
+                  "type": {
+                    "text": "DialogCloseReason"
+                  }
+                }
+              ],
+              "description": "Close the dialog (fires bk-request-close first)."
+            }
+          ],
+          "events": [
+            {
+              "description": "After the dialog opens.",
+              "name": "bk-open"
+            },
+            {
+              "description": "Before closing; cancelable. Detail: `{ reason }`.",
+              "name": "bk-request-close"
+            },
+            {
+              "description": "After the dialog closes. Detail: `{ reason }`.",
+              "name": "bk-close"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the dialog is open.",
+              "default": "false",
+              "fieldName": "open"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "description": "Dialog title (also its accessible name).",
+              "default": "''",
+              "fieldName": "label"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "fieldName": "size"
+            },
+            {
+              "name": "close-on-backdrop",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Close when clicking the backdrop. Default true.",
+              "default": "true",
+              "fieldName": "closeOnBackdrop"
+            },
+            {
+              "name": "hide-close",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide the close button (Escape still closes unless prevented).",
+              "default": "false",
+              "fieldName": "hideClose"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-dialog",
+          "customElement": true,
+          "summary": "Modal dialog built on the native `<dialog>` element: focus is trapped, the page is\ninert, Escape closes, and focus returns to the opener on close."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkDialog",
+          "declaration": {
+            "name": "BkDialog",
+            "module": "src/components/dialog/dialog.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/select/select.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkSelect",
+          "cssParts": [
+            {
+              "description": "The label.",
+              "name": "label"
+            },
+            {
+              "description": "The bordered wrapper.",
+              "name": "control"
+            },
+            {
+              "description": "The native select.",
+              "name": "select"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "options",
+              "privacy": "public",
+              "type": {
+                "text": "SelectOption[]"
+              },
+              "default": "[]",
+              "attribute": "options"
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Form field name.",
+              "attribute": "name",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Visible label.",
+              "attribute": "label",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "helpText",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Help text shown under the field.",
+              "attribute": "help-text",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Error message (sets the field invalid).",
+              "attribute": "error",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflects whether the field currently shows an error.",
+              "default": "false",
+              "attribute": "invalid",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "The owning form, if any.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "When the selection changes. Detail: `{ value: string }`.",
+              "name": "bk-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "value"
+            },
+            {
+              "name": "options",
+              "type": {
+                "text": "SelectOption[]"
+              },
+              "default": "[]",
+              "fieldName": "options"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Form field name.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Visible label.",
+              "fieldName": "label",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "help-text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Help text shown under the field.",
+              "fieldName": "helpText",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "error",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Error message (sets the field invalid).",
+              "fieldName": "error",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflects whether the field currently shows an error.",
+              "default": "false",
+              "fieldName": "invalid",
+              "inheritedFrom": {
+                "name": "FormControlElement",
+                "module": "src/internal/form-control.ts"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "FormControlElement",
+            "module": "/src/internal/form-control.js"
+          },
+          "tagName": "bk-select",
+          "customElement": true,
+          "summary": "Labelled native select. Options come from the `options` property or from light-DOM\n`<option>` children."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkSelect",
+          "declaration": {
+            "name": "BkSelect",
+            "module": "src/components/select/select.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/skeleton/skeleton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkSkeleton",
+          "cssParts": [
+            {
+              "description": "The placeholder block.",
+              "name": "base"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "shape",
+              "privacy": "public",
+              "type": {
+                "text": "'text' | 'rect' | 'circle'"
+              },
+              "description": "`text` (1em tall), `rect` or `circle`.",
+              "default": "'text'",
+              "attribute": "shape"
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "CSS width. Default 100%.",
+              "attribute": "width"
+            },
+            {
+              "kind": "field",
+              "name": "height",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "CSS height.",
+              "attribute": "height"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "shape",
+              "type": {
+                "text": "'text' | 'rect' | 'circle'"
+              },
+              "description": "`text` (1em tall), `rect` or `circle`.",
+              "default": "'text'",
+              "fieldName": "shape"
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "CSS width. Default 100%.",
+              "fieldName": "width"
+            },
+            {
+              "name": "height",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "CSS height.",
+              "fieldName": "height"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-skeleton",
+          "customElement": true,
+          "summary": "Placeholder shimmer shown while content loads. Hidden from assistive technology;\npair it with a `bk-spinner` or `aria-busy` on the region being loaded.",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkSkeleton",
+          "declaration": {
+            "name": "BkSkeleton",
+            "module": "src/components/skeleton/skeleton.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/spinner/spinner.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkSpinner",
+          "cssProperties": [
+            {
+              "description": "Diameter. Default `1.25em`.",
+              "name": "--bk-spinner-size"
+            },
+            {
+              "description": "Arc color. Default `currentColor`.",
+              "name": "--bk-spinner-color"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The spinning ring.",
+              "name": "base"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible label. Default \"Loading\".",
+              "attribute": "label"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible label. Default \"Loading\".",
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-spinner",
+          "customElement": true,
+          "summary": "Indeterminate loading indicator. Announces its label politely to screen readers.",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkSpinner",
+          "declaration": {
+            "name": "BkSpinner",
+            "module": "src/components/spinner/spinner.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tabs/tabs.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkTabs",
+          "cssParts": [
+            {
+              "description": "The tab list.",
+              "name": "tablist"
+            },
+            {
+              "description": "Each tab button.",
+              "name": "tab"
+            },
+            {
+              "description": "Each panel wrapper.",
+              "name": "panel"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Name of the selected tab. Defaults to the first enabled tab.",
+              "default": "''",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible name for the tab list.",
+              "attribute": "label"
+            }
+          ],
+          "events": [
+            {
+              "description": "When the selected tab changes. Detail: `{ value: string }`.",
+              "name": "bk-change"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "description": "Name of the selected tab. Defaults to the first enabled tab.",
+              "default": "''",
+              "fieldName": "value"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible name for the tab list.",
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-tabs",
+          "customElement": true,
+          "summary": "Accessible tabs (WAI-ARIA tabs pattern, automatic activation). Each child element\nwith a `slot` name and a `label` attribute becomes one tab and its panel.\n\n```html\n<bk-tabs>\n<div slot=\"lightning\" label=\"Lightning\">…</div>\n<div slot=\"onchain\" label=\"On-chain\">…</div>\n</bk-tabs>\n```"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkTabs",
+          "declaration": {
+            "name": "BkTabs",
+            "module": "src/components/tabs/tabs.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/toast/toast.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkToast",
+          "cssParts": [
+            {
+              "description": "The toast container.",
+              "name": "base"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Message content.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "variant",
+              "privacy": "public",
+              "type": {
+                "text": "ToastVariant"
+              },
+              "default": "'info'",
+              "attribute": "variant",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "duration",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Auto-dismiss after ms (0 = stay). Default 5000.",
+              "default": "5000",
+              "attribute": "duration"
+            },
+            {
+              "kind": "field",
+              "name": "closable",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a dismiss button. Default true.",
+              "default": "true",
+              "attribute": "closable"
+            },
+            {
+              "kind": "method",
+              "name": "dismiss",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Remove the toast."
+            }
+          ],
+          "events": [
+            {
+              "description": "When the toast is dismissed.",
+              "name": "bk-close"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "ToastVariant"
+              },
+              "default": "'info'",
+              "fieldName": "variant"
+            },
+            {
+              "name": "duration",
+              "type": {
+                "text": "number"
+              },
+              "description": "Auto-dismiss after ms (0 = stay). Default 5000.",
+              "default": "5000",
+              "fieldName": "duration"
+            },
+            {
+              "name": "closable",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show a dismiss button. Default true.",
+              "default": "true",
+              "fieldName": "closable"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-toast",
+          "customElement": true,
+          "summary": "A notification message. Usually created with the `toast()` helper, which places it\nin a shared live region. Auto-dismiss pauses while hovered or focused."
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkToaster",
+          "members": [],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-toaster",
+          "customElement": true,
+          "summary": "Fixed region that stacks toasts. Created automatically by `toast()`.",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "toast",
+          "return": {
+            "type": {
+              "text": "BkToast | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "message",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "options",
+              "default": "{}",
+              "type": {
+                "text": "ToastOptions"
+              }
+            }
+          ],
+          "description": "Show a toast message. Returns the toast element. No-op (returns null) during SSR."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkToast",
+          "declaration": {
+            "name": "BkToast",
+            "module": "src/components/toast/toast.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkToaster",
+          "declaration": {
+            "name": "BkToaster",
+            "module": "src/components/toast/toast.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "toast",
+          "declaration": {
+            "name": "toast",
+            "module": "src/components/toast/toast.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tooltip/tooltip.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkTooltip",
+          "cssParts": [
+            {
+              "description": "The tooltip bubble.",
+              "name": "tooltip"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The trigger element (must be focusable for keyboard users).",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "content",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Tooltip text.",
+              "default": "''",
+              "attribute": "content"
+            },
+            {
+              "kind": "field",
+              "name": "placement",
+              "privacy": "public",
+              "type": {
+                "text": "'top' | 'bottom'"
+              },
+              "default": "'top'",
+              "attribute": "placement"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "content",
+              "type": {
+                "text": "string"
+              },
+              "description": "Tooltip text.",
+              "default": "''",
+              "fieldName": "content"
+            },
+            {
+              "name": "placement",
+              "type": {
+                "text": "'top' | 'bottom'"
+              },
+              "default": "'top'",
+              "fieldName": "placement"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-tooltip",
+          "customElement": true,
+          "summary": "Tooltip for the slotted trigger. Opens on hover and keyboard focus, stays open while\nhovered, and closes on Escape (WCAG 1.4.13). The text is exposed to assistive technology as\nthe trigger's description via a light-DOM element, so it works across shadow roots.",
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkTooltip",
+          "declaration": {
+            "name": "BkTooltip",
+            "module": "src/components/tooltip/tooltip.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/internal/base.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "injectTokens",
+          "return": {
+            "type": {
+              "text": "void"
+            }
+          },
+          "description": "Add the token stylesheet to the document once. Uses a constructable stylesheet when possible\n(works under strict CSP without 'unsafe-inline'), otherwise a <style data-bk-tokens> tag.\nToken selectors use :where() so any app-level override wins."
+        },
+        {
+          "kind": "class",
+          "description": "Base class for every bitkit-ui element.",
+          "name": "BitkitElement",
+          "members": [],
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        },
+        {
+          "kind": "function",
+          "name": "nextId",
+          "parameters": [
+            {
+              "name": "prefix",
+              "default": "'bk'"
+            }
+          ],
+          "description": "Unique id for ARIA relationships inside a shadow root."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "injectTokens",
+          "declaration": {
+            "name": "injectTokens",
+            "module": "src/internal/base.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BitkitElement",
+          "declaration": {
+            "name": "BitkitElement",
+            "module": "src/internal/base.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "nextId",
+          "declaration": {
+            "name": "nextId",
+            "module": "src/internal/base.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/internal/form-control.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Base for form-associated inputs: wires ElementInternals so the element participates in\n<form> submission, validation and reset, and provides label/help/error ids.",
+          "name": "FormControlElement",
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Form field name.",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Visible label.",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "helpText",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Help text shown under the field.",
+              "attribute": "help-text"
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Error message (sets the field invalid).",
+              "attribute": "error"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "required",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflects whether the field currently shows an error.",
+              "default": "false",
+              "attribute": "invalid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "The owning form, if any.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Form field name.",
+              "fieldName": "name"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Visible label.",
+              "fieldName": "label"
+            },
+            {
+              "name": "help-text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Help text shown under the field.",
+              "fieldName": "helpText"
+            },
+            {
+              "name": "error",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Error message (sets the field invalid).",
+              "fieldName": "error"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "required"
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflects whether the field currently shows an error.",
+              "default": "false",
+              "fieldName": "invalid"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "events": [
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "inheritedFrom": {
+                "name": "BitkitElement",
+                "module": "src/internal/base.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FormControlElement",
+          "declaration": {
+            "name": "FormControlElement",
+            "module": "src/internal/form-control.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

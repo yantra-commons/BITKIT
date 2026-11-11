@@ -3,11 +3,25 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "custom-elements.json", "storybook-static/**"]
+      "outputs": ["dist/**", "custom-elements.json"]
     },
-    "test": { "dependsOn": ["^build"], "outputs": [] },
-    "typecheck": { "dependsOn": ["^build"] },
-    "size": { "dependsOn": ["build"] },
-    "dev": { "cache": false, "persistent": true }
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "size": {
+      "dependsOn": ["build"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "build-storybook": {
+      "dependsOn": ["^build", "build"],
+      "outputs": ["storybook-static/**"]
+    }
   }
 }

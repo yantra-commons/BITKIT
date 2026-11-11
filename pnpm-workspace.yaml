@@ -2,6 +2,9 @@ packages:
   - packages/*
   - apps/*
   - apps/examples/*
+allowBuilds:
+  esbuild: true
+  rs-module-lexer: false
 minimumReleaseAgeExclude:
   - '@turbo/darwin-64@2.11.11'
   - '@turbo/darwin-arm64@2.11.11'
@@ -11,5 +14,4 @@ minimumReleaseAgeExclude:
   - '@turbo/windows-arm64@2.11.11'
   - prettier@3.10.0
   - turbo@2.11.11
-onlyBuiltDependencies:
-  - esbuild
+  - vite@8.3.8
