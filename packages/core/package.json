@@ -1,0 +1,42 @@
+{
+  "name": "@bitkit-ui/core",
+  "version": "0.0.0",
+  "description": "Headless Bitcoin + Lightning logic: units, addresses, BIP21, BOLT11, LNURL, fees, input parsing.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./mnemonic": {
+      "types": "./dist/mnemonic/index.d.ts",
+      "default": "./dist/mnemonic/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@noble/hashes": "^2.4.0",
+    "@scure/base": "^2.4.0",
+    "@scure/bip39": "^2.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/bitkit-ui",
+    "directory": "packages/core"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -28,6 +28,24 @@ export default tseslint.config(
     },
   },
   {
+    // core is headless: no DOM globals (universal globals like URL/TextDecoder/crypto are fine).
+    files: ['packages/core/src/**/*.ts', 'packages/adapters/src/**/*.ts'],
+    ignores: ['**/*.test.ts'],
+    rules: {
+      'no-restricted-globals': [
+        'error',
+        'window',
+        'document',
+        'navigator',
+        'localStorage',
+        'sessionStorage',
+        'location',
+        'customElements',
+        'HTMLElement',
+      ],
+    },
+  },
+  {
     // No floating point money math in the units module.
     files: ['packages/core/src/units/**/*.ts'],
     ignores: ['**/*.test.ts'],
