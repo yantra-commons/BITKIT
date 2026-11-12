@@ -3,18 +3,18 @@ title: Theming
 description: Design tokens, light and dark themes, and deep styling with ::part().
 ---
 
-All styling flows from design tokens: CSS custom properties prefixed `--bk-`. Components never
+All styling flows from design tokens: CSS custom properties prefixed `--ou-`. Components never
 hard-code colors.
 
 ## Light and dark
 
 Components follow the user's `prefers-color-scheme`. Force a theme on any ancestor, or on a
-single component, with `data-bk-theme`:
+single component, with `data-ou-theme`:
 
 ```html
-<html data-bk-theme="dark">
+<html data-ou-theme="dark">
   <!-- or -->
-  <bk-checkout data-bk-theme="light"></bk-checkout>
+  <ou-checkout data-ou-theme="light"></ou-checkout>
 </html>
 ```
 
@@ -25,14 +25,14 @@ the load order:
 
 ```css
 :root {
-  --bk-color-accent: #7b3fe4;
-  --bk-color-accent-hover: #6a2fd3;
-  --bk-color-on-accent: #ffffff;
-  --bk-radius-md: 4px;
-  --bk-font-sans: 'Inter', system-ui, sans-serif;
+  --ou-color-accent: #7b3fe4;
+  --ou-color-accent-hover: #6a2fd3;
+  --ou-color-on-accent: #ffffff;
+  --ou-radius-md: 4px;
+  --ou-font-sans: 'Inter', system-ui, sans-serif;
 }
-[data-bk-theme='dark'] {
-  --bk-color-accent: #a77bff;
+[data-ou-theme='dark'] {
+  --ou-color-accent: #a77bff;
 }
 ```
 
@@ -43,22 +43,22 @@ export exactly these lines.
 
 | Group  | Examples                                                                                                                                                                                   |
 | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Color  | `--bk-color-bg`, `surface`, `surface-2`, `text`, `text-muted`, `border`, `accent`, `on-accent`, `accent-text`, `success`, `warning`, `danger`, `info` (+ `-bg`), `focus`, `qr-fg`, `qr-bg` |
-| Type   | `--bk-font-sans`, `--bk-font-mono`, `--bk-font-size-xs…2xl`, `--bk-font-weight-*`                                                                                                          |
-| Space  | `--bk-space-1…10`                                                                                                                                                                          |
-| Shape  | `--bk-radius-sm/md/lg/full`, `--bk-control-height-sm/md/lg`, `--bk-shadow-sm/md/lg`                                                                                                        |
-| Motion | `--bk-duration-fast/normal/slow`, `--bk-easing-standard` (all zero under reduced motion)                                                                                                   |
+| Color  | `--ou-color-bg`, `surface`, `surface-2`, `text`, `text-muted`, `border`, `accent`, `on-accent`, `accent-text`, `success`, `warning`, `danger`, `info` (+ `-bg`), `focus`, `qr-fg`, `qr-bg` |
+| Type   | `--ou-font-sans`, `--ou-font-mono`, `--ou-font-size-xs…2xl`, `--ou-font-weight-*`                                                                                                          |
+| Space  | `--ou-space-1…10`                                                                                                                                                                          |
+| Shape  | `--ou-radius-sm/md/lg/full`, `--ou-control-height-sm/md/lg`, `--ou-shadow-sm/md/lg`                                                                                                        |
+| Motion | `--ou-duration-fast/normal/slow`, `--ou-easing-standard` (all zero under reduced motion)                                                                                                   |
 
-The full list is in `@bitkit-ui/tokens/tokens.json`, and also exported as TypeScript:
+The full list is in `@orange-ui/tokens/tokens.json`, and also exported as TypeScript:
 
 ```ts
-import { cssVariables, defaults } from '@bitkit-ui/tokens';
+import { cssVariables, defaults } from '@orange-ui/tokens';
 ```
 
 Every text/background pair in the default themes is tested to meet WCAG 2.2 AA.
 
 :::note[QR codes stay dark-on-light]
-`--bk-color-qr-fg` and `--bk-color-qr-bg` default to black on white in both themes, because many
+`--ou-color-qr-fg` and `--ou-color-qr-bg` default to black on white in both themes, because many
 wallets fail to scan inverted codes.
 :::
 
@@ -67,11 +67,11 @@ wallets fail to scan inverted codes.
 Each component documents its CSS parts. Target them from outside the shadow root:
 
 ```css
-bk-checkout::part(base) {
+ou-checkout::part(base) {
   border-radius: 0;
   box-shadow: none;
 }
-bk-amount-display::part(unit) {
+ou-amount-display::part(unit) {
   text-transform: uppercase;
 }
 ```

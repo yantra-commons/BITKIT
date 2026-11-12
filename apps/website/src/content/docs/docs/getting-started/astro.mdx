@@ -10,14 +10,14 @@ register them in a client `<script>`:
 ---
 const price = 21000;
 ---
-<bk-amount-display amount={price} show-fiat fiat-currency="USD" fiat-price="97250"></bk-amount-display>
-<bk-pay-button amount={price} adapter="store" description="Flat white"></bk-pay-button>
+<ou-amount-display amount={price} show-fiat fiat-currency="USD" fiat-price="97250"></ou-amount-display>
+<ou-pay-button amount={price} adapter="store" description="Flat white"></ou-pay-button>
 
 <script>
-  import '@bitkit-ui/elements/pay-button';
-  import '@bitkit-ui/elements/amount-display';
-  import { registerAdapter } from '@bitkit-ui/elements';
-  import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+  import '@orange-ui/elements/pay-button';
+  import '@orange-ui/elements/amount-display';
+  import { registerAdapter } from '@orange-ui/elements';
+  import { createHttpAdapter } from '@orange-ui/adapters/http';
 
   registerAdapter('store', createHttpAdapter({ baseUrl: '/api/payments' }));
 </script>
@@ -25,5 +25,5 @@ const price = 21000;
 
 This documentation site is built exactly this way. Every live example in it is a real component.
 
-Object or array properties (such as `transactions` on `<bk-transaction-list>`) are set from the
+Object or array properties (such as `transactions` on `<ou-transaction-list>`) are set from the
 script with `element.transactions = [...]`.

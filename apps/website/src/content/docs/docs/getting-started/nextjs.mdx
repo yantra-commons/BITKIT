@@ -9,8 +9,8 @@ provider's API key in a Route Handler and point the browser at it with the HTTP 
 ```tsx title="app/checkout.tsx"
 'use client';
 import { useMemo } from 'react';
-import { Checkout } from '@bitkit-ui/react';
-import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+import { Checkout } from '@orange-ui/react';
+import { createHttpAdapter } from '@orange-ui/adapters/http';
 
 export function PayForOrder({ orderId }: { orderId: string }) {
   const adapter = useMemo(() => createHttpAdapter({ baseUrl: '/api/payments' }), []);
@@ -19,7 +19,7 @@ export function PayForOrder({ orderId }: { orderId: string }) {
 ```
 
 ```ts title="app/api/payments/route.ts"
-import { BtcPayAdapter } from '@bitkit-ui/adapters/btcpay';
+import { BtcPayAdapter } from '@orange-ui/adapters/btcpay';
 
 const btcpay = new BtcPayAdapter({
   baseUrl: process.env.BTCPAY_URL!,
@@ -51,10 +51,10 @@ Add `app/api/payments/[id]/route.ts` returning `btcpay.getStatus(id)` for status
 ```js title="next.config.mjs"
 export default {
   transpilePackages: [
-    '@bitkit-ui/react',
-    '@bitkit-ui/elements',
-    '@bitkit-ui/adapters',
-    '@bitkit-ui/core',
+    '@orange-ui/react',
+    '@orange-ui/elements',
+    '@orange-ui/adapters',
+    '@orange-ui/core',
   ],
 };
 ```

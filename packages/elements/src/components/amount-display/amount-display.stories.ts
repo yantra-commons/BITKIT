@@ -4,7 +4,7 @@ import './amount-display.js';
 
 const meta: Meta = {
   title: 'Amounts/Amount Display',
-  component: 'bk-amount-display',
+  component: 'ou-amount-display',
   tags: ['autodocs'],
   args: {
     amount: '1234567',
@@ -19,7 +19,7 @@ const meta: Meta = {
     size: { control: 'select', options: ['sm', 'md', 'lg', 'xl'] },
   },
   render: (a) =>
-    html`<bk-amount-display
+    html`<ou-amount-display
       amount=${a.amount}
       unit=${a.unit}
       size=${a.size}
@@ -28,7 +28,7 @@ const meta: Meta = {
       ?privacy-toggle=${a.privacyToggle}
       fiat-currency="USD"
       fiat-price="97250.12"
-    ></bk-amount-display>`,
+    ></ou-amount-display>`,
 };
 export default meta;
 
@@ -36,24 +36,24 @@ export const Playground: StoryObj = {};
 export const Units: StoryObj = {
   render: () =>
     html`<div style="display:grid;gap:.75rem">
-      <bk-amount-display amount="21000"></bk-amount-display>
-      <bk-amount-display amount="250000" unit="btc"></bk-amount-display>
-      <bk-amount-display amount="250000" unit="btc" btc-style="symbol"></bk-amount-display>
-      <bk-amount-display amount="12345678" unit="auto" locale="en-IN"></bk-amount-display>
-      <bk-amount-display
+      <ou-amount-display amount="21000"></ou-amount-display>
+      <ou-amount-display amount="250000" unit="btc"></ou-amount-display>
+      <ou-amount-display amount="250000" unit="btc" btc-style="symbol"></ou-amount-display>
+      <ou-amount-display amount="12345678" unit="auto" locale="en-IN"></ou-amount-display>
+      <ou-amount-display
         amount="50000"
         unit="fiat"
         fiat-currency="EUR"
         fiat-price="90000"
         locale="de-DE"
-      ></bk-amount-display>
-      <bk-amount-display
+      ></ou-amount-display>
+      <ou-amount-display
         amount="21000"
         direction="incoming"
         sign-display="always"
-      ></bk-amount-display>
+      ></ou-amount-display>
     </div>`,
 };
 export const Loading: StoryObj = {
-  render: () => html`<bk-amount-display loading size="xl"></bk-amount-display>`,
+  render: () => html`<ou-amount-display loading size="xl"></ou-amount-display>`,
 };

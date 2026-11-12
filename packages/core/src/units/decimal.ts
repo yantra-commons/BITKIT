@@ -1,4 +1,4 @@
-import { BitkitError } from '../errors.js';
+import { OrangeError } from '../errors.js';
 
 /**
  * Exact decimal helpers on bigint. A "scaled" bigint holds value × 10^scale.
@@ -19,7 +19,7 @@ export function parseDecimal(input: string, scale: number, rounding: Rounding = 
   const s = input.trim();
   const m = DECIMAL_RE.exec(s);
   if (!s || !m || (!m[2] && !m[3])) {
-    throw new BitkitError('invalid-number', `"${input}" is not a valid number.`);
+    throw new OrangeError('invalid-number', `"${input}" is not a valid number.`);
   }
   const negative = m[1] === '-';
   const intDigits = m[2] || '0';
@@ -30,7 +30,7 @@ export function parseDecimal(input: string, scale: number, rounding: Rounding = 
   if (/[1-9]/.test(excess)) {
     switch (rounding) {
       case 'reject':
-        throw new BitkitError('too-many-decimals', `Too many decimal places (maximum ${scale}).`);
+        throw new OrangeError('too-many-decimals', `Too many decimal places (maximum ${scale}).`);
       case 'ceil':
         if (!negative) value += 1n;
         break;
@@ -81,7 +81,7 @@ export function divRound(
   d: bigint,
   rounding: Exclude<Rounding, 'reject'> = 'half-up',
 ): bigint {
-  if (d === 0n) throw new BitkitError('out-of-range', 'Division by zero.');
+  if (d === 0n) throw new OrangeError('out-of-range', 'Division by zero.');
   if (d < 0n) return divRound(-n, -d, rounding);
   const q = n / d; // truncates toward zero
   const r = n % d;
@@ -120,7 +120,7 @@ export function toRational(value: string | number | bigint): Rational {
  * accept rates that arrive as JSON numbers (e.g. `67012.5`), never for amounts.
  */
 export function numberToPlainString(n: number): string {
-  if (!Number.isFinite(n)) throw new BitkitError('invalid-number', `${n} is not a finite number.`);
+  if (!Number.isFinite(n)) throw new OrangeError('invalid-number', `${n} is not a finite number.`);
   const s = String(n);
   if (!/e/i.test(s)) return s;
   const [mant = '0', expStr = '0'] = s.toLowerCase().split('e');

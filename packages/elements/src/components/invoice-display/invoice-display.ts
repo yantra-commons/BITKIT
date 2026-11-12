@@ -7,8 +7,8 @@ import {
   truncateMiddle,
   type Bolt11Invoice,
   type ErrorInfo,
-} from '@bitkit-ui/core';
-import { BitkitElement } from '../../internal/base.js';
+} from '@orange-ui/core';
+import { OrangeElement } from '../../internal/base.js';
 import { CountdownController } from '../../internal/countdown.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
@@ -21,14 +21,14 @@ import '../qr-code/qr-code.js';
 /**
  * @summary Decodes a BOLT11 Lightning invoice and shows amount, description, expiry countdown,
  * network and payment hash. Signatures are not verified (display only).
- * @tag bk-invoice-display
+ * @tag ou-invoice-display
  * @csspart base - Container.
  * @csspart amount - Amount.
  * @csspart details - Detail list.
  * @csspart qr - QR code.
- * @fires bk-expired - When the countdown reaches zero.
+ * @fires ou-expired - When the countdown reaches zero.
  */
-export class BkInvoiceDisplay extends BitkitElement {
+export class OuInvoiceDisplay extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -38,65 +38,65 @@ export class BkInvoiceDisplay extends BitkitElement {
       .card {
         display: flex;
         flex-direction: column;
-        gap: var(--bk-space-4);
+        gap: var(--ou-space-4);
       }
       .top {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        gap: var(--bk-space-3);
+        gap: var(--ou-space-3);
       }
       .any {
-        font-size: var(--bk-font-size-xl);
-        font-weight: var(--bk-font-weight-semibold);
+        font-size: var(--ou-font-size-xl);
+        font-weight: var(--ou-font-weight-semibold);
       }
       dl {
         display: grid;
         grid-template-columns: auto 1fr;
-        gap: var(--bk-space-2) var(--bk-space-4);
+        gap: var(--ou-space-2) var(--ou-space-4);
         margin: 0;
-        font-size: var(--bk-font-size-sm);
+        font-size: var(--ou-font-size-sm);
       }
       dt {
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
       }
       dd {
         margin: 0;
         display: flex;
         align-items: center;
-        gap: var(--bk-space-1);
+        gap: var(--ou-space-1);
         min-width: 0;
         word-break: break-word;
       }
       .mono {
-        font-family: var(--bk-font-mono);
+        font-family: var(--ou-font-mono);
       }
       .expired {
-        color: var(--bk-color-danger);
-        font-weight: var(--bk-font-weight-semibold);
+        color: var(--ou-color-danger);
+        font-weight: var(--ou-font-weight-semibold);
       }
       .soon {
-        color: var(--bk-color-warning);
+        color: var(--ou-color-warning);
       }
       .qr {
         align-self: center;
       }
       .error {
         display: flex;
-        gap: var(--bk-space-2);
-        padding: var(--bk-space-3);
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-danger-bg);
-        color: var(--bk-color-danger);
-        font-size: var(--bk-font-size-sm);
+        gap: var(--ou-space-2);
+        padding: var(--ou-space-3);
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-danger-bg);
+        color: var(--ou-color-danger);
+        font-size: var(--ou-font-size-sm);
       }
       .error svg {
         width: 1.2rem;
         height: 1.2rem;
         flex: none;
       }
-      bk-copy-button {
-        --bk-control-height-md: 1.75rem;
+      ou-copy-button {
+        --ou-control-height-md: 1.75rem;
       }
     `,
   ];
@@ -118,7 +118,7 @@ export class BkInvoiceDisplay extends BitkitElement {
 
   #decoded?: Bolt11Invoice;
   #error?: ErrorInfo;
-  #countdown = new CountdownController(this, () => this.emit('bk-expired'));
+  #countdown = new CountdownController(this, () => this.emit('ou-expired'));
 
   constructor() {
     super();
@@ -163,14 +163,14 @@ export class BkInvoiceDisplay extends BitkitElement {
           ${
             inv.amountMsat === null
               ? html`<span class="any">Any amount</span>`
-              : html`<bk-amount-display
+              : html`<ou-amount-display
                   .msat=${inv.amountMsat}
                   size="xl"
                   locale=${this.locale ?? nothing}
-                ></bk-amount-display>`
+                ></ou-amount-display>`
           }
         </div>
-        <bk-network-badge network=${inv.network} hide-mainnet></bk-network-badge>
+        <ou-network-badge network=${inv.network} hide-mainnet></ou-network-badge>
       </div>
       <dl part="details">
         <dt>Description</dt>
@@ -182,7 +182,7 @@ export class BkInvoiceDisplay extends BitkitElement {
                 ? html`<span class="mono" title=${inv.descriptionHash}
                     >Hash ${truncateMiddle(inv.descriptionHash, { start: 6, end: 6 })}</span
                   >`
-                : html`<span style="color:var(--bk-color-text-muted)">None</span>`
+                : html`<span style="color:var(--ou-color-text-muted)">None</span>`
           }
         </dd>
         <dt>Expires</dt>
@@ -204,11 +204,11 @@ export class BkInvoiceDisplay extends BitkitElement {
                   <span class="mono" title=${inv.paymentHash}
                     >${truncateMiddle(inv.paymentHash, { start: 8, end: 8 })}</span
                   >
-                  <bk-copy-button
+                  <ou-copy-button
                     size="sm"
                     .value=${inv.paymentHash}
                     label="Copy payment hash"
-                  ></bk-copy-button>
+                  ></ou-copy-button>
                 </dd>
                 ${
                   inv.payeeNodeKey
@@ -225,23 +225,23 @@ export class BkInvoiceDisplay extends BitkitElement {
       </dl>
       ${
         this.qr && !expired
-          ? html`<bk-qr-code
+          ? html`<ou-qr-code
               class="qr"
               part="qr"
               .value=${inv.paymentRequest.toUpperCase()}
               label="Lightning invoice"
               size="220"
-            ></bk-qr-code>`
+            ></ou-qr-code>`
           : nothing
       }
     </div>`;
   }
 }
 
-define('bk-invoice-display', BkInvoiceDisplay);
+define('ou-invoice-display', OuInvoiceDisplay);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-invoice-display': BkInvoiceDisplay;
+    'ou-invoice-display': OuInvoiceDisplay;
   }
 }

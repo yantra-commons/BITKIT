@@ -1,4 +1,4 @@
-import { BitkitError } from '../errors.js';
+import { OrangeError } from '../errors.js';
 
 /** A LUD-16 Lightning Address such as `satoshi@example.com`. */
 export interface LightningAddress {
@@ -15,12 +15,12 @@ const RE =
 export const looksLikeLightningAddress = (s: string) =>
   RE.test(s.trim().replace(/^(lightning:|₿)/i, ''));
 
-/** Parse a Lightning Address. Throws `BitkitError`. Accepts a leading "₿" or "lightning:". */
+/** Parse a Lightning Address. Throws `OrangeError`. Accepts a leading "₿" or "lightning:". */
 export function parseLightningAddress(input: string): LightningAddress {
   const s = input.trim().replace(/^(lightning:|₿)/i, '');
   const m = RE.exec(s);
   if (!m) {
-    throw new BitkitError('invalid-lightning-address', 'This is not a valid Lightning Address.');
+    throw new OrangeError('invalid-lightning-address', 'This is not a valid Lightning Address.');
   }
   const username = m[1]!.toLowerCase();
   const domain = (m[2]! + (m[3] ?? '')).toLowerCase();

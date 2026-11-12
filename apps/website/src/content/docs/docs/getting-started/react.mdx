@@ -4,17 +4,17 @@ description: Typed React components for React 18 and 19.
 ---
 
 ```sh
-npm install @bitkit-ui/react @bitkit-ui/adapters
+npm install @orange-ui/react @orange-ui/adapters
 ```
 
-Every element has a React component with the same name minus the `bk-` prefix. Properties are
+Every element has a React component with the same name minus the `ou-` prefix. Properties are
 passed as real DOM properties, so `bigint` amounts, arrays and adapter objects work as-is.
 Custom events become `on<Name>` props.
 
 ```tsx
 import { useMemo } from 'react';
-import { Checkout, AmountInput } from '@bitkit-ui/react';
-import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+import { Checkout, AmountInput } from '@orange-ui/react';
+import { createHttpAdapter } from '@orange-ui/adapters/http';
 
 export function Pay() {
   const adapter = useMemo(() => createHttpAdapter({ baseUrl: '/api/payments' }), []);
@@ -32,29 +32,29 @@ export function Pay() {
 
 | Element event      | React prop                                                         |
 | ------------------ | ------------------------------------------------------------------ |
-| `bk-paid`          | `onPaid`                                                           |
-| `bk-status-change` | `onStatusChange`                                                   |
-| `bk-change`        | `onChange` (receives a `CustomEvent`, not a React synthetic event) |
+| `ou-paid`          | `onPaid`                                                           |
+| `ou-status-change` | `onStatusChange`                                                   |
+| `ou-change`        | `onChange` (receives a `CustomEvent`, not a React synthetic event) |
 
 ## Refs
 
 Components forward refs to the underlying element, so methods are available:
 
 ```tsx
-const ref = useRef<BkCheckout>(null);
+const ref = useRef<OuCheckout>(null);
 // ...
 <Checkout ref={ref} autoStart={false} amount={1000n} adapter={adapter} />
 <button onClick={() => ref.current?.start()}>Create invoice</button>
 ```
 
-Import element types from `@bitkit-ui/elements`.
+Import element types from `@orange-ui/elements`.
 
 ## Bundle size
 
-`@bitkit-ui/react` registers every element. If you only need a few components, import the
+`@orange-ui/react` registers every element. If you only need a few components, import the
 elements directly and render them as JSX tags. React 19 handles custom-element properties natively:
 
 ```tsx
-import '@bitkit-ui/elements/pay-button';
-<bk-pay-button amount={21000n} adapter={adapter} />;
+import '@orange-ui/elements/pay-button';
+<ou-pay-button amount={21000n} adapter={adapter} />;
 ```

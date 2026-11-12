@@ -1,6 +1,6 @@
 /**
- * @bitkit-ui/core — headless Bitcoin + Lightning logic. Pure functions, no DOM.
- * Amounts are bigint millisatoshis. Mnemonic helpers live at `@bitkit-ui/core/mnemonic`.
+ * @orange-ui/core — headless Bitcoin + Lightning logic. Pure functions, no DOM.
+ * Amounts are bigint millisatoshis. Mnemonic helpers live at `@orange-ui/core/mnemonic`.
  */
 export * from './errors.js';
 export * from './network.js';

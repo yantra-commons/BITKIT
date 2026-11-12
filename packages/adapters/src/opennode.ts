@@ -1,4 +1,4 @@
-import { buildBip21, type Network } from '@bitkit-ui/core';
+import { buildBip21, type Network } from '@orange-ui/core';
 import {
   type CreateInvoiceRequest,
   type Invoice,

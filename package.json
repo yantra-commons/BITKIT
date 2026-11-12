@@ -1,5 +1,5 @@
 {
-  "name": "bitkit-ui-monorepo",
+  "name": "orange-ui-monorepo",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.20.0",
@@ -15,7 +15,7 @@
     "format:check": "prettier --check .",
     "e2e": "playwright test",
     "size": "size-limit",
-    "storybook": "pnpm --filter @bitkit-ui/elements storybook",
+    "storybook": "pnpm --filter @orange-ui/elements storybook",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "pnpm build && changeset publish",

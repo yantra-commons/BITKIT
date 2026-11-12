@@ -1,10 +1,10 @@
 ---
-'@bitkit-ui/core': minor
-'@bitkit-ui/tokens': minor
-'@bitkit-ui/elements': minor
-'@bitkit-ui/adapters': minor
-'@bitkit-ui/react': minor
-'@bitkit-ui/vue': minor
+'@orange-ui/core': minor
+'@orange-ui/tokens': minor
+'@orange-ui/elements': minor
+'@orange-ui/adapters': minor
+'@orange-ui/react': minor
+'@orange-ui/vue': minor
 ---
 
 Initial release: headless Bitcoin/Lightning core, design tokens, 37 web components, payment

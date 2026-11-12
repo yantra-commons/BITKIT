@@ -6,7 +6,7 @@ import { components, type ComponentDoc } from '../../../lib/manifest';
 import { examples } from '../../../lib/examples';
 
 export function getStaticPaths() {
-  return components.filter((c) => c.tag !== 'bk-toaster').map((c) => ({ params: { slug: c.slug }, props: { c } }));
+  return components.filter((c) => c.tag !== 'ou-toaster').map((c) => ({ params: { slug: c.slug }, props: { c } }));
 }
 
 const { c } = Astro.props as { c: ComponentDoc };
@@ -43,7 +43,7 @@ const reactName = c.name;
   <h2 id="import">Import</h2>
   <Code
     lang="ts"
-    code={`// Web component (registers <${c.tag}>)\nimport '@bitkit-ui/elements/${c.slug === 'toaster' ? 'toast' : c.slug}';\n\n// React\nimport { ${reactName} } from '@bitkit-ui/react';\n\n// Vue\nimport { ${reactName} } from '@bitkit-ui/vue';`}
+    code={`// Web component (registers <${c.tag}>)\nimport '@orange-ui/elements/${c.slug === 'toaster' ? 'toast' : c.slug}';\n\n// React\nimport { ${reactName} } from '@orange-ui/react';\n\n// Vue\nimport { ${reactName} } from '@orange-ui/vue';`}
   />
 
   <h2 id="api">API</h2>
@@ -87,12 +87,12 @@ const reactName = c.name;
           <thead><tr><th>Event</th><th>React</th><th>Vue</th><th>Description</th></tr></thead>
           <tbody>
             {c.events.map((e) => {
-              const suffix = e.name.replace(/^bk-/, '').replace(/(^|-)(\w)/g, (_m: string, _d: string, ch: string) => ch.toUpperCase());
+              const suffix = e.name.replace(/^ou-/, '').replace(/(^|-)(\w)/g, (_m: string, _d: string, ch: string) => ch.toUpperCase());
               return (
                 <tr>
                   <td><code>{e.name}</code></td>
                   <td><code>on{suffix}</code></td>
-                  <td><code>@{e.name.replace(/^bk-/, '')}</code></td>
+                  <td><code>@{e.name.replace(/^ou-/, '')}</code></td>
                   <td>{strip(e.description)}</td>
                 </tr>
               );
@@ -165,7 +165,7 @@ const reactName = c.name;
     )
   }
   <p>
-    All components read the shared design tokens (<code>--bk-color-*</code>, <code>--bk-radius-*</code>, <code>--bk-font-*</code>…).
+    All components read the shared design tokens (<code>--ou-color-*</code>, <code>--ou-radius-*</code>, <code>--ou-font-*</code>…).
     See <a href={`${import.meta.env.BASE_URL}docs/guides/theming/`}>Theming</a> or try the
     <a href={`${import.meta.env.BASE_URL}theme-builder/`}>theme builder</a>.
   </p>

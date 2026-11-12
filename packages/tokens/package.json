@@ -1,7 +1,7 @@
 {
-  "name": "@bitkit-ui/tokens",
+  "name": "@orange-ui/tokens",
   "version": "0.0.0",
-  "description": "Design tokens for bitkit-ui: JSON source, CSS custom properties and TS constants.",
+  "description": "Design tokens for orange-ui: JSON source, CSS custom properties and TS constants.",
   "license": "MIT",
   "type": "module",
   "sideEffects": [

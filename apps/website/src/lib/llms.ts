@@ -17,7 +17,7 @@ const cell = (s: string) => s.replace(/\|/g, '\\|');
 const summaryOf = (c: ComponentDoc) => c.summary.replace(/^SECURITY-SENSITIVE\.\s*/, '');
 const eventSuffix = (name: string) =>
   name
-    .replace(/^bk-/, '')
+    .replace(/^ou-/, '')
     .split('-')
     .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
     .join('');
@@ -86,7 +86,7 @@ const DOCS: [string, string, string][] = [
   ['Vue', 'docs/getting-started/vue/', 'typed wrappers, isCustomElement config'],
   ['Next.js', 'docs/getting-started/nextjs/', "'use client', Route Handler proxy"],
   ['Astro', 'docs/getting-started/astro/', 'client-side islands'],
-  ['Theming', 'docs/guides/theming/', '--bk-* tokens, dark mode, ::part()'],
+  ['Theming', 'docs/guides/theming/', '--ou-* tokens, dark mode, ::part()'],
   ['Payment adapters', 'docs/guides/adapters/', 'PaymentAdapter interface and providers'],
   ['Server proxy pattern', 'docs/guides/server-proxy/', 'keep provider API keys server-side'],
   ['Wallet connections', 'docs/guides/wallets/', 'WebLN, NWC, Bitcoin Connect'],
@@ -103,7 +103,7 @@ Follow these when writing code that uses ${kit.displayName}. They prevent the mo
 1. **Amounts are \`bigint\` sats on components.** \`amount\`, \`balance\`, \`min\`, \`max\` and
    similar take bigint sats: \`amount={21000n}\` in JSX, \`el.amount = 21000n\` in JS,
    \`amount="21000"\` as an HTML attribute. Use the \`msat\` property only when you need
-   millisatoshi precision. \`@bitkit-ui/core\` works in **msat** (\`toMsat\`, \`fromMsat\`).
+   millisatoshi precision. \`@orange-ui/core\` works in **msat** (\`toMsat\`, \`fromMsat\`).
 2. **Never use floating point for money.** No \`parseFloat\`, \`Number()\`, \`toFixed\` or
    \`Math.*\` on amounts. Convert with \`toMsat('0.0025', 'btc')\` and fiat with
    \`fiatToMsat\` / \`msatToFiat\`, passing exact decimal strings (\`price: '97250'\`).
@@ -112,18 +112,18 @@ Follow these when writing code that uses ${kit.displayName}. They prevent the mo
    in the browser and a provider adapter (BTCPay, LNbits, OpenNode) on your server.
 4. **Never put a provider API key in browser code.** Adapters throw if given \`apiKey\` in a
    browser. Keep keys in server env vars behind your own API (see the server proxy pattern).
-5. **\`bk-paid\` only updates the UI.** Fulfil orders on the server after the provider's webhook or
+5. **\`ou-paid\` only updates the UI.** Fulfil orders on the server after the provider's webhook or
    an authenticated status check. Take the price from your database, not from the browser.
 6. **Pass recovery phrases as a JS property, never an HTML attribute**
    (\`el.words = [...]\`). Don't log them, store them or send them over the network.
-7. **Events** are named \`bk-<verb>\` and carry \`event.detail\`. They bubble and are composed.
-   React: \`bk-status-change\` → \`onStatusChange\` (receives the \`CustomEvent\`). Vue:
-   \`@status-change\`. Plain JS: \`addEventListener('bk-status-change', …)\`.
+7. **Events** are named \`ou-<verb>\` and carry \`event.detail\`. They bubble and are composed.
+   React: \`ou-status-change\` → \`onStatusChange\` (receives the \`CustomEvent\`). Vue:
+   \`@status-change\`. Plain JS: \`addEventListener('ou-status-change', …)\`.
 8. **SSR:** importing the components on the server is safe, but payment components create
    invoices when they mount, so render them client-side (\`'use client'\` in Next.js,
    \`<ClientOnly>\` in Nuxt, \`client:only\` / \`client:load\` in Astro).
-9. **Style with \`--bk-*\` CSS variables and \`::part()\`.** Don't hard-code colors.
-   \`data-bk-theme="dark"\` / \`"light"\` forces a theme. By default components follow
+9. **Style with \`--ou-*\` CSS variables and \`::part()\`.** Don't hard-code colors.
+   \`data-ou-theme="dark"\` / \`"light"\` forces a theme. By default components follow
    \`prefers-color-scheme\`.
 10. **Copy:** write "bitcoin" in lowercase for the unit, and use "sats", "Lightning invoice" and
     "on-chain" (Bitcoin Design Guide terms).
@@ -134,29 +134,29 @@ const QUICKSTART = `## Quickstart
 ### No build step (CDN)
 
 \`\`\`html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@bitkit-ui/elements/dist/cdn/bitkit-ui.js"></script>
-<bk-pay-button amount="21000" adapter="mock" description="Flat white"></bk-pay-button>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@orange-ui/elements/dist/cdn/orange-ui.js"></script>
+<ou-pay-button amount="21000" adapter="mock" description="Flat white"></ou-pay-button>
 <script type="module">
-  document.addEventListener('bk-paid', (e) => console.log('paid', e.detail.invoice.id));
+  document.addEventListener('ou-paid', (e) => console.log('paid', e.detail.invoice.id));
 </script>
 \`\`\`
 
-Pin a version in production: \`@bitkit-ui/elements@0.1.0/dist/cdn/bitkit-ui.js\`. The CDN module
+Pin a version in production: \`@orange-ui/elements@0.1.0/dist/cdn/orange-ui.js\`. The CDN module
 also exports \`registerAdapter\`, \`createHttpAdapter\`, \`configure\` and \`toast\`.
 
 ### npm
 
 \`\`\`sh
-npm install @bitkit-ui/elements @bitkit-ui/adapters   # web components
-npm install @bitkit-ui/react @bitkit-ui/adapters      # React 18/19 wrappers
-npm install @bitkit-ui/vue @bitkit-ui/adapters        # Vue 3 wrappers
-npm install @bitkit-ui/core                           # headless logic only, no DOM
+npm install @orange-ui/elements @orange-ui/adapters   # web components
+npm install @orange-ui/react @orange-ui/adapters      # React 18/19 wrappers
+npm install @orange-ui/vue @orange-ui/adapters        # Vue 3 wrappers
+npm install @orange-ui/core                           # headless logic only, no DOM
 \`\`\`
 
 \`\`\`ts
-import '@bitkit-ui/elements';              // registers every <bk-*> element
-import '@bitkit-ui/elements/checkout';     // or one component (smaller bundle)
-import { configure } from '@bitkit-ui/elements';
+import '@orange-ui/elements';              // registers every <ou-*> element
+import '@orange-ui/elements/checkout';     // or one component (smaller bundle)
+import { configure } from '@orange-ui/elements';
 configure({ network: 'mainnet', unit: 'sats', locale: 'en-US', fiatRate: { currency: 'USD', price: '97250' } });
 \`\`\`
 
@@ -165,8 +165,8 @@ configure({ network: 'mainnet', unit: 'sats', locale: 'en-US', fiatRate: { curre
 \`\`\`tsx
 'use client';
 import { useMemo } from 'react';
-import { Checkout } from '@bitkit-ui/react';
-import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+import { Checkout } from '@orange-ui/react';
+import { createHttpAdapter } from '@orange-ui/adapters/http';
 
 export function Pay() {
   const adapter = useMemo(() => createHttpAdapter({ baseUrl: '/api/payments' }), []);
@@ -175,15 +175,15 @@ export function Pay() {
 }
 \`\`\`
 
-Each React and Vue component is named after its tag in PascalCase, without the \`bk-\` prefix
-(\`<bk-amount-input>\` → \`AmountInput\`).
+Each React and Vue component is named after its tag in PascalCase, without the \`ou-\` prefix
+(\`<ou-amount-input>\` → \`AmountInput\`).
 
 ### Vue
 
 \`\`\`vue
 <script setup lang="ts">
-import { MockAdapter } from '@bitkit-ui/adapters/mock';
-import { Checkout } from '@bitkit-ui/vue';
+import { MockAdapter } from '@orange-ui/adapters/mock';
+import { Checkout } from '@orange-ui/vue';
 const adapter = new MockAdapter();
 </script>
 <template>
@@ -191,18 +191,18 @@ const adapter = new MockAdapter();
 </template>
 \`\`\`
 
-In \`vite.config.ts\`, set \`vue({ template: { compilerOptions: { isCustomElement: (t) => t.startsWith('bk-') } } })\`
-if you also use raw \`<bk-*>\` tags in templates.
+In \`vite.config.ts\`, set \`vue({ template: { compilerOptions: { isCustomElement: (t) => t.startsWith('ou-') } } })\`
+if you also use raw \`<ou-*>\` tags in templates.
 
 ### Next.js
 
-Add \`transpilePackages: ['@bitkit-ui/react', '@bitkit-ui/elements', '@bitkit-ui/adapters', '@bitkit-ui/core']\`
+Add \`transpilePackages: ['@orange-ui/react', '@orange-ui/elements', '@orange-ui/adapters', '@orange-ui/core']\`
 to \`next.config.mjs\`. Use the wrappers from a \`'use client'\` component, and create invoices in
 \`app/api/payments/route.ts\` (POST) and \`app/api/payments/[id]/route.ts\` (GET status) with a
 server-side adapter.
 `;
 
-const ADAPTERS = `## Payment adapters (\`@bitkit-ui/adapters\`)
+const ADAPTERS = `## Payment adapters (\`@orange-ui/adapters\`)
 
 \`\`\`ts
 interface PaymentAdapter {
@@ -236,12 +236,12 @@ type PaymentStatus = 'pending' | 'detected' | 'confirming' | 'paid' | 'underpaid
 
 | Adapter | Import | In the browser? |
 | --- | --- | --- |
-| Mock (\`new MockAdapter({ scenario })\`; scenarios: lightning, onchain, underpaid, overpaid, expired, failed, manual) | \`@bitkit-ui/adapters/mock\` | Yes (demo only) |
-| HTTP (\`createHttpAdapter({ baseUrl, sse? })\`) | \`@bitkit-ui/adapters/http\` | Yes, recommended |
-| BTCPay Server (\`new BtcPayAdapter({ baseUrl, storeId, apiKey })\`) | \`@bitkit-ui/adapters/btcpay\` | Server only |
-| LNbits (\`new LnbitsAdapter({ baseUrl, apiKey })\`) | \`@bitkit-ui/adapters/lnbits\` | Server only |
-| OpenNode (\`new OpenNodeAdapter({ apiKey })\`) | \`@bitkit-ui/adapters/opennode\` | Server only |
-| Nostr Wallet Connect (\`new NwcAdapter({ client })\`) | \`@bitkit-ui/adapters/nwc\` | Only with a receive-only connection |
+| Mock (\`new MockAdapter({ scenario })\`; scenarios: lightning, onchain, underpaid, overpaid, expired, failed, manual) | \`@orange-ui/adapters/mock\` | Yes (demo only) |
+| HTTP (\`createHttpAdapter({ baseUrl, sse? })\`) | \`@orange-ui/adapters/http\` | Yes, recommended |
+| BTCPay Server (\`new BtcPayAdapter({ baseUrl, storeId, apiKey })\`) | \`@orange-ui/adapters/btcpay\` | Server only |
+| LNbits (\`new LnbitsAdapter({ baseUrl, apiKey })\`) | \`@orange-ui/adapters/lnbits\` | Server only |
+| OpenNode (\`new OpenNodeAdapter({ apiKey })\`) | \`@orange-ui/adapters/opennode\` | Server only |
+| Nostr Wallet Connect (\`new NwcAdapter({ client })\`) | \`@orange-ui/adapters/nwc\` | Only with a receive-only connection |
 
 **HTTP adapter contract:** your server implements \`POST {baseUrl}\` (JSON
 \`CreateInvoiceRequest\` → \`Invoice\`, 201), \`GET {baseUrl}/:id\` (→ \`PaymentUpdate\`) and,
@@ -251,23 +251,23 @@ travel as JSON strings (\`"21000"\`). Serialize them with
 
 To use a named adapter from HTML attributes, register it:
 \`registerAdapter('store', createHttpAdapter({ baseUrl: '/api/payments' }))\`, then write
-\`<bk-pay-button adapter="store">\`. \`"mock"\` is pre-registered in the CDN build.
+\`<ou-pay-button adapter="store">\`. \`"mock"\` is pre-registered in the CDN build.
 
 Rates and fees: \`new MempoolRates({ baseUrl: 'https://mempool.space/api' })\` gives
 \`getRate('USD')\` → \`{ currency, price }\` (price is a decimal string) and
 \`getRecommendedFees()\`.
 
-To write your own adapter, implement the interface. \`pollStatus\` from \`@bitkit-ui/adapters\` turns
+To write your own adapter, implement the interface. \`pollStatus\` from \`@orange-ui/adapters\` turns
 \`getStatus\` into \`subscribe\`.
 `;
 
-const CORE = `## Headless core (\`@bitkit-ui/core\`)
+const CORE = `## Headless core (\`@orange-ui/core\`)
 
 Pure TypeScript with no DOM. It runs in browsers, Node, Deno, Bun and workers. All amounts are
 bigint **msat**.
 
 \`\`\`ts
-import { toMsat, fromMsat, formatAmount, fiatToMsat, msatToFiat, parsePaymentInput } from '@bitkit-ui/core';
+import { toMsat, fromMsat, formatAmount, fiatToMsat, msatToFiat, parsePaymentInput } from '@orange-ui/core';
 toMsat('0.0025', 'btc');                               // 250000000n
 fromMsat(250000000n, 'sat');                           // "250000"
 formatAmount(msat, { unit: 'auto', locale: 'en-US' }).text;
@@ -281,7 +281,7 @@ Also: \`decodeAddress\`, \`validateAddress\`, \`parseBip21\`, \`buildBip21\`, \`
 (display only: it does **not** verify signatures), \`decodeLnurl\`, \`encodeLnurl\`,
 \`parseLightningAddress\`, \`decodeBolt12Offer\`, \`parseNwcUri\`, \`estimateVsize\`,
 \`feeForVsize\`, \`feeTiersFromRecommended\`, \`checkFeeRate\`, and BIP39 helpers in
-\`@bitkit-ui/core/mnemonic\`. Functions that fail throw \`BitkitError\` with a stable \`code\` and
+\`@orange-ui/core/mnemonic\`. Functions that fail throw \`OrangeError\` with a stable \`code\` and
 a user-facing \`message\`. Most have a non-throwing \`validate*\` variant.
 `;
 
@@ -289,19 +289,19 @@ const THEMING = `## Theming
 
 \`\`\`css
 :root {
-  --bk-color-accent: #7b3fe4;
-  --bk-color-on-accent: #ffffff;
-  --bk-radius-md: 4px;
-  --bk-font-sans: 'Inter', system-ui, sans-serif;
+  --ou-color-accent: #7b3fe4;
+  --ou-color-on-accent: #ffffff;
+  --ou-radius-md: 4px;
+  --ou-font-sans: 'Inter', system-ui, sans-serif;
 }
-[data-bk-theme='dark'] { --bk-color-accent: #a77bff; }
-bk-checkout::part(base) { box-shadow: none; }
+[data-ou-theme='dark'] { --ou-color-accent: #a77bff; }
+ou-checkout::part(base) { box-shadow: none; }
 \`\`\`
 
-Token groups: color (\`--bk-color-bg\`, \`surface\`, \`text\`, \`text-muted\`, \`border\`,
+Token groups: color (\`--ou-color-bg\`, \`surface\`, \`text\`, \`text-muted\`, \`border\`,
 \`accent\`, \`on-accent\`, \`success\`, \`warning\`, \`danger\`, \`info\`, \`focus\`, \`qr-fg\`,
-\`qr-bg\`), type (\`--bk-font-*\`), space (\`--bk-space-1…10\`), shape (\`--bk-radius-*\`,
-\`--bk-control-height-*\`, \`--bk-shadow-*\`) and motion (\`--bk-duration-*\`). Each component's
+\`qr-bg\`), type (\`--ou-font-*\`), space (\`--ou-space-1…10\`), shape (\`--ou-radius-*\`,
+\`--ou-control-height-*\`, \`--ou-shadow-*\`) and motion (\`--ou-duration-*\`). Each component's
 CSS parts are listed below.
 `;
 
@@ -316,7 +316,7 @@ function componentSection(c: ComponentDoc): string {
     );
   }
   lines.push(
-    `Import: \`import '@bitkit-ui/elements/${c.slug}'\` · React: \`${c.name}\` from \`@bitkit-ui/react\` · Vue: \`${c.name}\` from \`@bitkit-ui/vue\` · Docs: ${page(`docs/components/${c.slug}/`)}`,
+    `Import: \`import '@orange-ui/elements/${c.slug}'\` · React: \`${c.name}\` from \`@orange-ui/react\` · Vue: \`${c.name}\` from \`@orange-ui/vue\` · Docs: ${page(`docs/components/${c.slug}/`)}`,
     '',
   );
 
@@ -362,7 +362,7 @@ function componentSection(c: ComponentDoc): string {
   if (c.events.length) {
     lines.push('Events:', '');
     for (const e of c.events) {
-      const react = e.name.startsWith('bk-')
+      const react = e.name.startsWith('ou-')
         ? ` (React \`on${eventSuffix(e.name)}\`, Vue \`@${e.name.slice(3)}\`)`
         : '';
       lines.push(`- \`${e.name}\`${react}${e.description ? ` — ${oneLine(e.description)}` : ''}`);
@@ -390,7 +390,7 @@ const HEADER = `# ${kit.displayName}
 
 > Open-source, MIT-licensed web components for Bitcoin and Lightning web apps: amounts, addresses,
 > invoices, checkout and payments, wallets, transactions and fees. The components are framework-agnostic
-> (Lit custom elements, \`<bk-*>\` tags) and ship with typed React and Vue wrappers, a headless
+> (Lit custom elements, \`<ou-*>\` tags) and ship with typed React and Vue wrappers, a headless
 > TypeScript core and a pluggable payment adapter layer. They use exact bigint money math, meet
 > WCAG 2.2 AA, are non-custodial and never put secret API keys in the browser.
 `;
@@ -398,9 +398,9 @@ const HEADER = `# ${kit.displayName}
 export function llmsIndex(): string {
   const out: string[] = [HEADER];
   out.push(
-    `Packages: \`@bitkit-ui/elements\` (web components), \`@bitkit-ui/react\`, \`@bitkit-ui/vue\`, \`@bitkit-ui/adapters\` (payment providers), \`@bitkit-ui/core\` (headless logic), \`@bitkit-ui/tokens\` (CSS variables).`,
+    `Packages: \`@orange-ui/elements\` (web components), \`@orange-ui/react\`, \`@orange-ui/vue\`, \`@orange-ui/adapters\` (payment providers), \`@orange-ui/core\` (headless logic), \`@orange-ui/tokens\` (CSS variables).`,
     '',
-    'Key facts: component amounts are `bigint` sats (`21000n`); `@bitkit-ui/core` uses msat; use `adapter="mock"` for demos; keep provider API keys on a server and use `createHttpAdapter` in the browser; events are `bk-*` CustomEvents (React `on*`, Vue `@*`).',
+    'Key facts: component amounts are `bigint` sats (`21000n`); `@orange-ui/core` uses msat; use `adapter="mock"` for demos; keep provider API keys on a server and use `createHttpAdapter` in the browser; events are `ou-*` CustomEvents (React `on*`, Vue `@*`).',
     '',
     '## Docs',
     '',

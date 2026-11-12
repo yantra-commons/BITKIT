@@ -5,24 +5,24 @@ import '../button/button.js';
 
 const meta: Meta = {
   title: 'Addresses/QR Scanner',
-  component: 'bk-qr-scanner',
+  component: 'ou-qr-scanner',
   tags: ['autodocs'],
 };
 export default meta;
 
 export const Default: StoryObj = {
   render: () =>
-    html`<bk-button
+    html`<ou-button
         @click=${(e: Event) => {
           const s = (e.target as HTMLElement).nextElementSibling as HTMLElement & {
             active: boolean;
           };
           s.active = !s.active;
         }}
-        >Toggle camera</bk-button
+        >Toggle camera</ou-button
       >
-      <bk-qr-scanner
+      <ou-qr-scanner
         style="margin-top:1rem"
-        @bk-scan=${(e: CustomEvent) => alert(e.detail.value)}
-      ></bk-qr-scanner>`,
+        @ou-scan=${(e: CustomEvent) => alert(e.detail.value)}
+      ></ou-qr-scanner>`,
 };

@@ -4,9 +4,9 @@ import {
   type DisplayUnit,
   type FiatRate,
   type FormattedAmount,
-} from '@bitkit-ui/core';
+} from '@orange-ui/core';
 import { resolveFiatRate, resolveMsat } from '../../internal/amount.js';
-import { BitkitElement } from '../../internal/base.js';
+import { OrangeElement } from '../../internal/base.js';
 import { bigintConverter } from '../../internal/converters.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
@@ -16,17 +16,17 @@ import '../skeleton/skeleton.js';
 /**
  * @summary Displays a bitcoin amount in sats, BTC or fiat. Optional unit toggle, fiat secondary
  * line and privacy mode. All math is exact (bigint).
- * @tag bk-amount-display
+ * @tag ou-amount-display
  * @csspart base - Wrapper.
  * @csspart value - The formatted amount (number + unit).
  * @csspart number - The number.
  * @csspart unit - The unit label.
  * @csspart fiat - Secondary fiat line.
  * @csspart privacy-toggle - Show/hide button.
- * @fires bk-unit-change - When the user toggles the unit. Detail: `{ unit }`.
- * @fires bk-privacy-change - When the privacy toggle is used. Detail: `{ hidden: boolean }`.
+ * @fires ou-unit-change - When the user toggles the unit. Detail: `{ unit }`.
+ * @fires ou-privacy-change - When the privacy toggle is used. Detail: `{ hidden: boolean }`.
  */
-export class BkAmountDisplay extends BitkitElement {
+export class OuAmountDisplay extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -42,19 +42,19 @@ export class BkAmountDisplay extends BitkitElement {
       .row {
         display: inline-flex;
         align-items: center;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
       }
       .value {
         display: inline-flex;
         align-items: baseline;
         gap: 0.3em;
-        font-weight: var(--bk-font-weight-semibold);
+        font-weight: var(--ou-font-weight-semibold);
         letter-spacing: -0.01em;
         white-space: nowrap;
       }
       .unit {
-        font-weight: var(--bk-font-weight-medium);
-        color: var(--bk-color-text-muted);
+        font-weight: var(--ou-font-weight-medium);
+        color: var(--ou-color-text-muted);
         font-size: 0.8em;
       }
       .prefix .unit {
@@ -63,41 +63,41 @@ export class BkAmountDisplay extends BitkitElement {
         margin-right: -0.25em;
       }
       .sm {
-        font-size: var(--bk-font-size-sm);
+        font-size: var(--ou-font-size-sm);
       }
       .md {
-        font-size: var(--bk-font-size-md);
+        font-size: var(--ou-font-size-md);
       }
       .lg {
-        font-size: var(--bk-font-size-xl);
+        font-size: var(--ou-font-size-xl);
       }
       .xl {
-        font-size: var(--bk-font-size-2xl);
-        line-height: var(--bk-line-height-tight);
+        font-size: var(--ou-font-size-2xl);
+        line-height: var(--ou-line-height-tight);
       }
       .incoming .number {
-        color: var(--bk-color-success);
+        color: var(--ou-color-success);
       }
       .fiat {
         font-size: 0.75em;
-        color: var(--bk-color-text-muted);
-        font-weight: var(--bk-font-weight-regular);
+        color: var(--ou-color-text-muted);
+        font-weight: var(--ou-font-weight-regular);
       }
       .xl .fiat,
       .lg .fiat {
-        font-size: var(--bk-font-size-md);
+        font-size: var(--ou-font-size-md);
       }
       button.toggle {
         all: unset;
         cursor: pointer;
-        border-radius: var(--bk-radius-sm);
+        border-radius: var(--ou-radius-sm);
       }
       button.toggle:hover .value {
         text-decoration: underline dotted;
         text-underline-offset: 4px;
       }
       button.toggle:focus-visible {
-        box-shadow: var(--bk-focus-ring);
+        box-shadow: var(--ou-focus-ring);
       }
       .eye {
         display: inline-grid;
@@ -106,14 +106,14 @@ export class BkAmountDisplay extends BitkitElement {
         height: 1.75em;
         padding: 0;
         border: 0;
-        border-radius: var(--bk-radius-sm);
+        border-radius: var(--ou-radius-sm);
         background: transparent;
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
         cursor: pointer;
-        font-size: var(--bk-font-size-md);
+        font-size: var(--ou-font-size-md);
       }
       .eye:hover {
-        background: var(--bk-color-surface-2);
+        background: var(--ou-color-surface-2);
       }
       .eye svg {
         width: 1.2em;
@@ -215,12 +215,12 @@ export class BkAmountDisplay extends BitkitElement {
     const current = this.formatted?.resolvedUnit ?? 'sats';
     const i = units.indexOf(current as DisplayUnit);
     this.unit = units[(i + 1) % units.length];
-    this.emit('bk-unit-change', { unit: this.unit });
+    this.emit('ou-unit-change', { unit: this.unit });
   }
 
   #togglePrivacy() {
     this.privacy = !this.privacy;
-    this.emit('bk-privacy-change', { hidden: this.privacy });
+    this.emit('ou-privacy-change', { hidden: this.privacy });
   }
 
   #renderValue(f: FormattedAmount) {
@@ -266,7 +266,7 @@ export class BkAmountDisplay extends BitkitElement {
   override render() {
     if (this.loading) {
       return html`<span class="wrap ${this.size}" part="base" aria-busy="true"
-        ><bk-skeleton width="6em"></bk-skeleton
+        ><ou-skeleton width="6em"></ou-skeleton
         ><span class="sr-only">${this.t('loading')}</span></span
       >`;
     }
@@ -310,10 +310,10 @@ export class BkAmountDisplay extends BitkitElement {
   }
 }
 
-define('bk-amount-display', BkAmountDisplay);
+define('ou-amount-display', OuAmountDisplay);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-amount-display': BkAmountDisplay;
+    'ou-amount-display': OuAmountDisplay;
   }
 }

@@ -1,4 +1,4 @@
-import { BitkitError } from '../errors.js';
+import { OrangeError } from '../errors.js';
 import { bech32, decodeUtf8, encodeUtf8 } from '../encoding.js';
 
 export type LnurlKind = 'pay' | 'withdraw' | 'auth' | 'channel' | 'unknown';
@@ -33,7 +33,7 @@ export const looksLikeLnurl = (s: string) => {
   return /^lnurl1[02-9ac-hj-np-z]+$/i.test(t) || /^(lnurlp|lnurlw|lnurlc|keyauth):\/\//i.test(t);
 };
 
-/** Decode a bech32 LNURL (LUD-01) or LUD-17 URL. Throws `BitkitError`. */
+/** Decode a bech32 LNURL (LUD-01) or LUD-17 URL. Throws `OrangeError`. */
 export function decodeLnurl(input: string): Lnurl {
   const raw = input.trim();
   const s = raw.replace(/^lightning:/i, '');
@@ -47,14 +47,14 @@ export function decodeLnurl(input: string): Lnurl {
     kind = LUD17[scheme[1]!.toLowerCase()];
   } else {
     if (s !== s.toLowerCase() && s !== s.toUpperCase()) {
-      throw new BitkitError('mixed-case', 'This LNURL is invalid.');
+      throw new OrangeError('mixed-case', 'This LNURL is invalid.');
     }
     try {
       const { prefix, words } = bech32.decode(s.toLowerCase() as `${string}1${string}`, false);
       if (prefix !== 'lnurl') throw new Error('prefix');
       urlString = decodeUtf8(bech32.fromWords(words));
     } catch (e) {
-      throw new BitkitError('invalid-lnurl', 'This LNURL has a typo or is incomplete.', {
+      throw new OrangeError('invalid-lnurl', 'This LNURL has a typo or is incomplete.', {
         cause: e,
       });
     }
@@ -63,13 +63,13 @@ export function decodeLnurl(input: string): Lnurl {
   try {
     url = new URL(urlString);
   } catch (e) {
-    throw new BitkitError('invalid-lnurl', 'This LNURL does not contain a valid link.', {
+    throw new OrangeError('invalid-lnurl', 'This LNURL does not contain a valid link.', {
       cause: e,
     });
   }
   const onion = url.hostname.endsWith('.onion');
   if (url.protocol !== 'https:' && !(onion && url.protocol === 'http:')) {
-    throw new BitkitError('invalid-lnurl', 'LNURL links must use https.');
+    throw new OrangeError('invalid-lnurl', 'LNURL links must use https.');
   }
   return { url: url.toString(), kind: kind ?? kindFromUrl(url), raw };
 }

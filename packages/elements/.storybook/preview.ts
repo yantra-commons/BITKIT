@@ -17,8 +17,8 @@ const preview: Preview = {
   decorators: [
     (story, ctx) =>
       html`<div
-        data-bk-theme=${ctx.globals.theme ?? 'light'}
-        style="padding: 1.5rem; background: var(--bk-color-bg); color: var(--bk-color-text); min-height: 100%; font-family: var(--bk-font-sans)"
+        data-ou-theme=${ctx.globals.theme ?? 'light'}
+        style="padding: 1.5rem; background: var(--ou-color-bg); color: var(--ou-color-text); min-height: 100%; font-family: var(--ou-font-sans)"
       >
         ${story()}
       </div>`,

@@ -10,10 +10,10 @@ import {
   type FeeTierOption,
   type FiatRate,
   type RecommendedFees,
-} from '@bitkit-ui/core';
-import { MempoolRates, type FeeRateAdapter } from '@bitkit-ui/adapters';
+} from '@orange-ui/core';
+import { MempoolRates, type FeeRateAdapter } from '@orange-ui/adapters';
 import { resolveFiatRate } from '../../internal/amount.js';
-import { BitkitElement, nextId } from '../../internal/base.js';
+import { OrangeElement, nextId } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import '../button/button.js';
@@ -31,13 +31,13 @@ export interface FeeSelection {
  * @summary Network fee picker: fast / normal / slow tiers with sat/vB, total fee, fiat cost and
  * ETA, plus a validated custom rate. Rates come from a FeeRateAdapter (mempool.space by default,
  * configurable via `mempool-url`) or a static `fees` object.
- * @tag bk-fee-selector
+ * @tag ou-fee-selector
  * @csspart base - Fieldset.
  * @csspart option - Each tier option.
  * @csspart custom - Custom rate input.
- * @fires bk-change - Detail: `FeeSelection`.
+ * @fires ou-change - Detail: `FeeSelection`.
  */
-export class BkFeeSelector extends BitkitElement {
+export class OuFeeSelector extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -51,45 +51,45 @@ export class BkFeeSelector extends BitkitElement {
         min-width: 0;
       }
       legend {
-        margin-bottom: var(--bk-space-2);
-        font-size: var(--bk-font-size-sm);
-        font-weight: var(--bk-font-weight-medium);
+        margin-bottom: var(--ou-space-2);
+        font-size: var(--ou-font-size-sm);
+        font-weight: var(--ou-font-weight-medium);
       }
       .opts {
         display: grid;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
       }
       label.opt {
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
-        gap: var(--bk-space-3);
-        padding: var(--bk-space-3);
-        border: 1px solid var(--bk-color-border-strong);
-        border-radius: var(--bk-radius-md);
+        gap: var(--ou-space-3);
+        padding: var(--ou-space-3);
+        border: 1px solid var(--ou-color-border-strong);
+        border-radius: var(--ou-radius-md);
         cursor: pointer;
         font-variant-numeric: tabular-nums;
       }
       label.opt:has(input:checked) {
-        border-color: var(--bk-color-accent);
-        box-shadow: inset 0 0 0 1px var(--bk-color-accent);
+        border-color: var(--ou-color-accent);
+        box-shadow: inset 0 0 0 1px var(--ou-color-accent);
       }
       label.opt:has(input:focus-visible) {
-        box-shadow: var(--bk-focus-ring);
+        box-shadow: var(--ou-focus-ring);
       }
       input[type='radio'] {
-        accent-color: var(--bk-color-accent);
+        accent-color: var(--ou-color-accent);
         width: 1.1rem;
         height: 1.1rem;
         margin: 0;
       }
       .name {
-        font-weight: var(--bk-font-weight-semibold);
+        font-weight: var(--ou-font-weight-semibold);
       }
       .sub {
         display: block;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-text-muted);
       }
       .cost {
         text-align: end;
@@ -97,34 +97,34 @@ export class BkFeeSelector extends BitkitElement {
       .custom {
         display: flex;
         align-items: center;
-        gap: var(--bk-space-2);
-        margin-top: var(--bk-space-2);
+        gap: var(--ou-space-2);
+        margin-top: var(--ou-space-2);
       }
       .custom input {
         width: 7rem;
-        min-height: var(--bk-control-height-md);
-        padding: 0 var(--bk-space-2);
-        border: 1px solid var(--bk-color-border-strong);
-        border-radius: var(--bk-radius-sm);
-        background: var(--bk-color-surface);
+        min-height: var(--ou-control-height-md);
+        padding: 0 var(--ou-space-2);
+        border: 1px solid var(--ou-color-border-strong);
+        border-radius: var(--ou-radius-sm);
+        background: var(--ou-color-surface);
         color: inherit;
         font: inherit;
       }
       .warn {
-        margin: var(--bk-space-1) 0 0;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-warning);
+        margin: var(--ou-space-1) 0 0;
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-warning);
       }
       .bad {
-        color: var(--bk-color-danger);
+        color: var(--ou-color-danger);
       }
       .error {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: var(--bk-space-2);
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-danger);
+        gap: var(--ou-space-2);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-danger);
       }
     `,
   ];
@@ -236,7 +236,7 @@ export class BkFeeSelector extends BitkitElement {
 
   #emit() {
     const s = this.selection;
-    if (s) this.emit('bk-change', s);
+    if (s) this.emit('ou-change', s);
   }
 
   #select(tier: FeeTier) {
@@ -264,13 +264,13 @@ export class BkFeeSelector extends BitkitElement {
     if (this._loading && !this.#recommended) {
       return html`<div aria-busy="true">
         <span class="sr-only" role="status">Loading fee estimates</span>
-        ${[0, 1, 2].map(() => html`<bk-skeleton shape="rect" height="3.5rem" style="margin-bottom:.5rem"></bk-skeleton>`)}
+        ${[0, 1, 2].map(() => html`<ou-skeleton shape="rect" height="3.5rem" style="margin-bottom:.5rem"></ou-skeleton>`)}
       </div>`;
     }
     if (this._error && !this.#recommended) {
       return html`<div class="error" role="alert">
         <span>${this._error}</span
-        ><bk-button size="sm" variant="secondary" @click=${() => this.refresh()}>Retry</bk-button>
+        ><ou-button size="sm" variant="secondary" @click=${() => this.refresh()}>Retry</ou-button>
       </div>`;
     }
     const check =
@@ -341,10 +341,10 @@ export class BkFeeSelector extends BitkitElement {
   }
 }
 
-define('bk-fee-selector', BkFeeSelector);
+define('ou-fee-selector', OuFeeSelector);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-fee-selector': BkFeeSelector;
+    'ou-fee-selector': OuFeeSelector;
   }
 }

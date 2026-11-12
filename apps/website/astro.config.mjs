@@ -53,8 +53,8 @@ const componentSidebar = Object.entries(GROUPS).map(([label, names]) => ({
   label,
   collapsed: label !== 'Payments',
   items: names
-    .filter((n) => tags.has(`bk-${n}`))
-    .map((n) => ({ label: `<bk-${n}>`, link: `/docs/components/${n}/` })),
+    .filter((n) => tags.has(`ou-${n}`))
+    .map((n) => ({ label: `<ou-${n}>`, link: `/docs/components/${n}/` })),
 }));
 
 export default defineConfig({

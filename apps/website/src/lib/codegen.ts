@@ -1,6 +1,6 @@
 /**
  * Convert the HTML snippets used in docs into equivalent React (JSX) and Vue (template) code.
- * Handles the subset of HTML the examples use: bk-* tags, plain elements, string and boolean
+ * Handles the subset of HTML the examples use: ou-* tags, plain elements, string and boolean
  * attributes. Amount-like attributes become bigint literals.
  */
 
@@ -52,7 +52,7 @@ function convert(html: string, mode: 'react' | 'vue'): string {
   return html.replace(
     TAG_RE,
     (_full, close: string, tag: string, attrs: string, selfClose: string) => {
-      const isKit = tag.startsWith('bk-');
+      const isKit = tag.startsWith('ou-');
       const name = isKit ? pascal(tag.slice(3)) : tag;
       if (close) return `</${name}>`;
       return `<${name}${convertAttrs(attrs, mode, isKit)}${selfClose ? ' /' : ''}>`;
@@ -62,7 +62,7 @@ function convert(html: string, mode: 'react' | 'vue'): string {
 
 /** Names of kit components used in a snippet, for import lines. */
 export const usedComponents = (html: string) =>
-  [...new Set([...html.matchAll(/<bk-([\w-]+)/g)].map((m) => pascal(m[1]!)))].sort();
+  [...new Set([...html.matchAll(/<ou-([\w-]+)/g)].map((m) => pascal(m[1]!)))].sort();
 
 export function toReact(html: string): string {
   const names = usedComponents(html);
@@ -71,7 +71,7 @@ export function toReact(html: string): string {
     .split('\n')
     .map((l) => `      ${l}`)
     .join('\n');
-  return `import { ${names.join(', ')} } from '@bitkit-ui/react';
+  return `import { ${names.join(', ')} } from '@orange-ui/react';
 
 export function Example() {
   return (
@@ -89,7 +89,7 @@ export function toVue(html: string): string {
     .map((l) => `  ${l}`)
     .join('\n');
   return `<script setup lang="ts">
-import { ${names.join(', ')} } from '@bitkit-ui/vue';
+import { ${names.join(', ')} } from '@orange-ui/vue';
 </script>
 
 <template>

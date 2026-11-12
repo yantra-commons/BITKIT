@@ -1,6 +1,6 @@
 import { css, html } from 'lit';
-import type { Network } from '@bitkit-ui/core';
-import { BitkitElement } from '../../internal/base.js';
+import type { Network } from '@orange-ui/core';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import type { StringKey } from '../../internal/strings.js';
@@ -16,10 +16,10 @@ const KEY: Record<Network, StringKey> = {
 /**
  * @summary Shows which Bitcoin network is in use. Test networks are highlighted so users never
  * confuse test coins with real ones.
- * @tag bk-network-badge
+ * @tag ou-network-badge
  * @csspart base - The badge.
  */
-export class BkNetworkBadge extends BitkitElement {
+export class OuNetworkBadge extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -31,15 +31,15 @@ export class BkNetworkBadge extends BitkitElement {
         display: inline-flex;
         align-items: center;
         gap: 0.35em;
-        padding: 0.125rem var(--bk-space-2);
-        border-radius: var(--bk-radius-full);
-        border: 1px solid var(--bk-color-border);
-        font-size: var(--bk-font-size-xs);
-        font-weight: var(--bk-font-weight-semibold);
+        padding: 0.125rem var(--ou-space-2);
+        border-radius: var(--ou-radius-full);
+        border: 1px solid var(--ou-color-border);
+        font-size: var(--ou-font-size-xs);
+        font-weight: var(--ou-font-weight-semibold);
         line-height: 1.4;
         white-space: nowrap;
-        color: var(--bk-color-text-muted);
-        background: var(--bk-color-surface);
+        color: var(--ou-color-text-muted);
+        background: var(--ou-color-surface);
       }
       .dot {
         width: 0.5em;
@@ -48,18 +48,18 @@ export class BkNetworkBadge extends BitkitElement {
         background: currentColor;
       }
       .mainnet .dot {
-        background: var(--bk-color-accent);
+        background: var(--ou-color-accent);
       }
       .testnet,
       .testnet4,
       .signet {
-        color: var(--bk-color-info);
-        background: var(--bk-color-info-bg);
+        color: var(--ou-color-info);
+        background: var(--ou-color-info-bg);
         border-color: transparent;
       }
       .regtest {
-        color: var(--bk-color-warning);
-        background: var(--bk-color-warning-bg);
+        color: var(--ou-color-warning);
+        background: var(--ou-color-warning-bg);
         border-color: transparent;
       }
     `,
@@ -90,10 +90,10 @@ export class BkNetworkBadge extends BitkitElement {
   }
 }
 
-define('bk-network-badge', BkNetworkBadge);
+define('ou-network-badge', OuNetworkBadge);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-network-badge': BkNetworkBadge;
+    'ou-network-badge': OuNetworkBadge;
   }
 }

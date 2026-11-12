@@ -9,7 +9,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkAddressDisplay",
+          "name": "OuAddressDisplay",
           "cssParts": [
             {
               "description": "Wrapper.",
@@ -195,7 +195,7 @@
           "events": [
             {
               "description": "When the address is copied. Detail: `{ value }`.",
-              "name": "bk-copy"
+              "name": "ou-copy"
             }
           ],
           "attributes": [
@@ -328,10 +328,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-address-display",
+          "tagName": "ou-address-display",
           "customElement": true,
           "summary": "Shows a Bitcoin address in readable 4-character chunks (Bitcoin Design Guide), with\ncopy, QR toggle, network badge and explorer link. Screen readers hear it character by character."
         }
@@ -339,9 +339,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkAddressDisplay",
+          "name": "OuAddressDisplay",
           "declaration": {
-            "name": "BkAddressDisplay",
+            "name": "OuAddressDisplay",
             "module": "src/components/address-display/address-display.ts"
           }
         }
@@ -379,7 +379,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkAddressInput",
+          "name": "OuAddressInput",
           "cssParts": [
             {
               "description": "Label.",
@@ -530,7 +530,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }",
+              "default": "{ ...OrangeElement.shadowRootOptions, delegatesFocus: true }",
               "inheritedFrom": {
                 "name": "FormControlElement",
                 "module": "src/internal/form-control.ts"
@@ -681,11 +681,11 @@
           "events": [
             {
               "description": "On each edit. Detail: `AddressInputDetail`.",
-              "name": "bk-input"
+              "name": "ou-input"
             },
             {
               "description": "When a value is committed (blur, paste, scan). Detail: `AddressInputDetail`.",
-              "name": "bk-change"
+              "name": "ou-change"
             }
           ],
           "attributes": [
@@ -836,7 +836,7 @@
             "name": "FormControlElement",
             "module": "/src/internal/form-control.js"
           },
-          "tagName": "bk-address-input",
+          "tagName": "ou-address-input",
           "customElement": true,
           "summary": "Destination input that validates as you type and accepts paste and QR scan. Uses\n`parsePaymentInput` from core, so it understands addresses, BIP21 / unified QR, BOLT11,\nBOLT12 offers, LNURL and Lightning Addresses (restrict with `accept`)."
         }
@@ -852,9 +852,9 @@
         },
         {
           "kind": "js",
-          "name": "BkAddressInput",
+          "name": "OuAddressInput",
           "declaration": {
-            "name": "BkAddressInput",
+            "name": "OuAddressInput",
             "module": "src/components/address-input/address-input.ts"
           }
         }
@@ -867,7 +867,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkAmountDisplay",
+          "name": "OuAmountDisplay",
           "cssParts": [
             {
               "description": "Wrapper.",
@@ -1082,11 +1082,11 @@
           "events": [
             {
               "description": "When the user toggles the unit. Detail: `{ unit }`.",
-              "name": "bk-unit-change"
+              "name": "ou-unit-change"
             },
             {
               "description": "When the privacy toggle is used. Detail: `{ hidden: boolean }`.",
-              "name": "bk-privacy-change"
+              "name": "ou-privacy-change"
             }
           ],
           "attributes": [
@@ -1223,10 +1223,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-amount-display",
+          "tagName": "ou-amount-display",
           "customElement": true,
           "summary": "Displays a bitcoin amount in sats, BTC or fiat. Optional unit toggle, fiat secondary\nline and privacy mode. All math is exact (bigint)."
         }
@@ -1234,9 +1234,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkAmountDisplay",
+          "name": "OuAmountDisplay",
           "declaration": {
-            "name": "BkAmountDisplay",
+            "name": "OuAmountDisplay",
             "module": "src/components/amount-display/amount-display.ts"
           }
         }
@@ -1249,7 +1249,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkAmountInput",
+          "name": "OuAmountInput",
           "cssParts": [
             {
               "description": "The label.",
@@ -1288,7 +1288,7 @@
               "type": {
                 "text": "bigint | undefined"
               },
-              "description": "Value in sats (bigint). Set it to prefill; read it after `bk-change`.",
+              "description": "Value in sats (bigint). Set it to prefill; read it after `ou-change`.",
               "attribute": "amount"
             },
             {
@@ -1454,7 +1454,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }",
+              "default": "{ ...OrangeElement.shadowRootOptions, delegatesFocus: true }",
               "inheritedFrom": {
                 "name": "FormControlElement",
                 "module": "src/internal/form-control.ts"
@@ -1605,15 +1605,15 @@
           "events": [
             {
               "description": "On every edit. Detail: `AmountInputDetail`.",
-              "name": "bk-input"
+              "name": "ou-input"
             },
             {
               "description": "When the value is committed (blur, Max, unit change). Detail: `AmountInputDetail`.",
-              "name": "bk-change"
+              "name": "ou-change"
             },
             {
               "description": "When the unit changes. Detail: `{ unit }`.",
-              "name": "bk-unit-change"
+              "name": "ou-unit-change"
             }
           ],
           "attributes": [
@@ -1622,7 +1622,7 @@
               "type": {
                 "text": "bigint | undefined"
               },
-              "description": "Value in sats (bigint). Set it to prefill; read it after `bk-change`.",
+              "description": "Value in sats (bigint). Set it to prefill; read it after `ou-change`.",
               "fieldName": "amount"
             },
             {
@@ -1793,7 +1793,7 @@
             "name": "FormControlElement",
             "module": "/src/internal/form-control.js"
           },
-          "tagName": "bk-amount-input",
+          "tagName": "ou-amount-input",
           "customElement": true,
           "summary": "Bigint-safe amount entry with unit switcher (sats / BTC / fiat), fiat preview,\nmin/max validation and a \"Max\" button for the available balance."
         }
@@ -1801,9 +1801,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkAmountInput",
+          "name": "OuAmountInput",
           "declaration": {
-            "name": "BkAmountInput",
+            "name": "OuAmountInput",
             "module": "src/components/amount-input/amount-input.ts"
           }
         }
@@ -1816,7 +1816,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkBackupCheck",
+          "name": "OuBackupCheck",
           "cssParts": [
             {
               "description": "Container.",
@@ -1887,11 +1887,11 @@
           "events": [
             {
               "description": "All answers correct.",
-              "name": "bk-verified"
+              "name": "ou-verified"
             },
             {
               "description": "A wrong answer. Detail: `{ position: number }` (1-based word number).",
-              "name": "bk-fail"
+              "name": "ou-fail"
             }
           ],
           "attributes": [
@@ -1915,10 +1915,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-backup-check",
+          "tagName": "ou-backup-check",
           "customElement": true,
           "summary": "SECURITY-SENSITIVE. \"Verify your backup\" flow: asks for randomly chosen words of the\nrecovery phrase as multiple choice. Words are set via the `words` property only and are\nnever emitted."
         }
@@ -1926,9 +1926,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkBackupCheck",
+          "name": "OuBackupCheck",
           "declaration": {
-            "name": "BkBackupCheck",
+            "name": "OuBackupCheck",
             "module": "src/components/backup-check/backup-check.ts"
           }
         }
@@ -1941,7 +1941,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkBadge",
+          "name": "OuBadge",
           "cssParts": [
             {
               "description": "The badge container.",
@@ -1984,10 +1984,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-badge",
+          "tagName": "ou-badge",
           "customElement": true,
           "summary": "Small status label.",
           "events": []
@@ -1996,9 +1996,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkBadge",
+          "name": "OuBadge",
           "declaration": {
-            "name": "BkBadge",
+            "name": "OuBadge",
             "module": "src/components/badge/badge.ts"
           }
         }
@@ -2011,14 +2011,14 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkBalanceCard",
+          "name": "OuBalanceCard",
           "cssParts": [
             {
               "description": "Card.",
               "name": "base"
             },
             {
-              "description": "The bk-amount-display.",
+              "description": "The ou-amount-display.",
               "name": "amount"
             },
             {
@@ -2220,10 +2220,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-balance-card",
+          "tagName": "ou-balance-card",
           "customElement": true,
           "summary": "Wallet balance with fiat value, pending amount, privacy toggle and an actions slot\nfor Send / Receive buttons.",
           "events": []
@@ -2232,9 +2232,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkBalanceCard",
+          "name": "OuBalanceCard",
           "declaration": {
-            "name": "BkBalanceCard",
+            "name": "OuBalanceCard",
             "module": "src/components/balance-card/balance-card.ts"
           }
         }
@@ -2247,13 +2247,13 @@
         {
           "kind": "variable",
           "name": "buttonStyles",
-          "default": "css` .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: var(--bk-space-2); width: 100%; min-height: var(--bk-control-height-md); padding: 0 var(--bk-space-4); border: 1px solid transparent; border-radius: var(--bk-radius-md); font: inherit; font-size: var(--bk-font-size-md); font-weight: var(--bk-font-weight-semibold); line-height: 1; text-decoration: none; white-space: nowrap; cursor: pointer; user-select: none; transition: background-color var(--bk-duration-fast) var(--bk-easing-standard), border-color var(--bk-duration-fast) var(--bk-easing-standard), transform var(--bk-duration-fast) var(--bk-easing-standard); } .btn:active:not([aria-disabled='true']) { transform: translateY(1px); } .sm { min-height: var(--bk-control-height-sm); padding: 0 var(--bk-space-3); font-size: var(--bk-font-size-sm); } .lg { min-height: var(--bk-control-height-lg); padding: 0 var(--bk-space-6); font-size: var(--bk-font-size-lg); } .primary { background: var(--bk-color-accent); color: var(--bk-color-on-accent); } .primary:hover:not([aria-disabled='true']) { background: var(--bk-color-accent-hover); } .secondary { background: var(--bk-color-surface); color: var(--bk-color-text); border-color: var(--bk-color-border-strong); } .secondary:hover:not([aria-disabled='true']) { background: var(--bk-color-surface-2); } .ghost { background: transparent; color: var(--bk-color-text); } .ghost:hover:not([aria-disabled='true']) { background: var(--bk-color-surface-2); } .danger { background: var(--bk-color-danger); color: var(--bk-color-bg); } .btn[aria-disabled='true'] { opacity: 0.55; cursor: not-allowed; } .btn.loading .content { visibility: hidden; } .btn bk-spinner { position: absolute; inset: 0; margin: auto; width: fit-content; height: fit-content; } .content { display: inline-flex; align-items: center; gap: var(--bk-space-2); } @media (forced-colors: active) { .btn { border-color: ButtonText; } } `",
+          "default": "css` .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: var(--ou-space-2); width: 100%; min-height: var(--ou-control-height-md); padding: 0 var(--ou-space-4); border: 1px solid transparent; border-radius: var(--ou-radius-md); font: inherit; font-size: var(--ou-font-size-md); font-weight: var(--ou-font-weight-semibold); line-height: 1; text-decoration: none; white-space: nowrap; cursor: pointer; user-select: none; transition: background-color var(--ou-duration-fast) var(--ou-easing-standard), border-color var(--ou-duration-fast) var(--ou-easing-standard), transform var(--ou-duration-fast) var(--ou-easing-standard); } .btn:active:not([aria-disabled='true']) { transform: translateY(1px); } .sm { min-height: var(--ou-control-height-sm); padding: 0 var(--ou-space-3); font-size: var(--ou-font-size-sm); } .lg { min-height: var(--ou-control-height-lg); padding: 0 var(--ou-space-6); font-size: var(--ou-font-size-lg); } .primary { background: var(--ou-color-accent); color: var(--ou-color-on-accent); } .primary:hover:not([aria-disabled='true']) { background: var(--ou-color-accent-hover); } .secondary { background: var(--ou-color-surface); color: var(--ou-color-text); border-color: var(--ou-color-border-strong); } .secondary:hover:not([aria-disabled='true']) { background: var(--ou-color-surface-2); } .ghost { background: transparent; color: var(--ou-color-text); } .ghost:hover:not([aria-disabled='true']) { background: var(--ou-color-surface-2); } .danger { background: var(--ou-color-danger); color: var(--ou-color-bg); } .btn[aria-disabled='true'] { opacity: 0.55; cursor: not-allowed; } .btn.loading .content { visibility: hidden; } .btn ou-spinner { position: absolute; inset: 0; margin: auto; width: fit-content; height: fit-content; } .content { display: inline-flex; align-items: center; gap: var(--ou-space-2); } @media (forced-colors: active) { .btn { border-color: ButtonText; } } `",
           "description": "Shared button look, reused by icon-button, copy-button and composite components."
         },
         {
           "kind": "class",
           "description": "",
-          "name": "BkButton",
+          "name": "OuButton",
           "cssParts": [
             {
               "description": "The native button or link.",
@@ -2295,7 +2295,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }"
+              "default": "{ ...OrangeElement.shadowRootOptions, delegatesFocus: true }"
             },
             {
               "kind": "field",
@@ -2505,10 +2505,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-button",
+          "tagName": "ou-button",
           "customElement": true,
           "summary": "Accessible button with primary/secondary/ghost/danger variants and a loading state.\nWorks as a submit button inside forms."
         }
@@ -2524,9 +2524,9 @@
         },
         {
           "kind": "js",
-          "name": "BkButton",
+          "name": "OuButton",
           "declaration": {
-            "name": "BkButton",
+            "name": "OuButton",
             "module": "src/components/button/button.ts"
           }
         }
@@ -2539,7 +2539,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkCheckout",
+          "name": "OuCheckout",
           "cssParts": [
             {
               "description": "Container.",
@@ -2792,27 +2792,27 @@
           "events": [
             {
               "description": "Detail: `{ invoice }`.",
-              "name": "bk-invoice-created"
+              "name": "ou-invoice-created"
             },
             {
               "description": "Detail: `PaymentUpdate`.",
-              "name": "bk-status-change"
+              "name": "ou-status-change"
             },
             {
               "description": "Detail: `{ invoice, update }`.",
-              "name": "bk-paid"
+              "name": "ou-paid"
             },
             {
               "description": "Detail: `{ invoice }`.",
-              "name": "bk-expired"
+              "name": "ou-expired"
             },
             {
               "description": "Detail: `{ error }`.",
-              "name": "bk-error"
+              "name": "ou-error"
             },
             {
               "description": "When the modal closes.",
-              "name": "bk-close"
+              "name": "ou-close"
             }
           ],
           "attributes": [
@@ -2938,10 +2938,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-checkout",
+          "tagName": "ou-checkout",
           "customElement": true,
           "summary": "Complete \"pay with bitcoin\" flow: creates a payment request through an adapter, shows\na unified QR (on-chain + Lightning) with method tabs, amount and fiat value, copy buttons,\nexpiry countdown, open-in-wallet link, one-click WebLN payment and live status updates.\nWorks inline or as a modal."
         },
@@ -2953,9 +2953,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkCheckout",
+          "name": "OuCheckout",
           "declaration": {
-            "name": "BkCheckout",
+            "name": "OuCheckout",
             "module": "src/components/checkout/checkout.ts"
           }
         }
@@ -2968,7 +2968,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkConfirmationProgress",
+          "name": "OuConfirmationProgress",
           "cssParts": [
             {
               "description": "Container.",
@@ -3066,10 +3066,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-confirmation-progress",
+          "tagName": "ou-confirmation-progress",
           "customElement": true,
           "summary": "On-chain confirmation progress using the Bitcoin Icons confirmation glyphs, with a\ntext label and an estimated time remaining (~10 minutes per block).",
           "events": []
@@ -3078,9 +3078,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkConfirmationProgress",
+          "name": "OuConfirmationProgress",
           "declaration": {
-            "name": "BkConfirmationProgress",
+            "name": "OuConfirmationProgress",
             "module": "src/components/confirmation-progress/confirmation-progress.ts"
           }
         }
@@ -3111,7 +3111,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkCopyButton",
+          "name": "OuCopyButton",
           "cssParts": [
             {
               "description": "The native button.",
@@ -3126,7 +3126,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }"
+              "default": "{ ...OrangeElement.shadowRootOptions, delegatesFocus: true }"
             },
             {
               "kind": "field",
@@ -3194,11 +3194,11 @@
           "events": [
             {
               "description": "After a successful copy. Detail: `{ value: string }`.",
-              "name": "bk-copy"
+              "name": "ou-copy"
             },
             {
               "description": "When copying fails. Detail: `{ error: unknown }`.",
-              "name": "bk-copy-error"
+              "name": "ou-copy-error"
             }
           ],
           "attributes": [
@@ -3246,10 +3246,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-copy-button",
+          "tagName": "ou-copy-button",
           "customElement": true,
           "summary": "Copies a value to the clipboard and confirms visually and to screen readers."
         }
@@ -3265,9 +3265,9 @@
         },
         {
           "kind": "js",
-          "name": "BkCopyButton",
+          "name": "OuCopyButton",
           "declaration": {
-            "name": "BkCopyButton",
+            "name": "OuCopyButton",
             "module": "src/components/copy-button/copy-button.ts"
           }
         }
@@ -3280,7 +3280,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkDialog",
+          "name": "OuDialog",
           "cssParts": [
             {
               "description": "The native dialog.",
@@ -3404,21 +3404,21 @@
                   }
                 }
               ],
-              "description": "Close the dialog (fires bk-request-close first)."
+              "description": "Close the dialog (fires ou-request-close first)."
             }
           ],
           "events": [
             {
               "description": "After the dialog opens.",
-              "name": "bk-open"
+              "name": "ou-open"
             },
             {
               "description": "Before closing; cancelable. Detail: `{ reason }`.",
-              "name": "bk-request-close"
+              "name": "ou-request-close"
             },
             {
               "description": "After the dialog closes. Detail: `{ reason }`.",
-              "name": "bk-close"
+              "name": "ou-close"
             }
           ],
           "attributes": [
@@ -3468,10 +3468,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-dialog",
+          "tagName": "ou-dialog",
           "customElement": true,
           "summary": "Modal dialog built on the native `<dialog>` element: focus is trapped, the page is\ninert, Escape closes, and focus returns to the opener on close."
         }
@@ -3479,9 +3479,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkDialog",
+          "name": "OuDialog",
           "declaration": {
-            "name": "BkDialog",
+            "name": "OuDialog",
             "module": "src/components/dialog/dialog.ts"
           }
         }
@@ -3494,7 +3494,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkDonationWidget",
+          "name": "OuDonationWidget",
           "cssParts": [
             {
               "description": "Container.",
@@ -3652,7 +3652,7 @@
           "events": [
             {
               "description": "Before the checkout opens. Detail: `{ amount: bigint, message: string }`.",
-              "name": "bk-donate"
+              "name": "ou-donate"
             }
           ],
           "attributes": [
@@ -3750,10 +3750,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-donation-widget",
+          "tagName": "ou-donation-widget",
           "customElement": true,
           "summary": "Donation form: preset amounts, custom amount, optional message, then a checkout."
         }
@@ -3761,9 +3761,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkDonationWidget",
+          "name": "OuDonationWidget",
           "declaration": {
-            "name": "BkDonationWidget",
+            "name": "OuDonationWidget",
             "module": "src/components/donation-widget/donation-widget.ts"
           }
         }
@@ -3776,7 +3776,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkFeeSelector",
+          "name": "OuFeeSelector",
           "cssParts": [
             {
               "description": "Fieldset.",
@@ -3921,7 +3921,7 @@
           "events": [
             {
               "description": "Detail: `FeeSelection`.",
-              "name": "bk-change"
+              "name": "ou-change"
             }
           ],
           "attributes": [
@@ -3990,10 +3990,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-fee-selector",
+          "tagName": "ou-fee-selector",
           "customElement": true,
           "summary": "Network fee picker: fast / normal / slow tiers with sat/vB, total fee, fiat cost and\nETA, plus a validated custom rate. Rates come from a FeeRateAdapter (mempool.space by default,\nconfigurable via `mempool-url`) or a static `fees` object."
         }
@@ -4001,9 +4001,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkFeeSelector",
+          "name": "OuFeeSelector",
           "declaration": {
-            "name": "BkFeeSelector",
+            "name": "OuFeeSelector",
             "module": "src/components/fee-selector/fee-selector.ts"
           }
         }
@@ -4016,7 +4016,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkIconButton",
+          "name": "OuIconButton",
           "cssParts": [
             {
               "description": "The native button.",
@@ -4031,7 +4031,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }"
+              "default": "{ ...OrangeElement.shadowRootOptions, delegatesFocus: true }"
             },
             {
               "kind": "field",
@@ -4168,10 +4168,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-icon-button",
+          "tagName": "ou-icon-button",
           "customElement": true,
           "summary": "Square button showing only an icon. `label` is required for accessibility and is\nalso shown as a native tooltip.",
           "events": []
@@ -4180,9 +4180,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkIconButton",
+          "name": "OuIconButton",
           "declaration": {
-            "name": "BkIconButton",
+            "name": "OuIconButton",
             "module": "src/components/icon-button/icon-button.ts"
           }
         }
@@ -4213,11 +4213,11 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkIcon",
+          "name": "OuIcon",
           "cssProperties": [
             {
               "description": "Icon size. Default `1.25em`.",
-              "name": "--bk-icon-size"
+              "name": "--ou-icon-size"
             }
           ],
           "cssParts": [
@@ -4270,10 +4270,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-icon",
+          "tagName": "ou-icon",
           "customElement": true,
           "summary": "An icon from the Bitcoin Icons set (bitcoinicons.com).",
           "events": []
@@ -4306,9 +4306,9 @@
         },
         {
           "kind": "js",
-          "name": "BkIcon",
+          "name": "OuIcon",
           "declaration": {
-            "name": "BkIcon",
+            "name": "OuIcon",
             "module": "src/components/icon/icon.ts"
           }
         }
@@ -4321,7 +4321,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkInput",
+          "name": "OuInput",
           "cssParts": [
             {
               "description": "The label.",
@@ -4507,7 +4507,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }",
+              "default": "{ ...OrangeElement.shadowRootOptions, delegatesFocus: true }",
               "inheritedFrom": {
                 "name": "FormControlElement",
                 "module": "src/internal/form-control.ts"
@@ -4658,11 +4658,11 @@
           "events": [
             {
               "description": "On every edit. Detail: `{ value: string }`.",
-              "name": "bk-input"
+              "name": "ou-input"
             },
             {
               "description": "When the value is committed (blur/enter). Detail: `{ value: string }`.",
-              "name": "bk-change"
+              "name": "ou-change"
             }
           ],
           "attributes": [
@@ -4825,7 +4825,7 @@
             "name": "FormControlElement",
             "module": "/src/internal/form-control.js"
           },
-          "tagName": "bk-input",
+          "tagName": "ou-input",
           "customElement": true,
           "summary": "Labelled text input with help text, error state, prefix/suffix slots and native form\nparticipation."
         }
@@ -4833,9 +4833,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkInput",
+          "name": "OuInput",
           "declaration": {
-            "name": "BkInput",
+            "name": "OuInput",
             "module": "src/components/input/input.ts"
           }
         }
@@ -4848,7 +4848,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkInvoiceDisplay",
+          "name": "OuInvoiceDisplay",
           "cssParts": [
             {
               "description": "Container.",
@@ -4923,7 +4923,7 @@
           "events": [
             {
               "description": "When the countdown reaches zero.",
-              "name": "bk-expired"
+              "name": "ou-expired"
             }
           ],
           "attributes": [
@@ -4963,10 +4963,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-invoice-display",
+          "tagName": "ou-invoice-display",
           "customElement": true,
           "summary": "Decodes a BOLT11 Lightning invoice and shows amount, description, expiry countdown,\nnetwork and payment hash. Signatures are not verified (display only)."
         }
@@ -4974,9 +4974,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkInvoiceDisplay",
+          "name": "OuInvoiceDisplay",
           "declaration": {
-            "name": "BkInvoiceDisplay",
+            "name": "OuInvoiceDisplay",
             "module": "src/components/invoice-display/invoice-display.ts"
           }
         }
@@ -4989,7 +4989,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkLightningAddressCard",
+          "name": "OuLightningAddressCard",
           "cssParts": [
             {
               "description": "Card.",
@@ -5131,10 +5131,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-lightning-address-card",
+          "tagName": "ou-lightning-address-card",
           "customElement": true,
           "summary": "Shareable card for a Lightning Address (LUD-16): avatar, name, copy, QR code (LNURL)\nand open-in-wallet. Optionally fetches LNURL-pay metadata (off by default for privacy).",
           "events": []
@@ -5143,9 +5143,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkLightningAddressCard",
+          "name": "OuLightningAddressCard",
           "declaration": {
-            "name": "BkLightningAddressCard",
+            "name": "OuLightningAddressCard",
             "module": "src/components/lightning-address-card/lightning-address-card.ts"
           }
         }
@@ -5158,7 +5158,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkMnemonicDisplay",
+          "name": "OuMnemonicDisplay",
           "cssParts": [
             {
               "description": "Container.",
@@ -5273,11 +5273,11 @@
           "events": [
             {
               "description": "When the phrase is shown.",
-              "name": "bk-reveal"
+              "name": "ou-reveal"
             },
             {
               "description": "When the phrase is hidden.",
-              "name": "bk-hide"
+              "name": "ou-hide"
             }
           ],
           "attributes": [
@@ -5319,10 +5319,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-mnemonic-display",
+          "tagName": "ou-mnemonic-display",
           "customElement": true,
           "summary": "SECURITY-SENSITIVE. Shows a recovery phrase on demand. Words are set via the `words`\nproperty only (never an attribute), are not rendered into the DOM while hidden, cannot be\ncopied unless `allow-copy` is set, and are hidden automatically when the page is hidden.\nNothing is stored or sent anywhere. Call `clear()` when done."
         }
@@ -5330,9 +5330,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkMnemonicDisplay",
+          "name": "OuMnemonicDisplay",
           "declaration": {
-            "name": "BkMnemonicDisplay",
+            "name": "OuMnemonicDisplay",
             "module": "src/components/mnemonic-display/mnemonic-display.ts"
           }
         }
@@ -5345,7 +5345,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkMnemonicInput",
+          "name": "OuMnemonicInput",
           "cssParts": [
             {
               "description": "Container.",
@@ -5445,7 +5445,7 @@
           "events": [
             {
               "description": "Detail: `MnemonicInputDetail` (never includes the words).",
-              "name": "bk-change"
+              "name": "ou-change"
             }
           ],
           "attributes": [
@@ -5485,10 +5485,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-mnemonic-input",
+          "tagName": "ou-mnemonic-input",
           "customElement": true,
           "summary": "SECURITY-SENSITIVE. Word-by-word recovery phrase entry with BIP39 autocomplete and\nchecksum validation. Words live only in this component's memory: they are never stored,\nnever sent, never placed in events. Read them with `getMnemonic()` once valid, then `clear()`.\nBrowser autocomplete, spellcheck and password managers are disabled on every field."
         }
@@ -5496,9 +5496,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkMnemonicInput",
+          "name": "OuMnemonicInput",
           "declaration": {
-            "name": "BkMnemonicInput",
+            "name": "OuMnemonicInput",
             "module": "src/components/mnemonic-input/mnemonic-input.ts"
           }
         }
@@ -5511,7 +5511,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkNetworkBadge",
+          "name": "OuNetworkBadge",
           "cssParts": [
             {
               "description": "The badge.",
@@ -5562,10 +5562,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-network-badge",
+          "tagName": "ou-network-badge",
           "customElement": true,
           "summary": "Shows which Bitcoin network is in use. Test networks are highlighted so users never\nconfuse test coins with real ones.",
           "events": []
@@ -5574,9 +5574,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkNetworkBadge",
+          "name": "OuNetworkBadge",
           "declaration": {
-            "name": "BkNetworkBadge",
+            "name": "OuNetworkBadge",
             "module": "src/components/network-badge/network-badge.ts"
           }
         }
@@ -5589,14 +5589,14 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkPayButton",
+          "name": "OuPayButton",
           "cssParts": [
             {
-              "description": "The bk-button.",
+              "description": "The ou-button.",
               "name": "button"
             },
             {
-              "description": "The bk-checkout.",
+              "description": "The ou-checkout.",
               "name": "checkout"
             }
           ],
@@ -5860,21 +5860,21 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-pay-button",
+          "tagName": "ou-pay-button",
           "customElement": true,
-          "summary": "Drop-in \"Pay with bitcoin\" button. Give it an amount and an adapter; clicking opens\nthe checkout in a modal. All checkout events (`bk-paid`, `bk-status-change`, …) bubble out.\n\n```html\n<bk-pay-button amount=\"21000\" adapter=\"mock\" description=\"Coffee\"></bk-pay-button>\n```",
+          "summary": "Drop-in \"Pay with bitcoin\" button. Give it an amount and an adapter; clicking opens\nthe checkout in a modal. All checkout events (`ou-paid`, `ou-status-change`, …) bubble out.\n\n```html\n<ou-pay-button amount=\"21000\" adapter=\"mock\" description=\"Coffee\"></ou-pay-button>\n```",
           "events": []
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "BkPayButton",
+          "name": "OuPayButton",
           "declaration": {
-            "name": "BkPayButton",
+            "name": "OuPayButton",
             "module": "src/components/pay-button/pay-button.ts"
           }
         }
@@ -5887,7 +5887,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkPaymentStatus",
+          "name": "OuPaymentStatus",
           "cssParts": [
             {
               "description": "Container.",
@@ -6090,10 +6090,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-payment-status",
+          "tagName": "ou-payment-status",
           "customElement": true,
           "summary": "Shows where a payment is in its lifecycle: pending, detected, confirming (n/N), paid,\nunderpaid/overpaid, expired, failed or cancelled. Announced to screen readers; animations\nrespect reduced motion.",
           "events": []
@@ -6102,9 +6102,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkPaymentStatus",
+          "name": "OuPaymentStatus",
           "declaration": {
-            "name": "BkPaymentStatus",
+            "name": "OuPaymentStatus",
             "module": "src/components/payment-status/payment-status.ts"
           }
         }
@@ -6135,11 +6135,11 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkQrCode",
+          "name": "OuQrCode",
           "cssProperties": [
             {
               "description": "Rendered size. Default from the `size` attribute.",
-              "name": "--bk-qr-size"
+              "name": "--ou-qr-size"
             }
           ],
           "cssParts": [
@@ -6259,10 +6259,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-qr-code",
+          "tagName": "ou-qr-code",
           "customElement": true,
           "summary": "Renders a value as a QR code (SVG, fully client-side). Colors stay dark-on-light in\nevery theme for scanner reliability. Put an image in the `logo` slot to overlay a logo (error\ncorrection is raised to H automatically).",
           "events": []
@@ -6279,9 +6279,9 @@
         },
         {
           "kind": "js",
-          "name": "BkQrCode",
+          "name": "OuQrCode",
           "declaration": {
-            "name": "BkQrCode",
+            "name": "OuQrCode",
             "module": "src/components/qr-code/qr-code.ts"
           }
         }
@@ -6304,7 +6304,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkQrScanner",
+          "name": "OuQrScanner",
           "cssParts": [
             {
               "description": "Container.",
@@ -6376,11 +6376,11 @@
           "events": [
             {
               "description": "When a code is read. Detail: `{ value: string, result: PaymentInput }`.",
-              "name": "bk-scan"
+              "name": "ou-scan"
             },
             {
               "description": "On camera errors. Detail: `{ code: 'denied' | 'unavailable' | 'unsupported' }`.",
-              "name": "bk-error"
+              "name": "ou-error"
             }
           ],
           "attributes": [
@@ -6404,10 +6404,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-qr-scanner",
+          "tagName": "ou-qr-scanner",
           "customElement": true,
           "summary": "Camera QR scanner. Uses the native BarcodeDetector when available; plug in any\ndecoder (e.g. jsQR) via the `decoder` property for other browsers. Falls back to image upload\nand shows clear messages when the camera is denied or missing. Video never leaves the device."
         }
@@ -6423,9 +6423,9 @@
         },
         {
           "kind": "js",
-          "name": "BkQrScanner",
+          "name": "OuQrScanner",
           "declaration": {
-            "name": "BkQrScanner",
+            "name": "OuQrScanner",
             "module": "src/components/qr-scanner/qr-scanner.ts"
           }
         }
@@ -6438,7 +6438,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkSelect",
+          "name": "OuSelect",
           "cssParts": [
             {
               "description": "The label.",
@@ -6512,7 +6512,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }",
+              "default": "{ ...OrangeElement.shadowRootOptions, delegatesFocus: true }",
               "inheritedFrom": {
                 "name": "FormControlElement",
                 "module": "src/internal/form-control.ts"
@@ -6663,7 +6663,7 @@
           "events": [
             {
               "description": "When the selection changes. Detail: `{ value: string }`.",
-              "name": "bk-change"
+              "name": "ou-change"
             }
           ],
           "attributes": [
@@ -6773,7 +6773,7 @@
             "name": "FormControlElement",
             "module": "/src/internal/form-control.js"
           },
-          "tagName": "bk-select",
+          "tagName": "ou-select",
           "customElement": true,
           "summary": "Labelled native select. Options come from the `options` property or from light-DOM\n`<option>` children."
         }
@@ -6781,9 +6781,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkSelect",
+          "name": "OuSelect",
           "declaration": {
-            "name": "BkSelect",
+            "name": "OuSelect",
             "module": "src/components/select/select.ts"
           }
         }
@@ -6796,7 +6796,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkSkeleton",
+          "name": "OuSkeleton",
           "cssParts": [
             {
               "description": "The placeholder block.",
@@ -6864,21 +6864,21 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-skeleton",
+          "tagName": "ou-skeleton",
           "customElement": true,
-          "summary": "Placeholder shimmer shown while content loads. Hidden from assistive technology;\npair it with a `bk-spinner` or `aria-busy` on the region being loaded.",
+          "summary": "Placeholder shimmer shown while content loads. Hidden from assistive technology;\npair it with a `ou-spinner` or `aria-busy` on the region being loaded.",
           "events": []
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "BkSkeleton",
+          "name": "OuSkeleton",
           "declaration": {
-            "name": "BkSkeleton",
+            "name": "OuSkeleton",
             "module": "src/components/skeleton/skeleton.ts"
           }
         }
@@ -6891,15 +6891,15 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkSpinner",
+          "name": "OuSpinner",
           "cssProperties": [
             {
               "description": "Diameter. Default `1.25em`.",
-              "name": "--bk-spinner-size"
+              "name": "--ou-spinner-size"
             },
             {
               "description": "Arc color. Default `currentColor`.",
-              "name": "--bk-spinner-color"
+              "name": "--ou-spinner-color"
             }
           ],
           "cssParts": [
@@ -6931,10 +6931,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-spinner",
+          "tagName": "ou-spinner",
           "customElement": true,
           "summary": "Indeterminate loading indicator. Announces its label politely to screen readers.",
           "events": []
@@ -6943,9 +6943,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkSpinner",
+          "name": "OuSpinner",
           "declaration": {
-            "name": "BkSpinner",
+            "name": "OuSpinner",
             "module": "src/components/spinner/spinner.ts"
           }
         }
@@ -6958,7 +6958,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkTabs",
+          "name": "OuTabs",
           "cssParts": [
             {
               "description": "The tab list.",
@@ -7000,7 +7000,7 @@
           "events": [
             {
               "description": "When the selected tab changes. Detail: `{ value: string }`.",
-              "name": "bk-change"
+              "name": "ou-change"
             }
           ],
           "attributes": [
@@ -7023,20 +7023,20 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-tabs",
+          "tagName": "ou-tabs",
           "customElement": true,
-          "summary": "Accessible tabs (WAI-ARIA tabs pattern, automatic activation). Each child element\nwith a `slot` name and a `label` attribute becomes one tab and its panel.\n\n```html\n<bk-tabs>\n<div slot=\"lightning\" label=\"Lightning\">…</div>\n<div slot=\"onchain\" label=\"On-chain\">…</div>\n</bk-tabs>\n```"
+          "summary": "Accessible tabs (WAI-ARIA tabs pattern, automatic activation). Each child element\nwith a `slot` name and a `label` attribute becomes one tab and its panel.\n\n```html\n<ou-tabs>\n<div slot=\"lightning\" label=\"Lightning\">…</div>\n<div slot=\"onchain\" label=\"On-chain\">…</div>\n</ou-tabs>\n```"
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "BkTabs",
+          "name": "OuTabs",
           "declaration": {
-            "name": "BkTabs",
+            "name": "OuTabs",
             "module": "src/components/tabs/tabs.ts"
           }
         }
@@ -7049,7 +7049,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkToast",
+          "name": "OuToast",
           "cssParts": [
             {
               "description": "The toast container.",
@@ -7110,7 +7110,7 @@
           "events": [
             {
               "description": "When the toast is dismissed.",
-              "name": "bk-close"
+              "name": "ou-close"
             }
           ],
           "attributes": [
@@ -7142,23 +7142,23 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-toast",
+          "tagName": "ou-toast",
           "customElement": true,
           "summary": "A notification message. Usually created with the `toast()` helper, which places it\nin a shared live region. Auto-dismiss pauses while hovered or focused."
         },
         {
           "kind": "class",
           "description": "",
-          "name": "BkToaster",
+          "name": "OuToaster",
           "members": [],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-toaster",
+          "tagName": "ou-toaster",
           "customElement": true,
           "summary": "Fixed region that stacks toasts. Created automatically by `toast()`.",
           "events": []
@@ -7168,7 +7168,7 @@
           "name": "toast",
           "return": {
             "type": {
-              "text": "BkToast | null"
+              "text": "OuToast | null"
             }
           },
           "parameters": [
@@ -7192,17 +7192,17 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkToast",
+          "name": "OuToast",
           "declaration": {
-            "name": "BkToast",
+            "name": "OuToast",
             "module": "src/components/toast/toast.ts"
           }
         },
         {
           "kind": "js",
-          "name": "BkToaster",
+          "name": "OuToaster",
           "declaration": {
-            "name": "BkToaster",
+            "name": "OuToaster",
             "module": "src/components/toast/toast.ts"
           }
         },
@@ -7223,7 +7223,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkTooltip",
+          "name": "OuTooltip",
           "cssParts": [
             {
               "description": "The tooltip bubble.",
@@ -7279,10 +7279,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-tooltip",
+          "tagName": "ou-tooltip",
           "customElement": true,
           "summary": "Tooltip for the slotted trigger. Opens on hover and keyboard focus, stays open while\nhovered, and closes on Escape (WCAG 1.4.13). The text is exposed to assistive technology as\nthe trigger's description via a light-DOM element, so it works across shadow roots.",
           "events": []
@@ -7291,9 +7291,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkTooltip",
+          "name": "OuTooltip",
           "declaration": {
-            "name": "BkTooltip",
+            "name": "OuTooltip",
             "module": "src/components/tooltip/tooltip.ts"
           }
         }
@@ -7306,7 +7306,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkTransactionItem",
+          "name": "OuTransactionItem",
           "cssParts": [
             {
               "description": "Row.",
@@ -7454,7 +7454,7 @@
               "type": {
                 "text": "boolean"
               },
-              "description": "Render as a button and emit bk-select.",
+              "description": "Render as a button and emit ou-select.",
               "default": "false",
               "attribute": "interactive"
             },
@@ -7497,7 +7497,7 @@
           "events": [
             {
               "description": "When activated. Detail: `{ id }`.",
-              "name": "bk-select"
+              "name": "ou-select"
             }
           ],
           "attributes": [
@@ -7597,7 +7597,7 @@
               "type": {
                 "text": "boolean"
               },
-              "description": "Render as a button and emit bk-select.",
+              "description": "Render as a button and emit ou-select.",
               "default": "false",
               "fieldName": "interactive"
             },
@@ -7627,10 +7627,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-transaction-item",
+          "tagName": "ou-transaction-item",
           "customElement": true,
           "summary": "One transaction row: direction icon, label, relative time, status/confirmations and a\nsigned amount. Activates with click/Enter when `interactive`."
         }
@@ -7638,9 +7638,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BkTransactionItem",
+          "name": "OuTransactionItem",
           "declaration": {
-            "name": "BkTransactionItem",
+            "name": "OuTransactionItem",
             "module": "src/components/transaction-item/transaction-item.ts"
           }
         }
@@ -7681,7 +7681,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkTransactionList",
+          "name": "OuTransactionList",
           "cssParts": [
             {
               "description": "Container.",
@@ -7692,7 +7692,7 @@
               "name": "group"
             },
             {
-              "description": "Each bk-transaction-item.",
+              "description": "Each ou-transaction-item.",
               "name": "item"
             }
           ],
@@ -7805,11 +7805,11 @@
           "events": [
             {
               "description": "When a transaction is activated. Detail: `{ id }`.",
-              "name": "bk-select"
+              "name": "ou-select"
             },
             {
               "description": "When \"Load more\" is pressed.",
-              "name": "bk-load-more"
+              "name": "ou-load-more"
             }
           ],
           "attributes": [
@@ -7886,10 +7886,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-transaction-list",
+          "tagName": "ou-transaction-list",
           "customElement": true,
           "summary": "Transaction history with date groups, loading skeletons, empty state and \"load more\"."
         }
@@ -7905,9 +7905,9 @@
         },
         {
           "kind": "js",
-          "name": "BkTransactionList",
+          "name": "OuTransactionList",
           "declaration": {
-            "name": "BkTransactionList",
+            "name": "OuTransactionList",
             "module": "src/components/transaction-list/transaction-list.ts"
           }
         }
@@ -7932,7 +7932,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkUtxoList",
+          "name": "OuUtxoList",
           "cssParts": [
             {
               "description": "Container.",
@@ -8019,7 +8019,7 @@
           "events": [
             {
               "description": "Detail: `{ selected: string[] (outpoints), total: bigint }`.",
-              "name": "bk-change"
+              "name": "ou-change"
             }
           ],
           "attributes": [
@@ -8056,10 +8056,10 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-utxo-list",
+          "tagName": "ou-utxo-list",
           "customElement": true,
           "summary": "Coin control: a sortable table of UTXOs with checkboxes, select all/none, and the\nselected total compared to an optional target amount."
         }
@@ -8075,9 +8075,9 @@
         },
         {
           "kind": "js",
-          "name": "BkUtxoList",
+          "name": "OuUtxoList",
           "declaration": {
-            "name": "BkUtxoList",
+            "name": "OuUtxoList",
             "module": "src/components/utxo-list/utxo-list.ts"
           }
         }
@@ -8090,7 +8090,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "BkWalletConnect",
+          "name": "OuWalletConnect",
           "cssParts": [
             {
               "description": "Connect button.",
@@ -8166,15 +8166,15 @@
           "events": [
             {
               "description": "Detail: `WalletConnection`.",
-              "name": "bk-connect"
+              "name": "ou-connect"
             },
             {
               "description": "When the user disconnects.",
-              "name": "bk-disconnect"
+              "name": "ou-disconnect"
             },
             {
               "description": "Detail: `{ message }`.",
-              "name": "bk-error"
+              "name": "ou-error"
             }
           ],
           "attributes": [
@@ -8206,20 +8206,20 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-wallet-connect",
+          "tagName": "ou-wallet-connect",
           "customElement": true,
-          "summary": "Connect a Lightning wallet via WebLN (browser extension) or Nostr Wallet Connect.\nIf Alby's Bitcoin Connect is supplied, it is used for the connection UI instead of\nreimplementing it. NWC connection strings stay in memory and are handed to your app in the\n`bk-connect` event; the component never stores or transmits them."
+          "summary": "Connect a Lightning wallet via WebLN (browser extension) or Nostr Wallet Connect.\nIf Alby's Bitcoin Connect is supplied, it is used for the connection UI instead of\nreimplementing it. NWC connection strings stay in memory and are handed to your app in the\n`ou-connect` event; the component never stores or transmits them."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "BkWalletConnect",
+          "name": "OuWalletConnect",
           "declaration": {
-            "name": "BkWalletConnect",
+            "name": "OuWalletConnect",
             "module": "src/components/wallet-connect/wallet-connect.ts"
           }
         }
@@ -8237,12 +8237,12 @@
               "text": "void"
             }
           },
-          "description": "Add the token stylesheet to the document once. Uses a constructable stylesheet when possible\n(works under strict CSP without 'unsafe-inline'), otherwise a <style data-bk-tokens> tag.\nToken selectors use :where() so any app-level override wins."
+          "description": "Add the token stylesheet to the document once. Uses a constructable stylesheet when possible\n(works under strict CSP without 'unsafe-inline'), otherwise a <style data-ou-tokens> tag.\nToken selectors use :where() so any app-level override wins."
         },
         {
           "kind": "class",
-          "description": "Base class for every bitkit-ui element.",
-          "name": "BitkitElement",
+          "description": "Base class for every orange-ui element.",
+          "name": "OrangeElement",
           "members": [],
           "events": [],
           "superclass": {
@@ -8257,7 +8257,7 @@
           "parameters": [
             {
               "name": "prefix",
-              "default": "'bk'"
+              "default": "'ou'"
             }
           ],
           "description": "Unique id for ARIA relationships inside a shadow root."
@@ -8274,9 +8274,9 @@
         },
         {
           "kind": "js",
-          "name": "BitkitElement",
+          "name": "OrangeElement",
           "declaration": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "src/internal/base.ts"
           }
         },
@@ -8315,7 +8315,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ ...BitkitElement.shadowRootOptions, delegatesFocus: true }"
+              "default": "{ ...OrangeElement.shadowRootOptions, delegatesFocus: true }"
             },
             {
               "kind": "field",
@@ -8479,7 +8479,7 @@
             }
           ],
           "superclass": {
-            "name": "BitkitElement",
+            "name": "OrangeElement",
             "module": "/src/internal/base.js"
           },
           "events": []

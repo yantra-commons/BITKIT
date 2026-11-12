@@ -1,8 +1,8 @@
 {
-  "name": "bitkit-ui",
-  "scope": "@bitkit-ui",
-  "elementPrefix": "bk",
-  "displayName": "Bitkit UI",
+  "name": "orange-ui",
+  "scope": "@orange-ui",
+  "elementPrefix": "ou",
+  "displayName": "Orange UI",
   "repo": "yantra-commons/BITKIT",
   "siteUrl": "https://bitkit.dvsv2004.workers.dev",
   "siteBase": ""

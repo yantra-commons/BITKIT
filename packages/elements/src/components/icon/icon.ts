@@ -1,6 +1,6 @@
 import { css, html, nothing, svg } from 'lit';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
-import { BitkitElement } from '../../internal/base.js';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { ICONS, type IconName } from '../../internal/icons.generated.js';
 import { baseStyles } from '../../internal/styles.js';
@@ -17,18 +17,18 @@ export function iconSvg(name: IconName) {
 
 /**
  * @summary An icon from the Bitcoin Icons set (bitcoinicons.com).
- * @tag bk-icon
+ * @tag ou-icon
  * @csspart svg - The SVG element.
- * @cssprop --bk-icon-size - Icon size. Default `1.25em`.
+ * @cssprop --ou-icon-size - Icon size. Default `1.25em`.
  */
-export class BkIcon extends BitkitElement {
+export class OuIcon extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
       :host {
         display: inline-flex;
-        width: var(--bk-icon-size, 1.25em);
-        height: var(--bk-icon-size, 1.25em);
+        width: var(--ou-icon-size, 1.25em);
+        height: var(--ou-icon-size, 1.25em);
         flex: none;
         color: inherit;
         vertical-align: middle;
@@ -72,10 +72,10 @@ export class BkIcon extends BitkitElement {
   }
 }
 
-define('bk-icon', BkIcon);
+define('ou-icon', OuIcon);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-icon': BkIcon;
+    'ou-icon': OuIcon;
   }
 }

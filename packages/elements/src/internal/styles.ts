@@ -4,9 +4,9 @@ import { css } from 'lit';
 export const baseStyles = css`
   :host {
     box-sizing: border-box;
-    font-family: var(--bk-font-sans);
-    color: var(--bk-color-text);
-    line-height: var(--bk-line-height-normal);
+    font-family: var(--ou-font-sans);
+    color: var(--ou-color-text);
+    line-height: var(--ou-line-height-normal);
     -webkit-tap-highlight-color: transparent;
   }
   :host([hidden]) {
@@ -33,7 +33,7 @@ export const baseStyles = css`
   }
   :focus-visible {
     outline: none;
-    box-shadow: var(--bk-focus-ring);
+    box-shadow: var(--ou-focus-ring);
   }
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -59,41 +59,41 @@ export const fieldStyles = css`
   .field {
     display: flex;
     flex-direction: column;
-    gap: var(--bk-space-1);
+    gap: var(--ou-space-1);
   }
   label,
   .label {
-    font-size: var(--bk-font-size-sm);
-    font-weight: var(--bk-font-weight-medium);
-    color: var(--bk-color-text);
+    font-size: var(--ou-font-size-sm);
+    font-weight: var(--ou-font-weight-medium);
+    color: var(--ou-color-text);
   }
   .required {
-    color: var(--bk-color-danger);
+    color: var(--ou-color-danger);
     margin-inline-start: 2px;
   }
   .control {
     display: flex;
     align-items: center;
-    gap: var(--bk-space-2);
-    min-height: var(--bk-control-height-lg);
-    padding-inline: var(--bk-space-3);
-    background: var(--bk-color-surface);
-    border: 1px solid var(--bk-color-border-strong);
-    border-radius: var(--bk-radius-md);
+    gap: var(--ou-space-2);
+    min-height: var(--ou-control-height-lg);
+    padding-inline: var(--ou-space-3);
+    background: var(--ou-color-surface);
+    border: 1px solid var(--ou-color-border-strong);
+    border-radius: var(--ou-radius-md);
     transition:
-      border-color var(--bk-duration-fast) var(--bk-easing-standard),
-      box-shadow var(--bk-duration-fast) var(--bk-easing-standard);
+      border-color var(--ou-duration-fast) var(--ou-easing-standard),
+      box-shadow var(--ou-duration-fast) var(--ou-easing-standard);
   }
   .control:focus-within {
-    border-color: var(--bk-color-focus);
-    box-shadow: 0 0 0 1px var(--bk-color-focus);
+    border-color: var(--ou-color-focus);
+    box-shadow: 0 0 0 1px var(--ou-color-focus);
   }
   :host([invalid]) .control,
   .control.invalid {
-    border-color: var(--bk-color-danger);
+    border-color: var(--ou-color-danger);
   }
   :host([disabled]) .control {
-    background: var(--bk-color-surface-2);
+    background: var(--ou-color-surface-2);
     cursor: not-allowed;
     opacity: 0.7;
   }
@@ -107,8 +107,8 @@ export const fieldStyles = css`
     background: transparent;
     color: inherit;
     font: inherit;
-    font-size: var(--bk-font-size-md);
-    padding-block: var(--bk-space-2);
+    font-size: var(--ou-font-size-md);
+    padding-block: var(--ou-space-2);
   }
   input:focus,
   select:focus,
@@ -121,24 +121,24 @@ export const fieldStyles = css`
   }
   input::placeholder,
   textarea::placeholder {
-    color: var(--bk-color-text-muted);
+    color: var(--ou-color-text-muted);
     opacity: 1;
   }
   .mono {
-    font-family: var(--bk-font-mono);
+    font-family: var(--ou-font-mono);
   }
   .help {
-    font-size: var(--bk-font-size-sm);
-    color: var(--bk-color-text-muted);
+    font-size: var(--ou-font-size-sm);
+    color: var(--ou-color-text-muted);
   }
   .error {
     display: flex;
-    gap: var(--bk-space-1);
+    gap: var(--ou-space-1);
     align-items: flex-start;
-    font-size: var(--bk-font-size-sm);
-    color: var(--bk-color-danger);
+    font-size: var(--ou-font-size-sm);
+    color: var(--ou-color-danger);
   }
-  .error bk-icon {
+  .error ou-icon {
     flex: none;
     margin-top: 2px;
   }

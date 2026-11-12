@@ -1,7 +1,7 @@
 ---
-'@bitkit-ui/elements': patch
-'@bitkit-ui/react': patch
-'@bitkit-ui/vue': patch
+'@orange-ui/elements': patch
+'@orange-ui/react': patch
+'@orange-ui/vue': patch
 ---
 
 Remove a phantom `name` event that the manifest analyzer inferred from the internal `emit()`

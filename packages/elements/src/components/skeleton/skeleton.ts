@@ -1,16 +1,16 @@
 import { css, html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
-import { BitkitElement } from '../../internal/base.js';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 
 /**
  * @summary Placeholder shimmer shown while content loads. Hidden from assistive technology;
- * pair it with a `bk-spinner` or `aria-busy` on the region being loaded.
- * @tag bk-skeleton
+ * pair it with a `ou-spinner` or `aria-busy` on the region being loaded.
+ * @tag ou-skeleton
  * @csspart base - The placeholder block.
  */
-export class BkSkeleton extends BitkitElement {
+export class OuSkeleton extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -20,20 +20,20 @@ export class BkSkeleton extends BitkitElement {
       .s {
         background: linear-gradient(
           90deg,
-          var(--bk-color-surface-2) 0%,
-          var(--bk-color-surface-3) 50%,
-          var(--bk-color-surface-2) 100%
+          var(--ou-color-surface-2) 0%,
+          var(--ou-color-surface-3) 50%,
+          var(--ou-color-surface-2) 100%
         );
         background-size: 200% 100%;
         animation: shimmer 1.4s ease-in-out infinite;
-        border-radius: var(--bk-radius-sm);
+        border-radius: var(--ou-radius-sm);
       }
       .circle {
         border-radius: 50%;
       }
       .text {
         height: 1em;
-        border-radius: var(--bk-radius-sm);
+        border-radius: var(--ou-radius-sm);
       }
       @keyframes shimmer {
         from {
@@ -79,10 +79,10 @@ export class BkSkeleton extends BitkitElement {
   }
 }
 
-define('bk-skeleton', BkSkeleton);
+define('ou-skeleton', OuSkeleton);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-skeleton': BkSkeleton;
+    'ou-skeleton': OuSkeleton;
   }
 }

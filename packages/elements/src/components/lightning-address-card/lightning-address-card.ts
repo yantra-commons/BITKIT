@@ -5,8 +5,8 @@ import {
   parseLightningAddress,
   toErrorInfo,
   type LightningAddress,
-} from '@bitkit-ui/core';
-import { BitkitElement } from '../../internal/base.js';
+} from '@orange-ui/core';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { iconSvg } from '../icon/icon.js';
@@ -23,14 +23,14 @@ export interface LnurlPayMetadata {
 /**
  * @summary Shareable card for a Lightning Address (LUD-16): avatar, name, copy, QR code (LNURL)
  * and open-in-wallet. Optionally fetches LNURL-pay metadata (off by default for privacy).
- * @tag bk-lightning-address-card
+ * @tag ou-lightning-address-card
  * @slot - Extra content under the address.
  * @csspart base - Card.
  * @csspart avatar - Avatar.
  * @csspart address - Address text.
  * @csspart qr - QR code.
  */
-export class BkLightningAddressCard extends BitkitElement {
+export class OuLightningAddressCard extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -40,16 +40,16 @@ export class BkLightningAddressCard extends BitkitElement {
       .card {
         display: flex;
         flex-direction: column;
-        gap: var(--bk-space-4);
-        padding: var(--bk-space-5);
-        border: 1px solid var(--bk-color-border);
-        border-radius: var(--bk-radius-lg);
-        background: var(--bk-color-surface);
+        gap: var(--ou-space-4);
+        padding: var(--ou-space-5);
+        border: 1px solid var(--ou-color-border);
+        border-radius: var(--ou-radius-lg);
+        background: var(--ou-color-surface);
       }
       .who {
         display: flex;
         align-items: center;
-        gap: var(--bk-space-3);
+        gap: var(--ou-space-3);
       }
       .avatar {
         flex: none;
@@ -59,10 +59,10 @@ export class BkLightningAddressCard extends BitkitElement {
         height: 3rem;
         border-radius: 50%;
         overflow: hidden;
-        background: var(--bk-color-accent);
-        color: var(--bk-color-on-accent);
-        font-weight: var(--bk-font-weight-bold);
-        font-size: var(--bk-font-size-lg);
+        background: var(--ou-color-accent);
+        color: var(--ou-color-on-accent);
+        font-weight: var(--ou-font-weight-bold);
+        font-size: var(--ou-font-size-lg);
       }
       .avatar img {
         width: 100%;
@@ -71,23 +71,23 @@ export class BkLightningAddressCard extends BitkitElement {
       }
       .name {
         margin: 0;
-        font-weight: var(--bk-font-weight-semibold);
+        font-weight: var(--ou-font-weight-semibold);
       }
       .addr {
         display: flex;
         align-items: center;
-        gap: var(--bk-space-1);
+        gap: var(--ou-space-1);
         min-width: 0;
         margin: 0;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-text-muted);
         word-break: break-all;
       }
       .addr svg {
         flex: none;
         width: 1rem;
         height: 1rem;
-        color: var(--bk-color-accent-text);
+        color: var(--ou-color-accent-text);
       }
       .grow {
         flex: 1;
@@ -98,34 +98,34 @@ export class BkLightningAddressCard extends BitkitElement {
       }
       .desc {
         margin: 0;
-        font-size: var(--bk-font-size-sm);
+        font-size: var(--ou-font-size-sm);
       }
       .limits {
-        font-size: var(--bk-font-size-xs);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-xs);
+        color: var(--ou-color-text-muted);
       }
       .open {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        gap: var(--bk-space-2);
-        min-height: var(--bk-control-height-md);
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-accent);
-        color: var(--bk-color-on-accent);
-        font-weight: var(--bk-font-weight-semibold);
+        gap: var(--ou-space-2);
+        min-height: var(--ou-control-height-md);
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-accent);
+        color: var(--ou-color-on-accent);
+        font-weight: var(--ou-font-weight-semibold);
         text-decoration: none;
       }
       .open:hover {
-        background: var(--bk-color-accent-hover);
+        background: var(--ou-color-accent-hover);
       }
       .open svg {
         width: 1.1rem;
         height: 1.1rem;
       }
       .error {
-        color: var(--bk-color-danger);
-        font-size: var(--bk-font-size-sm);
+        color: var(--ou-color-danger);
+        font-size: var(--ou-font-size-sm);
       }
     `,
   ];
@@ -238,22 +238,22 @@ export class BkLightningAddressCard extends BitkitElement {
           <p class="name">${name}</p>
           <p class="addr" part="address">${iconSvg('lightning')}<span>${p.address}</span></p>
         </div>
-        <bk-copy-button .value=${p.address} label="Copy Lightning Address"></bk-copy-button>
+        <ou-copy-button .value=${p.address} label="Copy Lightning Address"></ou-copy-button>
       </div>
       ${desc ? html`<p class="desc">${desc}</p>` : nothing}
       ${this._meta ? html`<p class="limits">Send ${fmt(this._meta.minSendable)} – ${fmt(this._meta.maxSendable)}</p>` : nothing}
       ${this._metaError ? html`<p class="error" role="status">${this._metaError}</p>` : nothing}
-      ${this.qr ? html`<bk-qr-code class="qr" part="qr" .value=${lnurl} label=${`Lightning Address ${p.address}`} size="200"></bk-qr-code>` : nothing}
+      ${this.qr ? html`<ou-qr-code class="qr" part="qr" .value=${lnurl} label=${`Lightning Address ${p.address}`} size="200"></ou-qr-code>` : nothing}
       <slot></slot>
       <a class="open" href=${`lightning:${lnurl}`}>${iconSvg('wallet')}Open in wallet</a>
     </div>`;
   }
 }
 
-define('bk-lightning-address-card', BkLightningAddressCard);
+define('ou-lightning-address-card', OuLightningAddressCard);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-lightning-address-card': BkLightningAddressCard;
+    'ou-lightning-address-card': OuLightningAddressCard;
   }
 }

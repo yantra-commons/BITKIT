@@ -1,7 +1,7 @@
 import { css, html, nothing } from 'lit';
-import type { FiatRate } from '@bitkit-ui/core';
-import type { PaymentAdapter, PaymentMethod } from '@bitkit-ui/adapters';
-import { BitkitElement } from '../../internal/base.js';
+import type { FiatRate } from '@orange-ui/core';
+import type { PaymentAdapter, PaymentMethod } from '@orange-ui/adapters';
+import { OrangeElement } from '../../internal/base.js';
 import { bigintConverter, listConverter } from '../../internal/converters.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
@@ -11,17 +11,17 @@ import '../checkout/checkout.js';
 
 /**
  * @summary Drop-in "Pay with bitcoin" button. Give it an amount and an adapter; clicking opens
- * the checkout in a modal. All checkout events (`bk-paid`, `bk-status-change`, …) bubble out.
+ * the checkout in a modal. All checkout events (`ou-paid`, `ou-status-change`, …) bubble out.
  *
  * ```html
- * <bk-pay-button amount="21000" adapter="mock" description="Coffee"></bk-pay-button>
+ * <ou-pay-button amount="21000" adapter="mock" description="Coffee"></ou-pay-button>
  * ```
- * @tag bk-pay-button
+ * @tag ou-pay-button
  * @slot - Button label. Default "Pay with bitcoin".
- * @csspart button - The bk-button.
- * @csspart checkout - The bk-checkout.
+ * @csspart button - The ou-button.
+ * @csspart checkout - The ou-checkout.
  */
-export class BkPayButton extends BitkitElement {
+export class OuPayButton extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -89,7 +89,7 @@ export class BkPayButton extends BitkitElement {
   }
 
   override render() {
-    return html`<bk-button
+    return html`<ou-button
         part="button"
         variant=${this.variant}
         size=${this.size}
@@ -98,9 +98,9 @@ export class BkPayButton extends BitkitElement {
         aria-haspopup="dialog"
         @click=${() => (this.open = true)}
         ><span class="ico" slot="prefix">${iconSvg('bitcoin-circle')}</span
-        ><slot>Pay with bitcoin</slot></bk-button
+        ><slot>Pay with bitcoin</slot></ou-button
       >
-      <bk-checkout
+      <ou-checkout
         part="checkout"
         mode="modal"
         .adapter=${this.adapter}
@@ -114,15 +114,15 @@ export class BkPayButton extends BitkitElement {
         order-id=${this.orderId ?? nothing}
         heading=${this.heading ?? nothing}
         ?open=${this.open}
-        @bk-close=${() => (this.open = false)}
-      ></bk-checkout>`;
+        @ou-close=${() => (this.open = false)}
+      ></ou-checkout>`;
   }
 }
 
-define('bk-pay-button', BkPayButton);
+define('ou-pay-button', OuPayButton);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-pay-button': BkPayButton;
+    'ou-pay-button': OuPayButton;
   }
 }

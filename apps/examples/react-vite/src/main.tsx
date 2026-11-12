@@ -1,7 +1,7 @@
 import { StrictMode, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { MockAdapter } from '@bitkit-ui/adapters';
-import { AmountDisplay, BalanceCard, Checkout, PayButton, TransactionList } from '@bitkit-ui/react';
+import { MockAdapter } from '@orange-ui/adapters';
+import { AmountDisplay, BalanceCard, Checkout, PayButton, TransactionList } from '@orange-ui/react';
 
 const products = [
   { id: 'flat-white', name: 'Flat white', sats: 21_000n },

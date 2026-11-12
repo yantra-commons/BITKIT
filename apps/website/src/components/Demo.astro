@@ -12,8 +12,8 @@ const { slug, example, payments } = Astro.props;
 const htmlCode = example.js ? `${example.html}\n\n<script type="module">\n${example.js}\n</script>` : example.html;
 ---
 
-<div class="bk-demo not-content" data-demo={slug}>
-  <div class="bk-demo__bar">
+<div class="ou-demo not-content" data-demo={slug}>
+  <div class="ou-demo__bar">
     <label>Theme
       <select data-control="theme" aria-label="Preview theme">
         <option value="auto">Match site</option>
@@ -46,7 +46,7 @@ const htmlCode = example.js ? `${example.html}\n\n<script type="module">\n${exam
       )
     }
   </div>
-  <div class="bk-demo__preview" set:html={example.html} />
+  <div class="ou-demo__preview" set:html={example.html} />
 </div>
 
 <Tabs syncKey="framework">

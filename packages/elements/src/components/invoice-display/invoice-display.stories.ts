@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import { encodeUnsignedBolt11 } from '@bitkit-ui/core';
+import { encodeUnsignedBolt11 } from '@orange-ui/core';
 import './invoice-display.js';
 
 const fresh = () =>
@@ -16,7 +16,7 @@ const fresh = () =>
 
 const meta: Meta = {
   title: 'Payments/Invoice Display',
-  component: 'bk-invoice-display',
+  component: 'ou-invoice-display',
   tags: ['autodocs'],
 };
 export default meta;
@@ -24,18 +24,18 @@ export default meta;
 export const Default: StoryObj = {
   render: () =>
     html`<div style="max-width:26rem">
-      <bk-invoice-display qr .invoice=${fresh()}></bk-invoice-display>
+      <ou-invoice-display qr .invoice=${fresh()}></ou-invoice-display>
     </div>`,
 };
 export const SpecExample: StoryObj = {
   name: 'BOLT11 spec example (expired)',
   render: () =>
     html`<div style="max-width:26rem">
-      <bk-invoice-display
+      <ou-invoice-display
         invoice="lnbc2500u1pvjluezsp5zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygspp5qqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqypqdq5xysxxatsyp3k7enxv4jsxqzpu9qrsgquk0rl77nj30yxdy8j9vdx85fkpmdla2087ne0xh8nhedh8w27kyke0lp53ut353s06fv3qfegext0eh0ymjpf39tuven09sam30g4vgpfna3rh"
-      ></bk-invoice-display>
+      ></ou-invoice-display>
     </div>`,
 };
 export const Invalid: StoryObj = {
-  render: () => html`<bk-invoice-display invoice="lnbc1notvalid"></bk-invoice-display>`,
+  render: () => html`<ou-invoice-display invoice="lnbc1notvalid"></ou-invoice-display>`,
 };

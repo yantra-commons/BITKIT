@@ -86,8 +86,8 @@ const data = PICK.map((slug) => components.find((c) => c.slug === slug))
 <script>
   import { demoAdapter } from '../scripts/kit';
   import { toReact, toVue } from '../lib/codegen';
-  import { encodeUnsignedBolt11 } from '@bitkit-ui/core';
-  import type { MockScenario } from '@bitkit-ui/adapters/mock';
+  import { encodeUnsignedBolt11 } from '@orange-ui/core';
+  import type { MockScenario } from '@orange-ui/adapters/mock';
 
   interface Attr { name: string; type: string; description: string }
   interface Item { slug: string; tag: string; summary: string; defaults: Record<string, string | boolean>; slot: string; payments: boolean; attrs: Attr[] }

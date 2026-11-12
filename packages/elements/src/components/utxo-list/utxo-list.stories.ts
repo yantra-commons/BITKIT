@@ -21,12 +21,12 @@ const utxos = [
   { txid: 'dd'.repeat(32), vout: 2, value: 546, confirmations: 40, label: 'Dust', frozen: true },
 ];
 
-const meta: Meta = { title: 'Wallet/UTXO List', component: 'bk-utxo-list', tags: ['autodocs'] };
+const meta: Meta = { title: 'Wallet/UTXO List', component: 'ou-utxo-list', tags: ['autodocs'] };
 export default meta;
 
 export const CoinControl: StoryObj = {
   render: () =>
     html`<div style="max-width:40rem">
-      <bk-utxo-list target="100000" .utxos=${utxos}></bk-utxo-list>
+      <ou-utxo-list target="100000" .utxos=${utxos}></ou-utxo-list>
     </div>`,
 };

@@ -1,4 +1,4 @@
-import { BitkitError } from '../errors.js';
+import { OrangeError } from '../errors.js';
 import { BECH32_CHARSET, decodeUtf8, toHex } from '../encoding.js';
 import type { Network } from '../network.js';
 import type { Msat } from '../units/amount.js';
@@ -66,7 +66,7 @@ function toBytes(data: string): Uint8Array {
   for (const c of data) {
     const v = BECH32_CHARSET.indexOf(c);
     if (v < 0)
-      throw new BitkitError('invalid-characters', 'This offer contains invalid characters.');
+      throw new OrangeError('invalid-characters', 'This offer contains invalid characters.');
     acc = ((acc << 5) | v) & 0xffff;
     bits += 5;
     if (bits >= 8) {
@@ -89,14 +89,14 @@ function readBigSize(b: Uint8Array, o: number): [bigint, number] {
 
 const tu64 = (v: Uint8Array) => v.reduce((acc, x) => (acc << 8n) | BigInt(x), 0n);
 
-/** Decode the display fields of a BOLT12 offer. Throws `BitkitError`. */
+/** Decode the display fields of a BOLT12 offer. Throws `OrangeError`. */
 export function decodeBolt12Offer(input: string): Bolt12Offer {
   const offer = normalize(input);
   if (offer !== offer.toLowerCase() && offer !== offer.toUpperCase()) {
-    throw new BitkitError('mixed-case', 'This offer is invalid.');
+    throw new OrangeError('mixed-case', 'This offer is invalid.');
   }
   const s = offer.toLowerCase();
-  if (!s.startsWith('lno1')) throw new BitkitError('invalid-offer', 'This is not a BOLT12 offer.');
+  if (!s.startsWith('lno1')) throw new OrangeError('invalid-offer', 'This is not a BOLT12 offer.');
   const out: Bolt12Offer = { offer: s, networks: ['mainnet'] };
   try {
     const bytes = toBytes(s.slice(4));
@@ -144,8 +144,8 @@ export function decodeBolt12Offer(input: string): Bolt12Offer {
       }
     }
   } catch (e) {
-    if (e instanceof BitkitError) throw e;
-    throw new BitkitError('invalid-offer', 'This offer is malformed.', { cause: e });
+    if (e instanceof OrangeError) throw e;
+    throw new OrangeError('invalid-offer', 'This offer is malformed.', { cause: e });
   }
   if (out.currencyAmount !== undefined && !out.currency) {
     out.amountMsat = out.currencyAmount;

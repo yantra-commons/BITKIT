@@ -1,5 +1,5 @@
 ---
-// Wraps Starlight's ThemeProvider and mirrors its light/dark choice onto `data-bk-theme`,
+// Wraps Starlight's ThemeProvider and mirrors its light/dark choice onto `data-ou-theme`,
 // so the kit's components follow the docs theme toggle.
 import Default from '@astrojs/starlight/components/ThemeProvider.astro';
 ---
@@ -8,7 +8,7 @@ import Default from '@astrojs/starlight/components/ThemeProvider.astro';
 <script is:inline>
   (() => {
     const root = document.documentElement;
-    const sync = () => root.setAttribute('data-bk-theme', root.dataset.theme === 'light' ? 'light' : 'dark');
+    const sync = () => root.setAttribute('data-ou-theme', root.dataset.theme === 'light' ? 'light' : 'dark');
     sync();
     new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   })();

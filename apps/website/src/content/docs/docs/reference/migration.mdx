@@ -3,7 +3,7 @@ title: Migration & versioning
 description: How releases are versioned and how to upgrade.
 ---
 
-All `@bitkit-ui/*` packages are versioned together with [Changesets](https://github.com/changesets/changesets),
+All `@orange-ui/*` packages are versioned together with [Changesets](https://github.com/changesets/changesets),
 so matching versions are always compatible.
 
 - **0.x**: the API may change in minor releases. Breaking changes are listed under
@@ -23,16 +23,16 @@ pixel-perfect snapshots.
 ## Upgrading
 
 ```sh
-npx npm-check-updates "@bitkit-ui/*" -u && npm install
+npx npm-check-updates "@orange-ui/*" -u && npm install
 ```
 
 Then read the changelog for each version you skipped.
 
 ## From other libraries
 
-| You used                                     | Bitkit UI equivalent                                                 |
+| You used                                     | Orange UI equivalent                                                 |
 | -------------------------------------------- | -------------------------------------------------------------------- |
-| A custom amount formatter with `Number` math | `formatAmount` from `@bitkit-ui/core`                                |
+| A custom amount formatter with `Number` math | `formatAmount` from `@orange-ui/core`                                |
 | `bitcoin-address-validation`                 | `validateAddress` (adds Taproot, network checks and friendly errors) |
 | `bolt11` decoder                             | `decodeBolt11` (display-level, no signature check)                   |
-| A hand-built checkout modal                  | `<bk-pay-button>` or `<bk-checkout mode="modal">`                    |
+| A hand-built checkout modal                  | `<ou-pay-button>` or `<ou-checkout mode="modal">`                    |

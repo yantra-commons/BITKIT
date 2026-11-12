@@ -1,6 +1,6 @@
 import { css, html, nothing } from 'lit';
-import { formatAmount, MSAT_PER_SAT, truncateMiddle } from '@bitkit-ui/core';
-import { BitkitElement } from '../../internal/base.js';
+import { formatAmount, MSAT_PER_SAT, truncateMiddle } from '@orange-ui/core';
+import { OrangeElement } from '../../internal/base.js';
 import { bigintConverter, toBigint } from '../../internal/converters.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
@@ -24,13 +24,13 @@ type SortKey = 'value' | 'confirmations';
 /**
  * @summary Coin control: a sortable table of UTXOs with checkboxes, select all/none, and the
  * selected total compared to an optional target amount.
- * @tag bk-utxo-list
+ * @tag ou-utxo-list
  * @csspart base - Container.
  * @csspart table - The table.
  * @csspart summary - Selected-total line.
- * @fires bk-change - Detail: `{ selected: string[] (outpoints), total: bigint }`.
+ * @fires ou-change - Detail: `{ selected: string[] (outpoints), total: bigint }`.
  */
-export class BkUtxoList extends BitkitElement {
+export class OuUtxoList extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -42,71 +42,71 @@ export class BkUtxoList extends BitkitElement {
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
-        gap: var(--bk-space-2);
-        margin-bottom: var(--bk-space-2);
-        font-size: var(--bk-font-size-sm);
+        gap: var(--ou-space-2);
+        margin-bottom: var(--ou-space-2);
+        font-size: var(--ou-font-size-sm);
       }
       .ok {
-        color: var(--bk-color-success);
+        color: var(--ou-color-success);
       }
       .short {
-        color: var(--bk-color-warning);
+        color: var(--ou-color-warning);
       }
       .links button {
         border: 0;
         background: none;
-        color: var(--bk-color-accent-text);
+        color: var(--ou-color-accent-text);
         font: inherit;
-        font-weight: var(--bk-font-weight-semibold);
+        font-weight: var(--ou-font-weight-semibold);
         cursor: pointer;
         padding: 2px 4px;
-        border-radius: var(--bk-radius-sm);
+        border-radius: var(--ou-radius-sm);
       }
       .scroll {
         overflow-x: auto;
-        border: 1px solid var(--bk-color-border);
-        border-radius: var(--bk-radius-md);
+        border: 1px solid var(--ou-color-border);
+        border-radius: var(--ou-radius-md);
       }
       table {
         width: 100%;
         border-collapse: collapse;
-        font-size: var(--bk-font-size-sm);
+        font-size: var(--ou-font-size-sm);
         font-variant-numeric: tabular-nums;
       }
       th,
       td {
-        padding: var(--bk-space-2) var(--bk-space-3);
+        padding: var(--ou-space-2) var(--ou-space-3);
         text-align: start;
         white-space: nowrap;
       }
       th {
-        font-size: var(--bk-font-size-xs);
-        color: var(--bk-color-text-muted);
-        background: var(--bk-color-surface-2);
+        font-size: var(--ou-font-size-xs);
+        color: var(--ou-color-text-muted);
+        background: var(--ou-color-surface-2);
       }
       th button {
         all: unset;
         cursor: pointer;
-        border-radius: var(--bk-radius-sm);
+        border-radius: var(--ou-radius-sm);
       }
       th button:focus-visible {
-        box-shadow: var(--bk-focus-ring);
+        box-shadow: var(--ou-focus-ring);
       }
       td.num,
       th.num {
         text-align: end;
       }
       tr + tr td {
-        border-top: 1px solid var(--bk-color-border);
+        border-top: 1px solid var(--ou-color-border);
       }
       tr.frozen {
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
       }
       .mono {
-        font-family: var(--bk-font-mono);
+        font-family: var(--ou-font-mono);
       }
       input[type='checkbox'] {
-        accent-color: var(--bk-color-accent);
+        accent-color: var(--ou-color-accent);
         width: 1rem;
         height: 1rem;
       }
@@ -149,7 +149,7 @@ export class BkUtxoList extends BitkitElement {
 
   #change(next: string[]) {
     this.selected = next;
-    this.emit('bk-change', { selected: next, total: this.total });
+    this.emit('ou-change', { selected: next, total: this.total });
   }
 
   #toggle(u: Utxo) {
@@ -256,10 +256,10 @@ export class BkUtxoList extends BitkitElement {
   }
 }
 
-define('bk-utxo-list', BkUtxoList);
+define('ou-utxo-list', OuUtxoList);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-utxo-list': BkUtxoList;
+    'ou-utxo-list': OuUtxoList;
   }
 }

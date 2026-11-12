@@ -1,5 +1,5 @@
 {
-  "name": "@bitkit-ui/example-vue",
+  "name": "@orange-ui/example-vue",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,8 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@bitkit-ui/adapters": "workspace:*",
-    "@bitkit-ui/vue": "workspace:*",
+    "@orange-ui/adapters": "workspace:*",
+    "@orange-ui/vue": "workspace:*",
     "vue": "^3.5.45"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 {
-  "name": "@bitkit-ui/adapters",
+  "name": "@orange-ui/adapters",
   "version": "0.0.0",
-  "description": "Provider-agnostic payment adapters (mock, BTCPay Server, LNbits, NWC, OpenNode, HTTP) and rate/fee sources for bitkit-ui.",
+  "description": "Provider-agnostic payment adapters (mock, BTCPay Server, LNbits, NWC, OpenNode, HTTP) and rate/fee sources for orange-ui.",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
@@ -51,7 +51,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@bitkit-ui/core": "workspace:*"
+    "@orange-ui/core": "workspace:*"
   },
   "repository": {
     "type": "git",

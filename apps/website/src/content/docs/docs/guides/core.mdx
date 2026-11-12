@@ -3,16 +3,16 @@ title: Headless core
 description: Pure TypeScript Bitcoin logic you can use without any UI.
 ---
 
-`@bitkit-ui/core` has no DOM dependency. It runs in browsers, Node, Deno, Bun and workers.
+`@orange-ui/core` has no DOM dependency. It runs in browsers, Node, Deno, Bun and workers.
 
 ```sh
-npm install @bitkit-ui/core
+npm install @orange-ui/core
 ```
 
 ## Amounts
 
 ```ts
-import { toMsat, fromMsat, formatAmount, fiatToMsat, msatToFiat } from '@bitkit-ui/core';
+import { toMsat, fromMsat, formatAmount, fiatToMsat, msatToFiat } from '@orange-ui/core';
 
 const msat = toMsat('0.0025', 'btc'); // 250000000n
 fromMsat(msat, 'sat'); // "250000"
@@ -24,7 +24,7 @@ toMsat('0.1', 'btc') + toMsat('0.2', 'btc') === toMsat('0.3', 'btc'); // true
 ## Parse anything a user pastes
 
 ```ts
-import { parsePaymentInput } from '@bitkit-ui/core';
+import { parsePaymentInput } from '@orange-ui/core';
 
 const r = parsePaymentInput(text, { network: 'mainnet' });
 switch (r.type) {
@@ -60,8 +60,8 @@ switch (r.type) {
 - `decodeBolt11`: all BOLT11 spec vectors (display-level, no signature verification).
 - `decodeLnurl`, `encodeLnurl`, `parseLightningAddress`, `decodeBolt12Offer`, `parseNwcUri`.
 - `estimateVsize`, `feeForVsize`, `feeTiersFromRecommended`, `checkFeeRate`.
-- `@bitkit-ui/core/mnemonic`: BIP39 word validation, suggestions, checksum checks and backup-quiz
+- `@orange-ui/core/mnemonic`: BIP39 word validation, suggestions, checksum checks and backup-quiz
   helpers. Imported separately so the 2048-word list only ships when used.
 
-Every function that can fail throws a `BitkitError` with a stable `code` and a user-facing
+Every function that can fail throws a `OrangeError` with a stable `code` and a user-facing
 `message`, or has a non-throwing `validate*` variant.

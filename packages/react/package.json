@@ -1,6 +1,6 @@
 {
-  "name": "@bitkit-ui/react",
-  "description": "Typed React components for bitkit-ui (generated from the custom elements manifest).",
+  "name": "@orange-ui/react",
+  "description": "Typed React components for orange-ui (generated from the custom elements manifest).",
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
@@ -27,13 +27,13 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@bitkit-ui/elements": "workspace:*"
+    "@orange-ui/elements": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18"
   },
   "devDependencies": {
-    "@bitkit-ui/adapters": "workspace:*",
+    "@orange-ui/adapters": "workspace:*",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "react": "^19.3.1",

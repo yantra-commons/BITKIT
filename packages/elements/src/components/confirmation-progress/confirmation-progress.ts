@@ -1,6 +1,6 @@
 import { css, html, nothing } from 'lit';
-import { formatEta } from '@bitkit-ui/core';
-import { BitkitElement } from '../../internal/base.js';
+import { formatEta } from '@orange-ui/core';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { iconSvg, type IconName } from '../icon/icon.js';
@@ -8,12 +8,12 @@ import { iconSvg, type IconName } from '../icon/icon.js';
 /**
  * @summary On-chain confirmation progress using the Bitcoin Icons confirmation glyphs, with a
  * text label and an estimated time remaining (~10 minutes per block).
- * @tag bk-confirmation-progress
+ * @tag ou-confirmation-progress
  * @csspart base - Container.
  * @csspart icon - Confirmation icon.
  * @csspart label - Text label.
  */
-export class BkConfirmationProgress extends BitkitElement {
+export class OuConfirmationProgress extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -23,25 +23,25 @@ export class BkConfirmationProgress extends BitkitElement {
       .p {
         display: inline-flex;
         align-items: center;
-        gap: var(--bk-space-2);
-        font-size: var(--bk-font-size-sm);
+        gap: var(--ou-space-2);
+        font-size: var(--ou-font-size-sm);
         font-variant-numeric: tabular-nums;
       }
       .icon {
         display: inline-flex;
         width: 1.5em;
         height: 1.5em;
-        color: var(--bk-color-accent-text);
+        color: var(--ou-color-accent-text);
       }
       .done .icon {
-        color: var(--bk-color-success);
+        color: var(--ou-color-success);
       }
       .icon svg {
         width: 100%;
         height: 100%;
       }
       .eta {
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
       }
     `,
   ];
@@ -93,10 +93,10 @@ export class BkConfirmationProgress extends BitkitElement {
   }
 }
 
-define('bk-confirmation-progress', BkConfirmationProgress);
+define('ou-confirmation-progress', OuConfirmationProgress);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-confirmation-progress': BkConfirmationProgress;
+    'ou-confirmation-progress': OuConfirmationProgress;
   }
 }

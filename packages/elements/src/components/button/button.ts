@@ -1,5 +1,5 @@
 import { css, html, nothing, type PropertyValues } from 'lit';
-import { BitkitElement } from '../../internal/base.js';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import '../spinner/spinner.js';
@@ -14,63 +14,63 @@ export const buttonStyles = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--bk-space-2);
+    gap: var(--ou-space-2);
     width: 100%;
-    min-height: var(--bk-control-height-md);
-    padding: 0 var(--bk-space-4);
+    min-height: var(--ou-control-height-md);
+    padding: 0 var(--ou-space-4);
     border: 1px solid transparent;
-    border-radius: var(--bk-radius-md);
+    border-radius: var(--ou-radius-md);
     font: inherit;
-    font-size: var(--bk-font-size-md);
-    font-weight: var(--bk-font-weight-semibold);
+    font-size: var(--ou-font-size-md);
+    font-weight: var(--ou-font-weight-semibold);
     line-height: 1;
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
     user-select: none;
     transition:
-      background-color var(--bk-duration-fast) var(--bk-easing-standard),
-      border-color var(--bk-duration-fast) var(--bk-easing-standard),
-      transform var(--bk-duration-fast) var(--bk-easing-standard);
+      background-color var(--ou-duration-fast) var(--ou-easing-standard),
+      border-color var(--ou-duration-fast) var(--ou-easing-standard),
+      transform var(--ou-duration-fast) var(--ou-easing-standard);
   }
   .btn:active:not([aria-disabled='true']) {
     transform: translateY(1px);
   }
   .sm {
-    min-height: var(--bk-control-height-sm);
-    padding: 0 var(--bk-space-3);
-    font-size: var(--bk-font-size-sm);
+    min-height: var(--ou-control-height-sm);
+    padding: 0 var(--ou-space-3);
+    font-size: var(--ou-font-size-sm);
   }
   .lg {
-    min-height: var(--bk-control-height-lg);
-    padding: 0 var(--bk-space-6);
-    font-size: var(--bk-font-size-lg);
+    min-height: var(--ou-control-height-lg);
+    padding: 0 var(--ou-space-6);
+    font-size: var(--ou-font-size-lg);
   }
   .primary {
-    background: var(--bk-color-accent);
-    color: var(--bk-color-on-accent);
+    background: var(--ou-color-accent);
+    color: var(--ou-color-on-accent);
   }
   .primary:hover:not([aria-disabled='true']) {
-    background: var(--bk-color-accent-hover);
+    background: var(--ou-color-accent-hover);
   }
   .secondary {
-    background: var(--bk-color-surface);
-    color: var(--bk-color-text);
-    border-color: var(--bk-color-border-strong);
+    background: var(--ou-color-surface);
+    color: var(--ou-color-text);
+    border-color: var(--ou-color-border-strong);
   }
   .secondary:hover:not([aria-disabled='true']) {
-    background: var(--bk-color-surface-2);
+    background: var(--ou-color-surface-2);
   }
   .ghost {
     background: transparent;
-    color: var(--bk-color-text);
+    color: var(--ou-color-text);
   }
   .ghost:hover:not([aria-disabled='true']) {
-    background: var(--bk-color-surface-2);
+    background: var(--ou-color-surface-2);
   }
   .danger {
-    background: var(--bk-color-danger);
-    color: var(--bk-color-bg);
+    background: var(--ou-color-danger);
+    color: var(--ou-color-bg);
   }
   .btn[aria-disabled='true'] {
     opacity: 0.55;
@@ -79,7 +79,7 @@ export const buttonStyles = css`
   .btn.loading .content {
     visibility: hidden;
   }
-  .btn bk-spinner {
+  .btn ou-spinner {
     position: absolute;
     inset: 0;
     margin: auto;
@@ -89,7 +89,7 @@ export const buttonStyles = css`
   .content {
     display: inline-flex;
     align-items: center;
-    gap: var(--bk-space-2);
+    gap: var(--ou-space-2);
   }
   @media (forced-colors: active) {
     .btn {
@@ -101,7 +101,7 @@ export const buttonStyles = css`
 /**
  * @summary Accessible button with primary/secondary/ghost/danger variants and a loading state.
  * Works as a submit button inside forms.
- * @tag bk-button
+ * @tag ou-button
  * @slot - Button label.
  * @slot prefix - Content before the label (e.g. an icon).
  * @slot suffix - Content after the label.
@@ -109,9 +109,9 @@ export const buttonStyles = css`
  * @csspart label - The label wrapper.
  * @fires click - Native click (suppressed while disabled or loading).
  */
-export class BkButton extends BitkitElement {
+export class OuButton extends OrangeElement {
   static formAssociated = true;
-  static override shadowRootOptions = { ...BitkitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions = { ...OrangeElement.shadowRootOptions, delegatesFocus: true };
   static override styles = [
     baseStyles,
     buttonStyles,
@@ -201,7 +201,7 @@ export class BkButton extends BitkitElement {
     const classes = `btn ${this.variant} ${this.size} ${this.loading ? 'loading' : ''}`;
     const content = html`<span class="content" part="label"
         ><slot name="prefix"></slot><slot></slot><slot name="suffix"></slot></span
-      >${this.loading ? html`<bk-spinner></bk-spinner>` : nothing}`;
+      >${this.loading ? html`<ou-spinner></ou-spinner>` : nothing}`;
     if (this.href) {
       return html`<a
         class=${classes}
@@ -228,10 +228,10 @@ export class BkButton extends BitkitElement {
   }
 }
 
-define('bk-button', BkButton);
+define('ou-button', OuButton);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-button': BkButton;
+    'ou-button': OuButton;
   }
 }

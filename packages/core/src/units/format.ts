@@ -1,4 +1,4 @@
-import { BitkitError } from '../errors.js';
+import { OrangeError } from '../errors.js';
 import { fromMsat, MSAT_PER_SAT, type BitcoinUnit, type Msat } from './amount.js';
 import { formatDecimal } from './decimal.js';
 import { msatToFiat, type FiatRate } from './fiat.js';
@@ -121,7 +121,7 @@ export function formatAmount(msat: Msat, opts: FormatAmountOptions = {}): Format
 
   if (unit === 'fiat') {
     if (!opts.fiatRate)
-      throw new BitkitError('invalid-number', 'A fiat rate is required to show fiat values.');
+      throw new OrangeError('invalid-number', 'A fiat rate is required to show fiat values.');
     const fiat = msatToFiat(msat, opts.fiatRate);
     const text = formatFiatDecimal(sign(fiat.value), fiat.currency, locale);
     const symbolPart = text.replace(/[\d\s.,\u00a0\u202f'\u2019+\-\u2212]/g, '') || fiat.currency;

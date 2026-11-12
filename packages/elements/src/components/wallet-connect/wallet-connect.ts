@@ -1,6 +1,6 @@
 import { css, html, nothing } from 'lit';
-import { parseNwcUri, toErrorInfo } from '@bitkit-ui/core';
-import { BitkitElement, nextId } from '../../internal/base.js';
+import { parseNwcUri, toErrorInfo } from '@orange-ui/core';
+import { OrangeElement, nextId } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { iconSvg } from '../icon/icon.js';
@@ -37,15 +37,15 @@ type State = 'disconnected' | 'choosing' | 'connecting' | 'connected' | 'error';
  * @summary Connect a Lightning wallet via WebLN (browser extension) or Nostr Wallet Connect.
  * If Alby's Bitcoin Connect is supplied, it is used for the connection UI instead of
  * reimplementing it. NWC connection strings stay in memory and are handed to your app in the
- * `bk-connect` event; the component never stores or transmits them.
- * @tag bk-wallet-connect
+ * `ou-connect` event; the component never stores or transmits them.
+ * @tag ou-wallet-connect
  * @csspart button - Connect button.
  * @csspart connected - Connected summary.
- * @fires bk-connect - Detail: `WalletConnection`.
- * @fires bk-disconnect - When the user disconnects.
- * @fires bk-error - Detail: `{ message }`.
+ * @fires ou-connect - Detail: `WalletConnection`.
+ * @fires ou-disconnect - When the user disconnects.
+ * @fires ou-error - Detail: `{ message }`.
  */
-export class BkWalletConnect extends BitkitElement {
+export class OuWalletConnect extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -55,80 +55,80 @@ export class BkWalletConnect extends BitkitElement {
       .connected {
         display: inline-flex;
         align-items: center;
-        gap: var(--bk-space-3);
-        padding: var(--bk-space-2) var(--bk-space-2) var(--bk-space-2) var(--bk-space-3);
-        border: 1px solid var(--bk-color-border);
-        border-radius: var(--bk-radius-full);
-        background: var(--bk-color-surface);
+        gap: var(--ou-space-3);
+        padding: var(--ou-space-2) var(--ou-space-2) var(--ou-space-2) var(--ou-space-3);
+        border: 1px solid var(--ou-color-border);
+        border-radius: var(--ou-radius-full);
+        background: var(--ou-color-surface);
       }
       .dot {
         width: 0.5rem;
         height: 0.5rem;
         border-radius: 50%;
-        background: var(--bk-color-success);
+        background: var(--ou-color-success);
       }
       .name {
-        font-weight: var(--bk-font-weight-semibold);
-        font-size: var(--bk-font-size-sm);
+        font-weight: var(--ou-font-weight-semibold);
+        font-size: var(--ou-font-size-sm);
       }
       .opts {
         display: grid;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
       }
       .opt {
         display: flex;
         align-items: center;
-        gap: var(--bk-space-3);
+        gap: var(--ou-space-3);
         width: 100%;
-        padding: var(--bk-space-3);
-        border: 1px solid var(--bk-color-border-strong);
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-surface);
+        padding: var(--ou-space-3);
+        border: 1px solid var(--ou-color-border-strong);
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-surface);
         color: inherit;
         font: inherit;
         text-align: start;
         cursor: pointer;
       }
       .opt:hover {
-        background: var(--bk-color-surface-2);
+        background: var(--ou-color-surface-2);
       }
       .opt svg {
         width: 1.5rem;
         height: 1.5rem;
         flex: none;
-        color: var(--bk-color-accent-text);
+        color: var(--ou-color-accent-text);
       }
       .opt small {
         display: block;
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
       }
       label {
         display: block;
-        margin: var(--bk-space-4) 0 var(--bk-space-1);
-        font-size: var(--bk-font-size-sm);
-        font-weight: var(--bk-font-weight-medium);
+        margin: var(--ou-space-4) 0 var(--ou-space-1);
+        font-size: var(--ou-font-size-sm);
+        font-weight: var(--ou-font-weight-medium);
       }
       input {
         width: 100%;
-        min-height: var(--bk-control-height-lg);
-        padding: 0 var(--bk-space-3);
-        border: 1px solid var(--bk-color-border-strong);
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-surface);
+        min-height: var(--ou-control-height-lg);
+        padding: 0 var(--ou-space-3);
+        border: 1px solid var(--ou-color-border-strong);
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-surface);
         color: inherit;
         font: inherit;
-        font-family: var(--bk-font-mono);
-        font-size: var(--bk-font-size-sm);
+        font-family: var(--ou-font-mono);
+        font-size: var(--ou-font-size-sm);
       }
       .hint {
-        margin: var(--bk-space-1) 0 var(--bk-space-3);
-        font-size: var(--bk-font-size-xs);
-        color: var(--bk-color-text-muted);
+        margin: var(--ou-space-1) 0 var(--ou-space-3);
+        font-size: var(--ou-font-size-xs);
+        color: var(--ou-color-text-muted);
       }
       .err {
-        margin: var(--bk-space-2) 0;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-danger);
+        margin: var(--ou-space-2) 0;
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-danger);
       }
       .ico {
         display: inline-flex;
@@ -236,7 +236,7 @@ export class BkWalletConnect extends BitkitElement {
       }
     }
     this._state = 'connected';
-    this.emit<WalletConnection>('bk-connect', { type, provider });
+    this.emit<WalletConnection>('ou-connect', { type, provider });
   }
 
   #connectNwc(e: Event) {
@@ -248,7 +248,7 @@ export class BkWalletConnect extends BitkitElement {
       if (input) input.value = ''; // drop the secret from the DOM immediately
       this._name = c.lud16 ?? 'Nostr Wallet Connect';
       this._state = 'connected';
-      this.emit<WalletConnection>('bk-connect', {
+      this.emit<WalletConnection>('ou-connect', {
         type: 'nwc',
         uri,
         walletPubkey: c.walletPubkey,
@@ -263,7 +263,7 @@ export class BkWalletConnect extends BitkitElement {
   #fail(message: string) {
     this._state = 'error';
     this._error = message;
-    this.emit('bk-error', { message });
+    this.emit('ou-error', { message });
   }
 
   /** Forget the connection. */
@@ -272,7 +272,7 @@ export class BkWalletConnect extends BitkitElement {
     this._state = 'disconnected';
     this._name = undefined;
     this._balance = undefined;
-    this.emit('bk-disconnect');
+    this.emit('ou-disconnect');
   }
 
   override render() {
@@ -280,25 +280,25 @@ export class BkWalletConnect extends BitkitElement {
       return html`<span class="connected" part="connected">
         <span class="dot" aria-hidden="true"></span>
         <span class="name">${this._name}</span>
-        ${this._balance !== undefined ? html`<bk-amount-display .amount=${this._balance} size="sm"></bk-amount-display>` : nothing}
-        <bk-button size="sm" variant="ghost" @click=${() => this.disconnect()}
-          >Disconnect</bk-button
+        ${this._balance !== undefined ? html`<ou-amount-display .amount=${this._balance} size="sm"></ou-amount-display>` : nothing}
+        <ou-button size="sm" variant="ghost" @click=${() => this.disconnect()}
+          >Disconnect</ou-button
         >
       </span>`;
     }
     const choosing =
       this._state === 'choosing' || this._state === 'connecting' || this._state === 'error';
-    return html`<bk-button
+    return html`<ou-button
         part="button"
         ?loading=${this._state === 'connecting'}
         @click=${this.#open}
         aria-haspopup="dialog"
-        ><span class="ico" slot="prefix">${iconSvg('wallet')}</span>${this.label}</bk-button
+        ><span class="ico" slot="prefix">${iconSvg('wallet')}</span>${this.label}</ou-button
       >
-      <bk-dialog
+      <ou-dialog
         label="Connect a wallet"
         ?open=${choosing}
-        @bk-close=${() => this._state !== 'connected' && (this._state = 'disconnected')}
+        @ou-close=${() => this._state !== 'connected' && (this._state = 'disconnected')}
       >
         <div class="opts">
           ${
@@ -334,19 +334,19 @@ export class BkWalletConnect extends BitkitElement {
                 <p class="hint" id="${this.#inputId}-hint">
                   Paste a connection link from your wallet. It stays on this device.
                 </p>
-                <bk-button type="submit" block variant="secondary">Connect</bk-button>
+                <ou-button type="submit" block variant="secondary">Connect</ou-button>
               </form>`
             : nothing
         }
         ${this._error ? html`<p class="err" role="alert">${this._error}</p>` : nothing}
-      </bk-dialog>`;
+      </ou-dialog>`;
   }
 }
 
-define('bk-wallet-connect', BkWalletConnect);
+define('ou-wallet-connect', OuWalletConnect);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-wallet-connect': BkWalletConnect;
+    'ou-wallet-connect': OuWalletConnect;
   }
 }

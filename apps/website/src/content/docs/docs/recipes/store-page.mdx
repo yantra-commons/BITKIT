@@ -9,26 +9,26 @@ the order paid.
 ## 1. Add the button
 
 ```html
-<bk-amount-display
+<ou-amount-display
   amount="21000"
   show-fiat
   fiat-currency="USD"
   fiat-price="97250"
-></bk-amount-display>
-<bk-pay-button
+></ou-amount-display>
+<ou-pay-button
   id="buy"
   amount="21000"
   order-id="sku-flat-white"
   description="Flat white"
-></bk-pay-button>
+></ou-pay-button>
 ```
 
 ## 2. Point it at your server
 
 ```ts
-import '@bitkit-ui/elements/pay-button';
-import '@bitkit-ui/elements/amount-display';
-import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+import '@orange-ui/elements/pay-button';
+import '@orange-ui/elements/amount-display';
+import { createHttpAdapter } from '@orange-ui/adapters/http';
 
 document.querySelector('#buy').adapter = createHttpAdapter({ baseUrl: '/api/payments' });
 ```
@@ -55,7 +55,7 @@ checkout shows the customer live status: detected, confirming n/N, paid.
 ## 5. Show a thank-you
 
 ```ts
-document.addEventListener('bk-paid', (e) => {
+document.addEventListener('ou-paid', (e) => {
   location.href = `/thanks?order=${e.detail.invoice.id}`;
 });
 ```

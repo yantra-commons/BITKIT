@@ -11,7 +11,7 @@ import {
   normalizeNumberInput,
   toMsat,
   type FiatRate,
-} from '@bitkit-ui/core';
+} from '@orange-ui/core';
 import { resolveFiatRate } from '../../internal/amount.js';
 import { bigintConverter, toBigint } from '../../internal/converters.js';
 import { define } from '../../internal/define.js';
@@ -35,7 +35,7 @@ export interface AmountInputDetail {
 /**
  * @summary Bigint-safe amount entry with unit switcher (sats / BTC / fiat), fiat preview,
  * min/max validation and a "Max" button for the available balance.
- * @tag bk-amount-input
+ * @tag ou-amount-input
  * @csspart label - The label.
  * @csspart control - Bordered wrapper.
  * @csspart input - Native input.
@@ -43,70 +43,70 @@ export interface AmountInputDetail {
  * @csspart secondary - Fiat/sats preview line.
  * @csspart max-button - The Max button.
  * @csspart error - Error message.
- * @fires bk-input - On every edit. Detail: `AmountInputDetail`.
- * @fires bk-change - When the value is committed (blur, Max, unit change). Detail: `AmountInputDetail`.
- * @fires bk-unit-change - When the unit changes. Detail: `{ unit }`.
+ * @fires ou-input - On every edit. Detail: `AmountInputDetail`.
+ * @fires ou-change - When the value is committed (blur, Max, unit change). Detail: `AmountInputDetail`.
+ * @fires ou-unit-change - When the unit changes. Detail: `{ unit }`.
  */
-export class BkAmountInput extends FormControlElement {
+export class OuAmountInput extends FormControlElement {
   static override styles = [
     baseStyles,
     fieldStyles,
     css`
       input {
-        font-size: var(--bk-font-size-lg);
+        font-size: var(--ou-font-size-lg);
         font-variant-numeric: tabular-nums;
       }
       .unit {
         appearance: none;
         flex: none;
         width: auto;
-        padding: var(--bk-space-1) var(--bk-space-2);
-        border: 1px solid var(--bk-color-border);
-        border-radius: var(--bk-radius-sm);
-        background: var(--bk-color-surface-2);
-        color: var(--bk-color-text);
+        padding: var(--ou-space-1) var(--ou-space-2);
+        border: 1px solid var(--ou-color-border);
+        border-radius: var(--ou-radius-sm);
+        background: var(--ou-color-surface-2);
+        color: var(--ou-color-text);
         font: inherit;
-        font-size: var(--bk-font-size-sm);
-        font-weight: var(--bk-font-weight-semibold);
+        font-size: var(--ou-font-size-sm);
+        font-weight: var(--ou-font-weight-semibold);
         cursor: pointer;
       }
       .unit:focus-visible {
-        box-shadow: var(--bk-focus-ring);
+        box-shadow: var(--ou-focus-ring);
       }
       .unit-static {
-        font-size: var(--bk-font-size-sm);
-        font-weight: var(--bk-font-weight-semibold);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-sm);
+        font-weight: var(--ou-font-weight-semibold);
+        color: var(--ou-color-text-muted);
       }
       .below {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
         min-height: 1.5rem;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-text-muted);
         font-variant-numeric: tabular-nums;
       }
       .avail {
         display: inline-flex;
         align-items: center;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
         margin-inline-start: auto;
       }
       .max {
-        padding: 2px var(--bk-space-2);
-        border: 1px solid var(--bk-color-border-strong);
-        border-radius: var(--bk-radius-full);
+        padding: 2px var(--ou-space-2);
+        border: 1px solid var(--ou-color-border-strong);
+        border-radius: var(--ou-radius-full);
         background: transparent;
-        color: var(--bk-color-accent-text);
+        color: var(--ou-color-accent-text);
         font: inherit;
-        font-size: var(--bk-font-size-xs);
-        font-weight: var(--bk-font-weight-bold);
+        font-size: var(--ou-font-size-xs);
+        font-weight: var(--ou-font-weight-bold);
         cursor: pointer;
       }
       .max:hover {
-        background: var(--bk-color-surface-2);
+        background: var(--ou-color-surface-2);
       }
     `,
   ];
@@ -130,7 +130,7 @@ export class BkAmountInput extends FormControlElement {
     _touched: { state: true },
   };
 
-  /** Value in sats (bigint). Set it to prefill; read it after `bk-change`. */
+  /** Value in sats (bigint). Set it to prefill; read it after `ou-change`. */
   declare amount: bigint | undefined;
   /** Current entry unit. */
   declare unit: AmountInputUnit;
@@ -292,7 +292,7 @@ export class BkAmountInput extends FormControlElement {
 
   #onInput(e: Event) {
     this.#apply((e.target as HTMLInputElement).value);
-    void this.updateComplete.then(() => this.emit('bk-input', this.#detail()));
+    void this.updateComplete.then(() => this.emit('ou-input', this.#detail()));
   }
 
   #onBlur() {
@@ -301,7 +301,7 @@ export class BkAmountInput extends FormControlElement {
 
   #onChange() {
     this._touched = true;
-    void this.updateComplete.then(() => this.emit('bk-change', this.#detail()));
+    void this.updateComplete.then(() => this.emit('ou-change', this.#detail()));
   }
 
   #onUnit(e: Event) {
@@ -313,8 +313,8 @@ export class BkAmountInput extends FormControlElement {
       // Re-parse to normalise rounding when moving into fiat.
       if (next !== 'fiat') this.#apply(this._text);
     }
-    this.emit('bk-unit-change', { unit: next });
-    void this.updateComplete.then(() => this.emit('bk-change', this.#detail()));
+    this.emit('ou-unit-change', { unit: next });
+    void this.updateComplete.then(() => this.emit('ou-change', this.#detail()));
   }
 
   #onMax() {
@@ -327,7 +327,7 @@ export class BkAmountInput extends FormControlElement {
     this.#msat = bal * MSAT_PER_SAT;
     this.#lastAmount = bal;
     this.amount = bal;
-    void this.updateComplete.then(() => this.emit('bk-change', this.#detail()));
+    void this.updateComplete.then(() => this.emit('ou-change', this.#detail()));
   }
 
   #unitLabel(u: AmountInputUnit): string {
@@ -417,16 +417,16 @@ export class BkAmountInput extends FormControlElement {
       </div>
       ${this.helpText ? html`<div class="help">${this.helpText}</div>` : nothing}
       <div id=${this.ids.error} aria-live="polite">
-        ${showError ? html`<div class="error" part="error"><bk-icon name="alert-circle"></bk-icon><span>${this._validation}</span></div>` : nothing}
+        ${showError ? html`<div class="error" part="error"><ou-icon name="alert-circle"></ou-icon><span>${this._validation}</span></div>` : nothing}
       </div>
     </div>`;
   }
 }
 
-define('bk-amount-input', BkAmountInput);
+define('ou-amount-input', OuAmountInput);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-amount-input': BkAmountInput;
+    'ou-amount-input': OuAmountInput;
   }
 }

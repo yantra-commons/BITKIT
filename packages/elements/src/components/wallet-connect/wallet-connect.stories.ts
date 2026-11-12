@@ -4,15 +4,15 @@ import './wallet-connect.js';
 
 const meta: Meta = {
   title: 'Wallet/Wallet Connect',
-  component: 'bk-wallet-connect',
+  component: 'ou-wallet-connect',
   tags: ['autodocs'],
 };
 export default meta;
 
 export const Default: StoryObj = {
   render: () =>
-    html`<bk-wallet-connect
+    html`<ou-wallet-connect
       show-balance
-      @bk-connect=${(e: CustomEvent) => console.log('connected via', e.detail.type)}
-    ></bk-wallet-connect>`,
+      @ou-connect=${(e: CustomEvent) => console.log('connected via', e.detail.type)}
+    ></ou-wallet-connect>`,
 };

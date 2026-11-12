@@ -1,7 +1,7 @@
 import { css, html, nothing } from 'lit';
-import { formatAmount, MSAT_PER_SAT } from '@bitkit-ui/core';
-import type { PaymentStatus } from '@bitkit-ui/adapters';
-import { BitkitElement } from '../../internal/base.js';
+import { formatAmount, MSAT_PER_SAT } from '@orange-ui/core';
+import type { PaymentStatus } from '@orange-ui/adapters';
+import { OrangeElement } from '../../internal/base.js';
 import { bigintConverter, toBigint } from '../../internal/converters.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
@@ -20,14 +20,14 @@ interface StatusCopy {
  * @summary Shows where a payment is in its lifecycle: pending, detected, confirming (n/N), paid,
  * underpaid/overpaid, expired, failed or cancelled. Announced to screen readers; animations
  * respect reduced motion.
- * @tag bk-payment-status
+ * @tag ou-payment-status
  * @csspart base - Container.
  * @csspart icon - Status icon.
  * @csspart title - Headline.
  * @csspart body - Explanation.
  * @csspart progress - Confirmation progress bar.
  */
-export class BkPaymentStatus extends BitkitElement {
+export class OuPaymentStatus extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -37,16 +37,16 @@ export class BkPaymentStatus extends BitkitElement {
       .s {
         display: flex;
         align-items: flex-start;
-        gap: var(--bk-space-3);
-        padding: var(--bk-space-3) var(--bk-space-4);
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-surface-2);
+        gap: var(--ou-space-3);
+        padding: var(--ou-space-3) var(--ou-space-4);
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-surface-2);
       }
       .large {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding: var(--bk-space-6) var(--bk-space-4);
+        padding: var(--ou-space-6) var(--ou-space-4);
         background: transparent;
       }
       .icon {
@@ -56,8 +56,8 @@ export class BkPaymentStatus extends BitkitElement {
         width: 2rem;
         height: 2rem;
         border-radius: 50%;
-        background: var(--bk-color-surface-3);
-        color: var(--bk-color-text-muted);
+        background: var(--ou-color-surface-3);
+        color: var(--ou-color-text-muted);
       }
       .large .icon {
         width: 4rem;
@@ -68,50 +68,50 @@ export class BkPaymentStatus extends BitkitElement {
         height: 60%;
       }
       .success .icon {
-        background: var(--bk-color-success-bg);
-        color: var(--bk-color-success);
-        animation: pop var(--bk-duration-slow) var(--bk-easing-standard);
+        background: var(--ou-color-success-bg);
+        color: var(--ou-color-success);
+        animation: pop var(--ou-duration-slow) var(--ou-easing-standard);
       }
       .warning .icon {
-        background: var(--bk-color-warning-bg);
-        color: var(--bk-color-warning);
+        background: var(--ou-color-warning-bg);
+        color: var(--ou-color-warning);
       }
       .danger .icon {
-        background: var(--bk-color-danger-bg);
-        color: var(--bk-color-danger);
+        background: var(--ou-color-danger-bg);
+        color: var(--ou-color-danger);
       }
       .info .icon {
-        background: var(--bk-color-info-bg);
-        color: var(--bk-color-info);
+        background: var(--ou-color-info-bg);
+        color: var(--ou-color-info);
       }
       .neutral .icon {
         animation: pulse 2s ease-in-out infinite;
       }
       .title {
         margin: 0;
-        font-weight: var(--bk-font-weight-semibold);
-        font-size: var(--bk-font-size-md);
+        font-weight: var(--ou-font-weight-semibold);
+        font-size: var(--ou-font-size-md);
       }
       .large .title {
-        font-size: var(--bk-font-size-xl);
+        font-size: var(--ou-font-size-xl);
       }
       .body {
         margin: 2px 0 0;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-text-muted);
       }
       .bar {
         height: 6px;
-        margin-top: var(--bk-space-2);
-        border-radius: var(--bk-radius-full);
-        background: var(--bk-color-surface-3);
+        margin-top: var(--ou-space-2);
+        border-radius: var(--ou-radius-full);
+        background: var(--ou-color-surface-3);
         overflow: hidden;
       }
       .bar > span {
         display: block;
         height: 100%;
-        background: var(--bk-color-accent);
-        transition: width var(--bk-duration-slow) var(--bk-easing-standard);
+        background: var(--ou-color-accent);
+        transition: width var(--ou-duration-slow) var(--ou-easing-standard);
       }
       .text {
         min-width: 0;
@@ -300,10 +300,10 @@ export class BkPaymentStatus extends BitkitElement {
   }
 }
 
-define('bk-payment-status', BkPaymentStatus);
+define('ou-payment-status', OuPaymentStatus);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-payment-status': BkPaymentStatus;
+    'ou-payment-status': OuPaymentStatus;
   }
 }

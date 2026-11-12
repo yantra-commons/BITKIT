@@ -3,7 +3,7 @@ import { defineComponent, h, type Component, type PropType } from 'vue';
 /**
  * Build a Vue component around a custom element. Props are always set as DOM properties (so
  * bigints, arrays and adapter objects pass through intact); custom events are re-emitted with
- * Vue-style names, e.g. `bk-paid` → `@paid`, `bk-status-change` → `@status-change`.
+ * Vue-style names, e.g. `ou-paid` → `@paid`, `ou-status-change` → `@status-change`.
  */
 export function wrap(
   tag: string,
@@ -12,7 +12,7 @@ export function wrap(
 ): Component<Record<string, unknown>> {
   return defineComponent({
     name: tag
-      .replace(/^bk-/, '')
+      .replace(/^ou-/, '')
       .split('-')
       .map((p) => p[0]!.toUpperCase() + p.slice(1))
       .join(''),
@@ -38,5 +38,5 @@ export function wrap(
   });
 }
 
-/** Vue compiler option so templates treat `bk-*` tags as custom elements. */
-export const isCustomElement = (tag: string) => tag.startsWith('bk-');
+/** Vue compiler option so templates treat `ou-*` tags as custom elements. */
+export const isCustomElement = (tag: string) => tag.startsWith('ou-');

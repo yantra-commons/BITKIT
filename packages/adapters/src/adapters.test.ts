@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { decodeAddress, decodeBolt11, encodeUnsignedBolt11, parseBip21 } from '@bitkit-ui/core';
+import { decodeAddress, decodeBolt11, encodeUnsignedBolt11, parseBip21 } from '@orange-ui/core';
 import { BtcPayAdapter, createBtcPayAdapter, mapBtcPayStatus } from './btcpay.js';
 import { createHttpAdapter, HttpAdapter } from './http.js';
 import { createLnbitsAdapter, LnbitsAdapter } from './lnbits.js';

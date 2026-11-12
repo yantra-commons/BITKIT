@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-export const metadata = { title: 'bitkit-ui — Next.js example' };
+export const metadata = { title: 'orange-ui — Next.js example' };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

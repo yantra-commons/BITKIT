@@ -9,7 +9,7 @@ const words = 'legal winner thank year wave sausage worth useful legal winner th
 
 const meta: Meta = {
   title: 'Security/Mnemonic Display',
-  component: 'bk-mnemonic-display',
+  component: 'ou-mnemonic-display',
   tags: ['autodocs'],
 };
 export default meta;
@@ -17,6 +17,6 @@ export default meta;
 export const Default: StoryObj = {
   render: () =>
     html`<div style="max-width:32rem">
-      <bk-mnemonic-display .words=${[...words]}></bk-mnemonic-display>
+      <ou-mnemonic-display .words=${[...words]}></ou-mnemonic-display>
     </div>`,
 };

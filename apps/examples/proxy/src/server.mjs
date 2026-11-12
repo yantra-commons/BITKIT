@@ -7,11 +7,11 @@
 // Without BTCPAY_* variables it falls back to the mock adapter so the example runs anywhere.
 //
 // Browser side:
-//   import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+//   import { createHttpAdapter } from '@orange-ui/adapters/http';
 //   checkout.adapter = createHttpAdapter({ baseUrl: 'http://localhost:8787/api/payments' });
 import { createServer } from 'node:http';
-import { BtcPayAdapter } from '@bitkit-ui/adapters/btcpay';
-import { MockAdapter } from '@bitkit-ui/adapters/mock';
+import { BtcPayAdapter } from '@orange-ui/adapters/btcpay';
+import { MockAdapter } from '@orange-ui/adapters/mock';
 import { isSafeId, rateLimiter, toJson, validateCreate } from './handlers.mjs';
 
 const {

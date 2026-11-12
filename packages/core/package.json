@@ -1,5 +1,5 @@
 {
-  "name": "@bitkit-ui/core",
+  "name": "@orange-ui/core",
   "version": "0.0.0",
   "description": "Headless Bitcoin + Lightning logic: units, addresses, BIP21, BOLT11, LNURL, fees, input parsing.",
   "license": "MIT",

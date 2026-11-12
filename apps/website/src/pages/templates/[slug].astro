@@ -8,7 +8,7 @@ export function getStaticPaths() {
 const { t } = Astro.props as { t: Template };
 ---
 
-<Site title={`${t.title} — Bitkit UI template`} description={t.description} bare>
+<Site title={`${t.title} — Orange UI template`} description={t.description} bare>
   <Fragment set:html={`<style>${t.css}</style>${t.body}`} />
 </Site>
 

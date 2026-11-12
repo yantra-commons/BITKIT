@@ -1,5 +1,5 @@
 {
-  "name": "@bitkit-ui/example-nextjs",
+  "name": "@orange-ui/example-nextjs",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,8 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@bitkit-ui/adapters": "workspace:*",
-    "@bitkit-ui/react": "workspace:*",
+    "@orange-ui/adapters": "workspace:*",
+    "@orange-ui/react": "workspace:*",
     "next": "^16.4.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"

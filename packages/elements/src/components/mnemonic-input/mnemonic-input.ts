@@ -6,8 +6,8 @@ import {
   splitMnemonic,
   suggestWords,
   VALID_WORD_COUNTS,
-} from '@bitkit-ui/core/mnemonic';
-import { BitkitElement, nextId } from '../../internal/base.js';
+} from '@orange-ui/core/mnemonic';
+import { OrangeElement, nextId } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { iconSvg } from '../icon/icon.js';
@@ -26,15 +26,15 @@ export interface MnemonicInputDetail {
  * checksum validation. Words live only in this component's memory: they are never stored,
  * never sent, never placed in events. Read them with `getMnemonic()` once valid, then `clear()`.
  * Browser autocomplete, spellcheck and password managers are disabled on every field.
- * @tag bk-mnemonic-input
+ * @tag ou-mnemonic-input
  * @csspart base - Container.
  * @csspart grid - Word grid.
  * @csspart field - Each word field.
  * @csspart suggestions - Suggestion list.
  * @csspart status - Validation message.
- * @fires bk-change - Detail: `MnemonicInputDetail` (never includes the words).
+ * @fires ou-change - Detail: `MnemonicInputDetail` (never includes the words).
  */
-export class BkMnemonicInput extends BitkitElement {
+export class OuMnemonicInput extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -45,26 +45,26 @@ export class BkMnemonicInput extends BitkitElement {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: var(--bk-space-2);
-        margin-bottom: var(--bk-space-3);
+        gap: var(--ou-space-2);
+        margin-bottom: var(--ou-space-3);
       }
       .top label {
-        font-size: var(--bk-font-size-sm);
-        font-weight: var(--bk-font-weight-medium);
+        font-size: var(--ou-font-size-sm);
+        font-weight: var(--ou-font-weight-medium);
       }
       select {
-        margin-inline-start: var(--bk-space-2);
-        padding: var(--bk-space-1) var(--bk-space-2);
-        border: 1px solid var(--bk-color-border-strong);
-        border-radius: var(--bk-radius-sm);
-        background: var(--bk-color-surface);
+        margin-inline-start: var(--ou-space-2);
+        padding: var(--ou-space-1) var(--ou-space-2);
+        border: 1px solid var(--ou-color-border-strong);
+        border-radius: var(--ou-radius-sm);
+        background: var(--ou-color-surface);
         color: inherit;
         font: inherit;
       }
       .grid {
         display: grid;
-        grid-template-columns: repeat(var(--bk-mnemonic-columns, 3), minmax(0, 1fr));
-        gap: var(--bk-space-2);
+        grid-template-columns: repeat(var(--ou-mnemonic-columns, 3), minmax(0, 1fr));
+        gap: var(--ou-space-2);
       }
       @media (max-width: 420px) {
         .grid {
@@ -75,35 +75,35 @@ export class BkMnemonicInput extends BitkitElement {
         position: relative;
         display: flex;
         align-items: center;
-        gap: var(--bk-space-1);
-        padding-inline-start: var(--bk-space-2);
-        border: 1px solid var(--bk-color-border-strong);
-        border-radius: var(--bk-radius-sm);
-        background: var(--bk-color-surface);
+        gap: var(--ou-space-1);
+        padding-inline-start: var(--ou-space-2);
+        border: 1px solid var(--ou-color-border-strong);
+        border-radius: var(--ou-radius-sm);
+        background: var(--ou-color-surface);
       }
       .f:focus-within {
-        border-color: var(--bk-color-focus);
-        box-shadow: 0 0 0 1px var(--bk-color-focus);
+        border-color: var(--ou-color-focus);
+        box-shadow: 0 0 0 1px var(--ou-color-focus);
       }
       .f.bad {
-        border-color: var(--bk-color-danger);
+        border-color: var(--ou-color-danger);
       }
       .n {
         min-width: 1.5em;
-        font-size: var(--bk-font-size-xs);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-xs);
+        color: var(--ou-color-text-muted);
         text-align: end;
       }
       input {
         flex: 1;
         min-width: 0;
-        min-height: var(--bk-control-height-md);
-        padding: 0 var(--bk-space-1);
+        min-height: var(--ou-control-height-md);
+        padding: 0 var(--ou-space-1);
         border: 0;
         background: transparent;
         color: inherit;
         font: inherit;
-        font-family: var(--bk-font-mono);
+        font-family: var(--ou-font-mono);
       }
       input:focus,
       input:focus-visible {
@@ -119,30 +119,30 @@ export class BkMnemonicInput extends BitkitElement {
         top: calc(100% + 2px);
         inset-inline: 0;
         margin: 0;
-        padding: var(--bk-space-1);
+        padding: var(--ou-space-1);
         list-style: none;
-        border: 1px solid var(--bk-color-border);
-        border-radius: var(--bk-radius-sm);
-        background: var(--bk-color-surface);
-        box-shadow: var(--bk-shadow-md);
+        border: 1px solid var(--ou-color-border);
+        border-radius: var(--ou-radius-sm);
+        background: var(--ou-color-surface);
+        box-shadow: var(--ou-shadow-md);
       }
       li {
-        padding: var(--bk-space-1) var(--bk-space-2);
-        border-radius: var(--bk-radius-sm);
-        font-family: var(--bk-font-mono);
+        padding: var(--ou-space-1) var(--ou-space-2);
+        border-radius: var(--ou-radius-sm);
+        font-family: var(--ou-font-mono);
         cursor: pointer;
       }
       li[aria-selected='true'] {
-        background: var(--bk-color-accent);
-        color: var(--bk-color-on-accent);
+        background: var(--ou-color-accent);
+        color: var(--ou-color-on-accent);
       }
       .status {
         display: flex;
         align-items: center;
-        gap: var(--bk-space-1);
+        gap: var(--ou-space-1);
         min-height: 1.5rem;
-        margin-top: var(--bk-space-3);
-        font-size: var(--bk-font-size-sm);
+        margin-top: var(--ou-space-3);
+        font-size: var(--ou-font-size-sm);
       }
       .status svg {
         width: 1rem;
@@ -150,10 +150,10 @@ export class BkMnemonicInput extends BitkitElement {
         flex: none;
       }
       .ok {
-        color: var(--bk-color-success);
+        color: var(--ou-color-success);
       }
       .err {
-        color: var(--bk-color-danger);
+        color: var(--ou-color-danger);
       }
     `,
   ];
@@ -239,7 +239,7 @@ export class BkMnemonicInput extends BitkitElement {
   }
 
   #emit() {
-    this.emit<MnemonicInputDetail>('bk-change', this.#detail());
+    this.emit<MnemonicInputDetail>('ou-change', this.#detail());
   }
 
   #set(i: number, value: string) {
@@ -358,7 +358,7 @@ export class BkMnemonicInput extends BitkitElement {
         part="grid"
         role="group"
         aria-labelledby="${this.#id}-label"
-        style="--bk-mnemonic-columns:${this.columns}"
+        style="--ou-mnemonic-columns:${this.columns}"
       >
         ${this._words.map((w, i) => {
           const sugg = this.#suggestions(i);
@@ -423,10 +423,10 @@ export class BkMnemonicInput extends BitkitElement {
   }
 }
 
-define('bk-mnemonic-input', BkMnemonicInput);
+define('ou-mnemonic-input', OuMnemonicInput);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-mnemonic-input': BkMnemonicInput;
+    'ou-mnemonic-input': OuMnemonicInput;
   }
 }

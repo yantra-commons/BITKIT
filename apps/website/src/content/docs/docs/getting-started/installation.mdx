@@ -5,35 +5,35 @@ description: Install the web components, framework wrappers and adapters.
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Bitkit UI is split into small packages. Install only what you need:
+Orange UI is split into small packages. Install only what you need:
 
 | Package                               | What it is                                                                      |
 | ------------------------------------- | ------------------------------------------------------------------------------- |
-| `@bitkit-ui/elements`                 | The web components (`<bk-checkout>`, `<bk-amount-input>`…).                     |
-| `@bitkit-ui/adapters`                 | Payment providers (mock, BTCPay, LNbits, OpenNode, NWC, HTTP) and rate sources. |
-| `@bitkit-ui/core`                     | Headless logic: units, addresses, BIP21, BOLT11, LNURL, fees. No DOM.           |
-| `@bitkit-ui/tokens`                   | Design tokens as CSS variables and JSON.                                        |
-| `@bitkit-ui/react` / `@bitkit-ui/vue` | Typed wrappers for React 18+ and Vue 3.                                         |
+| `@orange-ui/elements`                 | The web components (`<ou-checkout>`, `<ou-amount-input>`…).                     |
+| `@orange-ui/adapters`                 | Payment providers (mock, BTCPay, LNbits, OpenNode, NWC, HTTP) and rate sources. |
+| `@orange-ui/core`                     | Headless logic: units, addresses, BIP21, BOLT11, LNURL, fees. No DOM.           |
+| `@orange-ui/tokens`                   | Design tokens as CSS variables and JSON.                                        |
+| `@orange-ui/react` / `@orange-ui/vue` | Typed wrappers for React 18+ and Vue 3.                                         |
 
 <Tabs syncKey="pm">
 <TabItem label="npm">
 
 ```sh
-npm install @bitkit-ui/elements @bitkit-ui/adapters
+npm install @orange-ui/elements @orange-ui/adapters
 ```
 
 </TabItem>
 <TabItem label="pnpm">
 
 ```sh
-pnpm add @bitkit-ui/elements @bitkit-ui/adapters
+pnpm add @orange-ui/elements @orange-ui/adapters
 ```
 
 </TabItem>
 <TabItem label="yarn">
 
 ```sh
-yarn add @bitkit-ui/elements @bitkit-ui/adapters
+yarn add @orange-ui/elements @orange-ui/adapters
 ```
 
 </TabItem>
@@ -46,11 +46,11 @@ for smaller bundles:
 
 ```ts
 // Everything
-import '@bitkit-ui/elements';
+import '@orange-ui/elements';
 
 // Or just what you need
-import '@bitkit-ui/elements/checkout';
-import '@bitkit-ui/elements/amount-input';
+import '@orange-ui/elements/checkout';
+import '@orange-ui/elements/amount-input';
 ```
 
 Design tokens are injected automatically the first time a component connects. To ship them
@@ -58,15 +58,15 @@ yourself (for example with a strict Content Security Policy), import the stylesh
 injection off:
 
 ```ts
-import '@bitkit-ui/tokens/tokens.css';
-import { configure } from '@bitkit-ui/elements';
+import '@orange-ui/tokens/tokens.css';
+import { configure } from '@orange-ui/elements';
 configure({ injectTokens: false });
 ```
 
 ## Global defaults
 
 ```ts
-import { configure } from '@bitkit-ui/elements';
+import { configure } from '@orange-ui/elements';
 
 configure({
   network: 'mainnet', // what address inputs expect and badges show

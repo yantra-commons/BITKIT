@@ -1,26 +1,26 @@
 [
   {
     "name": "CDN bundle (all components + adapters + core + Lit)",
-    "path": "packages/elements/dist/cdn/bitkit-ui.js",
+    "path": "packages/elements/dist/cdn/orange-ui.js",
     "limit": "78 kB"
   },
   {
-    "name": "<bk-pay-button> (incl. checkout)",
+    "name": "<ou-pay-button> (incl. checkout)",
     "path": "packages/elements/dist/components/pay-button/index.js",
     "limit": "32 kB"
   },
   {
-    "name": "<bk-amount-display>",
+    "name": "<ou-amount-display>",
     "path": "packages/elements/dist/components/amount-display/index.js",
     "limit": "18 kB"
   },
   {
-    "name": "<bk-address-input>",
+    "name": "<ou-address-input>",
     "path": "packages/elements/dist/components/address-input/index.js",
     "limit": "32 kB"
   },
   {
-    "name": "<bk-mnemonic-input> (incl. BIP39 wordlist)",
+    "name": "<ou-mnemonic-input> (incl. BIP39 wordlist)",
     "path": "packages/elements/dist/components/mnemonic-input/index.js",
     "limit": "26 kB"
   },

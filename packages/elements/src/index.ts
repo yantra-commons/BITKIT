@@ -1,10 +1,10 @@
 /**
- * @bitkit-ui/elements — importing this module registers every component.
- * For smaller bundles import individual components: `import '@bitkit-ui/elements/amount-input'`.
+ * @orange-ui/elements — importing this module registers every component.
+ * For smaller bundles import individual components: `import '@orange-ui/elements/amount-input'`.
  */
 export { configure, getConfig, type KitConfig } from './internal/config.js';
 export { DEFAULT_STRINGS, type Strings } from './internal/strings.js';
-export { BitkitElement, injectTokens } from './internal/base.js';
+export { OrangeElement, injectTokens } from './internal/base.js';
 export { define } from './internal/define.js';
 export { registerAdapter, resolveAdapter } from './internal/adapters.js';
 

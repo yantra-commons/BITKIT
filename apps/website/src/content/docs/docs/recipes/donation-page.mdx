@@ -4,7 +4,7 @@ description: Preset amounts, custom amounts, a message, and a Lightning Address 
 ---
 
 ```html
-<bk-donation-widget
+<ou-donation-widget
   adapter="donations"
   heading="Support the project"
   presets="2100,21000,100000"
@@ -13,19 +13,19 @@ description: Preset amounts, custom amounts, a message, and a Lightning Address 
   fiat-price="97250"
 >
   <p slot="description">Every sat helps us keep building.</p>
-</bk-donation-widget>
+</ou-donation-widget>
 
-<bk-lightning-address-card
+<ou-lightning-address-card
   address="tips@example.com"
   name="Our project"
-></bk-lightning-address-card>
+></ou-lightning-address-card>
 
 <script type="module">
-  import { registerAdapter } from '@bitkit-ui/elements';
-  import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+  import { registerAdapter } from '@orange-ui/elements';
+  import { createHttpAdapter } from '@orange-ui/adapters/http';
   registerAdapter('donations', createHttpAdapter({ baseUrl: '/api/donations' }));
 
-  document.addEventListener('bk-donate', (e) => {
+  document.addEventListener('ou-donate', (e) => {
     // e.detail = { amount: 21000n, message: '…' }, emitted before the checkout opens
   });
 </script>

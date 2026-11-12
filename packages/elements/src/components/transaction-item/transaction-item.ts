@@ -1,6 +1,6 @@
 import { css, html, nothing } from 'lit';
-import { explorerUrl, formatRelativeTime, truncateMiddle, type Network } from '@bitkit-ui/core';
-import { BitkitElement } from '../../internal/base.js';
+import { explorerUrl, formatRelativeTime, truncateMiddle, type Network } from '@orange-ui/core';
+import { OrangeElement } from '../../internal/base.js';
 import { bigintConverter, toBigint } from '../../internal/converters.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
@@ -11,7 +11,7 @@ import '../confirmation-progress/confirmation-progress.js';
 export type TxDirection = 'incoming' | 'outgoing' | 'self';
 export type TxStatus = 'pending' | 'confirmed' | 'failed';
 
-/** Transaction data accepted by bk-transaction-item / bk-transaction-list. */
+/** Transaction data accepted by ou-transaction-item / ou-transaction-list. */
 export interface TransactionData {
   id: string;
   direction: TxDirection;
@@ -31,15 +31,15 @@ export interface TransactionData {
 /**
  * @summary One transaction row: direction icon, label, relative time, status/confirmations and a
  * signed amount. Activates with click/Enter when `interactive`.
- * @tag bk-transaction-item
+ * @tag ou-transaction-item
  * @csspart base - Row.
  * @csspart icon - Direction icon.
  * @csspart label - Title.
  * @csspart meta - Time and status line.
  * @csspart amount - Amount.
- * @fires bk-select - When activated. Detail: `{ id }`.
+ * @fires ou-select - When activated. Detail: `{ id }`.
  */
-export class BkTransactionItem extends BitkitElement {
+export class OuTransactionItem extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -49,11 +49,11 @@ export class BkTransactionItem extends BitkitElement {
       .tx {
         display: flex;
         align-items: center;
-        gap: var(--bk-space-3);
+        gap: var(--ou-space-3);
         width: 100%;
-        padding: var(--bk-space-3);
+        padding: var(--ou-space-3);
         border: 0;
-        border-radius: var(--bk-radius-md);
+        border-radius: var(--ou-radius-md);
         background: transparent;
         color: inherit;
         font: inherit;
@@ -63,7 +63,7 @@ export class BkTransactionItem extends BitkitElement {
         cursor: pointer;
       }
       button.tx:hover {
-        background: var(--bk-color-surface-2);
+        background: var(--ou-color-surface-2);
       }
       .icon {
         flex: none;
@@ -72,12 +72,12 @@ export class BkTransactionItem extends BitkitElement {
         width: 2.5rem;
         height: 2.5rem;
         border-radius: 50%;
-        background: var(--bk-color-surface-2);
-        color: var(--bk-color-text-muted);
+        background: var(--ou-color-surface-2);
+        color: var(--ou-color-text-muted);
       }
       .incoming .icon {
-        background: var(--bk-color-success-bg);
-        color: var(--bk-color-success);
+        background: var(--ou-color-success-bg);
+        color: var(--ou-color-success);
       }
       .icon svg {
         width: 1.25rem;
@@ -89,7 +89,7 @@ export class BkTransactionItem extends BitkitElement {
       }
       .label {
         margin: 0;
-        font-weight: var(--bk-font-weight-medium);
+        font-weight: var(--ou-font-weight-medium);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -98,23 +98,23 @@ export class BkTransactionItem extends BitkitElement {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
         margin: 2px 0 0;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-text-muted);
       }
       .bolt {
         display: inline-flex;
         width: 0.9rem;
         height: 0.9rem;
-        color: var(--bk-color-accent-text);
+        color: var(--ou-color-accent-text);
       }
       .bolt svg {
         width: 100%;
         height: 100%;
       }
       .failed {
-        color: var(--bk-color-danger);
+        color: var(--ou-color-danger);
       }
       .right {
         display: flex;
@@ -124,15 +124,15 @@ export class BkTransactionItem extends BitkitElement {
         flex: none;
       }
       .fee {
-        font-size: var(--bk-font-size-xs);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-xs);
+        color: var(--ou-color-text-muted);
       }
       a {
-        color: var(--bk-color-text-muted);
-        font-size: var(--bk-font-size-xs);
+        color: var(--ou-color-text-muted);
+        font-size: var(--ou-font-size-xs);
       }
-      bk-confirmation-progress {
-        font-size: var(--bk-font-size-xs);
+      ou-confirmation-progress {
+        font-size: var(--ou-font-size-xs);
       }
     `,
   ];
@@ -170,7 +170,7 @@ export class BkTransactionItem extends BitkitElement {
   declare method: 'lightning' | 'onchain';
   declare txid: string | undefined;
   declare network: Network | undefined;
-  /** Render as a button and emit bk-select. */
+  /** Render as a button and emit ou-select. */
   declare interactive: boolean;
   /** Link the txid to a block explorer (ignored when `interactive`, to avoid nested controls). */
   declare explorer: boolean;
@@ -235,11 +235,11 @@ export class BkTransactionItem extends BitkitElement {
           ${this.status === 'failed' ? html`<span class="failed">Failed</span>` : nothing}
           ${
             pendingOnchain
-              ? html`<bk-confirmation-progress
+              ? html`<ou-confirmation-progress
                   compact
                   .confirmations=${this.confirmations ?? 0}
                   .required=${this.requiredConfirmations}
-                ></bk-confirmation-progress>`
+                ></ou-confirmation-progress>`
               : this.status === 'pending'
                 ? html`<span>Pending</span>`
                 : nothing
@@ -248,14 +248,14 @@ export class BkTransactionItem extends BitkitElement {
         </p>
       </span>
       <span class="right">
-        <bk-amount-display
+        <ou-amount-display
           part="amount"
           .amount=${amount === undefined ? undefined : out ? -amount : amount}
           sign-display="always"
           direction=${this.direction === 'incoming' ? 'incoming' : 'outgoing'}
           ?privacy=${this.privacy}
           locale=${this.locale ?? nothing}
-        ></bk-amount-display>
+        ></ou-amount-display>
         ${this.fee && out && !this.privacy ? html`<span class="fee">Fee ${this.fee.toLocaleString(this.localeFor(this.locale))} sats</span>` : nothing}
       </span>
     `;
@@ -265,7 +265,7 @@ export class BkTransactionItem extends BitkitElement {
           class=${cls}
           part="base"
           type="button"
-          @click=${() => this.emit('bk-select', { id: this.txId })}
+          @click=${() => this.emit('ou-select', { id: this.txId })}
         >
           ${body}
         </button>`
@@ -273,10 +273,10 @@ export class BkTransactionItem extends BitkitElement {
   }
 }
 
-define('bk-transaction-item', BkTransactionItem);
+define('ou-transaction-item', OuTransactionItem);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-transaction-item': BkTransactionItem;
+    'ou-transaction-item': OuTransactionItem;
   }
 }

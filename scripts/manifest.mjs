@@ -8,8 +8,8 @@ const pascal = (s) =>
     .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
     .join('');
 
-/** Event name → React/Vue handler suffix: "bk-status-change" → "StatusChange". */
-export const eventSuffix = (name) => pascal(name.replace(/^bk-/, ''));
+/** Event name → React/Vue handler suffix: "ou-status-change" → "StatusChange". */
+export const eventSuffix = (name) => pascal(name.replace(/^ou-/, ''));
 
 /**
  * @returns {Array<{tag:string, className:string, name:string, module:string, entry:string,
@@ -26,7 +26,7 @@ export function readComponents(manifestUrl) {
       out.push({
         tag: d.tagName,
         className: d.name,
-        name: pascal(d.tagName.replace(/^bk-/, '')),
+        name: pascal(d.tagName.replace(/^ou-/, '')),
         module: mod.path,
         entry: folder,
         description: (d.summary ?? d.description ?? '').trim(),

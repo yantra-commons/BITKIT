@@ -1,6 +1,6 @@
 /**
- * @bitkit-ui/adapters — payment provider adapters and rate sources.
- * Import individual adapters from subpaths (e.g. `@bitkit-ui/adapters/btcpay`) to keep bundles small.
+ * @orange-ui/adapters — payment provider adapters and rate sources.
+ * Import individual adapters from subpaths (e.g. `@orange-ui/adapters/btcpay`) to keep bundles small.
  */
 export * from './types.js';
 export { pollStatus, cached, type FetchLike } from './util.js';

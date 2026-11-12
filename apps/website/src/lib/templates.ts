@@ -12,10 +12,10 @@ export interface Template {
   script?: string;
 }
 
-const SHARED_CSS = `body { margin: 0; font-family: var(--bk-font-sans); background: var(--bk-color-bg); color: var(--bk-color-text); }
+const SHARED_CSS = `body { margin: 0; font-family: var(--ou-font-sans); background: var(--ou-color-bg); color: var(--ou-color-text); }
 main { width: min(100% - 2rem, 64rem); margin: 0 auto; padding: 2.5rem 0 4rem; }
 h1 { letter-spacing: -0.02em; }
-.muted { color: var(--bk-color-text-muted); }`;
+.muted { color: var(--ou-color-text-muted); }`;
 
 export const templates: Template[] = [
   {
@@ -26,22 +26,22 @@ export const templates: Template[] = [
     css: `${SHARED_CSS}
 .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 26rem); gap: 2rem; align-items: start; }
 @media (max-width: 52rem) { .grid { grid-template-columns: minmax(0, 1fr); } }
-.cart { padding: 1.5rem; border: 1px solid var(--bk-color-border); border-radius: var(--bk-radius-lg); background: var(--bk-color-surface); }
-.line { display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--bk-color-border); }
+.cart { padding: 1.5rem; border: 1px solid var(--ou-color-border); border-radius: var(--ou-radius-lg); background: var(--ou-color-surface); }
+.line { display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--ou-color-border); }
 .total { display: flex; justify-content: space-between; padding-top: 1rem; font-weight: 700; }`,
     body: `<main>
   <p class="muted">Satoshi's Coffee Roasters</p>
   <h1>Checkout</h1>
   <div class="grid">
     <section class="cart" aria-label="Order summary">
-      <div class="line"><span>Ethiopia Yirgacheffe, 250 g</span><bk-amount-display amount="18000"></bk-amount-display></div>
-      <div class="line"><span>Shipping</span><bk-amount-display amount="3000"></bk-amount-display></div>
-      <div class="total"><span>Total</span><bk-amount-display amount="21000" show-fiat fiat-currency="USD" fiat-price="97250"></bk-amount-display></div>
+      <div class="line"><span>Ethiopia Yirgacheffe, 250 g</span><ou-amount-display amount="18000"></ou-amount-display></div>
+      <div class="line"><span>Shipping</span><ou-amount-display amount="3000"></ou-amount-display></div>
+      <div class="total"><span>Total</span><ou-amount-display amount="21000" show-fiat fiat-currency="USD" fiat-price="97250"></ou-amount-display></div>
     </section>
-    <bk-checkout amount="21000" adapter="mock" description="Order #1042" order-id="1042" fiat-currency="USD" fiat-price="97250"></bk-checkout>
+    <ou-checkout amount="21000" adapter="mock" description="Order #1042" order-id="1042" fiat-currency="USD" fiat-price="97250"></ou-checkout>
   </div>
 </main>`,
-    script: `document.querySelector('bk-checkout').addEventListener('bk-paid', (e) => {
+    script: `document.querySelector('ou-checkout').addEventListener('ou-paid', (e) => {
   // Fulfil the order server-side from your provider's webhook, not from this event.
   console.log('paid', e.detail.invoice.id);
 });`,
@@ -61,10 +61,10 @@ export const templates: Template[] = [
     <p class="muted">Your support pays for maintenance, audits and new features. Thank you!</p>
   </div>
   <div class="cols">
-    <bk-donation-widget adapter="mock" heading="Make a donation" presets="2100,21000,100000,500000" fiat-currency="USD" fiat-price="97250">
+    <ou-donation-widget adapter="mock" heading="Make a donation" presets="2100,21000,100000,500000" fiat-currency="USD" fiat-price="97250">
       <p slot="description">Choose an amount in sats or enter your own.</p>
-    </bk-donation-widget>
-    <bk-lightning-address-card address="tips@example.com" name="Bitkit project" description="Or zap us from any Lightning wallet."></bk-lightning-address-card>
+    </ou-donation-widget>
+    <ou-lightning-address-card address="tips@example.com" name="Orange UI project" description="Or zap us from any Lightning wallet."></ou-lightning-address-card>
   </div>
 </main>`,
   },
@@ -73,10 +73,10 @@ export const templates: Template[] = [
     title: 'Invoice page',
     description: 'A shareable invoice for freelancers: line items, due amount, and a pay button.',
     css: `${SHARED_CSS}
-.paper { max-width: 40rem; margin: 0 auto; padding: 2rem; border: 1px solid var(--bk-color-border); border-radius: var(--bk-radius-lg); background: var(--bk-color-surface); }
+.paper { max-width: 40rem; margin: 0 auto; padding: 2rem; border: 1px solid var(--ou-color-border); border-radius: var(--ou-radius-lg); background: var(--ou-color-surface); }
 .head { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
-th, td { padding: 0.6rem 0; text-align: left; border-bottom: 1px solid var(--bk-color-border); }
+th, td { padding: 0.6rem 0; text-align: left; border-bottom: 1px solid var(--ou-color-border); }
 td:last-child, th:last-child { text-align: right; }
 .due { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }`,
     body: `<main>
@@ -88,13 +88,13 @@ td:last-child, th:last-child { text-align: right; }
     <table>
       <thead><tr><th>Item</th><th>Amount</th></tr></thead>
       <tbody>
-        <tr><td>Logo design</td><td><bk-amount-display amount="400000"></bk-amount-display></td></tr>
-        <tr><td>Brand guidelines</td><td><bk-amount-display amount="250000"></bk-amount-display></td></tr>
+        <tr><td>Logo design</td><td><ou-amount-display amount="400000"></ou-amount-display></td></tr>
+        <tr><td>Brand guidelines</td><td><ou-amount-display amount="250000"></ou-amount-display></td></tr>
       </tbody>
     </table>
     <div class="due">
-      <div><span class="muted">Amount due</span><br /><bk-amount-display amount="650000" size="xl" show-fiat fiat-currency="EUR" fiat-price="90000"></bk-amount-display></div>
-      <bk-pay-button amount="650000" adapter="mock" description="Invoice #2026-014" size="lg">Pay invoice</bk-pay-button>
+      <div><span class="muted">Amount due</span><br /><ou-amount-display amount="650000" size="xl" show-fiat fiat-currency="EUR" fiat-price="90000"></ou-amount-display></div>
+      <ou-pay-button amount="650000" adapter="mock" description="Invoice #2026-014" size="lg">Pay invoice</ou-pay-button>
     </div>
   </article>
 </main>`,
@@ -108,29 +108,29 @@ td:last-child, th:last-child { text-align: right; }
 .top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
 .grid { display: grid; grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
 @media (max-width: 56rem) { .grid { grid-template-columns: minmax(0, 1fr); } }
-.card { padding: 1.25rem; border: 1px solid var(--bk-color-border); border-radius: var(--bk-radius-lg); background: var(--bk-color-surface); }
+.card { padding: 1.25rem; border: 1px solid var(--ou-color-border); border-radius: var(--ou-radius-lg); background: var(--ou-color-surface); }
 .stack { display: grid; gap: 1rem; }`,
     body: `<main>
   <div class="top">
     <h1 style="margin:0">My wallet</h1>
-    <bk-wallet-connect show-balance></bk-wallet-connect>
+    <ou-wallet-connect show-balance></ou-wallet-connect>
   </div>
   <div class="grid" style="margin-top:1.5rem">
     <div class="stack">
-      <bk-balance-card balance="2450000" pending="21000" fiat-currency="USD" fiat-price="97250">
-        <div slot="actions"><bk-button>Send</bk-button><bk-button variant="secondary">Receive</bk-button></div>
-      </bk-balance-card>
+      <ou-balance-card balance="2450000" pending="21000" fiat-currency="USD" fiat-price="97250">
+        <div slot="actions"><ou-button>Send</ou-button><ou-button variant="secondary">Receive</ou-button></div>
+      </ou-balance-card>
       <div class="card stack">
         <strong>Send</strong>
-        <bk-address-input label="To" accept="onchain-address,bip21"></bk-address-input>
-        <bk-amount-input label="Amount" balance="2450000" fiat-currency="USD" fiat-price="97250"></bk-amount-input>
-        <bk-fee-selector id="fees" vsize="141" fiat-currency="USD" fiat-price="97250"></bk-fee-selector>
-        <bk-button block>Review transaction</bk-button>
+        <ou-address-input label="To" accept="onchain-address,bip21"></ou-address-input>
+        <ou-amount-input label="Amount" balance="2450000" fiat-currency="USD" fiat-price="97250"></ou-amount-input>
+        <ou-fee-selector id="fees" vsize="141" fiat-currency="USD" fiat-price="97250"></ou-fee-selector>
+        <ou-button block>Review transaction</ou-button>
       </div>
     </div>
     <div class="card">
       <strong>Activity</strong>
-      <bk-transaction-list id="txs" interactive></bk-transaction-list>
+      <ou-transaction-list id="txs" interactive></ou-transaction-list>
     </div>
   </div>
 </main>`,
@@ -145,7 +145,7 @@ document.querySelector('#txs').transactions = [
   },
 ];
 
-const CDN = 'https://cdn.jsdelivr.net/npm/@bitkit-ui/elements/dist/cdn/bitkit-ui.js';
+const CDN = 'https://cdn.jsdelivr.net/npm/@orange-ui/elements/dist/cdn/orange-ui.js';
 
 /** A standalone, copyable HTML file for a template. */
 export function templateSource(t: Template): string {

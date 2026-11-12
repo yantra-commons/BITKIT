@@ -1,6 +1,6 @@
-# bitkit-ui — Build Plan
+# orange-ui — Build Plan
 
-> Working name `bitkit-ui`, npm scope `@bitkit-ui/*`. The name lives in `kit.config.json`;
+> Working name `orange-ui`, npm scope `@orange-ui/*`. The name lives in `kit.config.json`;
 > `node scripts/rename.mjs <new-name>` rewrites every reference. See `docs/DECISIONS.md`.
 
 ## 1. Goal
@@ -16,12 +16,12 @@ polished docs site.
                ┌───────────────────────────── apps/website (Astro + Starlight)
                │                               apps/examples (vanilla, React, Vue, Next, proxy)
                ▼
-  @bitkit-ui/react ──┐   @bitkit-ui/vue ──┐       (thin typed wrappers, generated from
+  @orange-ui/react ──┐   @orange-ui/vue ──┐       (thin typed wrappers, generated from
                      ▼                    ▼        custom-elements.json)
-              @bitkit-ui/elements  (Lit web components, Shadow DOM, ::part, tokens)
+              @orange-ui/elements  (Lit web components, Shadow DOM, ::part, tokens)
                  │            │
                  ▼            ▼
-      @bitkit-ui/core    @bitkit-ui/tokens          @bitkit-ui/adapters
+      @orange-ui/core    @orange-ui/tokens          @orange-ui/adapters
       (pure TS, no DOM)  (JSON → CSS vars + TS)     (PaymentAdapter, RateAdapter,
                                                      FeeAdapter; mock, BTCPay, LNbits,
                                                      NWC, OpenNode, generic polling)
@@ -39,14 +39,14 @@ Layering rules (enforced by package dependencies, not convention):
 
 ### Rendering + SSR
 
-- Components extend a shared `BitkitElement` (LitElement) that adopts token styles.
+- Components extend a shared `OrangeElement` (LitElement) that adopts token styles.
 - No `window`/`document`/`customElements` access at module top level. Registration is done by
   a `define()` helper that no-ops when `customElements` is undefined (SSR) or already defined.
-- Each component lives at `@bitkit-ui/elements/<name>` (subpath export) and registers itself on
-  import; `@bitkit-ui/elements` re-exports all. `sideEffects` lists only the registration
+- Each component lives at `@orange-ui/elements/<name>` (subpath export) and registers itself on
+  import; `@orange-ui/elements` re-exports all. `sideEffects` lists only the registration
   entry files so bundlers tree-shake everything else.
-- CDN build: a single self-contained ESM file `dist/cdn/bitkit-ui.js` (Lit + deps inlined) for
-  `<script type="module" src="https://cdn.jsdelivr.net/npm/@bitkit-ui/elements/dist/cdn/bitkit-ui.js">`.
+- CDN build: a single self-contained ESM file `dist/cdn/orange-ui.js` (Lit + deps inlined) for
+  `<script type="module" src="https://cdn.jsdelivr.net/npm/@orange-ui/elements/dist/cdn/orange-ui.js">`.
 
 ### Money
 
@@ -80,23 +80,23 @@ Custom Elements Manifest analyzer, Changesets, Turborepo, size-limit.
 
 ## 4. Component list
 
-**Primitives:** `bk-button`, `bk-icon-button`, `bk-input`, `bk-select`, `bk-dialog`,
-`bk-tooltip`, `bk-toast`, `bk-tabs`, `bk-badge`, `bk-spinner`, `bk-skeleton`, `bk-copy-button`,
-`bk-qr-code`, `bk-icon`.
+**Primitives:** `ou-button`, `ou-icon-button`, `ou-input`, `ou-select`, `ou-dialog`,
+`ou-tooltip`, `ou-toast`, `ou-tabs`, `ou-badge`, `ou-spinner`, `ou-skeleton`, `ou-copy-button`,
+`ou-qr-code`, `ou-icon`.
 
-**Amounts:** `bk-amount-display`, `bk-amount-input`.
+**Amounts:** `ou-amount-display`, `ou-amount-input`.
 
-**Addresses:** `bk-address-display`, `bk-address-input`, `bk-qr-scanner`, `bk-network-badge`.
+**Addresses:** `ou-address-display`, `ou-address-input`, `ou-qr-scanner`, `ou-network-badge`.
 
-**Payments:** `bk-pay-button`, `bk-checkout`, `bk-invoice-display`, `bk-payment-status`,
-`bk-donation-widget`, `bk-lightning-address-card`.
+**Payments:** `ou-pay-button`, `ou-checkout`, `ou-invoice-display`, `ou-payment-status`,
+`ou-donation-widget`, `ou-lightning-address-card`.
 
-**Wallet & transactions:** `bk-wallet-connect`, `bk-balance-card`, `bk-transaction-list`,
-`bk-transaction-item`, `bk-confirmation-progress`, `bk-fee-selector`, `bk-utxo-list`.
+**Wallet & transactions:** `ou-wallet-connect`, `ou-balance-card`, `ou-transaction-list`,
+`ou-transaction-item`, `ou-confirmation-progress`, `ou-fee-selector`, `ou-utxo-list`.
 
-**Security-sensitive:** `bk-mnemonic-display`, `bk-mnemonic-input`, `bk-backup-check`.
+**Security-sensitive:** `ou-mnemonic-display`, `ou-mnemonic-input`, `ou-backup-check`.
 
-Element prefix `bk-` (short, configurable through `kit.config.json` → `elementPrefix`).
+Element prefix `ou-` (short, configurable through `kit.config.json` → `elementPrefix`).
 
 ## 5. Phases
 
@@ -127,11 +127,11 @@ Gate between phases: `pnpm build && pnpm lint && pnpm typecheck && pnpm test` gr
 
 | Risk                                                                           | Mitigation                                                                                                                                                          |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Name collision: "Bitkit" is an existing Bitcoin wallet (Synonym).              | Name is a placeholder; rename script; flagged in DECISIONS.md.                                                                                                      |
+| Name collision: "Bitkit" is an existing Bitcoin wallet (Synonym).              | Resolved: renamed to Orange UI (`@orange-ui/*`, `ou-` prefix) on 2026-11-13.                                                                                        |
 | Bleeding-edge toolchain (TS 6, Vite 8, Astro 7, Storybook 10).                 | Pin versions; keep configs minimal; no decorators (Lit `static properties`) so we don't depend on decorator compile modes.                                          |
 | happy-dom gaps for Shadow DOM / axe.                                           | Run contrast + real-browser checks in Playwright; keep happy-dom tests behavioural.                                                                                 |
 | Secret-handling components misused.                                            | Memory-only, no network, no clipboard by default, `autocomplete=off`, `spellcheck=false`, explicit `clear()`; SECURITY.md threat model; review in phase 8.          |
 | Adapters needing API keys in the browser.                                      | Adapter constructors accept a `baseUrl` to a server proxy; example proxy in `apps/examples/proxy`. BTCPay/OpenNode/LNbits admin keys are documented as server-only. |
-| NWC requires NIP-04/44 crypto.                                                 | Adapter takes a pluggable `NwcClient` (e.g. `@getalby/sdk`) instead of shipping crypto ourselves; `bk-wallet-connect` delegates to Bitcoin Connect when present.    |
+| NWC requires NIP-04/44 crypto.                                                 | Adapter takes a pluggable `NwcClient` (e.g. `@getalby/sdk`) instead of shipping crypto ourselves; `ou-wallet-connect` delegates to Bitcoin Connect when present.    |
 | QR scanning support varies (BarcodeDetector absent in Firefox/Safari desktop). | Graceful fallback to paste + image upload; pluggable decoder.                                                                                                       |
 | OneDrive-synced working dir slows `node_modules`.                              | Documented; CI is the source of truth.                                                                                                                              |

@@ -5,7 +5,7 @@ import '../icon/icon.js';
 
 const meta: Meta = {
   title: 'Primitives/Button',
-  component: 'bk-button',
+  component: 'ou-button',
   tags: ['autodocs'],
   args: {
     variant: 'primary',
@@ -19,12 +19,12 @@ const meta: Meta = {
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
   },
   render: (a) =>
-    html`<bk-button
+    html`<ou-button
       variant=${a.variant}
       size=${a.size}
       ?disabled=${a.disabled}
       ?loading=${a.loading}
-      >${a.label}</bk-button
+      >${a.label}</ou-button
     >`,
 };
 export default meta;
@@ -33,24 +33,24 @@ export const Primary: StoryObj = {};
 export const Variants: StoryObj = {
   render: () =>
     html`<div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <bk-button>Primary</bk-button>
-      <bk-button variant="secondary">Secondary</bk-button>
-      <bk-button variant="ghost">Ghost</bk-button>
-      <bk-button variant="danger">Danger</bk-button>
-      <bk-button loading>Loading</bk-button>
-      <bk-button disabled>Disabled</bk-button>
+      <ou-button>Primary</ou-button>
+      <ou-button variant="secondary">Secondary</ou-button>
+      <ou-button variant="ghost">Ghost</ou-button>
+      <ou-button variant="danger">Danger</ou-button>
+      <ou-button loading>Loading</ou-button>
+      <ou-button disabled>Disabled</ou-button>
     </div>`,
 };
 export const WithIcon: StoryObj = {
   render: () =>
-    html`<bk-button
-      ><bk-icon slot="prefix" name="lightning"></bk-icon>Pay with Lightning</bk-button
+    html`<ou-button
+      ><ou-icon slot="prefix" name="lightning"></ou-icon>Pay with Lightning</ou-button
     >`,
 };
 export const Sizes: StoryObj = {
   render: () =>
     html`<div style="display:flex;gap:.75rem;align-items:center">
-      <bk-button size="sm">Small</bk-button><bk-button>Medium</bk-button
-      ><bk-button size="lg">Large</bk-button>
+      <ou-button size="sm">Small</ou-button><ou-button>Medium</ou-button
+      ><ou-button size="lg">Large</ou-button>
     </div>`,
 };

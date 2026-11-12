@@ -1,5 +1,5 @@
 {
-  "name": "@bitkit-ui/website",
+  "name": "@orange-ui/website",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,10 +10,10 @@
   "dependencies": {
     "@astrojs/starlight": "~0.40.0",
     "astro": "~6.4.8",
-    "@bitkit-ui/adapters": "workspace:*",
-    "@bitkit-ui/core": "workspace:*",
-    "@bitkit-ui/elements": "workspace:*",
-    "@bitkit-ui/tokens": "workspace:*"
+    "@orange-ui/adapters": "workspace:*",
+    "@orange-ui/core": "workspace:*",
+    "@orange-ui/elements": "workspace:*",
+    "@orange-ui/tokens": "workspace:*"
   },
   "engines": {
     "node": ">=22.12"

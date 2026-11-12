@@ -1,16 +1,16 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { decodeLnurl, encodeUnsignedBolt11, parseBip21 } from '@bitkit-ui/core';
-import { MockAdapter, type PaymentAdapter } from '@bitkit-ui/adapters';
+import { decodeLnurl, encodeUnsignedBolt11, parseBip21 } from '@orange-ui/core';
+import { MockAdapter, type PaymentAdapter } from '@orange-ui/adapters';
 import { $, expectAccessible, fixture, settle } from '../../test/helpers.js';
 import '../index.js';
 import { registerAdapter } from '../internal/adapters.js';
 import type {
-  BkCheckout,
-  BkDonationWidget,
-  BkInvoiceDisplay,
-  BkLightningAddressCard,
-  BkPayButton,
-  BkPaymentStatus,
+  OuCheckout,
+  OuDonationWidget,
+  OuInvoiceDisplay,
+  OuLightningAddressCard,
+  OuPayButton,
+  OuPaymentStatus,
 } from '../index.js';
 
 const text = (el: Element, sel: string) => $(el, sel)?.textContent?.replace(/\s+/g, ' ').trim();
@@ -45,7 +45,7 @@ const mock = (o: ConstructorParameters<typeof MockAdapter>[0] = {}) => {
 };
 afterEach(() => adapters.splice(0).forEach((a) => a.dispose()));
 
-describe('bk-payment-status', () => {
+describe('ou-payment-status', () => {
   it.each([
     ['pending', 'Waiting for payment'],
     ['detected', 'Payment detected'],
@@ -53,8 +53,8 @@ describe('bk-payment-status', () => {
     ['expired', 'Payment request expired'],
     ['cancelled', 'Payment cancelled'],
   ])('%s → %s', async (status, title) => {
-    const el = await fixture<BkPaymentStatus>(
-      `<bk-payment-status status="${status}"></bk-payment-status>`,
+    const el = await fixture<OuPaymentStatus>(
+      `<ou-payment-status status="${status}"></ou-payment-status>`,
     );
     expect(text(el, '.title')).toBe(title);
     expect($(el, '[role=status]')).not.toBeNull();
@@ -62,8 +62,8 @@ describe('bk-payment-status', () => {
   });
 
   it('explains under/overpayment amounts', async () => {
-    const el = await fixture<BkPaymentStatus>(
-      '<bk-payment-status status="underpaid" amount-received="5000" amount-due="21000"></bk-payment-status>',
+    const el = await fixture<OuPaymentStatus>(
+      '<ou-payment-status status="underpaid" amount-received="5000" amount-due="21000"></ou-payment-status>',
     );
     expect(text(el, '.body')).toBe(
       'Received 5,000 sats of 21,000 sats. Send the remaining 16,000 sats to complete the payment.',
@@ -75,8 +75,8 @@ describe('bk-payment-status', () => {
   });
 
   it('shows confirmation progress and alerts on failure', async () => {
-    const el = await fixture<BkPaymentStatus>(
-      '<bk-payment-status status="confirming" confirmations="2" required-confirmations="3"></bk-payment-status>',
+    const el = await fixture<OuPaymentStatus>(
+      '<ou-payment-status status="confirming" confirmations="2" required-confirmations="3"></ou-payment-status>',
     );
     const bar = $(el, '[role=progressbar]');
     expect(bar.getAttribute('aria-valuenow')).toBe('2');
@@ -89,21 +89,21 @@ describe('bk-payment-status', () => {
   });
 });
 
-describe('bk-invoice-display', () => {
+describe('ou-invoice-display', () => {
   it('decodes and shows amount, description and countdown', async () => {
-    const el = await fixture<BkInvoiceDisplay>(
-      `<bk-invoice-display qr invoice="${invoiceFor(0)}"></bk-invoice-display>`,
+    const el = await fixture<OuInvoiceDisplay>(
+      `<ou-invoice-display qr invoice="${invoiceFor(0)}"></ou-invoice-display>`,
     );
     expect(el.decoded?.amountMsat).toBe(21_000_000n);
     expect(text(el, 'dl')).toContain('Coffee');
     expect(text(el, 'dl')).toMatch(/in (9|10):\d\d/);
-    expect($(el, 'bk-qr-code')).not.toBeNull();
+    expect($(el, 'ou-qr-code')).not.toBeNull();
     await expectAccessible(el);
   });
 
   it('handles any-amount, expired and invalid invoices', async () => {
-    const el = await fixture<BkInvoiceDisplay>(
-      `<bk-invoice-display invoice="${invoiceFor(9999, null, '')}"></bk-invoice-display>`,
+    const el = await fixture<OuInvoiceDisplay>(
+      `<ou-invoice-display invoice="${invoiceFor(9999, null, '')}"></ou-invoice-display>`,
     );
     expect(text(el, '.any')).toBe('Any amount');
     expect(text(el, '.expired')).toBe('Expired');
@@ -113,26 +113,26 @@ describe('bk-invoice-display', () => {
   });
 });
 
-describe('bk-checkout', () => {
+describe('ou-checkout', () => {
   it('creates a request and shows unified QR, tabs, details and demo notice', async () => {
     const a = mock({ scenario: 'manual' });
     const created = vi.fn();
-    document.addEventListener('bk-invoice-created', created, { once: true });
-    const el = await fixture<BkCheckout>(
-      '<bk-checkout amount="21000" description="Coffee"></bk-checkout>',
+    document.addEventListener('ou-invoice-created', created, { once: true });
+    const el = await fixture<OuCheckout>(
+      '<ou-checkout amount="21000" description="Coffee"></ou-checkout>',
     );
     el.adapter = a;
     await el.start();
     await settle(el);
     expect(el.state).toBe('awaiting');
     expect(created).toHaveBeenCalled();
-    const tabs = $(el, 'bk-tabs')!.shadowRoot!.querySelectorAll('[role=tab]');
+    const tabs = $(el, 'ou-tabs')!.shadowRoot!.querySelectorAll('[role=tab]');
     expect([...tabs].map((t) => t.textContent!.trim())).toEqual([
       'Any wallet',
       'Lightning',
       'On-chain',
     ]);
-    const qr = el.shadowRoot!.querySelector('bk-qr-code')!;
+    const qr = el.shadowRoot!.querySelector('ou-qr-code')!;
     const uri = parseBip21(qr.value);
     expect(uri.amountMsat).toBe(21_000_000n);
     expect(uri.lightning?.toLowerCase()).toBe(el.currentInvoice!.lightning);
@@ -143,55 +143,55 @@ describe('bk-checkout', () => {
   });
 
   it('switches views between Lightning and on-chain', async () => {
-    const el = await fixture<BkCheckout>('<bk-checkout amount="1000"></bk-checkout>');
+    const el = await fixture<OuCheckout>('<ou-checkout amount="1000"></ou-checkout>');
     el.adapter = mock({ scenario: 'manual' });
     await el.start();
     await settle(el);
-    $(el, 'bk-tabs').dispatchEvent(
-      new CustomEvent('bk-change', { detail: { value: 'lightning' } }),
+    $(el, 'ou-tabs').dispatchEvent(
+      new CustomEvent('ou-change', { detail: { value: 'lightning' } }),
     );
     await settle(el);
-    expect(el.shadowRoot!.querySelector('bk-qr-code')!.value).toMatch(/^LNTBS/);
+    expect(el.shadowRoot!.querySelector('ou-qr-code')!.value).toMatch(/^LNTBS/);
     expect(el.shadowRoot!.querySelectorAll('.row')).toHaveLength(1);
-    $(el, 'bk-tabs').dispatchEvent(new CustomEvent('bk-change', { detail: { value: 'onchain' } }));
+    $(el, 'ou-tabs').dispatchEvent(new CustomEvent('ou-change', { detail: { value: 'onchain' } }));
     await settle(el);
-    expect(el.shadowRoot!.querySelector('bk-qr-code')!.value).toMatch(/^BITCOIN:TB1Q/);
+    expect(el.shadowRoot!.querySelector('ou-qr-code')!.value).toMatch(/^BITCOIN:TB1Q/);
     expect(
-      $<HTMLAnchorElement>(el.shadowRoot!.querySelectorAll('bk-button')[0]!, 'a').getAttribute(
+      $<HTMLAnchorElement>(el.shadowRoot!.querySelectorAll('ou-button')[0]!, 'a').getAttribute(
         'href',
       ),
     ).toMatch(/^bitcoin:tb1q/);
   });
 
-  it('reaches the paid state and fires bk-paid', async () => {
-    const el = await fixture<BkCheckout>('<bk-checkout amount="21000"></bk-checkout>');
+  it('reaches the paid state and fires ou-paid', async () => {
+    const el = await fixture<OuCheckout>('<ou-checkout amount="21000"></ou-checkout>');
     const paid = vi.fn();
     const statuses: string[] = [];
-    el.addEventListener('bk-paid', paid);
-    el.addEventListener('bk-status-change', (e) => statuses.push((e as CustomEvent).detail.status));
+    el.addEventListener('ou-paid', paid);
+    el.addEventListener('ou-status-change', (e) => statuses.push((e as CustomEvent).detail.status));
     el.adapter = mock({ scenario: 'onchain', requiredConfirmations: 2 });
     await el.start();
     await until(() => el.state === 'paid');
     await settle(el);
     expect(statuses).toEqual(['pending', 'detected', 'confirming', 'paid']);
     expect(paid.mock.calls[0]![0].detail.update.status).toBe('paid');
-    expect(text($(el, 'bk-payment-status'), '.title')).toBe('Payment received');
-    expect($(el, 'bk-payment-status')!.getAttribute('size')).toBe('large');
+    expect(text($(el, 'ou-payment-status'), '.title')).toBe('Payment received');
+    expect($(el, 'ou-payment-status')!.getAttribute('size')).toBe('large');
   });
 
   it('handles expiry with a retry', async () => {
-    const el = await fixture<BkCheckout>('<bk-checkout amount="21000"></bk-checkout>');
+    const el = await fixture<OuCheckout>('<ou-checkout amount="21000"></ou-checkout>');
     const a = mock({ scenario: 'expired' });
     el.adapter = a;
     const expired = vi.fn();
-    el.addEventListener('bk-expired', expired);
+    el.addEventListener('ou-expired', expired);
     await el.start();
     await until(() => el.state === 'expired');
     await settle(el);
     expect(expired).toHaveBeenCalled();
     const firstId = el.currentInvoice!.id;
     a.scenario = 'manual';
-    ($(el, 'bk-button') as HTMLElement).click();
+    ($(el, 'ou-button') as HTMLElement).click();
     await until(() => el.state === 'awaiting');
     expect(el.currentInvoice!.id).not.toBe(firstId);
   });
@@ -206,11 +206,11 @@ describe('bk-checkout', () => {
       subscribe: () => () => {},
       cancel: async () => {},
     };
-    const el = await fixture<BkCheckout>('<bk-checkout amount="21000"></bk-checkout>');
+    const el = await fixture<OuCheckout>('<ou-checkout amount="21000"></ou-checkout>');
     await settle(el);
     expect(el.state).toBe('error');
     const onErr = vi.fn();
-    el.addEventListener('bk-error', onErr);
+    el.addEventListener('ou-error', onErr);
     el.adapter = failing;
     await el.start();
     await settle(el);
@@ -221,15 +221,15 @@ describe('bk-checkout', () => {
 
   it('resolves registered adapters by name and supports fiat amounts', async () => {
     registerAdapter('test-mock', () => mock({ scenario: 'manual', fiatPrice: '50000' }));
-    const el = await fixture<BkCheckout>(
-      '<bk-checkout adapter="test-mock" fiat-amount="5" fiat-currency="USD"></bk-checkout>',
+    const el = await fixture<OuCheckout>(
+      '<ou-checkout adapter="test-mock" fiat-amount="5" fiat-currency="USD"></ou-checkout>',
     );
     await until(() => el.state === 'awaiting');
     expect(el.currentInvoice!.amountSats).toBe(10_000n);
   });
 
   it('accepts a pre-created invoice and expires it locally', async () => {
-    const el = await fixture<BkCheckout>('<bk-checkout auto-start="false"></bk-checkout>');
+    const el = await fixture<OuCheckout>('<ou-checkout auto-start="false"></ou-checkout>');
     el.autoStart = false;
     el.invoice = {
       id: 'srv1',
@@ -242,12 +242,12 @@ describe('bk-checkout', () => {
     };
     await until(() => el.state === 'awaiting');
     await settle(el);
-    expect($(el, 'bk-tabs')).toBeNull();
+    expect($(el, 'ou-tabs')).toBeNull();
     await until(() => el.state === 'expired', 3000);
   });
 
   it('never links to non-bitcoin URIs supplied by an adapter (XSS guard)', async () => {
-    const el = await fixture<BkCheckout>('<bk-checkout></bk-checkout>');
+    const el = await fixture<OuCheckout>('<ou-checkout></ou-checkout>');
     el.autoStart = false;
     el.invoice = {
       id: 'evil',
@@ -262,7 +262,7 @@ describe('bk-checkout', () => {
     };
     await until(() => el.state === 'awaiting');
     await settle(el);
-    const links = [...el.shadowRoot!.querySelectorAll('bk-button')].map(
+    const links = [...el.shadowRoot!.querySelectorAll('ou-button')].map(
       (b) => b.shadowRoot!.querySelector('a')?.getAttribute('href') ?? '',
     );
     expect(links.some((h) => h.startsWith('bitcoin:bc1q'))).toBe(true);
@@ -273,18 +273,18 @@ describe('bk-checkout', () => {
     const sendPayment = vi.fn(async () => ({ preimage: 'pre' }));
     vi.stubGlobal('webln', { enable: vi.fn(async () => {}), sendPayment });
     try {
-      const el = await fixture<BkCheckout>('<bk-checkout amount="21000"></bk-checkout>');
+      const el = await fixture<OuCheckout>('<ou-checkout amount="21000"></ou-checkout>');
       el.adapter = mock({ scenario: 'manual' });
       await el.start();
       await settle(el);
       const findBtn = () =>
-        [...el.shadowRoot!.querySelectorAll('bk-button')].find((b) =>
+        [...el.shadowRoot!.querySelectorAll('ou-button')].find((b) =>
           b.textContent?.split(/[\s]+/).join(' ').includes('browser wallet'),
         );
       await until(() => !!findBtn()?.shadowRoot?.querySelector('button'));
       const btn = findBtn()!;
       const paid = vi.fn();
-      el.addEventListener('bk-webln-paid', paid);
+      el.addEventListener('ou-webln-paid', paid);
       ($(btn, 'button') as HTMLButtonElement).click();
       await until(() => paid.mock.calls.length > 0);
       expect(sendPayment).toHaveBeenCalledWith(el.currentInvoice!.lightning);
@@ -294,21 +294,21 @@ describe('bk-checkout', () => {
   });
 });
 
-describe('bk-pay-button', () => {
+describe('ou-pay-button', () => {
   it('opens a modal checkout and closes it', async () => {
-    const el = await fixture<BkPayButton>(
-      '<bk-pay-button amount="21000" description="Coffee">Buy coffee</bk-pay-button>',
+    const el = await fixture<OuPayButton>(
+      '<ou-pay-button amount="21000" description="Coffee">Buy coffee</ou-pay-button>',
     );
     el.adapter = mock({ scenario: 'manual' });
     await el.updateComplete;
     expect(el.textContent).toBe('Buy coffee');
     await expectAccessible(el);
-    ($(el.shadowRoot!.querySelector('bk-button')!, 'button') as HTMLButtonElement).click();
+    ($(el.shadowRoot!.querySelector('ou-button')!, 'button') as HTMLButtonElement).click();
     await settle(el);
-    const checkout = el.shadowRoot!.querySelector('bk-checkout')!;
+    const checkout = el.shadowRoot!.querySelector('ou-checkout')!;
     expect(checkout.open).toBe(true);
     await until(() => checkout.state === 'awaiting');
-    const dialog = checkout.shadowRoot!.querySelector('bk-dialog')!;
+    const dialog = checkout.shadowRoot!.querySelector('ou-dialog')!;
     expect(dialog.open).toBe(true);
     dialog.hide();
     await settle(el);
@@ -316,10 +316,10 @@ describe('bk-pay-button', () => {
   });
 });
 
-describe('bk-donation-widget', () => {
+describe('ou-donation-widget', () => {
   it('selects presets with keyboard and donates with a message', async () => {
-    const el = await fixture<BkDonationWidget>(
-      '<bk-donation-widget presets="1000,5000" fiat-currency="USD" fiat-price="60000"></bk-donation-widget>',
+    const el = await fixture<OuDonationWidget>(
+      '<ou-donation-widget presets="1000,5000" fiat-currency="USD" fiat-price="60000"></ou-donation-widget>',
     );
     el.adapter = mock({ scenario: 'manual' });
     await el.updateComplete;
@@ -338,46 +338,46 @@ describe('bk-donation-widget', () => {
     await el.updateComplete;
     expect(text(el, '.count')).toBe('14/140');
     const donate = vi.fn();
-    el.addEventListener('bk-donate', donate);
+    el.addEventListener('ou-donate', donate);
     (
-      $(el.shadowRoot!.querySelector('bk-button[part=submit]')!, 'button') as HTMLButtonElement
+      $(el.shadowRoot!.querySelector('ou-button[part=submit]')!, 'button') as HTMLButtonElement
     ).click();
     await settle(el);
     expect(donate.mock.calls[0]![0].detail).toEqual({ amount: 1000n, message: 'Keep building!' });
-    const checkout = el.shadowRoot!.querySelector('bk-checkout')!;
+    const checkout = el.shadowRoot!.querySelector('ou-checkout')!;
     await until(() => checkout.state === 'awaiting');
     expect(checkout.currentInvoice!.description).toBe('Keep building!');
     await expectAccessible(el);
   });
 
   it('supports custom amounts and enforces the minimum', async () => {
-    const el = await fixture<BkDonationWidget>(
-      '<bk-donation-widget min="500"></bk-donation-widget>',
+    const el = await fixture<OuDonationWidget>(
+      '<ou-donation-widget min="500"></ou-donation-widget>',
     );
     ($(el, '[role=radio]:last-child') as HTMLButtonElement).click();
     await settle(el);
-    const input = el.shadowRoot!.querySelector('bk-amount-input')!;
-    input.dispatchEvent(new CustomEvent('bk-input', { detail: { valid: true, amount: 100n } }));
+    const input = el.shadowRoot!.querySelector('ou-amount-input')!;
+    input.dispatchEvent(new CustomEvent('ou-input', { detail: { valid: true, amount: 100n } }));
     await el.updateComplete;
     expect(
-      $(el.shadowRoot!.querySelector('bk-button[part=submit]')!, 'button').getAttribute(
+      $(el.shadowRoot!.querySelector('ou-button[part=submit]')!, 'button').getAttribute(
         'aria-disabled',
       ),
     ).toBe('true');
-    input.dispatchEvent(new CustomEvent('bk-input', { detail: { valid: true, amount: 777n } }));
+    input.dispatchEvent(new CustomEvent('ou-input', { detail: { valid: true, amount: 777n } }));
     await settle(el);
-    expect(text(el, 'bk-button[part=submit]')).toContain('Donate 777 sats');
+    expect(text(el, 'ou-button[part=submit]')).toContain('Donate 777 sats');
   });
 });
 
-describe('bk-lightning-address-card', () => {
+describe('ou-lightning-address-card', () => {
   it('renders a shareable card with an LNURL QR', async () => {
-    const el = await fixture<BkLightningAddressCard>(
-      '<bk-lightning-address-card address="Satoshi@Example.com" description="Tips welcome"></bk-lightning-address-card>',
+    const el = await fixture<OuLightningAddressCard>(
+      '<ou-lightning-address-card address="Satoshi@Example.com" description="Tips welcome"></ou-lightning-address-card>',
     );
     expect(text(el, '.addr')).toBe('satoshi@example.com');
     expect(text(el, '.avatar')).toBe('S');
-    const qr = el.shadowRoot!.querySelector('bk-qr-code')!;
+    const qr = el.shadowRoot!.querySelector('ou-qr-code')!;
     expect(decodeLnurl(qr.value).url).toBe('https://example.com/.well-known/lnurlp/satoshi');
     expect($<HTMLAnchorElement>(el, 'a.open').getAttribute('href')).toMatch(/^lightning:LNURL1/);
     await expectAccessible(el);
@@ -396,8 +396,8 @@ describe('bk-lightning-address-card', () => {
     );
     vi.stubGlobal('fetch', fetchMock);
     try {
-      const el = await fixture<BkLightningAddressCard>(
-        '<bk-lightning-address-card address="bob@example.com" fetch-metadata></bk-lightning-address-card>',
+      const el = await fixture<OuLightningAddressCard>(
+        '<ou-lightning-address-card address="bob@example.com" fetch-metadata></ou-lightning-address-card>',
       );
       await until(() => !!el._meta);
       await el.updateComplete;

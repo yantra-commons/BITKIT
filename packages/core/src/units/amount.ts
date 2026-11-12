@@ -1,4 +1,4 @@
-import { BitkitError } from '../errors.js';
+import { OrangeError } from '../errors.js';
 import { formatDecimal, parseDecimal, pow10, divRound, type Rounding } from './decimal.js';
 
 /**
@@ -36,7 +36,7 @@ export function toMsat(value: AmountLike, unit: BitcoinUnit, rounding: Rounding 
   if (typeof value === 'bigint') return value * pow10(decimals);
   if (typeof value === 'number') {
     if (!Number.isSafeInteger(value)) {
-      throw new BitkitError(
+      throw new OrangeError(
         'invalid-number',
         'Pass fractional or very large amounts as strings to avoid floating-point errors.',
       );
@@ -67,10 +67,10 @@ export function toSats(value: AmountLike): bigint {
   if (typeof value === 'bigint') return value;
   const s = typeof value === 'number' ? value : value.trim();
   if (typeof s === 'string' && !/^-?\d+$/.test(s)) {
-    throw new BitkitError('invalid-number', `"${value}" is not a whole number of sats.`);
+    throw new OrangeError('invalid-number', `"${value}" is not a whole number of sats.`);
   }
   if (typeof s === 'number' && !Number.isSafeInteger(s)) {
-    throw new BitkitError('invalid-number', 'Sats must be a whole number.');
+    throw new OrangeError('invalid-number', 'Sats must be a whole number.');
   }
   return BigInt(s);
 }

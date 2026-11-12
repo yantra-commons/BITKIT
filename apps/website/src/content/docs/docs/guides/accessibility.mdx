@@ -3,14 +3,14 @@ title: Accessibility
 description: Our accessibility statement and how each component behaves for keyboard and assistive technology users.
 ---
 
-Bitkit UI targets **WCAG 2.2 level AA**. Accessibility is tested, not assumed:
+Orange UI targets **WCAG 2.2 level AA**. Accessibility is tested, not assumed:
 
 - **Automated audits.** Every component's shadow DOM is checked with axe-core in unit tests, and
   real-browser audits run in Chromium, Firefox and WebKit with Playwright.
 - **Contrast.** Every text/background token pair in both themes is tested against AA thresholds
   (4.5:1 for text, 3:1 for focus indicators and borders).
 - **Keyboard.** Everything is reachable and operable with the keyboard, with a visible focus ring
-  (`--bk-focus-ring`).
+  (`--ou-focus-ring`).
 - **Reduced motion.** All animation durations drop to zero under `prefers-reduced-motion`. Spinners
   switch from rotating to a gentle opacity pulse.
 - **Forced colors.** Focus and selection stay visible in Windows High Contrast mode.

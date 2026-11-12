@@ -6,7 +6,7 @@ import '../skeleton/skeleton.js';
 
 const meta: Meta = {
   title: 'Primitives/Badge, Spinner & Skeleton',
-  component: 'bk-badge',
+  component: 'ou-badge',
   tags: ['autodocs'],
 };
 export default meta;
@@ -14,19 +14,19 @@ export default meta;
 export const Badges: StoryObj = {
   render: () =>
     html`<div style="display:flex;gap:.5rem;flex-wrap:wrap">
-      <bk-badge>Draft</bk-badge><bk-badge variant="accent">New</bk-badge
-      ><bk-badge variant="success">Paid</bk-badge> <bk-badge variant="warning">Pending</bk-badge
-      ><bk-badge variant="danger">Expired</bk-badge><bk-badge variant="info">Testnet</bk-badge>
+      <ou-badge>Draft</ou-badge><ou-badge variant="accent">New</ou-badge
+      ><ou-badge variant="success">Paid</ou-badge> <ou-badge variant="warning">Pending</ou-badge
+      ><ou-badge variant="danger">Expired</ou-badge><ou-badge variant="info">Testnet</ou-badge>
     </div>`,
 };
 export const Spinner: StoryObj = {
-  render: () => html`<bk-spinner label="Waiting for payment"></bk-spinner>`,
+  render: () => html`<ou-spinner label="Waiting for payment"></ou-spinner>`,
 };
 export const Skeleton: StoryObj = {
   render: () =>
     html`<div style="display:grid;gap:.5rem;max-width:20rem">
-      <bk-skeleton width="60%"></bk-skeleton><bk-skeleton></bk-skeleton
-      ><bk-skeleton shape="rect" height="6rem"></bk-skeleton>
-      <bk-skeleton shape="circle" width="3rem"></bk-skeleton>
+      <ou-skeleton width="60%"></ou-skeleton><ou-skeleton></ou-skeleton
+      ><ou-skeleton shape="rect" height="6rem"></ou-skeleton>
+      <ou-skeleton shape="circle" width="3rem"></ou-skeleton>
     </div>`,
 };

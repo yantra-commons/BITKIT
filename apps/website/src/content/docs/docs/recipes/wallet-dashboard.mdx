@@ -7,20 +7,20 @@ The kit gives you the screens. Your wallet backend (a node, an SDK, a watch-only
 provides the data.
 
 ```html
-<bk-balance-card id="balance" fiat-currency="USD" fiat-price="97250">
+<ou-balance-card id="balance" fiat-currency="USD" fiat-price="97250">
   <div slot="actions">
-    <bk-button id="send">Send</bk-button><bk-button variant="secondary">Receive</bk-button>
+    <ou-button id="send">Send</ou-button><ou-button variant="secondary">Receive</ou-button>
   </div>
-</bk-balance-card>
+</ou-balance-card>
 
 <form id="send-form">
-  <bk-address-input name="to" label="To" accept="onchain-address,bip21" required></bk-address-input>
-  <bk-amount-input name="amount" label="Amount" required></bk-amount-input>
-  <bk-fee-selector id="fees" vsize="141"></bk-fee-selector>
-  <bk-button type="submit" block>Review transaction</bk-button>
+  <ou-address-input name="to" label="To" accept="onchain-address,bip21" required></ou-address-input>
+  <ou-amount-input name="amount" label="Amount" required></ou-amount-input>
+  <ou-fee-selector id="fees" vsize="141"></ou-fee-selector>
+  <ou-button type="submit" block>Review transaction</ou-button>
 </form>
 
-<bk-transaction-list id="history" interactive has-more></bk-transaction-list>
+<ou-transaction-list id="history" interactive has-more></ou-transaction-list>
 ```
 
 ```ts
@@ -28,7 +28,7 @@ const wallet = await myWalletBackend();
 
 balance.balance = wallet.confirmedSats; // bigint
 balance.pending = wallet.unconfirmedSats;
-document.querySelector('bk-amount-input').balance = wallet.confirmedSats;
+document.querySelector('ou-amount-input').balance = wallet.confirmedSats;
 history.transactions = await wallet.transactions(); // TransactionData[]
 
 // Inputs are form-associated: FormData just works.
@@ -39,12 +39,12 @@ document.querySelector('#send-form').addEventListener('submit', (e) => {
 });
 
 // When paste or scan yields a BIP21 link with an amount, prefill it.
-document.querySelector('bk-address-input').addEventListener('bk-change', (e) => {
+document.querySelector('ou-address-input').addEventListener('ou-change', (e) => {
   const r = e.detail.result;
   if (r?.type === 'bip21' && r.uri.amountMsat)
-    document.querySelector('bk-amount-input').amount = r.uri.amountMsat / 1000n;
+    document.querySelector('ou-amount-input').amount = r.uri.amountMsat / 1000n;
 });
 ```
 
-For coin control, add `<bk-utxo-list>` and set `target` to the amount plus fee. See the full
+For coin control, add `<ou-utxo-list>` and set `target` to the amount plus fee. See the full
 [wallet dashboard template](../../../templates/#wallet-dashboard).

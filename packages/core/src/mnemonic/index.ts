@@ -3,7 +3,7 @@
  *
  * SECURITY: these helpers only validate words and checksums. Nothing here derives keys,
  * performs I/O, or retains input. Callers must keep mnemonics in memory only.
- * Exposed as a separate entry point (`@bitkit-ui/core/mnemonic`) so the 2048-word list is
+ * Exposed as a separate entry point (`@orange-ui/core/mnemonic`) so the 2048-word list is
  * only bundled by apps that need it.
  */
 import { validateMnemonic } from '@scure/bip39';

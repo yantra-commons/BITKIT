@@ -6,10 +6,10 @@ Small, well-scoped tasks for new contributors. Each needs tests and a docs/story
 
 - [ ] **Translations:** add a `de` and `es` string table to the docs Localization page, and a
       `configure({ strings })` example in Storybook.
-- [ ] **`bk-amount-display`:** add a `compact` option (e.g. "1.2M sats") using `Intl` compact
+- [ ] **`ou-amount-display`:** add a `compact` option (e.g. "1.2M sats") using `Intl` compact
       notation on the integer part only.
-- [ ] **`bk-network-badge`:** add a `size="sm"` variant.
-- [ ] **`bk-copy-button`:** support copying rich text (`text/html`) alongside plain text.
+- [ ] **`ou-network-badge`:** add a `size="sm"` variant.
+- [ ] **`ou-copy-button`:** support copying rich text (`text/html`) alongside plain text.
 - [ ] **Core:** `formatRelativeTime`: add tests for more locales (`hi-IN`, `ja-JP`).
 - [ ] **Core:** expose `addressExplorerLinks(network)` for multiple explorers (mempool, blockstream).
 - [ ] **Docs:** add a recipe for Svelte and one for Angular.
@@ -20,10 +20,10 @@ Small, well-scoped tasks for new contributors. Each needs tests and a docs/story
 
 ## Next
 
-- Per-component entry points for `@bitkit-ui/react` / `@bitkit-ui/vue` (smaller bundles).
-- `bk-receive`: a reusable receive screen (address + invoice + amount request).
+- Per-component entry points for `@orange-ui/react` / `@orange-ui/vue` (smaller bundles).
+- `ou-receive`: a reusable receive screen (address + invoice + amount request).
 - BOLT12 offer creation support in adapters when providers expose it.
-- PSBT review component (`bk-psbt-summary`) for hardware-wallet flows (display-only).
+- PSBT review component (`ou-psbt-summary`) for hardware-wallet flows (display-only).
 - Optional jsQR-based decoder package for camera scanning in Firefox/Safari.
 - Visual regression tests for Storybook (Playwright screenshots).
 - Lighthouse CI on the docs site.
@@ -47,19 +47,19 @@ kit becoming custodial or responsible for enforcing spending limits.
 
 ### Components and helpers
 
-- [ ] **`<bk-agent-allowance>`:** sets up an agent's spending allowance: daily/weekly budget in
+- [ ] **`<ou-agent-allowance>`:** sets up an agent's spending allowance: daily/weekly budget in
       sats, per-payment cap, expiry date, allowed methods. It requests a restricted connection
-      from the user's wallet and emits `bk-allowance-created` with the connection for the app
+      from the user's wallet and emits `ou-allowance-created` with the connection for the app
       to hand to the agent. Like the security-sensitive components, the connection string is
       memory-only and never put in attributes, storage or logs.
-- [ ] **`<bk-payment-approval>`:** a human-in-the-loop prompt for payments over the auto-approve
+- [ ] **`<ou-payment-approval>`:** a human-in-the-loop prompt for payments over the auto-approve
       threshold. It shows the decoded recipient and amount from `core` (not from agent-supplied
       text), the agent's stated reason clearly labelled as such, and the remaining budget. It
-      fires `bk-approve` / `bk-reject`, and the approve button can't be clicked by script before
+      fires `ou-approve` / `ou-reject`, and the approve button can't be clicked by script before
       the dialog is visible.
-- [ ] **`<bk-agent-activity>`:** a list of agent payments (time, recipient, amount, reason,
-      status) with budget-used progress and a "Revoke access" action (`bk-revoke`).
-- [ ] **`@bitkit-ui/adapters/l402`:** helpers for HTTP 402 / L402: a server side that answers
+- [ ] **`<ou-agent-activity>`:** a list of agent payments (time, recipient, amount, reason,
+      status) with budget-used progress and a "Revoke access" action (`ou-revoke`).
+- [ ] **`@orange-ui/adapters/l402`:** helpers for HTTP 402 / L402: a server side that answers
       with an invoice plus token, and a client `fetchWithL402(url, { pay })` that pays through
       the user's wallet within a budget and retries the request. This lets sites sell API calls
       and content to agents.
@@ -81,7 +81,7 @@ kit becoming custodial or responsible for enforcing spending limits.
 
 - Which wallets enforce NWC budgets and expiry today, and is there a standard way for a web app
   to _request_ a restricted connection, or does each wallet do it differently? This decides
-  `<bk-agent-allowance>`'s API.
+  `<ou-agent-allowance>`'s API.
 - Current state of the L402 spec and existing client libraries: reuse rather than reimplement.
 - Should approval also be possible from the wallet side (push to phone) instead of the app?
 

@@ -7,8 +7,8 @@ import {
   truncateMiddle,
   validateAddress,
   type Network,
-} from '@bitkit-ui/core';
-import { BitkitElement } from '../../internal/base.js';
+} from '@orange-ui/core';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { iconSvg } from '../icon/icon.js';
@@ -19,15 +19,15 @@ import '../qr-code/qr-code.js';
 /**
  * @summary Shows a Bitcoin address in readable 4-character chunks (Bitcoin Design Guide), with
  * copy, QR toggle, network badge and explorer link. Screen readers hear it character by character.
- * @tag bk-address-display
+ * @tag ou-address-display
  * @csspart base - Wrapper.
  * @csspart address - The address text.
  * @csspart chunk - Each chunk.
  * @csspart actions - Action buttons.
  * @csspart qr - The QR code.
- * @fires bk-copy - When the address is copied. Detail: `{ value }`.
+ * @fires ou-copy - When the address is copied. Detail: `{ value }`.
  */
-export class BkAddressDisplay extends BitkitElement {
+export class OuAddressDisplay extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -37,35 +37,35 @@ export class BkAddressDisplay extends BitkitElement {
       .wrap {
         display: flex;
         flex-direction: column;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
       }
       .meta {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--bk-space-2);
-        font-size: var(--bk-font-size-xs);
-        color: var(--bk-color-text-muted);
+        gap: var(--ou-space-2);
+        font-size: var(--ou-font-size-xs);
+        color: var(--ou-color-text-muted);
       }
       .label {
-        font-size: var(--bk-font-size-sm);
-        font-weight: var(--bk-font-weight-medium);
-        color: var(--bk-color-text);
+        font-size: var(--ou-font-size-sm);
+        font-weight: var(--ou-font-weight-medium);
+        color: var(--ou-color-text);
       }
       .row {
         display: flex;
         align-items: flex-start;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
       }
       .addr {
         flex: 1;
         min-width: 0;
         margin: 0;
-        font-family: var(--bk-font-mono);
-        font-size: var(--bk-font-size-md);
+        font-family: var(--ou-font-mono);
+        font-size: var(--ou-font-size-md);
         line-height: 1.7;
         word-break: break-all;
-        color: var(--bk-color-text);
+        color: var(--ou-color-text);
       }
       .chunks {
         display: flex;
@@ -73,27 +73,27 @@ export class BkAddressDisplay extends BitkitElement {
         column-gap: 0.55em;
       }
       .chunk:nth-child(even) {
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
       }
       .actions {
         display: inline-flex;
-        gap: var(--bk-space-1);
+        gap: var(--ou-space-1);
         flex: none;
       }
       .icon-btn {
         display: inline-grid;
         place-items: center;
-        width: var(--bk-control-height-md);
-        height: var(--bk-control-height-md);
+        width: var(--ou-control-height-md);
+        height: var(--ou-control-height-md);
         border: 0;
-        border-radius: var(--bk-radius-md);
+        border-radius: var(--ou-radius-md);
         background: transparent;
-        color: var(--bk-color-text);
+        color: var(--ou-color-text);
         cursor: pointer;
         text-decoration: none;
       }
       .icon-btn:hover {
-        background: var(--bk-color-surface-2);
+        background: var(--ou-color-surface-2);
       }
       .icon-btn svg {
         width: 1.15rem;
@@ -102,21 +102,21 @@ export class BkAddressDisplay extends BitkitElement {
       .expand {
         all: unset;
         cursor: pointer;
-        border-radius: var(--bk-radius-sm);
+        border-radius: var(--ou-radius-sm);
       }
       .expand:focus-visible {
-        box-shadow: var(--bk-focus-ring);
+        box-shadow: var(--ou-focus-ring);
       }
       .qr {
         align-self: center;
-        padding-top: var(--bk-space-2);
+        padding-top: var(--ou-space-2);
       }
       .invalid {
-        color: var(--bk-color-danger);
-        font-size: var(--bk-font-size-sm);
+        color: var(--ou-color-danger);
+        font-size: var(--ou-font-size-sm);
       }
       .empty {
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
       }
     `,
   ];
@@ -224,7 +224,7 @@ export class BkAddressDisplay extends BitkitElement {
           ? html`<div class="meta">
               ${this.label ? html`<span class="label">${this.label}</span>` : nothing}
               ${this.showType && info ? html`<span>${ADDRESS_TYPE_LABELS[info.type]}</span>` : nothing}
-              ${this.showNetwork ? html`<bk-network-badge network=${network}></bk-network-badge>` : nothing}
+              ${this.showNetwork ? html`<ou-network-badge network=${network}></ou-network-badge>` : nothing}
             </div>`
           : nothing
       }
@@ -246,7 +246,7 @@ export class BkAddressDisplay extends BitkitElement {
           }
         </p>
         <span class="actions" part="actions">
-          ${this.copyable ? html`<bk-copy-button .value=${display}></bk-copy-button>` : nothing}
+          ${this.copyable ? html`<ou-copy-button .value=${display}></ou-copy-button>` : nothing}
           ${
             this.qr
               ? html`<button
@@ -279,23 +279,23 @@ export class BkAddressDisplay extends BitkitElement {
       ${!v.valid ? html`<span class="invalid" role="note">${this.t('invalidAddress')}: ${v.error.message}</span>` : nothing}
       ${
         this.qrOpen
-          ? html`<bk-qr-code
+          ? html`<ou-qr-code
               class="qr"
               part="qr"
               .value=${/^(bc|tb|bcrt)1/i.test(display) ? display.toUpperCase() : display}
               label=${this.t('bitcoinAddress')}
               size="200"
-            ></bk-qr-code>`
+            ></ou-qr-code>`
           : nothing
       }
     </div>`;
   }
 }
 
-define('bk-address-display', BkAddressDisplay);
+define('ou-address-display', OuAddressDisplay);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-address-display': BkAddressDisplay;
+    'ou-address-display': OuAddressDisplay;
   }
 }

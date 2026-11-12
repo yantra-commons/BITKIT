@@ -31,7 +31,7 @@ export const $ = <T extends Element = HTMLElement>(el: Element, selector: string
 
 /**
  * Run axe-core on an element (including open shadow roots). Color contrast is checked against
- * the token pairs in @bitkit-ui/tokens and in real browsers via Playwright, not in happy-dom.
+ * the token pairs in @orange-ui/tokens and in real browsers via Playwright, not in happy-dom.
  */
 export async function expectAccessible(el: Element, disable: string[] = []): Promise<void> {
   const rules: Record<string, { enabled: boolean }> = {

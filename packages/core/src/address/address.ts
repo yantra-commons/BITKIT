@@ -1,4 +1,4 @@
-import { BitkitError, toErrorInfo, type ErrorInfo } from '../errors.js';
+import { OrangeError, toErrorInfo, type ErrorInfo } from '../errors.js';
 import { base58check, bech32, bech32m, isBech32Charset, toHex } from '../encoding.js';
 import {
   BASE58_VERSIONS,
@@ -39,40 +39,40 @@ const TYPO = 'This address has a typo or is incomplete. Please check it and try 
 function decodeSegwit(input: string): AddressInfo {
   const lower = input.toLowerCase();
   if (input !== lower && input !== input.toUpperCase()) {
-    throw new BitkitError('mixed-case', 'Addresses cannot mix upper and lower case letters.');
+    throw new OrangeError('mixed-case', 'Addresses cannot mix upper and lower case letters.');
   }
   const sep = lower.lastIndexOf('1');
   const hrp = lower.slice(0, sep);
   const data = lower.slice(sep + 1);
   const networks = (Object.keys(BECH32_HRP) as Network[]).filter((n) => BECH32_HRP[n] === hrp);
-  if (!networks.length) throw new BitkitError('unknown-prefix', 'This is not a Bitcoin address.');
-  if (!isBech32Charset(data)) throw new BitkitError('invalid-characters', TYPO);
-  if (lower.length > 90) throw new BitkitError('invalid-length', TYPO);
+  if (!networks.length) throw new OrangeError('unknown-prefix', 'This is not a Bitcoin address.');
+  if (!isBech32Charset(data)) throw new OrangeError('invalid-characters', TYPO);
+  if (lower.length > 90) throw new OrangeError('invalid-length', TYPO);
 
   const b32 = bech32.decodeUnsafe(lower);
   const b32m = b32 ? undefined : bech32m.decodeUnsafe(lower);
   const decoded = b32 ?? b32m;
-  if (!decoded) throw new BitkitError('invalid-checksum', TYPO);
+  if (!decoded) throw new OrangeError('invalid-checksum', TYPO);
   const [version, ...rest] = decoded.words;
-  if (version === undefined) throw new BitkitError('invalid-length', TYPO);
+  if (version === undefined) throw new OrangeError('invalid-length', TYPO);
   if (version > 16)
-    throw new BitkitError('invalid-witness-version', 'Unsupported address version.');
+    throw new OrangeError('invalid-witness-version', 'Unsupported address version.');
   if ((version === 0 && !b32) || (version > 0 && !b32m)) {
-    throw new BitkitError('invalid-checksum', TYPO);
+    throw new OrangeError('invalid-checksum', TYPO);
   }
   let program: Uint8Array;
   try {
     program = bech32.fromWords(rest);
   } catch (e) {
-    throw new BitkitError('invalid-padding', TYPO, { cause: e });
+    throw new OrangeError('invalid-padding', TYPO, { cause: e });
   }
   if (program.length < 2 || program.length > 40)
-    throw new BitkitError('invalid-program-length', TYPO);
+    throw new OrangeError('invalid-program-length', TYPO);
   let type: AddressType = 'witness-unknown';
   if (version === 0) {
     if (program.length === 20) type = 'p2wpkh';
     else if (program.length === 32) type = 'p2wsh';
-    else throw new BitkitError('invalid-program-length', TYPO);
+    else throw new OrangeError('invalid-program-length', TYPO);
   } else if (version === 1 && program.length === 32) type = 'p2tr';
   return {
     address: lower,
@@ -85,14 +85,14 @@ function decodeSegwit(input: string): AddressInfo {
 }
 
 function decodeBase58(input: string): AddressInfo {
-  if (!BASE58_RE.test(input)) throw new BitkitError('invalid-characters', TYPO);
+  if (!BASE58_RE.test(input)) throw new OrangeError('invalid-characters', TYPO);
   let bytes: Uint8Array;
   try {
     bytes = base58check.decode(input);
   } catch (e) {
-    throw new BitkitError('invalid-checksum', TYPO, { cause: e });
+    throw new OrangeError('invalid-checksum', TYPO, { cause: e });
   }
-  if (bytes.length !== 21) throw new BitkitError('invalid-length', TYPO);
+  if (bytes.length !== 21) throw new OrangeError('invalid-length', TYPO);
   const version = bytes[0];
   const program = toHex(bytes.subarray(1));
   const main = BASE58_VERSIONS.main;
@@ -108,7 +108,7 @@ function decodeBase58(input: string): AddressInfo {
     case test.p2sh:
       return { address: input, type: 'p2sh', encoding: 'base58', networks: testNets, program };
     default:
-      throw new BitkitError('unknown-prefix', 'This is not a Bitcoin address.');
+      throw new OrangeError('unknown-prefix', 'This is not a Bitcoin address.');
   }
 }
 
@@ -116,12 +116,12 @@ function decodeBase58(input: string): AddressInfo {
 const looksSegwit = (s: string) => /^(bc|tb|bcrt)1/i.test(s);
 
 /**
- * Decode and validate a Bitcoin address. Throws `BitkitError` with a user-facing message.
+ * Decode and validate a Bitcoin address. Throws `OrangeError` with a user-facing message.
  * If `network` is given, the address must be valid on that network.
  */
 export function decodeAddress(input: string, network?: Network): AddressInfo {
   const s = input.trim();
-  if (!s) throw new BitkitError('empty', 'Enter a Bitcoin address.');
+  if (!s) throw new OrangeError('empty', 'Enter a Bitcoin address.');
   let info: AddressInfo;
   if (looksSegwit(s)) info = decodeSegwit(s);
   else if (s.includes('1') && /^[a-z]{1,83}1/i.test(s) && !BASE58_RE.test(s))
@@ -131,7 +131,7 @@ export function decodeAddress(input: string, network?: Network): AddressInfo {
     const actual = info.networks.includes('mainnet')
       ? 'Mainnet'
       : NETWORK_LABELS[info.networks[0]!];
-    throw new BitkitError(
+    throw new OrangeError(
       'wrong-network',
       `This is a ${actual} address, but ${NETWORK_LABELS[network]} is expected.`,
     );

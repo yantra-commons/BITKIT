@@ -8,7 +8,7 @@ browser, so those keys must stay on a server. The pattern:
 
 ```
 Browser                         Your server                      Provider
-<bk-checkout>                   POST /api/payments  ───────────► BTCPay / LNbits / OpenNode
+<ou-checkout>                   POST /api/payments  ───────────► BTCPay / LNbits / OpenNode
   └ HttpAdapter ──────────────► GET  /api/payments/:id ────────►   (API key lives here)
                                 ◄─────────────── webhook ──────── marks the order paid
 ```
@@ -23,15 +23,15 @@ A complete, dependency-free example is in
 3. **Restrict ids.** Only accept ids matching `[A-Za-z0-9_-]` before putting them in a URL.
 4. **Rate-limit** invoice creation per client.
 5. **CORS**: allow only your site's origin.
-6. **Fulfil from webhooks**, not from the browser's `bk-paid` event.
+6. **Fulfil from webhooks**, not from the browser's `ou-paid` event.
 
 ```ts title="Browser"
-import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+import { createHttpAdapter } from '@orange-ui/adapters/http';
 checkout.adapter = createHttpAdapter({ baseUrl: '/api/payments' });
 ```
 
 ```js title="Server (excerpt)"
-import { BtcPayAdapter } from '@bitkit-ui/adapters/btcpay';
+import { BtcPayAdapter } from '@orange-ui/adapters/btcpay';
 const btcpay = new BtcPayAdapter({ baseUrl, storeId, apiKey }); // fine: this is not a browser
 
 if (req.method === 'POST' && url.pathname === '/api/payments') {

@@ -1,5 +1,5 @@
 import { css, html, nothing } from 'lit';
-import { BitkitElement } from '../../internal/base.js';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { iconSvg } from '../icon/icon.js';
@@ -10,16 +10,16 @@ import '../button/button.js';
  * property only (never an attribute), are not rendered into the DOM while hidden, cannot be
  * copied unless `allow-copy` is set, and are hidden automatically when the page is hidden.
  * Nothing is stored or sent anywhere. Call `clear()` when done.
- * @tag bk-mnemonic-display
+ * @tag ou-mnemonic-display
  * @slot warning - Replace the default warning text.
  * @csspart base - Container.
  * @csspart warning - Warning box.
  * @csspart words - Word grid.
  * @csspart word - Each word.
- * @fires bk-reveal - When the phrase is shown.
- * @fires bk-hide - When the phrase is hidden.
+ * @fires ou-reveal - When the phrase is shown.
+ * @fires ou-hide - When the phrase is hidden.
  */
-export class BkMnemonicDisplay extends BitkitElement {
+export class OuMnemonicDisplay extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -29,22 +29,22 @@ export class BkMnemonicDisplay extends BitkitElement {
       .w {
         display: flex;
         flex-direction: column;
-        gap: var(--bk-space-4);
+        gap: var(--ou-space-4);
       }
       .warning {
         display: flex;
-        gap: var(--bk-space-3);
-        padding: var(--bk-space-3) var(--bk-space-4);
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-warning-bg);
-        color: var(--bk-color-text);
-        font-size: var(--bk-font-size-sm);
+        gap: var(--ou-space-3);
+        padding: var(--ou-space-3) var(--ou-space-4);
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-warning-bg);
+        color: var(--ou-color-text);
+        font-size: var(--ou-font-size-sm);
       }
       .warning svg {
         flex: none;
         width: 1.25rem;
         height: 1.25rem;
-        color: var(--bk-color-warning);
+        color: var(--ou-color-warning);
       }
       .warning p {
         margin: 0;
@@ -54,8 +54,8 @@ export class BkMnemonicDisplay extends BitkitElement {
       }
       ol {
         display: grid;
-        grid-template-columns: repeat(var(--bk-mnemonic-columns, 3), minmax(0, 1fr));
-        gap: var(--bk-space-2);
+        grid-template-columns: repeat(var(--ou-mnemonic-columns, 3), minmax(0, 1fr));
+        gap: var(--ou-space-2);
         margin: 0;
         padding: 0;
         list-style: none;
@@ -69,18 +69,18 @@ export class BkMnemonicDisplay extends BitkitElement {
       li {
         display: flex;
         align-items: baseline;
-        gap: var(--bk-space-2);
-        padding: var(--bk-space-2) var(--bk-space-3);
-        border: 1px solid var(--bk-color-border);
-        border-radius: var(--bk-radius-sm);
-        background: var(--bk-color-surface);
-        font-family: var(--bk-font-mono);
-        font-size: var(--bk-font-size-md);
+        gap: var(--ou-space-2);
+        padding: var(--ou-space-2) var(--ou-space-3);
+        border: 1px solid var(--ou-color-border);
+        border-radius: var(--ou-radius-sm);
+        background: var(--ou-color-surface);
+        font-family: var(--ou-font-mono);
+        font-size: var(--ou-font-size-md);
       }
       .n {
         min-width: 1.5em;
-        font-size: var(--bk-font-size-xs);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-xs);
+        color: var(--ou-color-text-muted);
         text-align: end;
       }
       .no-copy {
@@ -98,7 +98,7 @@ export class BkMnemonicDisplay extends BitkitElement {
       }
       .actions {
         display: flex;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
         flex-wrap: wrap;
       }
     `,
@@ -151,7 +151,7 @@ export class BkMnemonicDisplay extends BitkitElement {
   /** Show the words. */
   reveal(): void {
     this.revealed = true;
-    this.emit('bk-reveal');
+    this.emit('ou-reveal');
     clearTimeout(this.#timer);
     if (this.autoHideMs > 0) this.#timer = setTimeout(() => this.hide(), this.autoHideMs);
   }
@@ -161,7 +161,7 @@ export class BkMnemonicDisplay extends BitkitElement {
     if (!this.revealed) return;
     this.revealed = false;
     clearTimeout(this.#timer);
-    this.emit('bk-hide');
+    this.emit('ou-hide');
   }
 
   /**
@@ -196,7 +196,7 @@ export class BkMnemonicDisplay extends BitkitElement {
         <ol
           part="words"
           class="${visible ? '' : 'hidden'} ${this.allowCopy ? '' : 'no-copy'}"
-          style="--bk-mnemonic-columns:${this.columns}"
+          style="--ou-mnemonic-columns:${this.columns}"
           aria-label="Recovery phrase"
           aria-hidden=${visible ? 'false' : 'true'}
           @copy=${this.#blockCopy}
@@ -214,10 +214,10 @@ export class BkMnemonicDisplay extends BitkitElement {
         ${
           !visible && words.length
             ? html`<div class="cover">
-                <bk-button variant="secondary" @click=${() => this.reveal()}
+                <ou-button variant="secondary" @click=${() => this.reveal()}
                   ><span slot="prefix" style="display:inline-flex;width:1.1em;height:1.1em"
                     >${iconSvg('visible')}</span
-                  >Reveal recovery phrase</bk-button
+                  >Reveal recovery phrase</ou-button
                 >
               </div>`
             : nothing
@@ -226,10 +226,10 @@ export class BkMnemonicDisplay extends BitkitElement {
       ${
         visible
           ? html`<div class="actions">
-              <bk-button variant="secondary" @click=${() => this.hide()}
+              <ou-button variant="secondary" @click=${() => this.hide()}
                 ><span slot="prefix" style="display:inline-flex;width:1.1em;height:1.1em"
                   >${iconSvg('hidden')}</span
-                >Hide</bk-button
+                >Hide</ou-button
               >
             </div>`
           : nothing
@@ -238,10 +238,10 @@ export class BkMnemonicDisplay extends BitkitElement {
   }
 }
 
-define('bk-mnemonic-display', BkMnemonicDisplay);
+define('ou-mnemonic-display', OuMnemonicDisplay);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-mnemonic-display': BkMnemonicDisplay;
+    'ou-mnemonic-display': OuMnemonicDisplay;
   }
 }

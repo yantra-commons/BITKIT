@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>bitkit-ui — plain HTML example (local build)</title>
+    <title>orange-ui — plain HTML example (local build)</title>
     <!--
       No build step. This page loads the self-contained CDN bundle. When running locally from
-      this repo, `pnpm --filter @bitkit-ui/example-vanilla dev` serves `local.html`, which loads
+      this repo, `pnpm --filter @orange-ui/example-vanilla dev` serves `local.html`, which loads
       the bundle from packages/elements/dist instead.
     -->
-    <script type="module" src="/packages/elements/dist/cdn/bitkit-ui.js"></script>
+    <script type="module" src="/packages/elements/dist/cdn/orange-ui.js"></script>
     <link rel="stylesheet" href="/apps/examples/vanilla/styles.css" />
   </head>
   <body>
@@ -19,30 +19,30 @@
 
       <section class="product">
         <h2>Flat white</h2>
-        <bk-amount-display
+        <ou-amount-display
           amount="21000"
           show-fiat
           fiat-currency="USD"
           fiat-price="97250"
-        ></bk-amount-display>
-        <bk-pay-button
+        ></ou-amount-display>
+        <ou-pay-button
           amount="21000"
           adapter="mock"
           description="Flat white"
           fiat-currency="USD"
           fiat-price="97250"
-        ></bk-pay-button>
+        ></ou-pay-button>
       </section>
 
       <section>
         <h2>Tip jar</h2>
-        <bk-donation-widget adapter="mock" presets="1000,5000,21000"></bk-donation-widget>
+        <ou-donation-widget adapter="mock" presets="1000,5000,21000"></ou-donation-widget>
       </section>
 
       <p id="log" role="status"></p>
     </main>
     <script type="module">
-      document.addEventListener('bk-paid', (e) => {
+      document.addEventListener('ou-paid', (e) => {
         document.getElementById('log').textContent =
           `Paid invoice ${e.detail.invoice.id} (${e.detail.invoice.amountSats} sats)`;
       });

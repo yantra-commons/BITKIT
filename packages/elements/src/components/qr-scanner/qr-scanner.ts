@@ -1,6 +1,6 @@
 import { css, html, nothing, type PropertyValues } from 'lit';
-import { parsePaymentInput, type PaymentInput } from '@bitkit-ui/core';
-import { BitkitElement } from '../../internal/base.js';
+import { parsePaymentInput, type PaymentInput } from '@orange-ui/core';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { iconSvg } from '../icon/icon.js';
@@ -37,14 +37,14 @@ export function nativeQrDecoder(): QrDecoder | null {
  * @summary Camera QR scanner. Uses the native BarcodeDetector when available; plug in any
  * decoder (e.g. jsQR) via the `decoder` property for other browsers. Falls back to image upload
  * and shows clear messages when the camera is denied or missing. Video never leaves the device.
- * @tag bk-qr-scanner
+ * @tag ou-qr-scanner
  * @csspart base - Container.
  * @csspart video - The camera preview.
  * @csspart message - Status / fallback message.
- * @fires bk-scan - When a code is read. Detail: `{ value: string, result: PaymentInput }`.
- * @fires bk-error - On camera errors. Detail: `{ code: 'denied' | 'unavailable' | 'unsupported' }`.
+ * @fires ou-scan - When a code is read. Detail: `{ value: string, result: PaymentInput }`.
+ * @fires ou-error - On camera errors. Detail: `{ code: 'denied' | 'unavailable' | 'unsupported' }`.
  */
-export class BkQrScanner extends BitkitElement {
+export class OuQrScanner extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -59,9 +59,9 @@ export class BkQrScanner extends BitkitElement {
         width: 100%;
         max-width: 22rem;
         margin: 0 auto;
-        border-radius: var(--bk-radius-lg);
+        border-radius: var(--ou-radius-lg);
         overflow: hidden;
-        background: var(--bk-color-surface-3);
+        background: var(--ou-color-surface-3);
       }
       video {
         width: 100%;
@@ -71,8 +71,8 @@ export class BkQrScanner extends BitkitElement {
       .frame {
         position: absolute;
         inset: 18%;
-        border: 3px solid var(--bk-color-accent);
-        border-radius: var(--bk-radius-md);
+        border: 3px solid var(--ou-color-accent);
+        border-radius: var(--ou-radius-md);
         box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.35);
         pointer-events: none;
       }
@@ -80,35 +80,35 @@ export class BkQrScanner extends BitkitElement {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: var(--bk-space-3);
-        padding: var(--bk-space-6);
+        gap: var(--ou-space-3);
+        padding: var(--ou-space-6);
         text-align: center;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-text);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-text);
       }
       .msg svg {
         width: 2rem;
         height: 2rem;
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
       }
       .hint {
-        margin-top: var(--bk-space-2);
+        margin-top: var(--ou-space-2);
         text-align: center;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-text-muted);
       }
       label.upload {
         display: inline-flex;
         align-items: center;
-        gap: var(--bk-space-2);
-        padding: var(--bk-space-2) var(--bk-space-3);
-        border: 1px solid var(--bk-color-border-strong);
-        border-radius: var(--bk-radius-md);
+        gap: var(--ou-space-2);
+        padding: var(--ou-space-2) var(--ou-space-3);
+        border: 1px solid var(--ou-color-border-strong);
+        border-radius: var(--ou-radius-md);
         cursor: pointer;
-        font-weight: var(--bk-font-weight-semibold);
+        font-weight: var(--ou-font-weight-semibold);
       }
       label.upload:focus-within {
-        box-shadow: var(--bk-focus-ring);
+        box-shadow: var(--ou-focus-ring);
       }
       label.upload svg {
         width: 1.1rem;
@@ -213,7 +213,7 @@ export class BkQrScanner extends BitkitElement {
 
   #fail(code: 'denied' | 'unavailable' | 'unsupported') {
     this._state = code;
-    this.emit('bk-error', { code });
+    this.emit('ou-error', { code });
   }
 
   #loop(video: HTMLVideoElement) {
@@ -240,7 +240,7 @@ export class BkQrScanner extends BitkitElement {
 
   #found(value: string) {
     const result: PaymentInput = parsePaymentInput(value, { network: this.config.network });
-    this.emit('bk-scan', { value, result });
+    this.emit('ou-scan', { value, result });
     this.active = false;
   }
 
@@ -282,7 +282,7 @@ export class BkQrScanner extends BitkitElement {
         ><span class="frame" aria-hidden="true"></span>`;
     } else if (s === 'starting') {
       body = html`<div class="msg" part="message">
-        <bk-spinner></bk-spinner>${this.t('cameraStarting')}
+        <ou-spinner></ou-spinner>${this.t('cameraStarting')}
       </div>`;
     } else if (s === 'denied' || s === 'unavailable' || s === 'unsupported') {
       const key =
@@ -307,10 +307,10 @@ export class BkQrScanner extends BitkitElement {
   }
 }
 
-define('bk-qr-scanner', BkQrScanner);
+define('ou-qr-scanner', OuQrScanner);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-qr-scanner': BkQrScanner;
+    'ou-qr-scanner': OuQrScanner;
   }
 }

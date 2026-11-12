@@ -3,16 +3,16 @@ import { $, expectAccessible, fixture, mount, settle } from '../../test/helpers.
 import '../index.js';
 import { dateGroup } from './transaction-list/transaction-list.js';
 import type {
-  BkBackupCheck,
-  BkBalanceCard,
-  BkConfirmationProgress,
-  BkFeeSelector,
-  BkMnemonicDisplay,
-  BkMnemonicInput,
-  BkTransactionItem,
-  BkTransactionList,
-  BkUtxoList,
-  BkWalletConnect,
+  OuBackupCheck,
+  OuBalanceCard,
+  OuConfirmationProgress,
+  OuFeeSelector,
+  OuMnemonicDisplay,
+  OuMnemonicInput,
+  OuTransactionItem,
+  OuTransactionList,
+  OuUtxoList,
+  OuWalletConnect,
   TransactionData,
 } from '../index.js';
 
@@ -31,10 +31,10 @@ const PHRASE = 'legal winner thank year wave sausage worth useful legal winner t
 );
 const FEES = { fastestFee: 25, halfHourFee: 12, hourFee: 8, economyFee: 4, minimumFee: 1 };
 
-describe('bk-confirmation-progress', () => {
+describe('ou-confirmation-progress', () => {
   it('reports progress accessibly', async () => {
-    const el = await fixture<BkConfirmationProgress>(
-      '<bk-confirmation-progress confirmations="2" required="6" show-eta></bk-confirmation-progress>',
+    const el = await fixture<OuConfirmationProgress>(
+      '<ou-confirmation-progress confirmations="2" required="6" show-eta></ou-confirmation-progress>',
     );
     const p = $(el, '[role=progressbar]');
     expect(p.getAttribute('aria-valuenow')).toBe('2');
@@ -47,13 +47,13 @@ describe('bk-confirmation-progress', () => {
   });
 });
 
-describe('bk-balance-card', () => {
+describe('ou-balance-card', () => {
   it('shows balance, fiat and pending, and respects privacy', async () => {
-    const el = await fixture<BkBalanceCard>(
-      '<bk-balance-card balance="1234567" pending="5000" fiat-currency="USD" fiat-price="60000"></bk-balance-card>',
+    const el = await fixture<OuBalanceCard>(
+      '<ou-balance-card balance="1234567" pending="5000" fiat-currency="USD" fiat-price="60000"></ou-balance-card>',
     );
     await settle(el);
-    const amount = el.shadowRoot!.querySelector('bk-amount-display')!;
+    const amount = el.shadowRoot!.querySelector('ou-amount-display')!;
     expect(text(amount, '.value')).toBe('1,234,567 sats');
     expect(text(amount, '.fiat')).toContain('$740.74');
     expect(text(el, '.pending')).toBe('Incoming: 5,000 sats (unconfirmed)');
@@ -65,7 +65,7 @@ describe('bk-balance-card', () => {
   });
 });
 
-describe('bk-transaction-item / bk-transaction-list', () => {
+describe('ou-transaction-item / ou-transaction-list', () => {
   const now = Date.now();
   const txs: TransactionData[] = [
     {
@@ -96,31 +96,31 @@ describe('bk-transaction-item / bk-transaction-list', () => {
   ];
 
   it('renders an item with signed amount, method and status', async () => {
-    const el = await fixture<BkTransactionItem>(
-      '<bk-transaction-item explorer></bk-transaction-item>',
+    const el = await fixture<OuTransactionItem>(
+      '<ou-transaction-item explorer></ou-transaction-item>',
     );
     el.data = txs[1]!;
     await settle(el);
     expect(text(el, '.label')).toBe('Sent');
-    const amount = el.shadowRoot!.querySelector('bk-amount-display')!;
+    const amount = el.shadowRoot!.querySelector('ou-amount-display')!;
     expect(text(amount, '.value')).toBe('-50,000 sats');
     expect(text(el, '.fee')).toBe('Fee 420 sats');
-    expect($(el, 'bk-confirmation-progress')).not.toBeNull();
+    expect($(el, 'ou-confirmation-progress')).not.toBeNull();
     expect($<HTMLAnchorElement>(el, 'a').href).toContain('mempool.space/tx/abab');
     await expectAccessible(el);
     el.interactive = true;
     await settle(el);
     expect($(el, 'a')).toBeNull();
     const spy = vi.fn();
-    el.addEventListener('bk-select', spy);
+    el.addEventListener('ou-select', spy);
     $<HTMLButtonElement>(el, 'button.tx').click();
     expect(spy.mock.calls[0]![0].detail).toEqual({ id: 'b' });
     await expectAccessible(el);
   });
 
   it('groups by date and supports empty, loading and load-more', async () => {
-    const el = await fixture<BkTransactionList>(
-      '<bk-transaction-list has-more></bk-transaction-list>',
+    const el = await fixture<OuTransactionList>(
+      '<ou-transaction-list has-more></ou-transaction-list>',
     );
     expect(text(el, '.empty')).toBe('No transactions yet');
     el.loading = true;
@@ -134,10 +134,10 @@ describe('bk-transaction-item / bk-transaction-list', () => {
     expect(heads).toHaveLength(
       txs.length - (dateGroup(txs[1]!.timestamp, 'en-US') === 'Today' ? 1 : 0),
     );
-    expect(el.shadowRoot!.querySelectorAll('bk-transaction-item')).toHaveLength(3);
+    expect(el.shadowRoot!.querySelectorAll('ou-transaction-item')).toHaveLength(3);
     const spy = vi.fn();
-    el.addEventListener('bk-load-more', spy);
-    ($(el.shadowRoot!.querySelector('.more bk-button')!, 'button') as HTMLButtonElement).click();
+    el.addEventListener('ou-load-more', spy);
+    ($(el.shadowRoot!.querySelector('.more ou-button')!, 'button') as HTMLButtonElement).click();
     expect(spy).toHaveBeenCalled();
     await expectAccessible(el);
   });
@@ -152,17 +152,17 @@ describe('bk-transaction-item / bk-transaction-list', () => {
   });
 });
 
-describe('bk-fee-selector', () => {
+describe('ou-fee-selector', () => {
   it('shows tiers with totals and emits selections', async () => {
     const spy = vi.fn();
-    document.addEventListener('bk-change', spy);
-    const el = await mount<BkFeeSelector>(
-      'bk-fee-selector',
+    document.addEventListener('ou-change', spy);
+    const el = await mount<OuFeeSelector>(
+      'ou-fee-selector',
       { fees: FEES, vsize: 141 },
       { 'fiat-currency': 'USD', 'fiat-price': '60000' },
     );
-    document.removeEventListener('bk-change', spy);
-    el.addEventListener('bk-change', spy);
+    document.removeEventListener('ou-change', spy);
+    el.addEventListener('ou-change', spy);
     const opts = el.shadowRoot!.querySelectorAll('label.opt');
     expect(opts).toHaveLength(4);
     expect(opts[0]!.textContent!.replace(/\s+/g, ' ')).toContain(
@@ -180,7 +180,7 @@ describe('bk-fee-selector', () => {
   });
 
   it('validates custom rates', async () => {
-    const el = await mount<BkFeeSelector>('bk-fee-selector', { fees: FEES, vsize: 200 });
+    const el = await mount<OuFeeSelector>('ou-fee-selector', { fees: FEES, vsize: 200 });
     (el.shadowRoot!.querySelectorAll('label.opt input')[3] as HTMLInputElement).dispatchEvent(
       new Event('change'),
     );
@@ -203,16 +203,16 @@ describe('bk-fee-selector', () => {
     const source = {
       getRecommendedFees: vi.fn(async () => (fail ? Promise.reject(new Error('x')) : FEES)),
     };
-    const el = await mount<BkFeeSelector>('bk-fee-selector', { source });
+    const el = await mount<OuFeeSelector>('ou-fee-selector', { source });
     await until(() => !!el.shadowRoot!.querySelector('[role=alert]'));
     fail = false;
-    ($(el.shadowRoot!.querySelector('bk-button')!, 'button') as HTMLButtonElement).click();
+    ($(el.shadowRoot!.querySelector('ou-button')!, 'button') as HTMLButtonElement).click();
     await until(() => el.shadowRoot!.querySelectorAll('label.opt').length === 4);
     expect(source.getRecommendedFees).toHaveBeenCalledTimes(2);
   });
 });
 
-describe('bk-utxo-list', () => {
+describe('ou-utxo-list', () => {
   const utxos = [
     { txid: 'aa'.repeat(32), vout: 0, value: 50000, confirmations: 10, label: 'Salary' },
     { txid: 'bb'.repeat(32), vout: 1, value: 20000n, confirmations: 2 },
@@ -220,11 +220,11 @@ describe('bk-utxo-list', () => {
   ];
 
   it('selects coins and compares against a target', async () => {
-    const el = await fixture<BkUtxoList>('<bk-utxo-list target="60000"></bk-utxo-list>');
+    const el = await fixture<OuUtxoList>('<ou-utxo-list target="60000"></ou-utxo-list>');
     el.utxos = utxos;
     await el.updateComplete;
     const spy = vi.fn();
-    el.addEventListener('bk-change', spy);
+    el.addEventListener('ou-change', spy);
     const boxes = el.shadowRoot!.querySelectorAll<HTMLInputElement>('tbody input');
     expect(boxes[2]!.disabled).toBe(true);
     boxes[0]!.dispatchEvent(new Event('change'));
@@ -238,7 +238,7 @@ describe('bk-utxo-list', () => {
   });
 
   it('sorts by column', async () => {
-    const el = await fixture<BkUtxoList>('<bk-utxo-list></bk-utxo-list>');
+    const el = await fixture<OuUtxoList>('<ou-utxo-list></ou-utxo-list>');
     el.utxos = utxos;
     await el.updateComplete;
     const first = () => el.shadowRoot!.querySelector('tbody tr td.num:last-child')!.textContent;
@@ -251,17 +251,17 @@ describe('bk-utxo-list', () => {
   });
 });
 
-describe('bk-wallet-connect', () => {
+describe('ou-wallet-connect', () => {
   const NWC = `nostr+walletconnect://${'a'.repeat(64)}?relay=wss://relay.example&secret=${'b'.repeat(64)}`;
 
   it('connects with NWC without keeping the secret in the DOM', async () => {
-    const el = await fixture<BkWalletConnect>('<bk-wallet-connect></bk-wallet-connect>');
-    ($(el.shadowRoot!.querySelector('bk-button')!, 'button') as HTMLButtonElement).click();
+    const el = await fixture<OuWalletConnect>('<ou-wallet-connect></ou-wallet-connect>');
+    ($(el.shadowRoot!.querySelector('ou-button')!, 'button') as HTMLButtonElement).click();
     await settle(el);
     const input = $<HTMLInputElement>(el, 'input');
     expect(input.type).toBe('password');
     const spy = vi.fn();
-    el.addEventListener('bk-connect', spy);
+    el.addEventListener('ou-connect', spy);
     input.value = 'nostr+walletconnect://bad';
     $(el, 'form').dispatchEvent(new Event('submit', { cancelable: true }));
     await el.updateComplete;
@@ -289,17 +289,17 @@ describe('bk-wallet-connect', () => {
       getBalance: async () => ({ balance: 4200 }),
     });
     try {
-      const el = await fixture<BkWalletConnect>(
-        '<bk-wallet-connect show-balance></bk-wallet-connect>',
+      const el = await fixture<OuWalletConnect>(
+        '<ou-wallet-connect show-balance></ou-wallet-connect>',
       );
-      ($(el.shadowRoot!.querySelector('bk-button')!, 'button') as HTMLButtonElement).click();
+      ($(el.shadowRoot!.querySelector('ou-button')!, 'button') as HTMLButtonElement).click();
       await settle(el);
       await expectAccessible(el);
       ($(el, 'button.opt') as HTMLButtonElement).click();
       await until(() => el.connected);
       await settle(el);
       expect(text(el, '.name')).toBe('Alby');
-      expect(text(el.shadowRoot!.querySelector('bk-amount-display')!, '.value')).toBe('4,200 sats');
+      expect(text(el.shadowRoot!.querySelector('ou-amount-display')!, '.value')).toBe('4,200 sats');
     } finally {
       vi.unstubAllGlobals();
     }
@@ -312,9 +312,9 @@ describe('bk-wallet-connect', () => {
       onConnected: vi.fn((f: (p: object) => void) => ((cb = f), () => {})),
       disconnect: vi.fn(),
     };
-    const el = await fixture<BkWalletConnect>('<bk-wallet-connect></bk-wallet-connect>');
+    const el = await fixture<OuWalletConnect>('<ou-wallet-connect></ou-wallet-connect>');
     el.bitcoinConnect = bc;
-    ($(el.shadowRoot!.querySelector('bk-button')!, 'button') as HTMLButtonElement).click();
+    ($(el.shadowRoot!.querySelector('ou-button')!, 'button') as HTMLButtonElement).click();
     expect(bc.launchModal).toHaveBeenCalled();
     cb!({ enable: async () => {} });
     await until(() => el.connected);
@@ -323,9 +323,9 @@ describe('bk-wallet-connect', () => {
   });
 });
 
-describe('bk-mnemonic-display (security)', () => {
+describe('ou-mnemonic-display (security)', () => {
   it('does not render words until revealed and never as attributes', async () => {
-    const el = await fixture<BkMnemonicDisplay>('<bk-mnemonic-display></bk-mnemonic-display>');
+    const el = await fixture<OuMnemonicDisplay>('<ou-mnemonic-display></ou-mnemonic-display>');
     el.words = [...PHRASE];
     await settle(el);
     expect(el.shadowRoot!.innerHTML).not.toContain('sausage');
@@ -333,7 +333,7 @@ describe('bk-mnemonic-display (security)', () => {
     expect(text(el, '.warning')).toContain('Anyone with these words can take your bitcoin');
     await expectAccessible(el);
     const reveal = vi.fn();
-    el.addEventListener('bk-reveal', reveal);
+    el.addEventListener('ou-reveal', reveal);
     el.reveal();
     await el.updateComplete;
     expect(text(el, 'ol')).toContain('sausage');
@@ -343,7 +343,7 @@ describe('bk-mnemonic-display (security)', () => {
   });
 
   it('blocks copying and hides when the page is hidden', async () => {
-    const el = await fixture<BkMnemonicDisplay>('<bk-mnemonic-display></bk-mnemonic-display>');
+    const el = await fixture<OuMnemonicDisplay>('<ou-mnemonic-display></ou-mnemonic-display>');
     el.words = [...PHRASE];
     el.reveal();
     await el.updateComplete;
@@ -361,8 +361,8 @@ describe('bk-mnemonic-display (security)', () => {
   it('auto-hides and clears', async () => {
     vi.useFakeTimers();
     try {
-      const el = await fixture<BkMnemonicDisplay>(
-        '<bk-mnemonic-display auto-hide-ms="1000"></bk-mnemonic-display>',
+      const el = await fixture<OuMnemonicDisplay>(
+        '<ou-mnemonic-display auto-hide-ms="1000"></ou-mnemonic-display>',
       );
       const words = [...PHRASE];
       el.words = words;
@@ -378,7 +378,7 @@ describe('bk-mnemonic-display (security)', () => {
   });
 });
 
-async function typeWord(el: BkMnemonicInput, i: number, value: string) {
+async function typeWord(el: OuMnemonicInput, i: number, value: string) {
   const input = el.shadowRoot!.querySelectorAll('input')[i]!;
   input.dispatchEvent(new FocusEvent('focus'));
   input.value = value;
@@ -387,11 +387,11 @@ async function typeWord(el: BkMnemonicInput, i: number, value: string) {
   return input;
 }
 
-describe('bk-mnemonic-input (security)', () => {
+describe('ou-mnemonic-input (security)', () => {
   it('distributes a pasted phrase, validates the checksum and never emits words', async () => {
-    const el = await fixture<BkMnemonicInput>('<bk-mnemonic-input></bk-mnemonic-input>');
+    const el = await fixture<OuMnemonicInput>('<ou-mnemonic-input></ou-mnemonic-input>');
     const spy = vi.fn();
-    el.addEventListener('bk-change', spy);
+    el.addEventListener('ou-change', spy);
     expect(el.shadowRoot!.querySelectorAll('input')).toHaveLength(12);
     const input = el.shadowRoot!.querySelector('input')!;
     for (const attr of ['autocomplete', 'autocorrect', 'autocapitalize', 'spellcheck'])
@@ -412,7 +412,7 @@ describe('bk-mnemonic-input (security)', () => {
   });
 
   it('suggests words with an accessible combobox and flags bad words', async () => {
-    const el = await fixture<BkMnemonicInput>('<bk-mnemonic-input></bk-mnemonic-input>');
+    const el = await fixture<OuMnemonicInput>('<ou-mnemonic-input></ou-mnemonic-input>');
     const input = await typeWord(el, 0, 'sau');
     expect(input.getAttribute('aria-expanded')).toBe('true');
     const opts = el.shadowRoot!.querySelectorAll('[role=option]');
@@ -432,7 +432,7 @@ describe('bk-mnemonic-input (security)', () => {
   });
 
   it('detects bad checksums and switches length', async () => {
-    const el = await fixture<BkMnemonicInput>('<bk-mnemonic-input></bk-mnemonic-input>');
+    const el = await fixture<OuMnemonicInput>('<ou-mnemonic-input></ou-mnemonic-input>');
     await typeWord(el, 0, Array(12).fill('abandon').join(' '));
     await settle(el);
     expect(text(el, '.status')).toContain('phrase is not');
@@ -444,17 +444,17 @@ describe('bk-mnemonic-input (security)', () => {
   });
 });
 
-describe('bk-backup-check (security)', () => {
+describe('ou-backup-check (security)', () => {
   it('asks for random words and verifies', async () => {
     let n = 0;
-    const el = await fixture<BkBackupCheck>('<bk-backup-check count="2"></bk-backup-check>');
+    const el = await fixture<OuBackupCheck>('<ou-backup-check count="2"></ou-backup-check>');
     el.random = (max) => n++ % max;
     el.words = [...PHRASE];
     await el.updateComplete;
     const verified = vi.fn();
     const fail = vi.fn();
-    el.addEventListener('bk-verified', verified);
-    el.addEventListener('bk-fail', fail);
+    el.addEventListener('ou-verified', verified);
+    el.addEventListener('ou-fail', fail);
     expect(text(el, 'h3')).toBe('Which is word #1?');
     await expectAccessible(el);
     const choose = async (correct: boolean, idx: number) => {

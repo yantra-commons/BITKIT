@@ -14,14 +14,14 @@ const features = [
 ] as const;
 const frameworks = ['HTML', 'React', 'Vue', 'Svelte', 'Angular', 'Astro', 'Next.js'];
 const htmlSnippet = `<script type="module"
-  src="https://cdn.jsdelivr.net/npm/@bitkit-ui/elements/dist/cdn/bitkit-ui.js">
+  src="https://cdn.jsdelivr.net/npm/@orange-ui/elements/dist/cdn/orange-ui.js">
 </script>
 
-<bk-pay-button amount="21000" adapter="store">
+<ou-pay-button amount="21000" adapter="store">
   Pay with bitcoin
-</bk-pay-button>`;
-const reactSnippet = `import { PayButton } from '@bitkit-ui/react';
-import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+</ou-pay-button>`;
+const reactSnippet = `import { PayButton } from '@orange-ui/react';
+import { createHttpAdapter } from '@orange-ui/adapters/http';
 
 const adapter = createHttpAdapter({ baseUrl: '/api/payments' });
 
@@ -31,7 +31,7 @@ export const Buy = () => (
 );`;
 ---
 
-<Site title="Bitkit UI — Bitcoin & Lightning UI components" description="Open-source, accessible web components for Bitcoin and Lightning apps: amounts, addresses, invoices, payments, wallets and transactions.">
+<Site title="Orange UI — Bitcoin & Lightning UI components" description="Open-source, accessible web components for Bitcoin and Lightning apps: amounts, addresses, invoices, payments, wallets and transactions.">
   <section class="hero">
     <div class="wrap hero__grid">
       <div class="hero__copy">
@@ -46,8 +46,8 @@ export const Buy = () => (
           <a class="btn btn--secondary" href={`${base}playground/`}>Open the playground</a>
         </div>
         <div class="install">
-          <code><span class="prompt">$ </span>npm i @bitkit-ui/elements</code>
-          <bk-copy-button value="npm i @bitkit-ui/elements" label="Copy install command"></bk-copy-button>
+          <code><span class="prompt">$ </span>npm i @orange-ui/elements</code>
+          <ou-copy-button value="npm i @orange-ui/elements" label="Copy install command"></ou-copy-button>
         </div>
       </div>
       <div class="demo-card">
@@ -60,7 +60,7 @@ export const Buy = () => (
             <button class="chip" type="button" data-scenario="expired" aria-pressed="false">Expired</button>
           </span>
         </div>
-        <bk-checkout id="hero-checkout" mode="inline" amount="21000" adapter="mock" description="Flat white, to go" fiat-currency="USD" fiat-price="97250"></bk-checkout>
+        <ou-checkout id="hero-checkout" mode="inline" amount="21000" adapter="mock" description="Flat white, to go" fiat-currency="USD" fiat-price="97250"></ou-checkout>
       </div>
     </div>
   </section>
@@ -82,7 +82,7 @@ export const Buy = () => (
         {
           features.map((f) => (
             <li class="feature">
-              <bk-icon name={f.icon} />
+              <ou-icon name={f.icon} />
               <h3>{f.title}</h3>
               <p>{f.body}</p>
             </li>
@@ -101,29 +101,29 @@ export const Buy = () => (
       <div class="bento">
         <div class="tile">
           <p class="tile__title">Amount display</p>
-          <bk-amount-display amount="1234567" size="xl" toggle show-fiat privacy-toggle fiat-currency="USD" fiat-price="97250"></bk-amount-display>
+          <ou-amount-display amount="1234567" size="xl" toggle show-fiat privacy-toggle fiat-currency="USD" fiat-price="97250"></ou-amount-display>
           <small>Tap the amount to switch sats → BTC → USD.</small>
         </div>
         <div class="tile tile--wide">
           <p class="tile__title">Address display</p>
-          <bk-address-display address="bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqzk5jj0" qr show-type></bk-address-display>
+          <ou-address-display address="bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqzk5jj0" qr show-type></ou-address-display>
         </div>
         <div class="tile tile--wide">
           <p class="tile__title">Destination input</p>
-          <bk-address-input label="Pay to" accept="onchain-address,bip21,bolt11,bolt12-offer,lnurl,lightning-address" help-text="Paste an address, invoice or Lightning Address."></bk-address-input>
+          <ou-address-input label="Pay to" accept="onchain-address,bip21,bolt11,bolt12-offer,lnurl,lightning-address" help-text="Paste an address, invoice or Lightning Address."></ou-address-input>
         </div>
         <div class="tile">
           <p class="tile__title">Payment status</p>
-          <bk-payment-status status="confirming" confirmations="2" required-confirmations="3"></bk-payment-status>
-          <bk-confirmation-progress confirmations="4" required="6" show-eta></bk-confirmation-progress>
+          <ou-payment-status status="confirming" confirmations="2" required-confirmations="3"></ou-payment-status>
+          <ou-confirmation-progress confirmations="4" required="6" show-eta></ou-confirmation-progress>
         </div>
         <div class="tile">
           <p class="tile__title">Amount input</p>
-          <bk-amount-input label="Send" balance="250000" fiat-currency="USD" fiat-price="97250"></bk-amount-input>
+          <ou-amount-input label="Send" balance="250000" fiat-currency="USD" fiat-price="97250"></ou-amount-input>
         </div>
         <div class="tile tile--wide">
           <p class="tile__title">Fee selector</p>
-          <bk-fee-selector id="landing-fees" vsize="141" fiat-currency="USD" fiat-price="97250"></bk-fee-selector>
+          <ou-fee-selector id="landing-fees" vsize="141" fiat-currency="USD" fiat-price="97250"></ou-fee-selector>
         </div>
       </div>
     </div>
@@ -145,7 +145,7 @@ export const Buy = () => (
   <section>
     <div class="wrap">
       <div class="band">
-        <bk-icon name="bitcoin-circle"></bk-icon>
+        <ou-icon name="bitcoin-circle"></ou-icon>
         <div>
           <h2>Built on the Bitcoin Design Guide</h2>
           <p>Chunked addresses, unified QR codes, sats-first amounts, clear payment states and safe backup flows follow the community's open design patterns.</p>
@@ -158,7 +158,7 @@ export const Buy = () => (
 
 <script>
   import { demoAdapter } from '../scripts/kit';
-  import type { MockScenario } from '@bitkit-ui/adapters/mock';
+  import type { MockScenario } from '@orange-ui/adapters/mock';
 
   const checkout = document.getElementById('hero-checkout') as HTMLElement & { start(): Promise<void> };
   const chips = document.querySelectorAll<HTMLButtonElement>('[data-scenario]');
@@ -170,7 +170,7 @@ export const Buy = () => (
     }),
   );
   // Restart the demo a few seconds after it finishes so visitors always see it working.
-  checkout.addEventListener('bk-paid', () => setTimeout(() => void checkout.start(), 6000));
+  checkout.addEventListener('ou-paid', () => setTimeout(() => void checkout.start(), 6000));
 
   // Static fee estimates on the landing page: no third-party request on first load.
   Object.assign(document.getElementById('landing-fees')!, {

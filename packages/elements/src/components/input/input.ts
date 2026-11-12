@@ -8,7 +8,7 @@ import '../icon/icon.js';
 /**
  * @summary Labelled text input with help text, error state, prefix/suffix slots and native form
  * participation.
- * @tag bk-input
+ * @tag ou-input
  * @slot prefix - Content before the input.
  * @slot suffix - Content after the input (e.g. a unit or button).
  * @csspart label - The label.
@@ -16,10 +16,10 @@ import '../icon/icon.js';
  * @csspart input - The native input.
  * @csspart help - Help text.
  * @csspart error - Error message.
- * @fires bk-input - On every edit. Detail: `{ value: string }`.
- * @fires bk-change - When the value is committed (blur/enter). Detail: `{ value: string }`.
+ * @fires ou-input - On every edit. Detail: `{ value: string }`.
+ * @fires ou-change - When the value is committed (blur/enter). Detail: `{ value: string }`.
  */
-export class BkInput extends FormControlElement {
+export class OuInput extends FormControlElement {
   static override styles = [baseStyles, fieldStyles, css``];
 
   static override properties = {
@@ -89,11 +89,11 @@ export class BkInput extends FormControlElement {
 
   #onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
-    this.emit('bk-input', { value: this.value });
+    this.emit('ou-input', { value: this.value });
   }
 
   #onChange() {
-    this.emit('bk-change', { value: this.value });
+    this.emit('ou-change', { value: this.value });
   }
 
   override render() {
@@ -137,7 +137,7 @@ export class BkInput extends FormControlElement {
         ${
           hasError
             ? html`<div class="error" part="error">
-                <bk-icon name="alert-circle"></bk-icon><span>${this.error}</span>
+                <ou-icon name="alert-circle"></ou-icon><span>${this.error}</span>
               </div>`
             : nothing
         }
@@ -146,10 +146,10 @@ export class BkInput extends FormControlElement {
   }
 }
 
-define('bk-input', BkInput);
+define('ou-input', OuInput);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-input': BkInput;
+    'ou-input': OuInput;
   }
 }

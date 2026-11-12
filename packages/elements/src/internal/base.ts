@@ -1,5 +1,5 @@
 import { LitElement } from 'lit';
-import { cssText } from '@bitkit-ui/tokens';
+import { cssText } from '@orange-ui/tokens';
 import { CONFIG_EVENT, getConfig, resolveLocale } from './config.js';
 import { interpolate, type StringKey } from './strings.js';
 
@@ -7,27 +7,27 @@ let tokensInjected = false;
 
 /**
  * Add the token stylesheet to the document once. Uses a constructable stylesheet when possible
- * (works under strict CSP without 'unsafe-inline'), otherwise a <style data-bk-tokens> tag.
+ * (works under strict CSP without 'unsafe-inline'), otherwise a <style data-ou-tokens> tag.
  * Token selectors use :where() so any app-level override wins.
  */
 export function injectTokens(): void {
   if (tokensInjected || typeof document === 'undefined' || !getConfig().injectTokens) return;
   tokensInjected = true;
-  if (document.querySelector('style[data-bk-tokens], link[data-bk-tokens]')) return;
+  if (document.querySelector('style[data-ou-tokens], link[data-ou-tokens]')) return;
   try {
     const sheet = new CSSStyleSheet();
     sheet.replaceSync(cssText);
     document.adoptedStyleSheets = [sheet, ...document.adoptedStyleSheets];
   } catch {
     const style = document.createElement('style');
-    style.setAttribute('data-bk-tokens', '');
+    style.setAttribute('data-ou-tokens', '');
     style.textContent = cssText;
     document.head.prepend(style);
   }
 }
 
-/** Base class for every bitkit-ui element. */
-export class BitkitElement extends LitElement {
+/** Base class for every orange-ui element. */
+export class OrangeElement extends LitElement {
   #onConfig = () => this.requestUpdate();
 
   override connectedCallback(): void {
@@ -69,4 +69,4 @@ export class BitkitElement extends LitElement {
 
 let uid = 0;
 /** Unique id for ARIA relationships inside a shadow root. */
-export const nextId = (prefix = 'bk') => `${prefix}-${++uid}`;
+export const nextId = (prefix = 'ou') => `${prefix}-${++uid}`;

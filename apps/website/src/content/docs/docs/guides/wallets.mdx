@@ -3,13 +3,13 @@ title: Wallet connections
 description: WebLN, Nostr Wallet Connect, and how the kit works with Alby's Bitcoin Connect.
 ---
 
-`<bk-wallet-connect>` lets users connect a Lightning wallet so your app can request payments with
+`<ou-wallet-connect>` lets users connect a Lightning wallet so your app can request payments with
 one click.
 
 | Method                   | How it works                                                                                                                                                                      |
 | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **WebLN**                | Browser extensions (Alby and others) inject `window.webln`. The component calls `enable()` and reads the alias and, optionally, the balance.                                      |
-| **Nostr Wallet Connect** | The user pastes a `nostr+walletconnect://` link. The component validates it, clears it from the input, and hands it to your app in `bk-connect`. It never stores or transmits it. |
+| **Nostr Wallet Connect** | The user pastes a `nostr+walletconnect://` link. The component validates it, clears it from the input, and hands it to your app in `ou-connect`. It never stores or transmits it. |
 | **Bitcoin Connect**      | If you pass Alby's [Bitcoin Connect](https://github.com/getAlby/bitcoin-connect) module, the component opens its modal instead of its own.                                        |
 
 ## Using Bitcoin Connect
@@ -20,21 +20,21 @@ the kit delegates to it:
 ```ts
 import * as bitcoinConnect from '@getalby/bitcoin-connect';
 
-const el = document.querySelector('bk-wallet-connect');
+const el = document.querySelector('ou-wallet-connect');
 el.bitcoinConnect = bitcoinConnect;
-el.addEventListener('bk-connect', (e) => {
+el.addEventListener('ou-connect', (e) => {
   const { provider } = e.detail; // a WebLN provider
 });
 ```
 
-Inside `<bk-checkout>`, a "Pay with browser wallet" button appears automatically whenever
+Inside `<ou-checkout>`, a "Pay with browser wallet" button appears automatically whenever
 `window.webln` exists. Bitcoin Connect sets it after a connection, so the two work together
 without extra code.
 
 ## Using NWC
 
 ```ts
-el.addEventListener('bk-connect', async (e) => {
+el.addEventListener('ou-connect', async (e) => {
   if (e.detail.type !== 'nwc') return;
   const { nwc } = await import('@getalby/sdk');
   const client = new nwc.NWCClient({ nostrWalletConnectUrl: e.detail.uri });

@@ -1,4 +1,4 @@
-import type { Network } from '@bitkit-ui/core';
+import type { Network } from '@orange-ui/core';
 import {
   type CreateInvoiceRequest,
   type Invoice,

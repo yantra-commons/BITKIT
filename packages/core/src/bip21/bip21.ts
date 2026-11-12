@@ -1,5 +1,5 @@
 import { decodeAddress, type AddressInfo } from '../address/address.js';
-import { BitkitError } from '../errors.js';
+import { OrangeError } from '../errors.js';
 import type { Network } from '../network.js';
 import { fromMsat, MSAT_PER_SAT, toMsat, type Msat } from '../units/amount.js';
 
@@ -32,14 +32,14 @@ function decode(v: string): string {
   try {
     return decodeURIComponent(v);
   } catch (e) {
-    throw new BitkitError('invalid-uri', 'This payment link is malformed.', { cause: e });
+    throw new OrangeError('invalid-uri', 'This payment link is malformed.', { cause: e });
   }
 }
 
-/** Parse a `bitcoin:` URI. Throws `BitkitError` on invalid input. */
+/** Parse a `bitcoin:` URI. Throws `OrangeError` on invalid input. */
 export function parseBip21(uri: string, network?: Network): Bip21 {
   const s = uri.trim();
-  if (!SCHEME.test(s)) throw new BitkitError('invalid-uri', 'This is not a bitcoin: payment link.');
+  if (!SCHEME.test(s)) throw new OrangeError('invalid-uri', 'This is not a bitcoin: payment link.');
   const rest = s.slice('bitcoin:'.length);
   const q = rest.indexOf('?');
   const addrPart = decode(q === -1 ? rest : rest.slice(0, q));
@@ -51,7 +51,7 @@ export function parseBip21(uri: string, network?: Network): Bip21 {
     const key = decode(eq === -1 ? pair : pair.slice(0, eq)).toLowerCase();
     const value = eq === -1 ? '' : decode(pair.slice(eq + 1));
     if (key.startsWith('req-') && !KNOWN.has(key.slice(4))) {
-      throw new BitkitError(
+      throw new OrangeError(
         'unsupported-required-param',
         `This payment link requires a feature ("${key.slice(4)}") that isn't supported.`,
       );
@@ -66,15 +66,15 @@ export function parseBip21(uri: string, network?: Network): Bip21 {
       out.addressInfo = decodeAddress(addrPart, network);
       out.address = out.addressInfo.address;
     } catch (e) {
-      if (e instanceof BitkitError && e.code === 'wrong-network') throw e;
-      throw new BitkitError('invalid-address', 'The address in this payment link is not valid.', {
+      if (e instanceof OrangeError && e.code === 'wrong-network') throw e;
+      throw new OrangeError('invalid-address', 'The address in this payment link is not valid.', {
         cause: e,
       });
     }
   }
   if (params.amount !== undefined) {
     if (!AMOUNT_RE.test(params.amount)) {
-      throw new BitkitError('invalid-amount', 'The amount in this payment link is not valid.');
+      throw new OrangeError('invalid-amount', 'The amount in this payment link is not valid.');
     }
     out.amountMsat = toMsat(params.amount, 'btc');
   }
@@ -84,7 +84,7 @@ export function parseBip21(uri: string, network?: Network): Bip21 {
   if (params.lno) out.offer = params.lno;
   if (params.pj) out.payjoin = params.pj;
   if (!out.address && !out.lightning && !out.offer && !params.sp) {
-    throw new BitkitError('invalid-uri', 'This payment link has no destination.');
+    throw new OrangeError('invalid-uri', 'This payment link has no destination.');
   }
   return out;
 }
@@ -120,7 +120,7 @@ export function buildBip21(opts: BuildBip21Options): string {
     opts.amountMsat ?? (opts.amountSats !== undefined ? opts.amountSats * MSAT_PER_SAT : undefined);
   if (amount !== undefined) {
     if (amount % MSAT_PER_SAT !== 0n) {
-      throw new BitkitError('invalid-amount', 'On-chain amounts must be whole sats.');
+      throw new OrangeError('invalid-amount', 'On-chain amounts must be whole sats.');
     }
     parts.push(`amount=${fromMsat(amount, 'btc', { maxFractionDigits: 8 })}`);
   }

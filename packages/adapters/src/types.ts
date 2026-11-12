@@ -1,4 +1,4 @@
-import type { FiatRate, Network, RecommendedFees } from '@bitkit-ui/core';
+import type { FiatRate, Network, RecommendedFees } from '@orange-ui/core';
 
 /** Lifecycle of a payment request. Terminal states: paid, overpaid, expired, failed, cancelled. */
 export type PaymentStatus =

@@ -13,7 +13,7 @@ Include affected packages and versions, a description, and reproduction steps.
   issues within 14 days.
 - With your permission, we credit reporters in the advisory and changelog.
 
-Supported versions: the latest minor release of each `@bitkit-ui/*` package.
+Supported versions: the latest minor release of each `@orange-ui/*` package.
 
 ## Scope
 
@@ -32,8 +32,8 @@ Especially in scope:
 ### What the kit guarantees
 
 1. **No private keys.** No component requests, derives, stores or transmits private keys.
-2. **Recovery phrases are memory-only.** `bk-mnemonic-display`, `bk-mnemonic-input` and
-   `bk-backup-check` accept words only via JavaScript properties (never attributes), don't render
+2. **Recovery phrases are memory-only.** `ou-mnemonic-display`, `ou-mnemonic-input` and
+   `ou-backup-check` accept words only via JavaScript properties (never attributes), don't render
    hidden words into the DOM, never put words in events, block copy by default, auto-hide on
    `visibilitychange` and after a timeout, disable autocomplete/spellcheck/password managers,
    and expose `clear()`. JavaScript strings are immutable, so memory can't be zeroed. We drop
@@ -55,7 +55,7 @@ Especially in scope:
   Wallets and providers must verify before paying.
 - **Malicious address substitution** by malware on the user's device. The kit aids visual
   verification (chunked display, QR) but can't detect a valid-but-wrong address.
-- **Payment confirmation in the browser.** `bk-paid` is a UI signal. Fulfil orders from your
+- **Payment confirmation in the browser.** `ou-paid` is a UI signal. Fulfil orders from your
   server's verified provider webhook.
 - **Third-party services you enable**: mempool.space (fee/price data) and LNURL domains
   (`fetch-metadata`). Both are opt-in or configurable.
@@ -69,4 +69,4 @@ the checkout labels them "Demo payment — do not send real bitcoin".
 
 | Date       | Scope                                                                                                         | Result                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | ---------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-12 | Pre-release review of mnemonic components, adapters' secret handling, rendering of untrusted strings and URLs | **Fixed:** `bk-checkout` used an adapter-supplied `onchain.uri` as a link `href` verbatim, so a compromised backend could inject `javascript:` URLs. Now only `bitcoin:` URIs are accepted (regression test added). Verified: words never appear in serialized DOM or event payloads (tests); NWC secret cleared from the input on submit; Lit auto-escapes all text; `unsafeSVG` only renders the build-time icon set. No issues outstanding. |
+| 2026-11-12 | Pre-release review of mnemonic components, adapters' secret handling, rendering of untrusted strings and URLs | **Fixed:** `ou-checkout` used an adapter-supplied `onchain.uri` as a link `href` verbatim, so a compromised backend could inject `javascript:` URLs. Now only `bitcoin:` URIs are accepted (regression test added). Verified: words never appear in serialized DOM or event payloads (tests); NWC secret cleared from the input on submit; Lit auto-escapes all text; `unsafeSVG` only renders the build-time icon set. No issues outstanding. |

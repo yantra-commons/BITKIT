@@ -1,4 +1,4 @@
-import { MSAT_PER_SAT, type FiatRate } from '@bitkit-ui/core';
+import { MSAT_PER_SAT, type FiatRate } from '@orange-ui/core';
 import { toBigint } from './converters.js';
 
 /** Resolve msat from `msat` (preferred) or `amount` (sats) properties. */

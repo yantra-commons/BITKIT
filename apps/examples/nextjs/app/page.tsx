@@ -4,8 +4,8 @@ import { StoreCheckout } from './store-checkout';
 export default function Page() {
   return (
     <main style={{ maxWidth: 480, margin: '0 auto', padding: '2rem 1rem' }}>
-      <h1>Next.js + bitkit-ui</h1>
-      <p>The checkout below is a client component using @bitkit-ui/react.</p>
+      <h1>Next.js + orange-ui</h1>
+      <p>The checkout below is a client component using @orange-ui/react.</p>
       <StoreCheckout />
     </main>
   );

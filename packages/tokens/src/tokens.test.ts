@@ -28,8 +28,8 @@ describe('tokens', () => {
   it('generates css with zero-specificity selectors and both themes', () => {
     const css = buildCss(source);
     expect(css).toContain(':where(:root');
-    expect(css).toContain("[data-bk-theme='dark']");
-    expect(css).toContain('--bk-color-accent: #F7931A');
+    expect(css).toContain("[data-ou-theme='dark']");
+    expect(css).toContain('--ou-color-accent: #F7931A');
     expect(css).toContain('prefers-reduced-motion');
   });
 });

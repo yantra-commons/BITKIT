@@ -1,5 +1,5 @@
 import { css, html } from 'lit';
-import { BitkitElement, nextId } from '../../internal/base.js';
+import { OrangeElement, nextId } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 
@@ -7,11 +7,11 @@ import { baseStyles } from '../../internal/styles.js';
  * @summary Tooltip for the slotted trigger. Opens on hover and keyboard focus, stays open while
  * hovered, and closes on Escape (WCAG 1.4.13). The text is exposed to assistive technology as
  * the trigger's description via a light-DOM element, so it works across shadow roots.
- * @tag bk-tooltip
+ * @tag ou-tooltip
  * @slot - The trigger element (must be focusable for keyboard users).
  * @csspart tooltip - The tooltip bubble.
  */
-export class BkTooltip extends BitkitElement {
+export class OuTooltip extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -22,21 +22,21 @@ export class BkTooltip extends BitkitElement {
       .tip {
         position: absolute;
         left: 50%;
-        z-index: var(--bk-z-tooltip);
+        z-index: var(--ou-z-tooltip);
         width: max-content;
         max-width: 16rem;
-        padding: var(--bk-space-1) var(--bk-space-2);
-        border-radius: var(--bk-radius-sm);
-        background: var(--bk-color-text);
-        color: var(--bk-color-bg);
-        font-size: var(--bk-font-size-xs);
-        line-height: var(--bk-line-height-tight);
+        padding: var(--ou-space-1) var(--ou-space-2);
+        border-radius: var(--ou-radius-sm);
+        background: var(--ou-color-text);
+        color: var(--ou-color-bg);
+        font-size: var(--ou-font-size-xs);
+        line-height: var(--ou-line-height-tight);
         pointer-events: none;
         opacity: 0;
         transform: translate(-50%, 4px);
         transition:
-          opacity var(--bk-duration-fast),
-          transform var(--bk-duration-fast);
+          opacity var(--ou-duration-fast),
+          transform var(--ou-duration-fast);
       }
       .top {
         bottom: calc(100% + 6px);
@@ -134,10 +134,10 @@ export class BkTooltip extends BitkitElement {
   }
 }
 
-define('bk-tooltip', BkTooltip);
+define('ou-tooltip', OuTooltip);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-tooltip': BkTooltip;
+    'ou-tooltip': OuTooltip;
   }
 }

@@ -1,5 +1,5 @@
 import { css, html, nothing } from 'lit';
-import { BitkitElement } from '../../internal/base.js';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { buttonStyles } from '../button/button.js';
@@ -8,11 +8,11 @@ import { iconSvg, type IconName } from '../icon/icon.js';
 /**
  * @summary Square button showing only an icon. `label` is required for accessibility and is
  * also shown as a native tooltip.
- * @tag bk-icon-button
+ * @tag ou-icon-button
  * @csspart base - The native button.
  */
-export class BkIconButton extends BitkitElement {
-  static override shadowRootOptions = { ...BitkitElement.shadowRootOptions, delegatesFocus: true };
+export class OuIconButton extends OrangeElement {
+  static override shadowRootOptions = { ...OrangeElement.shadowRootOptions, delegatesFocus: true };
   static override styles = [
     baseStyles,
     buttonStyles,
@@ -21,16 +21,16 @@ export class BkIconButton extends BitkitElement {
         display: inline-flex;
       }
       .btn {
-        width: var(--bk-control-height-md);
+        width: var(--ou-control-height-md);
         padding: 0;
-        --bk-icon-size: 1.25rem;
+        --ou-icon-size: 1.25rem;
       }
       .btn.sm {
-        width: var(--bk-control-height-sm);
-        min-height: var(--bk-control-height-sm);
+        width: var(--ou-control-height-sm);
+        min-height: var(--ou-control-height-sm);
       }
       .btn.lg {
-        width: var(--bk-control-height-lg);
+        width: var(--ou-control-height-lg);
       }
       svg {
         width: 1.25rem;
@@ -95,10 +95,10 @@ export class BkIconButton extends BitkitElement {
   }
 }
 
-define('bk-icon-button', BkIconButton);
+define('ou-icon-button', OuIconButton);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-icon-button': BkIconButton;
+    'ou-icon-button': OuIconButton;
   }
 }

@@ -1,8 +1,8 @@
 import { css, html, nothing } from 'lit';
-import { formatAmount, MSAT_PER_SAT, type FiatRate } from '@bitkit-ui/core';
-import type { PaymentAdapter, PaymentMethod } from '@bitkit-ui/adapters';
+import { formatAmount, MSAT_PER_SAT, type FiatRate } from '@orange-ui/core';
+import type { PaymentAdapter, PaymentMethod } from '@orange-ui/adapters';
 import { resolveFiatRate } from '../../internal/amount.js';
-import { BitkitElement, nextId } from '../../internal/base.js';
+import { OrangeElement, nextId } from '../../internal/base.js';
 import { bigintConverter, listConverter, toBigint } from '../../internal/converters.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
@@ -13,16 +13,16 @@ import '../checkout/checkout.js';
 
 /**
  * @summary Donation form: preset amounts, custom amount, optional message, then a checkout.
- * @tag bk-donation-widget
+ * @tag ou-donation-widget
  * @slot description - Text under the heading.
  * @csspart base - Container.
  * @csspart presets - Preset amount group.
  * @csspart preset - Each preset button.
  * @csspart message - Message textarea.
  * @csspart submit - Donate button.
- * @fires bk-donate - Before the checkout opens. Detail: `{ amount: bigint, message: string }`.
+ * @fires ou-donate - Before the checkout opens. Detail: `{ amount: bigint, message: string }`.
  */
-export class BkDonationWidget extends BitkitElement {
+export class OuDonationWidget extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -32,21 +32,21 @@ export class BkDonationWidget extends BitkitElement {
       .w {
         display: flex;
         flex-direction: column;
-        gap: var(--bk-space-4);
-        padding: var(--bk-space-5);
-        border: 1px solid var(--bk-color-border);
-        border-radius: var(--bk-radius-lg);
-        background: var(--bk-color-surface);
-        box-shadow: var(--bk-shadow-sm);
+        gap: var(--ou-space-4);
+        padding: var(--ou-space-5);
+        border: 1px solid var(--ou-color-border);
+        border-radius: var(--ou-radius-lg);
+        background: var(--ou-color-surface);
+        box-shadow: var(--ou-shadow-sm);
       }
       h2 {
         margin: 0;
-        font-size: var(--bk-font-size-lg);
+        font-size: var(--ou-font-size-lg);
       }
       ::slotted([slot='description']) {
         margin: 0;
-        color: var(--bk-color-text-muted);
-        font-size: var(--bk-font-size-sm);
+        color: var(--ou-color-text-muted);
+        font-size: var(--ou-font-size-sm);
       }
       fieldset {
         margin: 0;
@@ -55,64 +55,64 @@ export class BkDonationWidget extends BitkitElement {
         min-width: 0;
       }
       legend {
-        margin-bottom: var(--bk-space-2);
-        font-size: var(--bk-font-size-sm);
-        font-weight: var(--bk-font-weight-medium);
+        margin-bottom: var(--ou-space-2);
+        font-size: var(--ou-font-size-sm);
+        font-weight: var(--ou-font-weight-medium);
       }
       .presets {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
       }
       .preset {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 2px;
-        padding: var(--bk-space-3) var(--bk-space-2);
-        border: 1px solid var(--bk-color-border-strong);
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-surface);
-        color: var(--bk-color-text);
+        padding: var(--ou-space-3) var(--ou-space-2);
+        border: 1px solid var(--ou-color-border-strong);
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-surface);
+        color: var(--ou-color-text);
         font: inherit;
-        font-weight: var(--bk-font-weight-semibold);
+        font-weight: var(--ou-font-weight-semibold);
         cursor: pointer;
         font-variant-numeric: tabular-nums;
       }
       .preset small {
-        font-weight: var(--bk-font-weight-regular);
-        color: var(--bk-color-text-muted);
-        font-size: var(--bk-font-size-xs);
+        font-weight: var(--ou-font-weight-regular);
+        color: var(--ou-color-text-muted);
+        font-size: var(--ou-font-size-xs);
       }
       .preset[aria-checked='true'] {
-        border-color: var(--bk-color-accent);
-        box-shadow: inset 0 0 0 1px var(--bk-color-accent);
-        background: color-mix(in srgb, var(--bk-color-accent) 8%, var(--bk-color-surface));
+        border-color: var(--ou-color-accent);
+        box-shadow: inset 0 0 0 1px var(--ou-color-accent);
+        background: color-mix(in srgb, var(--ou-color-accent) 8%, var(--ou-color-surface));
       }
       label {
         display: block;
-        margin-bottom: var(--bk-space-1);
-        font-size: var(--bk-font-size-sm);
-        font-weight: var(--bk-font-weight-medium);
+        margin-bottom: var(--ou-space-1);
+        font-size: var(--ou-font-size-sm);
+        font-weight: var(--ou-font-weight-medium);
       }
       textarea {
         width: 100%;
         min-height: 4.5rem;
-        padding: var(--bk-space-2) var(--bk-space-3);
-        border: 1px solid var(--bk-color-border-strong);
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-surface);
+        padding: var(--ou-space-2) var(--ou-space-3);
+        border: 1px solid var(--ou-color-border-strong);
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-surface);
         color: inherit;
         font: inherit;
         resize: vertical;
       }
       textarea:focus-visible {
-        border-color: var(--bk-color-focus);
+        border-color: var(--ou-color-focus);
       }
       .count {
         text-align: end;
-        font-size: var(--bk-font-size-xs);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-xs);
+        color: var(--ou-color-text-muted);
       }
     `,
   ];
@@ -228,7 +228,7 @@ export class BkDonationWidget extends BitkitElement {
     const amount = this._amount;
     const min = toBigint(this.min) ?? 100n;
     if (amount === undefined || amount < min) return;
-    this.emit('bk-donate', { amount, message: this._message });
+    this.emit('ou-donate', { amount, message: this._message });
     this._open = true;
   }
 
@@ -285,13 +285,13 @@ export class BkDonationWidget extends BitkitElement {
       </fieldset>
       ${
         this._custom
-          ? html`<bk-amount-input
+          ? html`<ou-amount-input
               label="Custom amount"
               .min=${min}
               .fiatRate=${rate}
               locale=${this.locale ?? nothing}
-              @bk-input=${(e: CustomEvent<AmountInputDetail>) => (this._amount = e.detail.valid ? e.detail.amount : undefined)}
-            ></bk-amount-input>`
+              @ou-input=${(e: CustomEvent<AmountInputDetail>) => (this._amount = e.detail.valid ? e.detail.amount : undefined)}
+            ></ou-amount-input>`
           : nothing
       }
       ${
@@ -299,7 +299,7 @@ export class BkDonationWidget extends BitkitElement {
           ? html`<div>
               <label for=${this.#msgId}
                 >Message
-                <span style="font-weight:400;color:var(--bk-color-text-muted)"
+                <span style="font-weight:400;color:var(--ou-color-text-muted)"
                   >(optional)</span
                 ></label
               >
@@ -317,10 +317,10 @@ export class BkDonationWidget extends BitkitElement {
             </div>`
           : nothing
       }
-      <bk-button part="submit" block size="lg" ?disabled=${!valid} @click=${this.#donate}
-        >Donate${valid ? ` ${this.#fmt(this._amount!)}` : ''}</bk-button
+      <ou-button part="submit" block size="lg" ?disabled=${!valid} @click=${this.#donate}
+        >Donate${valid ? ` ${this.#fmt(this._amount!)}` : ''}</ou-button
       >
-      <bk-checkout
+      <ou-checkout
         mode="modal"
         heading=${this.heading}
         .adapter=${this.adapter}
@@ -329,16 +329,16 @@ export class BkDonationWidget extends BitkitElement {
         .methods=${this.methods}
         description=${this._message || this.heading}
         ?open=${this._open}
-        @bk-close=${() => (this._open = false)}
-      ></bk-checkout>
+        @ou-close=${() => (this._open = false)}
+      ></ou-checkout>
     </div>`;
   }
 }
 
-define('bk-donation-widget', BkDonationWidget);
+define('ou-donation-widget', OuDonationWidget);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-donation-widget': BkDonationWidget;
+    'ou-donation-widget': OuDonationWidget;
   }
 }

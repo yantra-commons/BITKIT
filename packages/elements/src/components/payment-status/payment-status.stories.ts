@@ -4,7 +4,7 @@ import './payment-status.js';
 
 const meta: Meta = {
   title: 'Payments/Payment Status',
-  component: 'bk-payment-status',
+  component: 'ou-payment-status',
   tags: ['autodocs'],
   args: { status: 'confirming', confirmations: 2, requiredConfirmations: 3, size: 'compact' },
   argTypes: {
@@ -25,14 +25,14 @@ const meta: Meta = {
     size: { control: 'select', options: ['compact', 'large'] },
   },
   render: (a) =>
-    html`<bk-payment-status
+    html`<ou-payment-status
       status=${a.status}
       size=${a.size}
       confirmations=${a.confirmations}
       required-confirmations=${a.requiredConfirmations}
       amount-received="12000"
       amount-due="21000"
-    ></bk-payment-status>`,
+    ></ou-payment-status>`,
 };
 export default meta;
 
@@ -52,16 +52,16 @@ export const AllStates: StoryObj = {
         'cancelled',
       ].map(
         (s) =>
-          html`<bk-payment-status
+          html`<ou-payment-status
             status=${s}
             confirmations="1"
             required-confirmations="3"
             amount-received="12000"
             amount-due="21000"
-          ></bk-payment-status>`,
+          ></ou-payment-status>`,
       )}
     </div>`,
 };
 export const Success: StoryObj = {
-  render: () => html`<bk-payment-status status="paid" size="large"></bk-payment-status>`,
+  render: () => html`<ou-payment-status status="paid" size="large"></ou-payment-status>`,
 };

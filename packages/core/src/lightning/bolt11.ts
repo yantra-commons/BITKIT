@@ -1,5 +1,5 @@
 import { encodeAddress } from '../address/address.js';
-import { BitkitError } from '../errors.js';
+import { OrangeError } from '../errors.js';
 import { bech32, decodeUtf8, toHex, wordsToBytes, wordsToInt } from '../encoding.js';
 import type { Network } from '../network.js';
 import type { Msat } from '../units/amount.js';
@@ -61,11 +61,11 @@ const SIGNATURE_WORDS = 104;
 const TIMESTAMP_WORDS = 7;
 
 const fail = (
-  code: ConstructorParameters<typeof BitkitError>[0],
+  code: ConstructorParameters<typeof OrangeError>[0],
   msg: string,
   cause?: unknown,
 ): never => {
-  throw new BitkitError(code, msg, cause === undefined ? undefined : { cause });
+  throw new OrangeError(code, msg, cause === undefined ? undefined : { cause });
 };
 
 const INVALID = 'This Lightning invoice is invalid.';
@@ -88,7 +88,7 @@ function parseAmount(digits: string, mult: string): Msat | null {
   return n * MULT[mult]!;
 }
 
-/** Decode a BOLT11 payment request. Throws `BitkitError`. */
+/** Decode a BOLT11 payment request. Throws `OrangeError`. */
 export function decodeBolt11(input: string): Bolt11Invoice {
   const raw = stripLightningPrefix(input);
   if (!raw) fail('empty', 'Enter a Lightning invoice.');

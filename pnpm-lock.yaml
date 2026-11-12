@@ -62,10 +62,10 @@ importers:
 
   apps/examples/nextjs:
     dependencies:
-      '@bitkit-ui/adapters':
+      '@orange-ui/adapters':
         specifier: workspace:*
         version: link:../../../packages/adapters
-      '@bitkit-ui/react':
+      '@orange-ui/react':
         specifier: workspace:*
         version: link:../../../packages/react
       next:
@@ -87,16 +87,16 @@ importers:
 
   apps/examples/proxy:
     dependencies:
-      '@bitkit-ui/adapters':
+      '@orange-ui/adapters':
         specifier: workspace:*
         version: link:../../../packages/adapters
 
   apps/examples/react-vite:
     dependencies:
-      '@bitkit-ui/adapters':
+      '@orange-ui/adapters':
         specifier: workspace:*
         version: link:../../../packages/adapters
-      '@bitkit-ui/react':
+      '@orange-ui/react':
         specifier: workspace:*
         version: link:../../../packages/react
       react:
@@ -123,10 +123,10 @@ importers:
 
   apps/examples/vue-vite:
     dependencies:
-      '@bitkit-ui/adapters':
+      '@orange-ui/adapters':
         specifier: workspace:*
         version: link:../../../packages/adapters
-      '@bitkit-ui/vue':
+      '@orange-ui/vue':
         specifier: workspace:*
         version: link:../../../packages/vue
       vue:
@@ -145,16 +145,16 @@ importers:
       '@astrojs/starlight':
         specifier: ~0.40.0
         version: 0.40.0(astro@6.4.8(@types/node@22.20.5)(lightningcss@1.33.0)(rollup@4.68.2)(yaml@2.9.1))(typescript@6.0.3)
-      '@bitkit-ui/adapters':
+      '@orange-ui/adapters':
         specifier: workspace:*
         version: link:../../packages/adapters
-      '@bitkit-ui/core':
+      '@orange-ui/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@bitkit-ui/elements':
+      '@orange-ui/elements':
         specifier: workspace:*
         version: link:../../packages/elements
-      '@bitkit-ui/tokens':
+      '@orange-ui/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
       astro:
@@ -163,7 +163,7 @@ importers:
 
   packages/adapters:
     dependencies:
-      '@bitkit-ui/core':
+      '@orange-ui/core':
         specifier: workspace:*
         version: link:../core
 
@@ -181,13 +181,13 @@ importers:
 
   packages/elements:
     dependencies:
-      '@bitkit-ui/adapters':
+      '@orange-ui/adapters':
         specifier: workspace:*
         version: link:../adapters
-      '@bitkit-ui/core':
+      '@orange-ui/core':
         specifier: workspace:*
         version: link:../core
-      '@bitkit-ui/tokens':
+      '@orange-ui/tokens':
         specifier: workspace:*
         version: link:../tokens
       lit:
@@ -218,11 +218,11 @@ importers:
 
   packages/react:
     dependencies:
-      '@bitkit-ui/elements':
+      '@orange-ui/elements':
         specifier: workspace:*
         version: link:../elements
     devDependencies:
-      '@bitkit-ui/adapters':
+      '@orange-ui/adapters':
         specifier: workspace:*
         version: link:../adapters
       '@types/react':
@@ -242,11 +242,11 @@ importers:
 
   packages/vue:
     dependencies:
-      '@bitkit-ui/elements':
+      '@orange-ui/elements':
         specifier: workspace:*
         version: link:../elements
     devDependencies:
-      '@bitkit-ui/adapters':
+      '@orange-ui/adapters':
         specifier: workspace:*
         version: link:../adapters
       vue:

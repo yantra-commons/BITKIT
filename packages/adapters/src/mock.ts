@@ -5,7 +5,7 @@ import {
   fiatToMsat,
   MSAT_PER_SAT,
   type Network,
-} from '@bitkit-ui/core';
+} from '@orange-ui/core';
 import {
   AdapterError,
   isTerminalStatus,

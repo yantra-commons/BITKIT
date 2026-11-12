@@ -1,4 +1,4 @@
-import { numberToPlainString, type FiatRate, type RecommendedFees } from '@bitkit-ui/core';
+import { numberToPlainString, type FiatRate, type RecommendedFees } from '@orange-ui/core';
 import {
   AdapterError,
   type FeeRateAdapter,

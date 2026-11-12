@@ -1,5 +1,5 @@
-# @bitkit-ui/tokens
+# @orange-ui/tokens
 
-Design tokens for Bitkit UI as JSON, CSS custom properties (`@bitkit-ui/tokens/tokens.css`) and TypeScript constants. Light and dark themes, WCAG AA contrast tested.
+Design tokens for Orange UI as JSON, CSS custom properties (`@orange-ui/tokens/tokens.css`) and TypeScript constants. Light and dark themes, WCAG AA contrast tested.
 
 Documentation: https://bitkit.dvsv2004.workers.dev/ · License: MIT

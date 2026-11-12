@@ -1,4 +1,4 @@
-import type { PaymentAdapter } from '@bitkit-ui/adapters';
+import type { PaymentAdapter } from '@orange-ui/adapters';
 
 type Factory = () => PaymentAdapter;
 const registry = new Map<string, Factory>();
@@ -6,7 +6,7 @@ const instances = new Map<string, PaymentAdapter>();
 
 /**
  * Register a named adapter so components can reference it by attribute, e.g.
- * `<bk-pay-button adapter="store">`. The CDN build registers `mock` automatically.
+ * `<ou-pay-button adapter="store">`. The CDN build registers `mock` automatically.
  */
 export function registerAdapter(name: string, adapter: PaymentAdapter | Factory): void {
   registry.set(name, typeof adapter === 'function' ? adapter : () => adapter);

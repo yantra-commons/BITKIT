@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { MockAdapter } from '@bitkit-ui/adapters';
-import { AddressInput, AmountInput, Checkout, PayButton } from '@bitkit-ui/vue';
+import { MockAdapter } from '@orange-ui/adapters';
+import { AddressInput, AmountInput, Checkout, PayButton } from '@orange-ui/vue';
 
 const adapter = new MockAdapter({ scenario: 'onchain', stepMs: 2000 });
 const amount = ref<bigint | undefined>(21000n);
@@ -11,7 +11,7 @@ const log = ref<string[]>([]);
 
 <template>
   <main style="max-width: 640px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui">
-    <h1>bitkit-ui with Vue</h1>
+    <h1>orange-ui with Vue</h1>
 
     <AmountInput
       label="Amount"

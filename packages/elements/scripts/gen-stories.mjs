@@ -20,10 +20,10 @@ for (const name of readdirSync(root)) {
 import { html } from 'lit';
 import './${name}.js';
 
-const meta: Meta = { title: 'Components/${title(name)}', component: 'bk-${name}', tags: ['autodocs'] };
+const meta: Meta = { title: 'Components/${title(name)}', component: 'ou-${name}', tags: ['autodocs'] };
 export default meta;
 
-export const Default: StoryObj = { render: () => html\`<bk-${name}></bk-${name}>\` };
+export const Default: StoryObj = { render: () => html\`<ou-${name}></ou-${name}>\` };
 `,
   );
   console.log('scaffolded', name);

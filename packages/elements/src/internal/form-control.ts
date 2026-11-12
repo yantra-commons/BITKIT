@@ -1,13 +1,13 @@
 import type { PropertyDeclarations } from 'lit';
-import { BitkitElement, nextId } from './base.js';
+import { OrangeElement, nextId } from './base.js';
 
 /**
  * Base for form-associated inputs: wires ElementInternals so the element participates in
  * <form> submission, validation and reset, and provides label/help/error ids.
  */
-export class FormControlElement extends BitkitElement {
+export class FormControlElement extends OrangeElement {
   static formAssociated = true;
-  static override shadowRootOptions = { ...BitkitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions = { ...OrangeElement.shadowRootOptions, delegatesFocus: true };
 
   static override properties: PropertyDeclarations = {
     name: { type: String },

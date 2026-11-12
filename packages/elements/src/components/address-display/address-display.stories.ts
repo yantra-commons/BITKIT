@@ -4,7 +4,7 @@ import './address-display.js';
 
 const meta: Meta = {
   title: 'Addresses/Address Display',
-  component: 'bk-address-display',
+  component: 'ou-address-display',
   tags: ['autodocs'],
   args: {
     address: 'bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqzk5jj0',
@@ -13,7 +13,7 @@ const meta: Meta = {
   argTypes: { truncate: { control: 'select', options: ['none', 'middle'] } },
   render: (a) =>
     html`<div style="max-width:28rem">
-      <bk-address-display
+      <ou-address-display
         address=${a.address}
         truncate=${a.truncate}
         label="Your deposit address"
@@ -21,7 +21,7 @@ const meta: Meta = {
         explorer
         show-network
         show-type
-      ></bk-address-display>
+      ></ou-address-display>
     </div>`,
 };
 export default meta;

@@ -8,7 +8,7 @@ import {
   type Network,
   type PaymentInput,
   type PaymentInputType,
-} from '@bitkit-ui/core';
+} from '@orange-ui/core';
 import { listConverter } from '../../internal/converters.js';
 import { define } from '../../internal/define.js';
 import { FormControlElement } from '../../internal/form-control.js';
@@ -51,30 +51,30 @@ export function describePaymentInput(r: PaymentInput, locale?: string): string {
  * @summary Destination input that validates as you type and accepts paste and QR scan. Uses
  * `parsePaymentInput` from core, so it understands addresses, BIP21 / unified QR, BOLT11,
  * BOLT12 offers, LNURL and Lightning Addresses (restrict with `accept`).
- * @tag bk-address-input
+ * @tag ou-address-input
  * @csspart label - Label.
  * @csspart control - Bordered wrapper.
  * @csspart input - The textarea.
  * @csspart status - Detected-type line.
  * @csspart error - Error message.
- * @fires bk-input - On each edit. Detail: `AddressInputDetail`.
- * @fires bk-change - When a value is committed (blur, paste, scan). Detail: `AddressInputDetail`.
+ * @fires ou-input - On each edit. Detail: `AddressInputDetail`.
+ * @fires ou-change - When a value is committed (blur, paste, scan). Detail: `AddressInputDetail`.
  */
-export class BkAddressInput extends FormControlElement {
+export class OuAddressInput extends FormControlElement {
   static override styles = [
     baseStyles,
     fieldStyles,
     css`
       .control {
         align-items: flex-start;
-        padding-block: var(--bk-space-1);
+        padding-block: var(--ou-space-1);
       }
       textarea {
         resize: none;
         min-height: 1.6em;
         line-height: 1.5;
-        font-family: var(--bk-font-mono);
-        font-size: var(--bk-font-size-sm);
+        font-family: var(--ou-font-mono);
+        font-size: var(--ou-font-size-sm);
         word-break: break-all;
         field-sizing: content;
         max-height: 8em;
@@ -90,14 +90,14 @@ export class BkAddressInput extends FormControlElement {
         width: 2.25rem;
         height: 2.25rem;
         border: 0;
-        border-radius: var(--bk-radius-sm);
+        border-radius: var(--ou-radius-sm);
         background: transparent;
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
         cursor: pointer;
       }
       .tool:hover {
-        background: var(--bk-color-surface-2);
-        color: var(--bk-color-text);
+        background: var(--ou-color-surface-2);
+        color: var(--ou-color-text);
       }
       .tool svg {
         width: 1.2rem;
@@ -106,9 +106,9 @@ export class BkAddressInput extends FormControlElement {
       .status {
         display: flex;
         align-items: center;
-        gap: var(--bk-space-1);
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-success);
+        gap: var(--ou-space-1);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-success);
         min-height: 1.25rem;
       }
       .status svg {
@@ -117,7 +117,7 @@ export class BkAddressInput extends FormControlElement {
         flex: none;
       }
       .status span {
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -227,8 +227,8 @@ export class BkAddressInput extends FormControlElement {
   #set(value: string, commit: boolean) {
     this.value = value;
     void this.updateComplete.then(() => {
-      this.emit('bk-input', this.#detail());
-      if (commit) this.emit('bk-change', this.#detail());
+      this.emit('ou-input', this.#detail());
+      if (commit) this.emit('ou-change', this.#detail());
     });
   }
 
@@ -241,14 +241,14 @@ export class BkAddressInput extends FormControlElement {
     if (e.key === 'Enter') {
       e.preventDefault();
       this._touched = true;
-      this.emit('bk-change', this.#detail());
+      this.emit('ou-change', this.#detail());
       this.form?.requestSubmit();
     }
   }
 
   #onBlur() {
     this._touched = true;
-    this.emit('bk-change', this.#detail());
+    this.emit('ou-change', this.#detail());
   }
 
   async #paste() {
@@ -353,23 +353,23 @@ export class BkAddressInput extends FormControlElement {
       </div>
       ${
         this.scan
-          ? html`<bk-dialog
+          ? html`<ou-dialog
               label=${this.t('scan')}
               ?open=${this._scanning}
-              @bk-close=${() => (this._scanning = false)}
+              @ou-close=${() => (this._scanning = false)}
             >
-              <bk-qr-scanner ?active=${this._scanning} @bk-scan=${this.#onScan}></bk-qr-scanner>
-            </bk-dialog>`
+              <ou-qr-scanner ?active=${this._scanning} @ou-scan=${this.#onScan}></ou-qr-scanner>
+            </ou-dialog>`
           : nothing
       }
     </div>`;
   }
 }
 
-define('bk-address-input', BkAddressInput);
+define('ou-address-input', OuAddressInput);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-address-input': BkAddressInput;
+    'ou-address-input': OuAddressInput;
   }
 }

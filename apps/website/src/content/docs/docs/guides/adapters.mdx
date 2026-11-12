@@ -22,12 +22,12 @@ Statuses: `pending → detected → confirming → paid`, plus `underpaid`, `ove
 
 | Adapter              | Import                         | Methods                          | Runs in the browser?                |
 | -------------------- | ------------------------------ | -------------------------------- | ----------------------------------- |
-| Mock                 | `@bitkit-ui/adapters/mock`     | Lightning + on-chain (simulated) | Yes                                 |
-| HTTP (your backend)  | `@bitkit-ui/adapters/http`     | Whatever your server supports    | Yes, recommended                    |
-| BTCPay Server        | `@bitkit-ui/adapters/btcpay`   | Lightning + on-chain             | Only through a proxy                |
-| LNbits               | `@bitkit-ui/adapters/lnbits`   | Lightning                        | Only through a proxy                |
-| OpenNode             | `@bitkit-ui/adapters/opennode` | Lightning + on-chain             | Only through a proxy                |
-| Nostr Wallet Connect | `@bitkit-ui/adapters/nwc`      | Lightning                        | Yes, with a receive-only connection |
+| Mock                 | `@orange-ui/adapters/mock`     | Lightning + on-chain (simulated) | Yes                                 |
+| HTTP (your backend)  | `@orange-ui/adapters/http`     | Whatever your server supports    | Yes, recommended                    |
+| BTCPay Server        | `@orange-ui/adapters/btcpay`   | Lightning + on-chain             | Only through a proxy                |
+| LNbits               | `@orange-ui/adapters/lnbits`   | Lightning                        | Only through a proxy                |
+| OpenNode             | `@orange-ui/adapters/opennode` | Lightning + on-chain             | Only through a proxy                |
+| Nostr Wallet Connect | `@orange-ui/adapters/nwc`      | Lightning                        | Yes, with a receive-only connection |
 
 :::danger[API keys never go in the browser]
 Adapters that need a secret refuse to start in a browser when given `apiKey`. Run them on your
@@ -41,7 +41,7 @@ Deterministic and fully offline, for demos, tests and Storybook. It runs on sign
 its addresses can never receive real bitcoin.
 
 ```ts
-import { MockAdapter } from '@bitkit-ui/adapters/mock';
+import { MockAdapter } from '@orange-ui/adapters/mock';
 
 const mock = new MockAdapter({ scenario: 'onchain', stepMs: 2000, requiredConfirmations: 3 });
 // scenarios: lightning | onchain | underpaid | overpaid | expired | failed | manual
@@ -54,7 +54,7 @@ Your server creates invoices with any provider and handles webhooks. The browser
 API:
 
 ```ts
-import { createHttpAdapter } from '@bitkit-ui/adapters/http';
+import { createHttpAdapter } from '@orange-ui/adapters/http';
 
 const adapter = createHttpAdapter({
   baseUrl: '/api/payments', // POST → Invoice, GET /:id → PaymentUpdate
@@ -65,7 +65,7 @@ const adapter = createHttpAdapter({
 ## BTCPay Server (server-side)
 
 ```ts
-import { BtcPayAdapter } from '@bitkit-ui/adapters/btcpay';
+import { BtcPayAdapter } from '@orange-ui/adapters/btcpay';
 
 const btcpay = new BtcPayAdapter({
   baseUrl: 'https://btcpay.example.com',
@@ -88,7 +88,7 @@ NIP-47 client, such as Alby's SDK:
 
 ```ts
 import { nwc } from '@getalby/sdk';
-import { NwcAdapter } from '@bitkit-ui/adapters/nwc';
+import { NwcAdapter } from '@orange-ui/adapters/nwc';
 
 const client = new nwc.NWCClient({ nostrWalletConnectUrl });
 const adapter = new NwcAdapter({ client });
@@ -102,7 +102,7 @@ read the page can read the connection string.
 Implement the interface. `pollStatus` turns any `getStatus` into a subscription:
 
 ```ts
-import { pollStatus, type PaymentAdapter } from '@bitkit-ui/adapters';
+import { pollStatus, type PaymentAdapter } from '@orange-ui/adapters';
 
 export const myAdapter: PaymentAdapter = {
   name: 'my-provider',
@@ -121,7 +121,7 @@ export const myAdapter: PaymentAdapter = {
 ## Prices and fees
 
 ```ts
-import { MempoolRates } from '@bitkit-ui/adapters/rates';
+import { MempoolRates } from '@orange-ui/adapters/rates';
 
 const rates = new MempoolRates({ baseUrl: 'https://mempool.space/api' }); // self-hostable
 await rates.getRate('USD'); // { currency: 'USD', price: '97250.12' }

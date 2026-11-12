@@ -1,4 +1,4 @@
-/** Machine-readable error codes produced by @bitkit-ui/core. */
+/** Machine-readable error codes produced by @orange-ui/core. */
 export type ErrorCode =
   | 'empty'
   | 'invalid-number'
@@ -30,16 +30,16 @@ export type ErrorCode =
   | 'unrecognized';
 
 /** Error thrown by core parsers. `message` is safe to show to end users. */
-export class BitkitError extends Error {
+export class OrangeError extends Error {
   readonly code: ErrorCode;
   constructor(code: ErrorCode, message: string, options?: { cause?: unknown }) {
     super(message, options);
-    this.name = 'BitkitError';
+    this.name = 'OrangeError';
     this.code = code;
   }
 }
 
-export const isBitkitError = (e: unknown): e is BitkitError => e instanceof BitkitError;
+export const isOrangeError = (e: unknown): e is OrangeError => e instanceof OrangeError;
 
 /** Plain-object form of an error, convenient for UI state. */
 export interface ErrorInfo {
@@ -48,6 +48,6 @@ export interface ErrorInfo {
 }
 
 export const toErrorInfo = (e: unknown): ErrorInfo =>
-  isBitkitError(e)
+  isOrangeError(e)
     ? { code: e.code, message: e.message }
     : { code: 'unrecognized', message: e instanceof Error ? e.message : String(e) };

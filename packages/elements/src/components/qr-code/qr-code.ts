@@ -1,6 +1,6 @@
 import { css, html, nothing, svg, type PropertyValues } from 'lit';
 import { encode } from 'uqr';
-import { BitkitElement } from '../../internal/base.js';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 
@@ -28,13 +28,13 @@ export function qrPath(data: boolean[][]): string {
  * @summary Renders a value as a QR code (SVG, fully client-side). Colors stay dark-on-light in
  * every theme for scanner reliability. Put an image in the `logo` slot to overlay a logo (error
  * correction is raised to H automatically).
- * @tag bk-qr-code
+ * @tag ou-qr-code
  * @slot logo - Optional centered logo.
  * @csspart base - Container.
  * @csspart svg - The SVG.
- * @cssprop --bk-qr-size - Rendered size. Default from the `size` attribute.
+ * @cssprop --ou-qr-size - Rendered size. Default from the `size` attribute.
  */
-export class BkQrCode extends BitkitElement {
+export class OuQrCode extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -43,12 +43,12 @@ export class BkQrCode extends BitkitElement {
       }
       .qr {
         position: relative;
-        width: var(--bk-qr-size);
+        width: var(--ou-qr-size);
         max-width: 100%;
         aspect-ratio: 1;
         padding: 0;
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-qr-bg);
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-qr-bg);
         overflow: hidden;
       }
       svg {
@@ -68,15 +68,15 @@ export class BkQrCode extends BitkitElement {
         height: 22%;
         padding: 2%;
         border-radius: 18%;
-        background: var(--bk-color-qr-bg);
+        background: var(--ou-color-qr-bg);
         object-fit: contain;
       }
       .empty {
         display: grid;
         place-items: center;
-        color: var(--bk-color-text-muted);
-        background: var(--bk-color-surface-2);
-        font-size: var(--bk-font-size-sm);
+        color: var(--ou-color-text-muted);
+        background: var(--ou-color-surface-2);
+        font-size: var(--ou-font-size-sm);
       }
     `,
   ];
@@ -145,7 +145,7 @@ export class BkQrCode extends BitkitElement {
   }
 
   override render() {
-    const style = `--bk-qr-size: ${this.size}px`;
+    const style = `--ou-qr-size: ${this.size}px`;
     if (!this.value || this.#error) {
       return html`<div
         class="qr empty"
@@ -161,18 +161,18 @@ export class BkQrCode extends BitkitElement {
     const name = this.t('qrCodeFor', { label: this.label ?? this.value });
     return html`<div class="qr" part="base" style=${style} role="img" aria-label=${name}>
       ${svg`<svg part="svg" viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges" aria-hidden="true">
-        <rect width=${n} height=${n} fill="var(--bk-color-qr-bg)"></rect>
-        <path d=${this.#path} fill="var(--bk-color-qr-fg)"></path>
+        <rect width=${n} height=${n} fill="var(--ou-color-qr-bg)"></rect>
+        <path d=${this.#path} fill="var(--ou-color-qr-fg)"></path>
       </svg>`}
       <div class="logo"><slot name="logo" @slotchange=${this.#onLogo}></slot></div>
     </div>`;
   }
 }
 
-define('bk-qr-code', BkQrCode);
+define('ou-qr-code', OuQrCode);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-qr-code': BkQrCode;
+    'ou-qr-code': OuQrCode;
   }
 }

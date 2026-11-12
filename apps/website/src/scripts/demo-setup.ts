@@ -1,7 +1,7 @@
 // Applies property-only setup to live demos (mirrors the `js` snippets in src/lib/examples.ts).
-import { encodeUnsignedBolt11 } from '@bitkit-ui/core';
-import { configure, toast } from '@bitkit-ui/elements';
-import type { MockScenario } from '@bitkit-ui/adapters/mock';
+import { encodeUnsignedBolt11 } from '@orange-ui/core';
+import { configure, toast } from '@orange-ui/elements';
+import type { MockScenario } from '@orange-ui/adapters/mock';
 import { demoAdapter } from './kit.js';
 
 const PHRASE = 'legal winner thank year wave sausage worth useful legal winner thank yellow';
@@ -100,12 +100,12 @@ const setups: Record<string, (root: HTMLElement) => void> = {
 };
 
 for (const demo of document.querySelectorAll<HTMLElement>('[data-demo]')) {
-  const preview = demo.querySelector<HTMLElement>('.bk-demo__preview')!;
+  const preview = demo.querySelector<HTMLElement>('.ou-demo__preview')!;
   setups[demo.dataset.demo!]?.(preview);
   demo.querySelector<HTMLSelectElement>('[data-control=theme]')?.addEventListener('change', (e) => {
     const v = (e.target as HTMLSelectElement).value;
-    if (v === 'auto') preview.removeAttribute('data-bk-theme');
-    else preview.setAttribute('data-bk-theme', v);
+    if (v === 'auto') preview.removeAttribute('data-ou-theme');
+    else preview.setAttribute('data-ou-theme', v);
   });
   demo
     .querySelector<HTMLSelectElement>('[data-control=network]')
@@ -117,7 +117,7 @@ for (const demo of document.querySelectorAll<HTMLElement>('[data-demo]')) {
     ?.addEventListener('change', (e) => {
       demoAdapter.scenario = (e.target as HTMLSelectElement).value as MockScenario;
       preview
-        .querySelectorAll<HTMLElement & { start?: () => void }>('bk-checkout')
+        .querySelectorAll<HTMLElement & { start?: () => void }>('ou-checkout')
         .forEach((c) => c.start?.());
     });
 }

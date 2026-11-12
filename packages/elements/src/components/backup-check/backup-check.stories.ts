@@ -9,7 +9,7 @@ const words = 'legal winner thank year wave sausage worth useful legal winner th
 
 const meta: Meta = {
   title: 'Security/Backup Check',
-  component: 'bk-backup-check',
+  component: 'ou-backup-check',
   tags: ['autodocs'],
 };
 export default meta;
@@ -18,6 +18,6 @@ export const Default: StoryObj = {
   render: () =>
     html`<div style="max-width:28rem">
       <p style="font-size:.875rem">Words: ${words.map((w, i) => `${i + 1}. ${w}`).join('  ')}</p>
-      <bk-backup-check .words=${[...words]}></bk-backup-check>
+      <ou-backup-check .words=${[...words]}></ou-backup-check>
     </div>`,
 };

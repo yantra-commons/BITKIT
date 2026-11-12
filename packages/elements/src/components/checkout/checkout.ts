@@ -6,7 +6,7 @@ import {
   fromMsat,
   MSAT_PER_SAT,
   type FiatRate,
-} from '@bitkit-ui/core';
+} from '@orange-ui/core';
 import {
   isPaidStatus,
   isTerminalStatus,
@@ -16,10 +16,10 @@ import {
   type PaymentMethod,
   type PaymentUpdate,
   type Unsubscribe,
-} from '@bitkit-ui/adapters';
+} from '@orange-ui/adapters';
 import { resolveFiatRate } from '../../internal/amount.js';
 import { resolveAdapter } from '../../internal/adapters.js';
-import { BitkitElement } from '../../internal/base.js';
+import { OrangeElement } from '../../internal/base.js';
 import { bigintConverter, listConverter, toBigint } from '../../internal/converters.js';
 import { CountdownController } from '../../internal/countdown.js';
 import { define } from '../../internal/define.js';
@@ -50,7 +50,7 @@ const webln = (): WebLN | undefined => (globalThis as { webln?: WebLN }).webln;
  * a unified QR (on-chain + Lightning) with method tabs, amount and fiat value, copy buttons,
  * expiry countdown, open-in-wallet link, one-click WebLN payment and live status updates.
  * Works inline or as a modal.
- * @tag bk-checkout
+ * @tag ou-checkout
  * @slot header - Replace the default heading.
  * @slot success - Custom content for the paid screen.
  * @csspart base - Container.
@@ -60,14 +60,14 @@ const webln = (): WebLN | undefined => (globalThis as { webln?: WebLN }).webln;
  * @csspart details - Copyable details.
  * @csspart actions - Wallet buttons.
  * @csspart status - Status block.
- * @fires bk-invoice-created - Detail: `{ invoice }`.
- * @fires bk-status-change - Detail: `PaymentUpdate`.
- * @fires bk-paid - Detail: `{ invoice, update }`.
- * @fires bk-expired - Detail: `{ invoice }`.
- * @fires bk-error - Detail: `{ error }`.
- * @fires bk-close - When the modal closes.
+ * @fires ou-invoice-created - Detail: `{ invoice }`.
+ * @fires ou-status-change - Detail: `PaymentUpdate`.
+ * @fires ou-paid - Detail: `{ invoice, update }`.
+ * @fires ou-expired - Detail: `{ invoice }`.
+ * @fires ou-error - Detail: `{ error }`.
+ * @fires ou-close - When the modal closes.
  */
-export class BkCheckout extends BitkitElement {
+export class OuCheckout extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -77,66 +77,66 @@ export class BkCheckout extends BitkitElement {
       .co {
         display: flex;
         flex-direction: column;
-        gap: var(--bk-space-4);
+        gap: var(--ou-space-4);
       }
       :host([mode='inline']) .co {
-        padding: var(--bk-space-5);
-        border: 1px solid var(--bk-color-border);
-        border-radius: var(--bk-radius-lg);
-        background: var(--bk-color-surface);
-        box-shadow: var(--bk-shadow-md);
+        padding: var(--ou-space-5);
+        border: 1px solid var(--ou-color-border);
+        border-radius: var(--ou-radius-lg);
+        background: var(--ou-color-surface);
+        box-shadow: var(--ou-shadow-md);
       }
       .head {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
       }
       h2 {
         margin: 0;
-        font-size: var(--bk-font-size-lg);
-        font-weight: var(--bk-font-weight-semibold);
+        font-size: var(--ou-font-size-lg);
+        font-weight: var(--ou-font-weight-semibold);
       }
       .amount {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: var(--bk-space-1);
+        gap: var(--ou-space-1);
         text-align: center;
       }
       .desc {
         margin: 0;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-text-muted);
       }
       .qr-wrap {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: var(--bk-space-3);
+        gap: var(--ou-space-3);
       }
-      .qr-wrap bk-qr-code {
+      .qr-wrap ou-qr-code {
         width: min(100%, 264px);
       }
       .rows {
         display: flex;
         flex-direction: column;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
       }
       .row {
         display: flex;
         align-items: center;
-        gap: var(--bk-space-2);
-        padding: var(--bk-space-2) var(--bk-space-2) var(--bk-space-2) var(--bk-space-3);
-        border: 1px solid var(--bk-color-border);
-        border-radius: var(--bk-radius-md);
+        gap: var(--ou-space-2);
+        padding: var(--ou-space-2) var(--ou-space-2) var(--ou-space-2) var(--ou-space-3);
+        border: 1px solid var(--ou-color-border);
+        border-radius: var(--ou-radius-md);
         min-width: 0;
       }
       .row .k {
         flex: none;
-        font-size: var(--bk-font-size-xs);
-        font-weight: var(--bk-font-weight-semibold);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-xs);
+        font-weight: var(--ou-font-weight-semibold);
+        color: var(--ou-color-text-muted);
         text-transform: uppercase;
         letter-spacing: 0.04em;
         min-width: 5.5rem;
@@ -147,21 +147,21 @@ export class BkCheckout extends BitkitElement {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        font-family: var(--bk-font-mono);
-        font-size: var(--bk-font-size-sm);
+        font-family: var(--ou-font-mono);
+        font-size: var(--ou-font-size-sm);
       }
       .actions {
         display: flex;
         flex-direction: column;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
       }
       .meta {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: var(--bk-space-2);
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-text-muted);
+        gap: var(--ou-space-2);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-text-muted);
         font-variant-numeric: tabular-nums;
       }
       .meta svg {
@@ -169,18 +169,18 @@ export class BkCheckout extends BitkitElement {
         height: 1rem;
       }
       .soon {
-        color: var(--bk-color-warning);
+        color: var(--ou-color-warning);
       }
       .demo {
         display: flex;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
         align-items: center;
-        padding: var(--bk-space-2) var(--bk-space-3);
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-info-bg);
-        color: var(--bk-color-info);
-        font-size: var(--bk-font-size-xs);
-        font-weight: var(--bk-font-weight-medium);
+        padding: var(--ou-space-2) var(--ou-space-3);
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-info-bg);
+        color: var(--ou-color-info);
+        font-size: var(--ou-font-size-xs);
+        font-weight: var(--ou-font-weight-medium);
       }
       .demo svg {
         width: 1rem;
@@ -189,21 +189,21 @@ export class BkCheckout extends BitkitElement {
       }
       .note {
         margin: 0;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-danger);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-danger);
         text-align: center;
       }
       .center {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: var(--bk-space-3);
+        gap: var(--ou-space-3);
       }
       .skeleton-qr {
         width: min(100%, 264px);
         aspect-ratio: 1;
       }
-      bk-skeleton[shape='rect'] {
+      ou-skeleton[shape='rect'] {
         height: 100%;
       }
     `,
@@ -380,29 +380,29 @@ export class BkCheckout extends BitkitElement {
           : 'onchain';
     this._state = 'awaiting';
     this.#countdown.deadline = invoice.expiresAt;
-    this.emit('bk-invoice-created', { invoice });
+    this.emit('ou-invoice-created', { invoice });
     if (adapter) this.#unsub = adapter.subscribe(invoice.id, (u) => this.#onUpdate(u));
   }
 
   #fail(message: string) {
     this._state = 'error';
     this._error = message;
-    this.emit('bk-error', { error: message });
+    this.emit('ou-error', { error: message });
   }
 
   #onUpdate(u: PaymentUpdate) {
     if (!this._invoice || u.invoiceId !== this._invoice.id) return;
     this._update = u;
-    this.emit('bk-status-change', u);
+    this.emit('ou-status-change', u);
     if (isPaidStatus(u.status)) {
       this._state = 'paid';
       this.#countdown.deadline = undefined;
-      this.emit('bk-paid', { invoice: this._invoice, update: u });
+      this.emit('ou-paid', { invoice: this._invoice, update: u });
     } else if (u.status === 'expired' || u.status === 'cancelled' || u.status === 'failed') {
       this._state = u.status === 'failed' ? 'error' : 'expired';
       if (u.status === 'failed') this._error = 'The payment failed.';
       this.#countdown.deadline = undefined;
-      if (u.status !== 'failed') this.emit('bk-expired', { invoice: this._invoice });
+      if (u.status !== 'failed') this.emit('ou-expired', { invoice: this._invoice });
     }
     if (isTerminalStatus(u.status)) {
       this.#unsub?.();
@@ -415,7 +415,7 @@ export class BkCheckout extends BitkitElement {
     const s = this._update?.status;
     if (this._state === 'awaiting' && (!s || s === 'pending')) {
       this._state = 'expired';
-      this.emit('bk-expired', { invoice: this._invoice });
+      this.emit('ou-expired', { invoice: this._invoice });
     }
   }
 
@@ -433,7 +433,7 @@ export class BkCheckout extends BitkitElement {
     try {
       await w.enable();
       const res = await w.sendPayment(pr);
-      this.emit('bk-webln-paid', { preimage: res?.preimage });
+      this.emit('ou-webln-paid', { preimage: res?.preimage });
     } catch (e) {
       this._weblnError = (e as Error)?.message || 'The wallet did not complete the payment.';
     } finally {
@@ -483,7 +483,7 @@ export class BkCheckout extends BitkitElement {
   #row(label: string, value: string, copyLabel: string) {
     return html`<div class="row">
       <span class="k">${label}</span><span class="v" title=${value}>${value}</span>
-      <bk-copy-button size="sm" .value=${value} label=${copyLabel}></bk-copy-button>
+      <ou-copy-button size="sm" .value=${value} label=${copyLabel}></ou-copy-button>
     </div>`;
   }
 
@@ -495,12 +495,12 @@ export class BkCheckout extends BitkitElement {
     const left = this.#countdown.remaining;
     const btc = fromMsat(inv.amountSats * MSAT_PER_SAT, 'btc', { maxFractionDigits: 8 });
     const panel = html`<div class="qr-wrap">
-      <bk-qr-code
+      <ou-qr-code
         part="qr"
         .value=${this.#qrValue(inv)}
         size="264"
         label=${this._view === 'onchain' ? 'on-chain payment' : this._view === 'lightning' ? 'Lightning invoice' : 'payment request'}
-      ></bk-qr-code>
+      ></ou-qr-code>
     </div>`;
     const details: TemplateResult[] = [];
     if ((this._view === 'unified' || this._view === 'lightning') && inv.lightning)
@@ -522,27 +522,27 @@ export class BkCheckout extends BitkitElement {
       }
       ${
         views.length > 1
-          ? html`<bk-tabs
+          ? html`<ou-tabs
               label="Payment method"
               .value=${this._view}
-              @bk-change=${(e: CustomEvent<{ value: View }>) => (this._view = e.detail.value)}
+              @ou-change=${(e: CustomEvent<{ value: View }>) => (this._view = e.detail.value)}
             >
               ${views.map(([v, label]) => html`<div slot=${v} label=${label}>${v === this._view ? panel : nothing}</div>`)}
-            </bk-tabs>`
+            </ou-tabs>`
           : panel
       }
       <div class="rows" part="details">${details}</div>
       <div class="actions" part="actions">
         ${
           canWebln
-            ? html`<bk-button block ?loading=${this._weblnBusy} @click=${this.#payWithWebln}
+            ? html`<ou-button block ?loading=${this._weblnBusy} @click=${this.#payWithWebln}
                 ><span slot="prefix">${iconSvg('lightning')}</span>Pay with browser
-                wallet</bk-button
+                wallet</ou-button
               >`
             : nothing
         }
-        <bk-button block variant=${canWebln ? 'secondary' : 'primary'} href=${this.#walletLink(inv)}
-          ><span slot="prefix">${iconSvg('wallet')}</span>Open in wallet</bk-button
+        <ou-button block variant=${canWebln ? 'secondary' : 'primary'} href=${this.#walletLink(inv)}
+          ><span slot="prefix">${iconSvg('wallet')}</span>Open in wallet</ou-button
         >
         ${this._weblnError ? html`<p class="note" role="alert">${this._weblnError}</p>` : nothing}
       </div>
@@ -559,7 +559,7 @@ export class BkCheckout extends BitkitElement {
             </div>`
           : nothing
       }
-      <bk-payment-status
+      <ou-payment-status
         part="status"
         status=${this._update?.status ?? 'pending'}
         .confirmations=${this._update?.confirmations}
@@ -567,7 +567,7 @@ export class BkCheckout extends BitkitElement {
         .amountReceived=${this._update?.amountReceivedSats}
         .amountDue=${inv.amountSats}
         method=${this._update?.method ?? nothing}
-      ></bk-payment-status>
+      ></ou-payment-status>
     `;
   }
 
@@ -576,35 +576,35 @@ export class BkCheckout extends BitkitElement {
     switch (this._state) {
       case 'creating':
         return html`<div class="center" aria-busy="true">
-          <div class="skeleton-qr"><bk-skeleton shape="rect"></bk-skeleton></div>
-          <bk-skeleton width="80%"></bk-skeleton>
+          <div class="skeleton-qr"><ou-skeleton shape="rect"></ou-skeleton></div>
+          <ou-skeleton width="80%"></ou-skeleton>
           <span class="sr-only" role="status">Creating payment request…</span>
         </div>`;
       case 'awaiting':
         return inv ? this.#renderAwaiting(inv) : nothing;
       case 'paid':
         return html`<slot name="success"
-            ><bk-payment-status
+            ><ou-payment-status
               size="large"
               status=${this._update?.status ?? 'paid'}
               .amountReceived=${this._update?.amountReceivedSats}
               .amountDue=${inv?.amountSats}
-            ></bk-payment-status
+            ></ou-payment-status
           ></slot>
-          ${this.mode === 'modal' ? html`<bk-button block @click=${() => this.close()}>Done</bk-button>` : nothing}`;
+          ${this.mode === 'modal' ? html`<ou-button block @click=${() => this.close()}>Done</ou-button>` : nothing}`;
       case 'expired':
-        return html`<bk-payment-status
+        return html`<ou-payment-status
             size="large"
             status=${this._update?.status === 'cancelled' ? 'cancelled' : 'expired'}
-          ></bk-payment-status>
-          <bk-button block @click=${() => this.start()}>Create new payment request</bk-button>`;
+          ></ou-payment-status>
+          <ou-button block @click=${() => this.start()}>Create new payment request</ou-button>`;
       case 'error':
-        return html`<bk-payment-status
+        return html`<ou-payment-status
             size="large"
             status="failed"
             message=${this._error ?? 'Something went wrong.'}
-          ></bk-payment-status>
-          <bk-button block variant="secondary" @click=${() => this.start()}>Try again</bk-button>`;
+          ></ou-payment-status>
+          <ou-button block variant="secondary" @click=${() => this.start()}>Try again</ou-button>`;
       default:
         return html`<p class="desc" style="text-align:center">
           Set an amount to create a payment request.
@@ -621,21 +621,21 @@ export class BkCheckout extends BitkitElement {
         this.mode === 'inline'
           ? html`<div class="head" part="header">
               <slot name="header"><h2>${this.heading ?? 'Pay with bitcoin'}</h2></slot>
-              ${inv ? html`<bk-network-badge network=${inv.network} hide-mainnet></bk-network-badge>` : nothing}
+              ${inv ? html`<ou-network-badge network=${inv.network} hide-mainnet></ou-network-badge>` : nothing}
             </div>`
           : nothing
       }
       ${
         showAmount
           ? html`<div class="amount" part="amount">
-              <bk-amount-display
+              <ou-amount-display
                 .amount=${sats}
                 size="xl"
                 toggle
                 ?show-fiat=${!!this.#rate}
                 .fiatRate=${this.#rate}
                 locale=${this.locale ?? nothing}
-              ></bk-amount-display>
+              ></ou-amount-display>
               ${inv?.fiat ? html`<p class="desc">${inv.fiat.amount} ${inv.fiat.currency}</p>` : nothing}
               ${(inv?.description ?? this.description) ? html`<p class="desc">${inv?.description ?? this.description}</p>` : nothing}
             </div>`
@@ -647,25 +647,25 @@ export class BkCheckout extends BitkitElement {
 
   override render() {
     if (this.mode === 'modal') {
-      return html`<bk-dialog
+      return html`<ou-dialog
         label=${this.heading ?? 'Pay with bitcoin'}
         ?open=${this.open}
-        @bk-close=${(e: Event) => {
+        @ou-close=${(e: Event) => {
           e.stopPropagation();
           this.open = false;
-          this.emit('bk-close');
+          this.emit('ou-close');
         }}
-        >${this.open ? this.#renderContent() : nothing}</bk-dialog
+        >${this.open ? this.#renderContent() : nothing}</ou-dialog
       >`;
     }
     return this.#renderContent();
   }
 }
 
-define('bk-checkout', BkCheckout);
+define('ou-checkout', OuCheckout);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-checkout': BkCheckout;
+    'ou-checkout': OuCheckout;
   }
 }

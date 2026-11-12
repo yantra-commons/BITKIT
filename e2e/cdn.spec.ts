@@ -13,7 +13,7 @@ test.describe('plain HTML + CDN bundle', () => {
     const dialog = page.getByRole('dialog', { name: 'Pay with bitcoin' });
     await expect(dialog).toBeVisible();
     // Checkout content is slotted into the dialog, so scope to the checkout element.
-    const checkout = page.locator('bk-pay-button bk-checkout');
+    const checkout = page.locator('ou-pay-button ou-checkout');
     await expect(checkout.getByText('Demo payment on signet')).toBeVisible();
     await expect(checkout.getByRole('img', { name: /QR code for payment request/ })).toBeVisible();
     await expect(checkout.getByRole('tab', { name: 'Lightning' })).toBeVisible();
@@ -40,7 +40,7 @@ test.describe('plain HTML + CDN bundle', () => {
     const inside = await page.evaluate(() => {
       let el: Element | null = document.activeElement;
       while (el?.shadowRoot?.activeElement) el = el.shadowRoot.activeElement;
-      return !!el?.closest('bk-dialog, dialog') || el?.getRootNode() !== document;
+      return !!el?.closest('ou-dialog, dialog') || el?.getRootNode() !== document;
     });
     expect(inside).toBe(true);
     await page.keyboard.press('Escape');

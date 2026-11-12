@@ -16,22 +16,22 @@ pnpm exec playwright install   # once, for e2e
 | End-to-end + real-browser a11y | `pnpm e2e`                                          |
 | Bundle-size budgets            | `pnpm size`                                         |
 | Component workbench            | `pnpm storybook`                                    |
-| Docs site                      | `pnpm --filter @bitkit-ui/website dev`              |
+| Docs site                      | `pnpm --filter @orange-ui/website dev`              |
 
 ## Conventions
 
 Read [`CLAUDE.md`](./CLAUDE.md). The essentials:
 
-- No floating-point money math. Use `bigint` msat and the helpers in `@bitkit-ui/core`.
+- No floating-point money math. Use `bigint` msat and the helpers in `@orange-ui/core`.
 - `core` stays pure: no DOM, no I/O.
-- No hard-coded colors in components. Use `--bk-*` tokens.
+- No hard-coded colors in components. Use `--ou-*` tokens.
 - New runtime dependencies need a justification in `docs/PLAN.md` §3.
 
 ### Adding a component
 
 1. `packages/elements/src/components/<name>/<name>.ts` (Lit, no decorators, JSDoc with
    `@summary`, `@fires`, `@csspart`, `@slot`) and an `index.ts` re-export.
-2. Add it to `src/index.ts` (`pnpm --filter @bitkit-ui/elements build` regenerates the manifest).
+2. Add it to `src/index.ts` (`pnpm --filter @orange-ui/elements build` regenerates the manifest).
 3. A story (`<name>.stories.ts`), behavior + axe tests, and a docs example in
    `apps/website/src/lib/examples.ts`.
 4. React/Vue wrappers and API docs are generated from the manifest automatically.

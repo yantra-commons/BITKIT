@@ -1,7 +1,7 @@
 import { css, html, nothing } from 'lit';
-import { formatAmount, MSAT_PER_SAT, type DisplayUnit, type FiatRate } from '@bitkit-ui/core';
+import { formatAmount, MSAT_PER_SAT, type DisplayUnit, type FiatRate } from '@orange-ui/core';
 import { resolveFiatRate } from '../../internal/amount.js';
-import { BitkitElement } from '../../internal/base.js';
+import { OrangeElement } from '../../internal/base.js';
 import { bigintConverter, toBigint } from '../../internal/converters.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
@@ -11,14 +11,14 @@ import '../network-badge/network-badge.js';
 /**
  * @summary Wallet balance with fiat value, pending amount, privacy toggle and an actions slot
  * for Send / Receive buttons.
- * @tag bk-balance-card
+ * @tag ou-balance-card
  * @slot actions - Buttons under the balance.
  * @slot header - Replace the label row.
  * @csspart base - Card.
- * @csspart amount - The bk-amount-display.
+ * @csspart amount - The ou-amount-display.
  * @csspart pending - Pending line.
  */
-export class BkBalanceCard extends BitkitElement {
+export class OuBalanceCard extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -28,33 +28,33 @@ export class BkBalanceCard extends BitkitElement {
       .card {
         display: flex;
         flex-direction: column;
-        gap: var(--bk-space-3);
-        padding: var(--bk-space-5);
-        border: 1px solid var(--bk-color-border);
-        border-radius: var(--bk-radius-lg);
-        background: var(--bk-color-surface);
-        box-shadow: var(--bk-shadow-sm);
+        gap: var(--ou-space-3);
+        padding: var(--ou-space-5);
+        border: 1px solid var(--ou-color-border);
+        border-radius: var(--ou-radius-lg);
+        background: var(--ou-color-surface);
+        box-shadow: var(--ou-shadow-sm);
       }
       .row {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
       }
       .label {
         margin: 0;
-        font-size: var(--bk-font-size-sm);
-        font-weight: var(--bk-font-weight-medium);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-sm);
+        font-weight: var(--ou-font-weight-medium);
+        color: var(--ou-color-text-muted);
       }
       .pending {
         margin: 0;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-text-muted);
       }
       ::slotted([slot='actions']) {
         display: flex;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
       }
     `,
   ];
@@ -105,9 +105,9 @@ export class BkBalanceCard extends BitkitElement {
     return html`<section class="card" part="base" aria-label=${this.label}>
       <div class="row">
         <slot name="header"><p class="label">${this.label}</p></slot>
-        ${this.network ? html`<bk-network-badge network=${this.network} hide-mainnet></bk-network-badge>` : nothing}
+        ${this.network ? html`<ou-network-badge network=${this.network} hide-mainnet></ou-network-badge>` : nothing}
       </div>
-      <bk-amount-display
+      <ou-amount-display
         part="amount"
         size="xl"
         .amount=${toBigint(this.balance)}
@@ -119,8 +119,8 @@ export class BkBalanceCard extends BitkitElement {
         ?privacy=${this.privacy}
         ?loading=${this.loading}
         locale=${this.locale ?? nothing}
-        @bk-privacy-change=${(e: CustomEvent<{ hidden: boolean }>) => (this.privacy = e.detail.hidden)}
-      ></bk-amount-display>
+        @ou-privacy-change=${(e: CustomEvent<{ hidden: boolean }>) => (this.privacy = e.detail.hidden)}
+      ></ou-amount-display>
       ${
         pending && !this.privacy && !this.loading
           ? html`<p class="pending" part="pending">
@@ -135,10 +135,10 @@ export class BkBalanceCard extends BitkitElement {
   }
 }
 
-define('bk-balance-card', BkBalanceCard);
+define('ou-balance-card', OuBalanceCard);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-balance-card': BkBalanceCard;
+    'ou-balance-card': OuBalanceCard;
   }
 }

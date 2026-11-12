@@ -1,5 +1,5 @@
 // Pure helpers shared by the build script and tests. Runs under Node's type stripping.
-export const PREFIX = 'bk';
+export const PREFIX = 'ou';
 
 type TokenTree = { [key: string]: string | TokenTree };
 
@@ -24,8 +24,8 @@ export interface TokenSource {
 
 /**
  * Build the token stylesheet. Selectors are wrapped in :where() (specificity 0) so any
- * consumer override such as `:root { --bk-color-accent: hotpink }` wins regardless of order.
- * Theme selection: `data-bk-theme="light|dark"` on any ancestor (or the element itself),
+ * consumer override such as `:root { --ou-color-accent: hotpink }` wins regardless of order.
+ * Theme selection: `data-ou-theme="light|dark"` on any ancestor (or the element itself),
  * otherwise follows prefers-color-scheme.
  */
 export function buildCss(tokens: TokenSource): string {
@@ -38,26 +38,26 @@ export function buildCss(tokens: TokenSource): string {
       `0 0 0 2px var(--${PREFIX}-color-bg), 0 0 0 4px var(--${PREFIX}-color-focus)`,
     ],
   ];
-  return `/* bitkit-ui design tokens — generated from tokens.json, do not edit. */
-:where(:root, [data-bk-theme]) {
+  return `/* orange-ui design tokens — generated from tokens.json, do not edit. */
+:where(:root, [data-ou-theme]) {
 ${decl([...base, ...focus])}
 }
-:where(:root, [data-bk-theme='light']) {
+:where(:root, [data-ou-theme='light']) {
   color-scheme: light;
 ${decl(light)}
 }
 @media (prefers-color-scheme: dark) {
-  :where(:root:not([data-bk-theme='light'])) {
+  :where(:root:not([data-ou-theme='light'])) {
     color-scheme: dark;
 ${decl(dark, '    ')}
   }
 }
-:where([data-bk-theme='dark']) {
+:where([data-ou-theme='dark']) {
   color-scheme: dark;
 ${decl(dark)}
 }
 @media (prefers-reduced-motion: reduce) {
-  :where(:root, [data-bk-theme]) {
+  :where(:root, [data-ou-theme]) {
     --${PREFIX}-duration-fast: 0ms;
     --${PREFIX}-duration-normal: 0ms;
     --${PREFIX}-duration-slow: 0ms;

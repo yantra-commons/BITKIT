@@ -52,17 +52,17 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
       <button type="button" class="tool-btn" id="tb-reset">Reset</button>
     </div>
     <div>
-      <div class="tool-preview" id="tb-preview" data-bk-theme="light">
+      <div class="tool-preview" id="tb-preview" data-ou-theme="light">
         <div style="display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))">
           <div style="display:grid;gap:1rem;align-content:start">
-            <bk-balance-card balance="2450000" pending="21000" fiat-currency="USD" fiat-price="97250"></bk-balance-card>
+            <ou-balance-card balance="2450000" pending="21000" fiat-currency="USD" fiat-price="97250"></ou-balance-card>
             <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-              <bk-button>Send</bk-button><bk-button variant="secondary">Receive</bk-button><bk-badge variant="success">Paid</bk-badge><bk-badge variant="warning">Pending</bk-badge>
+              <ou-button>Send</ou-button><ou-button variant="secondary">Receive</ou-button><ou-badge variant="success">Paid</ou-badge><ou-badge variant="warning">Pending</ou-badge>
             </div>
-            <bk-amount-input label="Amount" balance="250000" fiat-currency="USD" fiat-price="97250"></bk-amount-input>
-            <bk-payment-status status="confirming" confirmations="2" required-confirmations="3"></bk-payment-status>
+            <ou-amount-input label="Amount" balance="250000" fiat-currency="USD" fiat-price="97250"></ou-amount-input>
+            <ou-payment-status status="confirming" confirmations="2" required-confirmations="3"></ou-payment-status>
           </div>
-          <bk-checkout amount="21000" adapter="mock" description="Theme preview" fiat-currency="USD" fiat-price="97250"></bk-checkout>
+          <ou-checkout amount="21000" adapter="mock" description="Theme preview" fiat-currency="USD" fiat-price="97250"></ou-checkout>
         </div>
       </div>
       <div class="tool-code">
@@ -78,7 +78,7 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 
 <script>
   import '../scripts/kit';
-  import { tokens } from '@bitkit-ui/tokens';
+  import { tokens } from '@orange-ui/tokens';
 
   type Theme = 'light' | 'dark';
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
@@ -125,15 +125,15 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
   const value = (t: Theme, k: string) => edits[t][k] ?? defaults[t][k]!;
 
   function apply() {
-    preview.setAttribute('data-bk-theme', theme);
+    preview.setAttribute('data-ou-theme', theme);
     preview.removeAttribute('style');
-    for (const [k, v] of Object.entries(edits[theme])) preview.style.setProperty(`--bk-color-${k}`, v);
+    for (const [k, v] of Object.entries(edits[theme])) preview.style.setProperty(`--ou-color-${k}`, v);
     if (radius !== 10) {
-      preview.style.setProperty('--bk-radius-sm', `${Math.round(radius * 0.6)}px`);
-      preview.style.setProperty('--bk-radius-md', `${radius}px`);
-      preview.style.setProperty('--bk-radius-lg', `${Math.round(radius * 1.6)}px`);
+      preview.style.setProperty('--ou-radius-sm', `${Math.round(radius * 0.6)}px`);
+      preview.style.setProperty('--ou-radius-md', `${radius}px`);
+      preview.style.setProperty('--ou-radius-lg', `${Math.round(radius * 1.6)}px`);
     }
-    if (font) preview.style.setProperty('--bk-font-sans', font);
+    if (font) preview.style.setProperty('--ou-font-sans', font);
     renderContrast();
     renderCss();
   }
@@ -174,17 +174,17 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 
   function renderCss() {
     const block = (sel: string, t: Theme) => {
-      const lines = Object.entries(edits[t]).map(([k, v]) => `  --bk-color-${k}: ${v};`);
+      const lines = Object.entries(edits[t]).map(([k, v]) => `  --ou-color-${k}: ${v};`);
       return lines.length ? `${sel} {\n${lines.join('\n')}\n}` : '';
     };
     const base: string[] = [];
-    if (radius !== 10) base.push(`  --bk-radius-sm: ${Math.round(radius * 0.6)}px;`, `  --bk-radius-md: ${radius}px;`, `  --bk-radius-lg: ${Math.round(radius * 1.6)}px;`);
-    if (font) base.push(`  --bk-font-sans: ${font};`);
+    if (radius !== 10) base.push(`  --ou-radius-sm: ${Math.round(radius * 0.6)}px;`, `  --ou-radius-md: ${radius}px;`, `  --ou-radius-lg: ${Math.round(radius * 1.6)}px;`);
+    if (font) base.push(`  --ou-font-sans: ${font};`);
     const out = [
       base.length ? `:root {\n${base.join('\n')}\n}` : '',
-      block(":root, [data-bk-theme='light']", 'light'),
+      block(":root, [data-ou-theme='light']", 'light'),
       edits.dark && Object.keys(edits.dark).length
-        ? `${block("[data-bk-theme='dark']", 'dark')}\n@media (prefers-color-scheme: dark) {\n  ${block(":root:not([data-bk-theme='light'])", 'dark').split('\n').join('\n  ')}\n}`
+        ? `${block("[data-ou-theme='dark']", 'dark')}\n@media (prefers-color-scheme: dark) {\n  ${block(":root:not([data-ou-theme='light'])", 'dark').split('\n').join('\n  ')}\n}`
         : '',
     ].filter(Boolean);
     $('tb-css').textContent = out.length ? out.join('\n\n') : '/* Change a token to generate CSS. */';

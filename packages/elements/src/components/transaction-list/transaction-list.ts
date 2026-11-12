@@ -1,7 +1,7 @@
 import { css, html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
-import type { Network } from '@bitkit-ui/core';
-import { BitkitElement } from '../../internal/base.js';
+import type { Network } from '@orange-ui/core';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { iconSvg } from '../icon/icon.js';
@@ -27,15 +27,15 @@ export function dateGroup(ts: number | undefined, locale: string, now = Date.now
 
 /**
  * @summary Transaction history with date groups, loading skeletons, empty state and "load more".
- * @tag bk-transaction-list
+ * @tag ou-transaction-list
  * @slot empty - Custom empty state.
  * @csspart base - Container.
  * @csspart group - Date group heading.
- * @csspart item - Each bk-transaction-item.
- * @fires bk-select - When a transaction is activated. Detail: `{ id }`.
- * @fires bk-load-more - When "Load more" is pressed.
+ * @csspart item - Each ou-transaction-item.
+ * @fires ou-select - When a transaction is activated. Detail: `{ id }`.
+ * @fires ou-load-more - When "Load more" is pressed.
  */
-export class BkTransactionList extends BitkitElement {
+export class OuTransactionList extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -43,13 +43,13 @@ export class BkTransactionList extends BitkitElement {
         display: block;
       }
       h3 {
-        margin: var(--bk-space-4) 0 var(--bk-space-1);
-        padding-inline: var(--bk-space-3);
-        font-size: var(--bk-font-size-xs);
-        font-weight: var(--bk-font-weight-semibold);
+        margin: var(--ou-space-4) 0 var(--ou-space-1);
+        padding-inline: var(--ou-space-3);
+        font-size: var(--ou-font-size-xs);
+        font-weight: var(--ou-font-weight-semibold);
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
       }
       ul {
         margin: 0;
@@ -57,15 +57,15 @@ export class BkTransactionList extends BitkitElement {
         list-style: none;
       }
       li + li {
-        border-top: 1px solid var(--bk-color-border);
+        border-top: 1px solid var(--ou-color-border);
       }
       .empty {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: var(--bk-space-2);
-        padding: var(--bk-space-8) var(--bk-space-4);
-        color: var(--bk-color-text-muted);
+        gap: var(--ou-space-2);
+        padding: var(--ou-space-8) var(--ou-space-4);
+        color: var(--ou-color-text-muted);
         text-align: center;
       }
       .empty svg {
@@ -74,19 +74,19 @@ export class BkTransactionList extends BitkitElement {
       }
       .sk {
         display: flex;
-        gap: var(--bk-space-3);
+        gap: var(--ou-space-3);
         align-items: center;
-        padding: var(--bk-space-3);
+        padding: var(--ou-space-3);
       }
       .sk div {
         flex: 1;
         display: grid;
-        gap: var(--bk-space-1);
+        gap: var(--ou-space-1);
       }
       .more {
         display: flex;
         justify-content: center;
-        padding: var(--bk-space-3);
+        padding: var(--ou-space-3);
       }
     `,
   ];
@@ -130,7 +130,7 @@ export class BkTransactionList extends BitkitElement {
 
   #item(tx: TransactionData) {
     return html`<li>
-      <bk-transaction-item
+      <ou-transaction-item
         part="item"
         .data=${tx}
         ?interactive=${this.interactive}
@@ -138,7 +138,7 @@ export class BkTransactionList extends BitkitElement {
         ?privacy=${this.privacy}
         .network=${this.network}
         locale=${this.locale ?? nothing}
-      ></bk-transaction-item>
+      ></ou-transaction-item>
     </li>`;
   }
 
@@ -150,11 +150,11 @@ export class BkTransactionList extends BitkitElement {
         ${[0, 1, 2].map(
           () =>
             html`<div class="sk">
-              <bk-skeleton shape="circle" width="2.5rem"></bk-skeleton>
+              <ou-skeleton shape="circle" width="2.5rem"></ou-skeleton>
               <div>
-                <bk-skeleton width="40%"></bk-skeleton><bk-skeleton width="25%"></bk-skeleton>
+                <ou-skeleton width="40%"></ou-skeleton><ou-skeleton width="25%"></ou-skeleton>
               </div>
-              <bk-skeleton width="5rem"></bk-skeleton>
+              <ou-skeleton width="5rem"></ou-skeleton>
             </div>`,
         )}
       </div>`;
@@ -201,11 +201,11 @@ export class BkTransactionList extends BitkitElement {
       ${
         this.hasMore
           ? html`<div class="more">
-              <bk-button
+              <ou-button
                 variant="ghost"
                 ?loading=${this.loading}
-                @click=${() => this.emit('bk-load-more')}
-                >Load more</bk-button
+                @click=${() => this.emit('ou-load-more')}
+                >Load more</ou-button
               >
             </div>`
           : nothing
@@ -214,10 +214,10 @@ export class BkTransactionList extends BitkitElement {
   }
 }
 
-define('bk-transaction-list', BkTransactionList);
+define('ou-transaction-list', OuTransactionList);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-transaction-list': BkTransactionList;
+    'ou-transaction-list': OuTransactionList;
   }
 }

@@ -1,6 +1,6 @@
 import { decodeAddress, type AddressInfo } from '../address/address.js';
 import { parseBip21, type Bip21 } from '../bip21/bip21.js';
-import { BitkitError, toErrorInfo, type ErrorInfo } from '../errors.js';
+import { OrangeError, toErrorInfo, type ErrorInfo } from '../errors.js';
 import { decodeBolt11, looksLikeBolt11, type Bolt11Invoice } from '../lightning/bolt11.js';
 import { bolt12Kind, decodeBolt12Offer, type Bolt12Offer } from '../lightning/bolt12.js';
 import {
@@ -55,7 +55,7 @@ function checkNetwork(actual: Network, expected?: Network): void {
   if (!expected || actual === expected) return;
   const testnets: Network[] = ['testnet', 'testnet4', 'signet'];
   if (testnets.includes(actual) && testnets.includes(expected)) return;
-  throw new BitkitError(
+  throw new OrangeError(
     'wrong-network',
     `This is for ${NETWORK_LABELS[actual]}, but ${NETWORK_LABELS[expected]} is expected.`,
   );
@@ -80,7 +80,7 @@ export function parsePaymentInput(input: string, opts: ParseOptions = {}): Payme
     const accepted = opts.accept.map((t) => TYPE_LABEL[t]).join(', ');
     return invalid(
       result.raw,
-      new BitkitError('unrecognized', `This isn't supported here. Accepted: ${accepted}.`),
+      new OrangeError('unrecognized', `This isn't supported here. Accepted: ${accepted}.`),
       result.type === 'bolt12-offer' ? 'bolt12' : result.type,
     );
   }
@@ -89,7 +89,7 @@ export function parsePaymentInput(input: string, opts: ParseOptions = {}): Payme
 
 function classify(input: string, opts: ParseOptions): PaymentInput {
   const raw = input.trim();
-  if (!raw) return invalid(raw, new BitkitError('empty', 'Paste or scan a payment destination.'));
+  if (!raw) return invalid(raw, new OrangeError('empty', 'Paste or scan a payment destination.'));
   const s = raw.replace(/^lightning:/i, '');
 
   if (/^bitcoin:/i.test(raw)) {
@@ -135,7 +135,7 @@ function classify(input: string, opts: ParseOptions): PaymentInput {
     if (b12 !== 'offer') {
       return invalid(
         raw,
-        new BitkitError('unrecognized', 'Paste a Lightning offer (lno…), not an invoice request.'),
+        new OrangeError('unrecognized', 'Paste a Lightning offer (lno…), not an invoice request.'),
         'bolt12',
       );
     }
@@ -168,7 +168,7 @@ function classify(input: string, opts: ParseOptions): PaymentInput {
     }
     return invalid(
       raw,
-      new BitkitError('invalid-lightning-address', 'This is not a valid Lightning Address.'),
+      new OrangeError('invalid-lightning-address', 'This is not a valid Lightning Address.'),
       'lightning-address',
     );
   }
@@ -182,12 +182,12 @@ function classify(input: string, opts: ParseOptions): PaymentInput {
       network: pickNetwork(address.networks, opts.network),
     };
   } catch (e) {
-    const err = e as BitkitError;
+    const err = e as OrangeError;
     if (err.code === 'unknown-prefix' || err.code === 'invalid-characters') {
       if (!/^(bc|tb|bcrt)1|^[123mn2]/i.test(s)) {
         return invalid(
           raw,
-          new BitkitError(
+          new OrangeError(
             'unrecognized',
             "This doesn't look like a Bitcoin address, invoice or Lightning Address.",
           ),

@@ -1,5 +1,5 @@
 import { css, html, nothing } from 'lit';
-import { BitkitElement, nextId } from '../../internal/base.js';
+import { OrangeElement, nextId } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 
@@ -14,18 +14,18 @@ export interface TabInfo {
  * with a `slot` name and a `label` attribute becomes one tab and its panel.
  *
  * ```html
- * <bk-tabs>
+ * <ou-tabs>
  *   <div slot="lightning" label="Lightning">…</div>
  *   <div slot="onchain" label="On-chain">…</div>
- * </bk-tabs>
+ * </ou-tabs>
  * ```
- * @tag bk-tabs
+ * @tag ou-tabs
  * @csspart tablist - The tab list.
  * @csspart tab - Each tab button.
  * @csspart panel - Each panel wrapper.
- * @fires bk-change - When the selected tab changes. Detail: `{ value: string }`.
+ * @fires ou-change - When the selected tab changes. Detail: `{ value: string }`.
  */
-export class BkTabs extends BitkitElement {
+export class OuTabs extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -34,38 +34,38 @@ export class BkTabs extends BitkitElement {
       }
       [role='tablist'] {
         display: flex;
-        gap: var(--bk-space-1);
-        padding: var(--bk-space-1);
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-surface-2);
+        gap: var(--ou-space-1);
+        padding: var(--ou-space-1);
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-surface-2);
       }
       [role='tab'] {
         flex: 1;
-        min-height: var(--bk-control-height-sm);
-        padding: 0 var(--bk-space-3);
+        min-height: var(--ou-control-height-sm);
+        padding: 0 var(--ou-space-3);
         border: 0;
-        border-radius: var(--bk-radius-sm);
+        border-radius: var(--ou-radius-sm);
         background: transparent;
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
         font: inherit;
-        font-size: var(--bk-font-size-sm);
-        font-weight: var(--bk-font-weight-semibold);
+        font-size: var(--ou-font-size-sm);
+        font-weight: var(--ou-font-weight-semibold);
         cursor: pointer;
         transition:
-          background var(--bk-duration-fast),
-          color var(--bk-duration-fast);
+          background var(--ou-duration-fast),
+          color var(--ou-duration-fast);
       }
       [role='tab'][aria-selected='true'] {
-        background: var(--bk-color-surface);
-        color: var(--bk-color-text);
-        box-shadow: var(--bk-shadow-sm);
+        background: var(--ou-color-surface);
+        color: var(--ou-color-text);
+        box-shadow: var(--ou-shadow-sm);
       }
       [role='tab']:disabled {
         opacity: 0.5;
         cursor: not-allowed;
       }
       [role='tabpanel'] {
-        padding-top: var(--bk-space-4);
+        padding-top: var(--ou-space-4);
       }
       [role='tabpanel'][hidden] {
         display: none;
@@ -133,7 +133,7 @@ export class BkTabs extends BitkitElement {
   #select(name: string, focus = false) {
     if (name === this.value) return;
     this.value = name;
-    this.emit('bk-change', { value: name });
+    this.emit('ou-change', { value: name });
     if (focus) {
       void this.updateComplete.then(() =>
         this.renderRoot
@@ -199,10 +199,10 @@ export class BkTabs extends BitkitElement {
   }
 }
 
-define('bk-tabs', BkTabs);
+define('ou-tabs', OuTabs);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-tabs': BkTabs;
+    'ou-tabs': OuTabs;
   }
 }

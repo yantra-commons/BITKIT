@@ -1,16 +1,16 @@
 import { css, html } from 'lit';
-import { BitkitElement } from '../../internal/base.js';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 
 /**
  * @summary Indeterminate loading indicator. Announces its label politely to screen readers.
- * @tag bk-spinner
+ * @tag ou-spinner
  * @csspart base - The spinning ring.
- * @cssprop --bk-spinner-size - Diameter. Default `1.25em`.
- * @cssprop --bk-spinner-color - Arc color. Default `currentColor`.
+ * @cssprop --ou-spinner-size - Diameter. Default `1.25em`.
+ * @cssprop --ou-spinner-color - Arc color. Default `currentColor`.
  */
-export class BkSpinner extends BitkitElement {
+export class OuSpinner extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -19,11 +19,11 @@ export class BkSpinner extends BitkitElement {
         vertical-align: middle;
       }
       .ring {
-        width: var(--bk-spinner-size, 1.25em);
-        height: var(--bk-spinner-size, 1.25em);
+        width: var(--ou-spinner-size, 1.25em);
+        height: var(--ou-spinner-size, 1.25em);
         border-radius: 50%;
-        border: 2px solid color-mix(in srgb, var(--bk-spinner-color, currentColor) 25%, transparent);
-        border-top-color: var(--bk-spinner-color, currentColor);
+        border: 2px solid color-mix(in srgb, var(--ou-spinner-color, currentColor) 25%, transparent);
+        border-top-color: var(--ou-spinner-color, currentColor);
         animation: spin 0.8s linear infinite;
       }
       @keyframes spin {
@@ -59,10 +59,10 @@ export class BkSpinner extends BitkitElement {
   }
 }
 
-define('bk-spinner', BkSpinner);
+define('ou-spinner', OuSpinner);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-spinner': BkSpinner;
+    'ou-spinner': OuSpinner;
   }
 }

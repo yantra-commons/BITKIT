@@ -1,4 +1,4 @@
-import { decodeBolt11 } from '@bitkit-ui/core';
+import { decodeBolt11 } from '@orange-ui/core';
 import {
   AdapterError,
   type CreateInvoiceRequest,

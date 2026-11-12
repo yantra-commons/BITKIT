@@ -22,16 +22,16 @@ test.describe('website', () => {
 
   test('component page renders demo, code tabs and API tables', async ({ page }) => {
     await page.goto(`${BASE}docs/components/amount-input/`);
-    await expect(page.getByRole('heading', { name: '<bk-amount-input>' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '<ou-amount-input>' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Events' })).toBeVisible();
     await page.getByRole('tab', { name: 'React' }).first().click();
     await expect(
-      page.getByText("import { AmountInput } from '@bitkit-ui/react';").first(),
+      page.getByText("import { AmountInput } from '@orange-ui/react';").first(),
     ).toBeVisible();
-    const input = page.locator('.bk-demo__preview bk-amount-input input');
+    const input = page.locator('.ou-demo__preview ou-amount-input input');
     await input.fill('500');
     await input.blur();
-    await expect(page.locator('.bk-demo__preview bk-amount-input')).toContainText(
+    await expect(page.locator('.ou-demo__preview ou-amount-input')).toContainText(
       'The minimum is 1,000 sats.',
     );
   });
@@ -40,7 +40,7 @@ test.describe('website', () => {
     await page.goto(`${BASE}playground/?c=amount-display`);
     await page.getByLabel('unit', { exact: true }).selectOption('btc');
     await expect(page.locator('#pg-code')).toContainText('unit="btc"');
-    await expect(page.locator('#pg-preview bk-amount-display')).toContainText('BTC');
+    await expect(page.locator('#pg-preview ou-amount-display')).toContainText('BTC');
     await page.getByRole('tab', { name: 'Vue' }).click();
     await expect(page.locator('#pg-code')).toContainText(':amount="1234567n"');
   });
@@ -48,7 +48,7 @@ test.describe('website', () => {
   test('theme builder exports changed tokens', async ({ page }) => {
     await page.goto(`${BASE}theme-builder/`);
     await page.getByLabel('Start from a preset').selectOption('lightning');
-    await expect(page.locator('#tb-css')).toContainText('--bk-color-accent: #7B3FE4');
+    await expect(page.locator('#tb-css')).toContainText('--ou-color-accent: #7B3FE4');
   });
 
   for (const path of [

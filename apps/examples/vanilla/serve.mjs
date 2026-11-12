@@ -1,5 +1,5 @@
 // Zero-dependency static server for the plain-HTML example (and Playwright e2e).
-// Serves the repository root so local.html can load packages/elements/dist/cdn/bitkit-ui.js.
+// Serves the repository root so local.html can load packages/elements/dist/cdn/orange-ui.js.
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { extname, join, normalize, resolve } from 'node:path';

@@ -1,4 +1,4 @@
-import { toSats } from '@bitkit-ui/core';
+import { toSats } from '@orange-ui/core';
 import {
   AdapterError,
   isTerminalStatus,

@@ -1,4 +1,4 @@
-import manifest from '@bitkit-ui/elements/custom-elements.json';
+import manifest from '@orange-ui/elements/custom-elements.json';
 
 interface CemType {
   text?: string;
@@ -60,7 +60,7 @@ export const components: ComponentDoc[] = (
   .flatMap((m) => m.declarations ?? [])
   .filter((d): d is Decl & { tagName: string } => Boolean(d.tagName && d.customElement))
   .map((d) => {
-    const slug = d.tagName.replace(/^bk-/, '');
+    const slug = d.tagName.replace(/^ou-/, '');
     const members = ((d.members as CemMember[]) ?? []).filter(
       (m) => !m.static && !m.name.startsWith('_') && !m.privacy,
     );

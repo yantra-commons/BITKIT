@@ -8,7 +8,7 @@ export default defineConfig({
     sourcemap: true,
     minify: true,
     target: 'es2022',
-    lib: { entry: 'src/cdn.ts', formats: ['es'], fileName: () => 'bitkit-ui.js' },
+    lib: { entry: 'src/cdn.ts', formats: ['es'], fileName: () => 'orange-ui.js' },
     rollupOptions: { external: [] },
   },
 });

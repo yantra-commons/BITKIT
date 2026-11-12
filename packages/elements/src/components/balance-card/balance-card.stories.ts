@@ -5,7 +5,7 @@ import '../button/button.js';
 
 const meta: Meta = {
   title: 'Wallet/Balance Card',
-  component: 'bk-balance-card',
+  component: 'ou-balance-card',
   tags: ['autodocs'],
 };
 export default meta;
@@ -13,14 +13,14 @@ export default meta;
 export const Default: StoryObj = {
   render: () =>
     html`<div style="max-width:24rem">
-      <bk-balance-card balance="2450000" pending="21000" fiat-currency="USD" fiat-price="97250">
+      <ou-balance-card balance="2450000" pending="21000" fiat-currency="USD" fiat-price="97250">
         <div slot="actions">
-          <bk-button>Send</bk-button><bk-button variant="secondary">Receive</bk-button>
+          <ou-button>Send</ou-button><ou-button variant="secondary">Receive</ou-button>
         </div>
-      </bk-balance-card>
+      </ou-balance-card>
     </div>`,
 };
 export const Loading: StoryObj = {
   render: () =>
-    html`<div style="max-width:24rem"><bk-balance-card loading></bk-balance-card></div>`,
+    html`<div style="max-width:24rem"><ou-balance-card loading></ou-balance-card></div>`,
 };

@@ -1,5 +1,5 @@
 import { css, html, nothing } from 'lit';
-import { BitkitElement } from '../../internal/base.js';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { iconSvg, type IconName } from '../icon/icon.js';
@@ -16,12 +16,12 @@ const ICON: Record<ToastVariant, IconName> = {
 /**
  * @summary A notification message. Usually created with the `toast()` helper, which places it
  * in a shared live region. Auto-dismiss pauses while hovered or focused.
- * @tag bk-toast
+ * @tag ou-toast
  * @slot - Message content.
  * @csspart base - The toast container.
- * @fires bk-close - When the toast is dismissed.
+ * @fires ou-close - When the toast is dismissed.
  */
-export class BkToast extends BitkitElement {
+export class OuToast extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -32,32 +32,32 @@ export class BkToast extends BitkitElement {
       .t {
         display: flex;
         align-items: flex-start;
-        gap: var(--bk-space-3);
+        gap: var(--ou-space-3);
         min-width: min(20rem, calc(100vw - 2rem));
         max-width: 28rem;
-        padding: var(--bk-space-3) var(--bk-space-3) var(--bk-space-3) var(--bk-space-4);
-        border: 1px solid var(--bk-color-border);
-        border-inline-start: 4px solid var(--bk-toast-accent, var(--bk-color-info));
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-surface);
-        box-shadow: var(--bk-shadow-md);
-        font-size: var(--bk-font-size-sm);
-        animation: in var(--bk-duration-normal) var(--bk-easing-standard);
+        padding: var(--ou-space-3) var(--ou-space-3) var(--ou-space-3) var(--ou-space-4);
+        border: 1px solid var(--ou-color-border);
+        border-inline-start: 4px solid var(--ou-toast-accent, var(--ou-color-info));
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-surface);
+        box-shadow: var(--ou-shadow-md);
+        font-size: var(--ou-font-size-sm);
+        animation: in var(--ou-duration-normal) var(--ou-easing-standard);
       }
       .success {
-        --bk-toast-accent: var(--bk-color-success);
+        --ou-toast-accent: var(--ou-color-success);
       }
       .warning {
-        --bk-toast-accent: var(--bk-color-warning);
+        --ou-toast-accent: var(--ou-color-warning);
       }
       .danger {
-        --bk-toast-accent: var(--bk-color-danger);
+        --ou-toast-accent: var(--ou-color-danger);
       }
       .icon {
         flex: none;
         width: 1.25rem;
         height: 1.25rem;
-        color: var(--bk-toast-accent, var(--bk-color-info));
+        color: var(--ou-toast-accent, var(--ou-color-info));
       }
       .msg {
         flex: 1;
@@ -70,13 +70,13 @@ export class BkToast extends BitkitElement {
         width: 1.75rem;
         height: 1.75rem;
         border: 0;
-        border-radius: var(--bk-radius-sm);
+        border-radius: var(--ou-radius-sm);
         background: transparent;
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
         cursor: pointer;
       }
       button:hover {
-        background: var(--bk-color-surface-2);
+        background: var(--ou-color-surface-2);
       }
       svg {
         width: 1.1rem;
@@ -151,7 +151,7 @@ export class BkToast extends BitkitElement {
   /** Remove the toast. */
   dismiss(): void {
     clearTimeout(this.#timer);
-    this.emit('bk-close');
+    this.emit('ou-close');
     this.remove();
   }
 
@@ -176,25 +176,25 @@ export class BkToast extends BitkitElement {
 
 /**
  * @summary Fixed region that stacks toasts. Created automatically by `toast()`.
- * @tag bk-toaster
+ * @tag ou-toaster
  */
-export class BkToaster extends BitkitElement {
+export class OuToaster extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
       :host {
         position: fixed;
-        z-index: var(--bk-z-toast);
-        inset-inline-end: var(--bk-space-4);
-        inset-block-end: var(--bk-space-4);
+        z-index: var(--ou-z-toast);
+        inset-inline-end: var(--ou-space-4);
+        inset-block-end: var(--ou-space-4);
         display: flex;
         flex-direction: column;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
         pointer-events: none;
       }
       @media (max-width: 480px) {
         :host {
-          inset-inline: var(--bk-space-2);
+          inset-inline: var(--ou-space-2);
         }
       }
     `,
@@ -212,14 +212,14 @@ export interface ToastOptions {
 }
 
 /** Show a toast message. Returns the toast element. No-op (returns null) during SSR. */
-export function toast(message: string, options: ToastOptions = {}): BkToast | null {
+export function toast(message: string, options: ToastOptions = {}): OuToast | null {
   if (typeof document === 'undefined') return null;
-  let region = document.querySelector('bk-toaster');
+  let region = document.querySelector('ou-toaster');
   if (!region) {
-    region = document.createElement('bk-toaster');
+    region = document.createElement('ou-toaster');
     document.body.append(region);
   }
-  const el = document.createElement('bk-toast');
+  const el = document.createElement('ou-toast');
   el.textContent = message;
   if (options.variant) el.variant = options.variant;
   if (options.duration !== undefined) el.duration = options.duration;
@@ -228,12 +228,12 @@ export function toast(message: string, options: ToastOptions = {}): BkToast | nu
   return el;
 }
 
-define('bk-toast', BkToast);
-define('bk-toaster', BkToaster);
+define('ou-toast', OuToast);
+define('ou-toaster', OuToaster);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-toast': BkToast;
-    'bk-toaster': BkToaster;
+    'ou-toast': OuToast;
+    'ou-toaster': OuToaster;
   }
 }

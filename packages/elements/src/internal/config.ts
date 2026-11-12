@@ -1,4 +1,4 @@
-import type { DisplayUnit, FiatRate, Network } from '@bitkit-ui/core';
+import type { DisplayUnit, FiatRate, Network } from '@orange-ui/core';
 import { DEFAULT_STRINGS, type Strings } from './strings.js';
 
 /** Global defaults shared by all components. Per-element attributes always win. */
@@ -26,7 +26,7 @@ const state: KitConfig = {
   injectTokens: true,
 };
 
-export const CONFIG_EVENT = 'bk-config-change';
+export const CONFIG_EVENT = 'ou-config-change';
 
 /** Read the current global config. */
 export const getConfig = (): Readonly<KitConfig> => state;

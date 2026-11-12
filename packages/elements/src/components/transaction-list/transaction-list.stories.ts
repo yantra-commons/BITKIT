@@ -41,7 +41,7 @@ const txs: TransactionData[] = [
 
 const meta: Meta = {
   title: 'Wallet/Transaction List',
-  component: 'bk-transaction-list',
+  component: 'ou-transaction-list',
   tags: ['autodocs'],
 };
 export default meta;
@@ -49,10 +49,10 @@ export default meta;
 export const Default: StoryObj = {
   render: () =>
     html`<div style="max-width:32rem">
-      <bk-transaction-list interactive has-more .transactions=${txs}></bk-transaction-list>
+      <ou-transaction-list interactive has-more .transactions=${txs}></ou-transaction-list>
     </div>`,
 };
-export const Empty: StoryObj = { render: () => html`<bk-transaction-list></bk-transaction-list>` };
+export const Empty: StoryObj = { render: () => html`<ou-transaction-list></ou-transaction-list>` };
 export const Loading: StoryObj = {
-  render: () => html`<bk-transaction-list loading></bk-transaction-list>`,
+  render: () => html`<ou-transaction-list loading></ou-transaction-list>`,
 };

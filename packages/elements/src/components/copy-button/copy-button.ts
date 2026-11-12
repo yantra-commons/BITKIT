@@ -1,5 +1,5 @@
 import { css, html } from 'lit';
-import { BitkitElement } from '../../internal/base.js';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { buttonStyles } from '../button/button.js';
@@ -30,13 +30,13 @@ export async function copyText(text: string): Promise<void> {
 
 /**
  * @summary Copies a value to the clipboard and confirms visually and to screen readers.
- * @tag bk-copy-button
+ * @tag ou-copy-button
  * @csspart base - The native button.
- * @fires bk-copy - After a successful copy. Detail: `{ value: string }`.
- * @fires bk-copy-error - When copying fails. Detail: `{ error: unknown }`.
+ * @fires ou-copy - After a successful copy. Detail: `{ value: string }`.
+ * @fires ou-copy-error - When copying fails. Detail: `{ error: unknown }`.
  */
-export class BkCopyButton extends BitkitElement {
-  static override shadowRootOptions = { ...BitkitElement.shadowRootOptions, delegatesFocus: true };
+export class OuCopyButton extends OrangeElement {
+  static override shadowRootOptions = { ...OrangeElement.shadowRootOptions, delegatesFocus: true };
   static override styles = [
     baseStyles,
     buttonStyles,
@@ -45,11 +45,11 @@ export class BkCopyButton extends BitkitElement {
         display: inline-flex;
       }
       .icon-only {
-        width: var(--bk-control-height-md);
+        width: var(--ou-control-height-md);
         padding: 0;
       }
       .icon-only.sm {
-        width: var(--bk-control-height-sm);
+        width: var(--ou-control-height-sm);
       }
       svg {
         width: 1.15rem;
@@ -57,7 +57,7 @@ export class BkCopyButton extends BitkitElement {
         flex: none;
       }
       .copied {
-        color: var(--bk-color-success);
+        color: var(--ou-color-success);
       }
     `,
   ];
@@ -106,7 +106,7 @@ export class BkCopyButton extends BitkitElement {
       await copyText(this.value);
       this._copied = true;
       this._announce = this.t('copiedAnnouncement');
-      this.emit('bk-copy', { value: this.value });
+      this.emit('ou-copy', { value: this.value });
       clearTimeout(this.#timer);
       this.#timer = setTimeout(() => {
         this._copied = false;
@@ -115,7 +115,7 @@ export class BkCopyButton extends BitkitElement {
       return true;
     } catch (error) {
       this._announce = this.t('copyFailed');
-      this.emit('bk-copy-error', { error });
+      this.emit('ou-copy-error', { error });
       return false;
     }
   }
@@ -136,10 +136,10 @@ export class BkCopyButton extends BitkitElement {
   }
 }
 
-define('bk-copy-button', BkCopyButton);
+define('ou-copy-button', OuCopyButton);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-copy-button': BkCopyButton;
+    'ou-copy-button': OuCopyButton;
   }
 }

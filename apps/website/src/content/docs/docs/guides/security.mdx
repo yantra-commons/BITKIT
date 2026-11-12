@@ -7,12 +7,12 @@ description: What the kit protects, what it does not, and how to use the sensiti
 
 1. **No private keys, ever.** No component requests, derives, stores or transmits private keys. The
    kit contains no key-derivation code in UI paths.
-2. **Recovery phrases stay in memory.** `<bk-mnemonic-display>`, `<bk-mnemonic-input>` and
-   `<bk-backup-check>`:
+2. **Recovery phrases stay in memory.** `<ou-mnemonic-display>`, `<ou-mnemonic-input>` and
+   `<ou-backup-check>`:
    - take words only through a JavaScript property, never an HTML attribute, so they never appear in
      serialized HTML;
    - never render hidden words into the DOM (blur can't be defeated by inspecting elements);
-   - never include words in events (`bk-change` reports only validity);
+   - never include words in events (`ou-change` reports only validity);
    - block copy, cut and the context menu unless you opt in with `allow-copy`;
    - hide automatically when the tab is hidden and after a timeout;
    - turn off autocomplete, spellcheck, autocorrect and password-manager capture on inputs;
@@ -20,9 +20,9 @@ description: What the kit protects, what it does not, and how to use the sensiti
      say so plainly.
 3. **No secret API keys in browsers.** Adapters that need provider keys throw if given one in a
    browser. Use the [server proxy pattern](../server-proxy/).
-4. **No third-party requests by default** except where documented: `<bk-fee-selector>` fetches fee
+4. **No third-party requests by default** except where documented: `<ou-fee-selector>` fetches fee
    estimates from mempool.space unless you pass `fees` or a custom `source`, and
-   `<bk-lightning-address-card fetch-metadata>` contacts the address's domain. Both are configurable.
+   `<ou-lightning-address-card fetch-metadata>` contacts the address's domain. Both are configurable.
 5. **Exact money math.** Amounts are `bigint` millisatoshis. Floating point is never used for amounts,
    and lint rules ban it in the units module.
 
@@ -32,7 +32,7 @@ The core decodes BOLT11 invoices and BOLT12 offers for **display**. It checks st
 and required fields, but does not verify secp256k1 signatures. A wallet must verify signatures
 before paying. Never treat a decoded invoice as proof of who created it.
 
-Likewise, `bk-paid` is a UI signal. Fulfil orders only after your server confirms payment with the
+Likewise, `ou-paid` is a UI signal. Fulfil orders only after your server confirms payment with the
 provider (webhook or authenticated API call).
 
 ## Mock adapter safety

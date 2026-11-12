@@ -23,7 +23,7 @@ export default defineConfig({
       reuseExistingServer: !process.env.CI,
     },
     {
-      command: 'pnpm --filter @bitkit-ui/website exec astro preview --port 4400',
+      command: 'pnpm --filter @orange-ui/website exec astro preview --port 4400',
       url: SITE,
       reuseExistingServer: !process.env.CI,
     },

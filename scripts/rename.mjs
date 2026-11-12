@@ -58,7 +58,9 @@ if (next.elementPrefix !== cur.elementPrefix) {
   const p = cur.elementPrefix;
   replacements.push(
     [new RegExp(`\\b${p}-`, 'g'), `${next.elementPrefix}-`],
-    [new RegExp(`\\b${pascal(p)}(?=[A-Z])`, 'g'), pascal(next.elementPrefix)],
+    [new RegExp(`\\b${pascal(p)}(?=[A-Z<])`, 'g'), pascal(next.elementPrefix)],
+    // Bare prefix literals, e.g. the token PREFIX constant and default id prefixes.
+    [new RegExp(`(['"])${p}\\1`, 'g'), `$1${next.elementPrefix}$1`],
   );
 }
 

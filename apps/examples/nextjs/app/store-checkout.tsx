@@ -1,8 +1,8 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { MockAdapter } from '@bitkit-ui/adapters';
-import { Checkout, PayButton } from '@bitkit-ui/react';
+import { MockAdapter } from '@orange-ui/adapters';
+import { Checkout, PayButton } from '@orange-ui/react';
 
 export function StoreCheckout() {
   // Swap for createHttpAdapter({ baseUrl: '/api/payments' }) backed by a Route Handler that

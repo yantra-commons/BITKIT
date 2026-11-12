@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { BitkitError, isBitkitError, toErrorInfo } from './errors.js';
+import { OrangeError, isOrangeError, toErrorInfo } from './errors.js';
 import {
   checkFeeRate,
   estimateVsize,
@@ -150,8 +150,8 @@ describe('time', () => {
 
 describe('errors and encoding', () => {
   it('wraps errors', () => {
-    const e = new BitkitError('empty', 'x');
-    expect(isBitkitError(e)).toBe(true);
+    const e = new OrangeError('empty', 'x');
+    expect(isOrangeError(e)).toBe(true);
     expect(toErrorInfo(e)).toEqual({ code: 'empty', message: 'x' });
     expect(toErrorInfo(new Error('boom'))).toEqual({ code: 'unrecognized', message: 'boom' });
     expect(toErrorInfo('str')).toEqual({ code: 'unrecognized', message: 'str' });

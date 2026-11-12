@@ -1,4 +1,4 @@
-import { BitkitError } from '../errors.js';
+import { OrangeError } from '../errors.js';
 import { MSAT_PER_BTC, type Msat } from './amount.js';
 import {
   divRound,
@@ -34,7 +34,7 @@ export function currencyFractionDigits(currency: string): number {
         new Intl.NumberFormat('en', { style: 'currency', currency: key }).resolvedOptions()
           .maximumFractionDigits ?? 2;
     } catch {
-      throw new BitkitError('invalid-number', `Unknown currency "${currency}".`);
+      throw new OrangeError('invalid-number', `Unknown currency "${currency}".`);
     }
     fractionCache.set(key, digits);
   }
@@ -58,7 +58,7 @@ export function msatToFiat(
 ): FiatValue {
   const fd = currencyFractionDigits(rate.currency);
   const p = toRational(rate.price);
-  if (p.num <= 0n) throw new BitkitError('out-of-range', 'Exchange rate must be positive.');
+  if (p.num <= 0n) throw new OrangeError('out-of-range', 'Exchange rate must be positive.');
   const minor = divRound(msat * p.num * pow10(fd), p.den * MSAT_PER_BTC, rounding);
   return {
     currency: rate.currency.toUpperCase(),
@@ -77,6 +77,6 @@ export function fiatToMsat(
   const fd = currencyFractionDigits(rate.currency);
   const minor = parseDecimal(fiat, fd, 'half-up');
   const p = toRational(rate.price);
-  if (p.num <= 0n) throw new BitkitError('out-of-range', 'Exchange rate must be positive.');
+  if (p.num <= 0n) throw new OrangeError('out-of-range', 'Exchange rate must be positive.');
   return divRound(minor * p.den * MSAT_PER_BTC, p.num * pow10(fd), rounding);
 }

@@ -1,4 +1,4 @@
-import { BitkitError } from '../errors.js';
+import { OrangeError } from '../errors.js';
 import { divRound, formatDecimal, parseDecimal, toRational } from '../units/decimal.js';
 
 export type FeeTier = 'fast' | 'normal' | 'slow' | 'custom';
@@ -34,7 +34,7 @@ const RATE_DECIMALS = 3;
 /** Normalise a sat/vB fee rate (number or string) to an exact decimal string. */
 export function normalizeFeeRate(rate: number | string): string {
   const r = toRational(rate);
-  if (r.num <= 0n) throw new BitkitError('out-of-range', 'Fee rate must be greater than zero.');
+  if (r.num <= 0n) throw new OrangeError('out-of-range', 'Fee rate must be greater than zero.');
   return formatDecimal(divRound(r.num * 1000n, r.den, 'ceil'), RATE_DECIMALS);
 }
 
@@ -110,7 +110,7 @@ export function estimateVsize(inputs: ScriptCounts, outputs: ScriptCounts): numb
 
 /** Fee in sats for a vsize at a fee rate (sat/vB, exact decimal), rounded up. */
 export function feeForVsize(vsize: number, satPerVb: number | string): bigint {
-  if (!Number.isInteger(vsize) || vsize < 0) throw new BitkitError('out-of-range', 'Invalid size.');
+  if (!Number.isInteger(vsize) || vsize < 0) throw new OrangeError('out-of-range', 'Invalid size.');
   const milli = parseDecimal(normalizeFeeRate(satPerVb), RATE_DECIMALS);
   return divRound(BigInt(vsize) * milli, 1000n, 'ceil');
 }

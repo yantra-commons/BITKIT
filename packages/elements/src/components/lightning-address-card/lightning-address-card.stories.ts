@@ -4,7 +4,7 @@ import './lightning-address-card.js';
 
 const meta: Meta = {
   title: 'Payments/Lightning Address Card',
-  component: 'bk-lightning-address-card',
+  component: 'ou-lightning-address-card',
   tags: ['autodocs'],
 };
 export default meta;
@@ -12,10 +12,10 @@ export default meta;
 export const Default: StoryObj = {
   render: () =>
     html`<div style="max-width:22rem">
-      <bk-lightning-address-card
+      <ou-lightning-address-card
         address="satoshi@example.com"
         name="Satoshi"
         description="Tips keep the lights on ⚡"
-      ></bk-lightning-address-card>
+      ></ou-lightning-address-card>
     </div>`,
 };

@@ -1,6 +1,6 @@
 import { css, html, nothing } from 'lit';
-import { backupCheckChoices, pickBackupCheckIndices } from '@bitkit-ui/core/mnemonic';
-import { BitkitElement } from '../../internal/base.js';
+import { backupCheckChoices, pickBackupCheckIndices } from '@orange-ui/core/mnemonic';
+import { OrangeElement } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { iconSvg } from '../icon/icon.js';
@@ -10,14 +10,14 @@ import '../button/button.js';
  * @summary SECURITY-SENSITIVE. "Verify your backup" flow: asks for randomly chosen words of the
  * recovery phrase as multiple choice. Words are set via the `words` property only and are
  * never emitted.
- * @tag bk-backup-check
+ * @tag ou-backup-check
  * @csspart base - Container.
  * @csspart question - Question text.
  * @csspart choice - Each answer button.
- * @fires bk-verified - All answers correct.
- * @fires bk-fail - A wrong answer. Detail: `{ position: number }` (1-based word number).
+ * @fires ou-verified - All answers correct.
+ * @fires ou-fail - A wrong answer. Detail: `{ position: number }` (1-based word number).
  */
-export class BkBackupCheck extends BitkitElement {
+export class OuBackupCheck extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -27,41 +27,41 @@ export class BkBackupCheck extends BitkitElement {
       .w {
         display: flex;
         flex-direction: column;
-        gap: var(--bk-space-4);
+        gap: var(--ou-space-4);
       }
       .progress {
         margin: 0;
-        font-size: var(--bk-font-size-sm);
-        color: var(--bk-color-text-muted);
+        font-size: var(--ou-font-size-sm);
+        color: var(--ou-color-text-muted);
       }
       h3 {
         margin: 0;
-        font-size: var(--bk-font-size-lg);
+        font-size: var(--ou-font-size-lg);
       }
       .choices {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
       }
       .choice {
-        min-height: var(--bk-control-height-lg);
-        border: 1px solid var(--bk-color-border-strong);
-        border-radius: var(--bk-radius-md);
-        background: var(--bk-color-surface);
+        min-height: var(--ou-control-height-lg);
+        border: 1px solid var(--ou-color-border-strong);
+        border-radius: var(--ou-radius-md);
+        background: var(--ou-color-surface);
         color: inherit;
         font: inherit;
-        font-family: var(--bk-font-mono);
+        font-family: var(--ou-font-mono);
         cursor: pointer;
       }
       .choice:hover {
-        background: var(--bk-color-surface-2);
+        background: var(--ou-color-surface-2);
       }
       .msg {
         display: flex;
-        gap: var(--bk-space-2);
+        gap: var(--ou-space-2);
         align-items: center;
         margin: 0;
-        font-size: var(--bk-font-size-sm);
+        font-size: var(--ou-font-size-sm);
       }
       .msg svg {
         width: 1.1rem;
@@ -69,14 +69,14 @@ export class BkBackupCheck extends BitkitElement {
         flex: none;
       }
       .bad {
-        color: var(--bk-color-danger);
+        color: var(--ou-color-danger);
       }
       .done {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: var(--bk-space-2);
-        padding: var(--bk-space-6) 0;
+        gap: var(--ou-space-2);
+        padding: var(--ou-space-6) 0;
         text-align: center;
       }
       .done .icon {
@@ -85,8 +85,8 @@ export class BkBackupCheck extends BitkitElement {
         width: 3.5rem;
         height: 3.5rem;
         border-radius: 50%;
-        background: var(--bk-color-success-bg);
-        color: var(--bk-color-success);
+        background: var(--ou-color-success-bg);
+        color: var(--ou-color-success);
       }
       .done svg {
         width: 60%;
@@ -160,14 +160,14 @@ export class BkBackupCheck extends BitkitElement {
       this._wrong = false;
       if (this._step + 1 >= this._indices.length) {
         this._done = true;
-        this.emit('bk-verified');
+        this.emit('ou-verified');
       } else {
         this._step += 1;
         this.#prepare();
       }
     } else {
       this._wrong = true;
-      this.emit('bk-fail', { position: idx + 1 });
+      this.emit('ou-fail', { position: idx + 1 });
       this.#prepare();
     }
   }
@@ -201,10 +201,10 @@ export class BkBackupCheck extends BitkitElement {
   }
 }
 
-define('bk-backup-check', BkBackupCheck);
+define('ou-backup-check', OuBackupCheck);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-backup-check': BkBackupCheck;
+    'ou-backup-check': OuBackupCheck;
   }
 }

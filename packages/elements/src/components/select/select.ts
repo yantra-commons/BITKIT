@@ -14,13 +14,13 @@ export interface SelectOption {
 /**
  * @summary Labelled native select. Options come from the `options` property or from light-DOM
  * `<option>` children.
- * @tag bk-select
+ * @tag ou-select
  * @csspart label - The label.
  * @csspart control - The bordered wrapper.
  * @csspart select - The native select.
- * @fires bk-change - When the selection changes. Detail: `{ value: string }`.
+ * @fires ou-change - When the selection changes. Detail: `{ value: string }`.
  */
-export class BkSelect extends FormControlElement {
+export class OuSelect extends FormControlElement {
   static override styles = [
     baseStyles,
     fieldStyles,
@@ -31,24 +31,24 @@ export class BkSelect extends FormControlElement {
       }
       select {
         appearance: none;
-        padding-inline-end: var(--bk-space-8);
+        padding-inline-end: var(--ou-space-8);
         cursor: pointer;
       }
       .chevron {
         position: absolute;
-        inset-inline-end: var(--bk-space-3);
+        inset-inline-end: var(--ou-space-3);
         pointer-events: none;
         width: 1rem;
         height: 1rem;
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
       }
       .chevron svg {
         width: 100%;
         height: 100%;
       }
       option {
-        background: var(--bk-color-surface);
-        color: var(--bk-color-text);
+        background: var(--ou-color-surface);
+        color: var(--ou-color-text);
       }
     `,
   ];
@@ -97,7 +97,7 @@ export class BkSelect extends FormControlElement {
 
   #onChange(e: Event) {
     this.value = (e.target as HTMLSelectElement).value;
-    this.emit('bk-change', { value: this.value });
+    this.emit('ou-change', { value: this.value });
   }
 
   override render() {
@@ -136,10 +136,10 @@ export class BkSelect extends FormControlElement {
   }
 }
 
-define('bk-select', BkSelect);
+define('ou-select', OuSelect);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-select': BkSelect;
+    'ou-select': OuSelect;
   }
 }

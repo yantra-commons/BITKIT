@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { $, expectAccessible, fixture, settle } from '../../test/helpers.js';
 import '../index.js';
 import { configure } from '../internal/config.js';
-import type { BkAddressDisplay, BkAddressInput, BkNetworkBadge, BkQrScanner } from '../index.js';
+import type { OuAddressDisplay, OuAddressInput, OuNetworkBadge, OuQrScanner } from '../index.js';
 
 const SEGWIT = 'bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4';
 const TAPROOT = 'bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqzk5jj0';
@@ -11,10 +11,10 @@ const text = (el: Element, sel: string) => $(el, sel)?.textContent?.replace(/\s+
 
 afterEach(() => configure({ network: 'mainnet' }));
 
-describe('bk-network-badge', () => {
+describe('ou-network-badge', () => {
   it('labels each network and can hide mainnet', async () => {
-    const el = await fixture<BkNetworkBadge>(
-      '<bk-network-badge network="signet"></bk-network-badge>',
+    const el = await fixture<OuNetworkBadge>(
+      '<ou-network-badge network="signet"></ou-network-badge>',
     );
     expect(text(el, '.b')).toBe('Signet');
     expect($(el, '.b').className).toContain('signet');
@@ -30,22 +30,22 @@ describe('bk-network-badge', () => {
   });
 });
 
-describe('bk-address-display', () => {
+describe('ou-address-display', () => {
   it('chunks the address and reads it character by character', async () => {
-    const el = await fixture<BkAddressDisplay>(
-      `<bk-address-display address="${SEGWIT.toUpperCase()}" label="Deposit address"></bk-address-display>`,
+    const el = await fixture<OuAddressDisplay>(
+      `<ou-address-display address="${SEGWIT.toUpperCase()}" label="Deposit address"></ou-address-display>`,
     );
     const chunks = el.shadowRoot!.querySelectorAll('.chunk');
     expect(chunks[0]!.textContent).toBe('bc1q');
     expect(chunks).toHaveLength(Math.ceil(SEGWIT.length / 4));
     expect(text(el, '.addr .sr-only')).toMatch(/^Deposit address: b c 1 q, w 5 0 8/);
-    expect(el.shadowRoot!.querySelector('bk-copy-button')!.value).toBe(SEGWIT);
+    expect(el.shadowRoot!.querySelector('ou-copy-button')!.value).toBe(SEGWIT);
     await expectAccessible(el);
   });
 
   it('truncates in the middle and expands on click', async () => {
-    const el = await fixture<BkAddressDisplay>(
-      `<bk-address-display address="${TAPROOT}" truncate="middle"></bk-address-display>`,
+    const el = await fixture<OuAddressDisplay>(
+      `<ou-address-display address="${TAPROOT}" truncate="middle"></ou-address-display>`,
     );
     const btn = $<HTMLButtonElement>(el, '.expand');
     expect(btn.textContent).toContain('…');
@@ -56,11 +56,11 @@ describe('bk-address-display', () => {
   });
 
   it('toggles a QR code, shows network/type and links to the explorer', async () => {
-    const el = await fixture<BkAddressDisplay>(
-      `<bk-address-display address="${TESTNET}" qr explorer show-network show-type></bk-address-display>`,
+    const el = await fixture<OuAddressDisplay>(
+      `<ou-address-display address="${TESTNET}" qr explorer show-network show-type></ou-address-display>`,
     );
     expect(text(el, '.meta')).toContain('Native SegWit script (P2WSH)');
-    expect(el.shadowRoot!.querySelector('bk-network-badge')!.getAttribute('network')).toBe(
+    expect(el.shadowRoot!.querySelector('ou-network-badge')!.getAttribute('network')).toBe(
       'testnet',
     );
     expect($<HTMLAnchorElement>(el, 'a.icon-btn').href).toBe(
@@ -70,14 +70,14 @@ describe('bk-address-display', () => {
     qrBtn.click();
     await settle(el);
     expect(el.qrOpen).toBe(true);
-    expect(el.shadowRoot!.querySelector('bk-qr-code')!.value).toBe(TESTNET.toUpperCase());
+    expect(el.shadowRoot!.querySelector('ou-qr-code')!.value).toBe(TESTNET.toUpperCase());
     expect($(el, 'button.icon-btn').getAttribute('aria-pressed')).toBe('true');
     await expectAccessible(el);
   });
 
   it('flags invalid addresses and handles empty', async () => {
-    const el = await fixture<BkAddressDisplay>(
-      '<bk-address-display address="bc1qnotvalid"></bk-address-display>',
+    const el = await fixture<OuAddressDisplay>(
+      '<ou-address-display address="bc1qnotvalid"></ou-address-display>',
     );
     expect(text(el, '.invalid')).toMatch(/^Invalid address/);
     el.address = '';
@@ -86,7 +86,7 @@ describe('bk-address-display', () => {
   });
 });
 
-async function typeInto(el: BkAddressInput, value: string) {
+async function typeInto(el: OuAddressInput, value: string) {
   const ta = $<HTMLTextAreaElement>(el, 'textarea');
   ta.value = value;
   ta.dispatchEvent(new Event('input'));
@@ -94,11 +94,11 @@ async function typeInto(el: BkAddressInput, value: string) {
   await el.updateComplete;
 }
 
-describe('bk-address-input', () => {
+describe('ou-address-input', () => {
   it('validates as you type and describes the destination', async () => {
-    const el = await fixture<BkAddressInput>('<bk-address-input></bk-address-input>');
+    const el = await fixture<OuAddressInput>('<ou-address-input></ou-address-input>');
     const spy = vi.fn();
-    el.addEventListener('bk-input', spy);
+    el.addEventListener('ou-input', spy);
     await typeInto(el, TAPROOT);
     expect(text(el, '.status')).toBe('Taproot (P2TR) · Mainnet');
     expect(el.invalid).toBe(false);
@@ -108,7 +108,7 @@ describe('bk-address-input', () => {
   });
 
   it('shows errors after blur or once the input looks complete', async () => {
-    const el = await fixture<BkAddressInput>('<bk-address-input></bk-address-input>');
+    const el = await fixture<OuAddressInput>('<ou-address-input></ou-address-input>');
     await typeInto(el, 'bc1q');
     expect(el.invalid).toBe(false);
     $(el, 'textarea').dispatchEvent(new Event('blur'));
@@ -121,8 +121,8 @@ describe('bk-address-input', () => {
   });
 
   it('enforces network and accepted types', async () => {
-    const el = await fixture<BkAddressInput>(
-      '<bk-address-input network="mainnet"></bk-address-input>',
+    const el = await fixture<OuAddressInput>(
+      '<ou-address-input network="mainnet"></ou-address-input>',
     );
     await typeInto(el, TESTNET);
     expect(text(el, '.error')).toBe('This is a Testnet address, but Mainnet is expected.');
@@ -143,9 +143,9 @@ describe('bk-address-input', () => {
       value: { readText: vi.fn().mockResolvedValue(` ${SEGWIT}\n`) },
       configurable: true,
     });
-    const el = await fixture<BkAddressInput>('<bk-address-input></bk-address-input>');
+    const el = await fixture<OuAddressInput>('<ou-address-input></ou-address-input>');
     const changes = vi.fn();
-    el.addEventListener('bk-change', changes);
+    el.addEventListener('ou-change', changes);
     ($(el, 'button.tool[aria-label=Paste]') as HTMLButtonElement).click();
     await new Promise((r) => setTimeout(r, 0));
     await el.updateComplete;
@@ -160,13 +160,13 @@ describe('bk-address-input', () => {
   });
 
   it('opens the scanner dialog and accepts a scanned value', async () => {
-    const el = await fixture<BkAddressInput>('<bk-address-input></bk-address-input>');
+    const el = await fixture<OuAddressInput>('<ou-address-input></ou-address-input>');
     ($(el, 'button.tool[aria-label="Scan QR code"]') as HTMLButtonElement).click();
     await settle(el);
-    const scanner = el.shadowRoot!.querySelector('bk-qr-scanner')!;
+    const scanner = el.shadowRoot!.querySelector('ou-qr-scanner')!;
     expect(scanner.active).toBe(true);
     scanner.dispatchEvent(
-      new CustomEvent('bk-scan', { detail: { value: `bitcoin:${SEGWIT}?amount=0.001` } }),
+      new CustomEvent('ou-scan', { detail: { value: `bitcoin:${SEGWIT}?amount=0.001` } }),
     );
     await settle(el);
     expect(el.value).toBe(`bitcoin:${SEGWIT}?amount=0.001`);
@@ -174,11 +174,11 @@ describe('bk-address-input', () => {
   });
 });
 
-describe('bk-qr-scanner', () => {
+describe('ou-qr-scanner', () => {
   it('explains when scanning is unsupported', async () => {
-    const el = await fixture<BkQrScanner>('<bk-qr-scanner></bk-qr-scanner>');
+    const el = await fixture<OuQrScanner>('<ou-qr-scanner></ou-qr-scanner>');
     const spy = vi.fn();
-    el.addEventListener('bk-error', spy);
+    el.addEventListener('ou-error', spy);
     el.active = true;
     await el.updateComplete;
     await new Promise((r) => setTimeout(r, 0));
@@ -197,10 +197,10 @@ describe('bk-qr-scanner', () => {
       },
       configurable: true,
     });
-    const el = await fixture<BkQrScanner>('<bk-qr-scanner></bk-qr-scanner>');
+    const el = await fixture<OuQrScanner>('<ou-qr-scanner></ou-qr-scanner>');
     el.decoder = vi.fn().mockResolvedValue(null);
     const spy = vi.fn();
-    el.addEventListener('bk-error', spy);
+    el.addEventListener('ou-error', spy);
     await el.start();
     await el.updateComplete;
     expect(spy.mock.calls[0]![0].detail).toEqual({ code: 'denied' });
@@ -212,13 +212,13 @@ describe('bk-qr-scanner', () => {
     (globalThis as { createImageBitmap?: unknown }).createImageBitmap = vi
       .fn()
       .mockResolvedValue({ close() {} });
-    const el = await fixture<BkQrScanner>('<bk-qr-scanner></bk-qr-scanner>');
+    const el = await fixture<OuQrScanner>('<ou-qr-scanner></ou-qr-scanner>');
     el.decoder = vi.fn().mockResolvedValue(SEGWIT);
     Object.defineProperty(navigator, 'mediaDevices', { value: undefined, configurable: true });
     await el.start();
     await el.updateComplete;
     const spy = vi.fn();
-    el.addEventListener('bk-scan', spy);
+    el.addEventListener('ou-scan', spy);
     const input = $<HTMLInputElement>(el, 'input[type=file]');
     Object.defineProperty(input, 'files', { value: [new Blob(['x'])], configurable: true });
     input.dispatchEvent(new Event('change'));

@@ -1,5 +1,5 @@
 import { css, html, nothing, type PropertyValues } from 'lit';
-import { BitkitElement, nextId } from '../../internal/base.js';
+import { OrangeElement, nextId } from '../../internal/base.js';
 import { define } from '../../internal/define.js';
 import { baseStyles } from '../../internal/styles.js';
 import { iconSvg } from '../icon/icon.js';
@@ -9,7 +9,7 @@ export type DialogCloseReason = 'close-button' | 'escape' | 'backdrop' | 'method
 /**
  * @summary Modal dialog built on the native `<dialog>` element: focus is trapped, the page is
  * inert, Escape closes, and focus returns to the opener on close.
- * @tag bk-dialog
+ * @tag ou-dialog
  * @slot - Dialog body.
  * @slot footer - Actions area.
  * @csspart dialog - The native dialog.
@@ -17,11 +17,11 @@ export type DialogCloseReason = 'close-button' | 'escape' | 'backdrop' | 'method
  * @csspart title - The title.
  * @csspart body - Scrollable body.
  * @csspart footer - Footer.
- * @fires bk-open - After the dialog opens.
- * @fires bk-request-close - Before closing; cancelable. Detail: `{ reason }`.
- * @fires bk-close - After the dialog closes. Detail: `{ reason }`.
+ * @fires ou-open - After the dialog opens.
+ * @fires ou-request-close - Before closing; cancelable. Detail: `{ reason }`.
+ * @fires ou-close - After the dialog closes. Detail: `{ reason }`.
  */
-export class BkDialog extends BitkitElement {
+export class OuDialog extends OrangeElement {
   static override styles = [
     baseStyles,
     css`
@@ -29,71 +29,71 @@ export class BkDialog extends BitkitElement {
         display: contents;
       }
       dialog {
-        width: min(100% - 2 * var(--bk-space-4), var(--bk-dialog-width, 28rem));
-        max-height: min(100% - 2 * var(--bk-space-4), 48rem);
+        width: min(100% - 2 * var(--ou-space-4), var(--ou-dialog-width, 28rem));
+        max-height: min(100% - 2 * var(--ou-space-4), 48rem);
         padding: 0;
-        border: 1px solid var(--bk-color-border);
-        border-radius: var(--bk-radius-lg);
-        background: var(--bk-color-surface);
-        color: var(--bk-color-text);
-        box-shadow: var(--bk-shadow-lg);
+        border: 1px solid var(--ou-color-border);
+        border-radius: var(--ou-radius-lg);
+        background: var(--ou-color-surface);
+        color: var(--ou-color-text);
+        box-shadow: var(--ou-shadow-lg);
         overflow: hidden;
-        font-family: var(--bk-font-sans);
+        font-family: var(--ou-font-sans);
       }
       dialog[open] {
         display: flex;
         flex-direction: column;
-        animation: enter var(--bk-duration-normal) var(--bk-easing-standard);
+        animation: enter var(--ou-duration-normal) var(--ou-easing-standard);
       }
       dialog::backdrop {
-        background: var(--bk-color-overlay);
+        background: var(--ou-color-overlay);
       }
       .lg {
-        --bk-dialog-width: 40rem;
+        --ou-dialog-width: 40rem;
       }
       .sm {
-        --bk-dialog-width: 22rem;
+        --ou-dialog-width: 22rem;
       }
       header {
         display: flex;
         align-items: center;
-        gap: var(--bk-space-2);
-        padding: var(--bk-space-4) var(--bk-space-4) var(--bk-space-2) var(--bk-space-5);
+        gap: var(--ou-space-2);
+        padding: var(--ou-space-4) var(--ou-space-4) var(--ou-space-2) var(--ou-space-5);
       }
       h2 {
         flex: 1;
         margin: 0;
-        font-size: var(--bk-font-size-lg);
-        font-weight: var(--bk-font-weight-semibold);
+        font-size: var(--ou-font-size-lg);
+        font-weight: var(--ou-font-weight-semibold);
       }
       .close {
         display: inline-grid;
         place-items: center;
-        width: var(--bk-control-height-sm);
-        height: var(--bk-control-height-sm);
+        width: var(--ou-control-height-sm);
+        height: var(--ou-control-height-sm);
         border: 0;
-        border-radius: var(--bk-radius-sm);
+        border-radius: var(--ou-radius-sm);
         background: transparent;
-        color: var(--bk-color-text-muted);
+        color: var(--ou-color-text-muted);
         cursor: pointer;
       }
       .close:hover {
-        background: var(--bk-color-surface-2);
-        color: var(--bk-color-text);
+        background: var(--ou-color-surface-2);
+        color: var(--ou-color-text);
       }
       .close svg {
         width: 1.25rem;
         height: 1.25rem;
       }
       .body {
-        padding: var(--bk-space-2) var(--bk-space-5) var(--bk-space-5);
+        padding: var(--ou-space-2) var(--ou-space-5) var(--ou-space-5);
         overflow: auto;
       }
       footer {
         display: flex;
         justify-content: flex-end;
-        gap: var(--bk-space-2);
-        padding: var(--bk-space-3) var(--bk-space-5) var(--bk-space-5);
+        gap: var(--ou-space-2);
+        padding: var(--ou-space-3) var(--ou-space-5) var(--ou-space-5);
       }
       footer.empty {
         display: none;
@@ -163,14 +163,14 @@ export class BkDialog extends BitkitElement {
     this.open = true;
   }
 
-  /** Close the dialog (fires bk-request-close first). */
+  /** Close the dialog (fires ou-request-close first). */
   hide(reason: DialogCloseReason = 'method'): void {
     this.#requestClose(reason);
   }
 
   #requestClose(reason: DialogCloseReason) {
     if (!this.open) return;
-    if (!this.emit('bk-request-close', { reason }, { cancelable: true })) return;
+    if (!this.emit('ou-request-close', { reason }, { cancelable: true })) return;
     this.#reason = reason;
     this.open = false;
   }
@@ -187,11 +187,11 @@ export class BkDialog extends BitkitElement {
       this.#opener = active ?? null;
       if (typeof dlg.showModal === 'function') dlg.showModal();
       else dlg.setAttribute('open', '');
-      this.emit('bk-open');
+      this.emit('ou-open');
     } else if (!this.open && (dlg.open || dlg.hasAttribute('open'))) {
       if (typeof dlg.close === 'function') dlg.close();
       else dlg.removeAttribute('open');
-      this.emit('bk-close', { reason: this.#reason });
+      this.emit('ou-close', { reason: this.#reason });
       this.#reason = 'method';
       const opener = this.#opener as HTMLElement | null;
       if (opener && typeof opener.focus === 'function' && opener.isConnected) opener.focus();
@@ -250,10 +250,10 @@ export class BkDialog extends BitkitElement {
   }
 }
 
-define('bk-dialog', BkDialog);
+define('ou-dialog', OuDialog);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bk-dialog': BkDialog;
+    'ou-dialog': OuDialog;
   }
 }

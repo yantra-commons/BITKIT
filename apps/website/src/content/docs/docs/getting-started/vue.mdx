@@ -4,10 +4,10 @@ description: Typed Vue 3 components.
 ---
 
 ```sh
-npm install @bitkit-ui/vue @bitkit-ui/adapters
+npm install @orange-ui/vue @orange-ui/adapters
 ```
 
-Tell Vue's compiler that `bk-*` tags are custom elements (needed only if you also use the raw
+Tell Vue's compiler that `ou-*` tags are custom elements (needed only if you also use the raw
 tags in templates):
 
 ```ts title="vite.config.ts"
@@ -15,18 +15,18 @@ import vue from '@vitejs/plugin-vue';
 
 export default {
   plugins: [
-    vue({ template: { compilerOptions: { isCustomElement: (tag) => tag.startsWith('bk-') } } }),
+    vue({ template: { compilerOptions: { isCustomElement: (tag) => tag.startsWith('ou-') } } }),
   ],
 };
 ```
 
 Then use the wrappers. Props are always set as DOM properties (so `21000n` stays a bigint) and
-events use Vue names: `bk-paid` → `@paid`, `bk-status-change` → `@status-change`.
+events use Vue names: `ou-paid` → `@paid`, `ou-status-change` → `@status-change`.
 
 ```vue
 <script setup lang="ts">
-import { MockAdapter } from '@bitkit-ui/adapters/mock';
-import { Checkout, AmountInput } from '@bitkit-ui/vue';
+import { MockAdapter } from '@orange-ui/adapters/mock';
+import { Checkout, AmountInput } from '@orange-ui/vue';
 
 const adapter = new MockAdapter();
 </script>

@@ -1,4 +1,4 @@
-import { BitkitError } from '../errors.js';
+import { OrangeError } from '../errors.js';
 
 /** Parsed NIP-47 connection string. `secret` is sensitive: keep it in memory only. */
 export interface NwcConnection {
@@ -15,12 +15,12 @@ export const looksLikeNwcUri = (s: string) => /^nostr\+walletconnect:\/\//i.test
 /**
  * Parse a Nostr Wallet Connect URI:
  * `nostr+walletconnect://<pubkey>?relay=wss://…&secret=<hex>[&lud16=…]`.
- * Throws `BitkitError` with a user-facing message. Never logs the secret.
+ * Throws `OrangeError` with a user-facing message. Never logs the secret.
  */
 export function parseNwcUri(input: string): NwcConnection {
   const s = input.trim();
   const fail = (msg: string): never => {
-    throw new BitkitError('invalid-uri', msg);
+    throw new OrangeError('invalid-uri', msg);
   };
   if (!looksLikeNwcUri(s)) fail('This is not a Nostr Wallet Connect link.');
   const rest = s.replace(/^nostr\+walletconnect:\/\//i, '');

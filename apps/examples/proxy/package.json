@@ -1,5 +1,5 @@
 {
-  "name": "@bitkit-ui/example-proxy",
+  "name": "@orange-ui/example-proxy",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,6 +8,6 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@bitkit-ui/adapters": "workspace:*"
+    "@orange-ui/adapters": "workspace:*"
   }
 }

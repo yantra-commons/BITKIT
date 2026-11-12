@@ -1,7 +1,7 @@
 ---
 // Standalone layout for marketing pages (landing, templates). Docs use Starlight.
 import kit from '../../../../kit.config.json';
-import '@bitkit-ui/tokens/tokens.css';
+import '@orange-ui/tokens/tokens.css';
 import '../styles/site.css';
 
 interface Props {
@@ -42,7 +42,7 @@ const og = `${kit.siteUrl}${kit.siteBase}/og.png`;
           t = localStorage.getItem('starlight-theme');
         } catch {}
         const dark = t === 'dark' || ((!t || t === 'auto') && matchMedia('(prefers-color-scheme: dark)').matches);
-        document.documentElement.setAttribute('data-bk-theme', dark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-ou-theme', dark ? 'dark' : 'light');
       })();
     </script>
   </head>
@@ -100,8 +100,8 @@ const og = `${kit.siteUrl}${kit.siteBase}/og.png`;
     <script>
       const root = document.documentElement;
       document.getElementById('theme-toggle')?.addEventListener('click', () => {
-        const next = root.getAttribute('data-bk-theme') === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-bk-theme', next);
+        const next = root.getAttribute('data-ou-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-ou-theme', next);
         try {
           localStorage.setItem('starlight-theme', next);
         } catch {
