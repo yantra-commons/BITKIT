@@ -1,7 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { expectNoA11yViolations } from './helpers';
+import { SITE } from './site';
 
-const BASE = 'http://localhost:4400/bitkit-ui/';
+const BASE = SITE;
 
 test.describe('website', () => {
   test('landing hero checkout works end to end on the mock adapter', async ({ page }) => {

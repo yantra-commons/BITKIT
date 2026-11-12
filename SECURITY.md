@@ -5,7 +5,7 @@
 **Please do not open public issues for security problems.**
 
 Report privately through GitHub's
-[private vulnerability reporting](https://github.com/your-org/bitkit-ui/security/advisories/new).
+[private vulnerability reporting](https://github.com/yantra-commons/BITKIT/security/advisories/new).
 Include affected packages and versions, a description, and reproduction steps.
 
 - We acknowledge reports within **72 hours** and send an initial assessment within **7 days**.

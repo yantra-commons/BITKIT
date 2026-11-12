@@ -3,7 +3,7 @@
   "scope": "@bitkit-ui",
   "elementPrefix": "bk",
   "displayName": "Bitkit UI",
-  "repo": "your-org/bitkit-ui",
-  "siteUrl": "https://your-org.github.io",
-  "siteBase": "/bitkit-ui"
+  "repo": "yantra-commons/BITKIT",
+  "siteUrl": "https://yantra-commons.github.io",
+  "siteBase": "/BITKIT"
 }

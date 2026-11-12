@@ -44,6 +44,8 @@ next.siteUrl = `https://${next.repo.split('/')[0]}.github.io`;
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
 const pascal = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 const replacements = [
+  // Docs-site URLs first, before the bare-name rule rewrites their path segment.
+  [new RegExp(esc(`${cur.siteUrl}${cur.siteBase}`), 'g'), `${next.siteUrl}${next.siteBase}`],
   [new RegExp(esc(cur.scope) + '/', 'g'), `${next.scope}/`],
   [new RegExp(esc(cur.repo), 'g'), next.repo],
   [new RegExp(esc(cur.displayName), 'g'), next.displayName],

@@ -5,7 +5,7 @@ import { chromium } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 
 const out = process.argv[2] ?? 'screenshots';
-const base = process.argv[3] ?? 'http://localhost:4400/bitkit-ui/';
+const base = process.argv[3] ?? 'http://localhost:4400/BITKIT/';
 mkdirSync(out, { recursive: true });
 
 const pages = [

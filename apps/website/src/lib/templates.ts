@@ -162,7 +162,7 @@ ${t.css}
 </head>
 <body>
 ${t.body}
-${t.script ? `<script type="module">\n${t.script}\n</script>\n` : ''}<!-- adapter="mock" simulates payments. Replace it with your adapter: https://github.com/your-org/bitkit-ui -->
+${t.script ? `<script type="module">\n${t.script}\n</script>\n` : ''}<!-- adapter="mock" simulates payments. Replace it with your adapter: https://github.com/yantra-commons/BITKIT -->
 </body>
 </html>
 `;

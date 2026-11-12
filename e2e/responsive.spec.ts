@@ -1,10 +1,11 @@
 import { expect, test } from '@playwright/test';
+import { SITE } from './site';
 
 // Runs in the `mobile` project (Pixel 7 viewport): no horizontal scrolling anywhere.
 for (const url of [
-  'http://localhost:4400/bitkit-ui/',
-  'http://localhost:4400/bitkit-ui/templates/wallet-dashboard/',
-  'http://localhost:4400/bitkit-ui/docs/components/checkout/',
+  SITE,
+  `${SITE}templates/wallet-dashboard/`,
+  `${SITE}docs/components/checkout/`,
   'http://localhost:4310/',
 ]) {
   test(`no horizontal overflow: ${url}`, async ({ page }) => {

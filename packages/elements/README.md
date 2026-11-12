@@ -10,4 +10,4 @@
 <bk-pay-button amount="21000" adapter="mock"></bk-pay-button>
 ```
 
-Documentation: https://your-org.github.io/bitkit-ui/ · License: MIT
+Documentation: https://yantra-commons.github.io/BITKIT/ · License: MIT

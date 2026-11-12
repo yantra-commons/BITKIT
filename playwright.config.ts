@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { SITE } from './e2e/site';
 
 // End-to-end + real-browser accessibility tests. Run `pnpm build` first.
 // The vanilla example uses 4310, not 4321, so it never collides with `astro dev`.
@@ -23,7 +24,7 @@ export default defineConfig({
     },
     {
       command: 'pnpm --filter @bitkit-ui/website exec astro preview --port 4400',
-      url: 'http://localhost:4400/bitkit-ui/',
+      url: SITE,
       reuseExistingServer: !process.env.CI,
     },
   ],

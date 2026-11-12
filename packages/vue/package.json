@@ -38,7 +38,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/bitkit-ui",
+    "url": "https://github.com/yantra-commons/BITKIT",
     "directory": "packages/vue"
   },
   "keywords": [
@@ -47,8 +47,8 @@
     "vue",
     "components"
   ],
-  "homepage": "https://your-org.github.io/bitkit-ui/",
+  "homepage": "https://yantra-commons.github.io/BITKIT/",
   "bugs": {
-    "url": "https://github.com/your-org/bitkit-ui/issues"
+    "url": "https://github.com/yantra-commons/BITKIT/issues"
   }
 }
