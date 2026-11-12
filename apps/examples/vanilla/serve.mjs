@@ -5,7 +5,7 @@ import { readFile } from 'node:fs/promises';
 import { extname, join, normalize, resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '../../..');
-const port = Number(process.env.PORT ?? 4321);
+const port = Number(process.env.PORT ?? 4310);
 const types = {
   '.html': 'text/html',
   '.js': 'text/javascript',

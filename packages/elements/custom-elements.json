@@ -196,16 +196,6 @@
             {
               "description": "When the address is copied. Detail: `{ value }`.",
               "name": "bk-copy"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -696,16 +686,6 @@
             {
               "description": "When a value is committed (blur, paste, scan). Detail: `AddressInputDetail`.",
               "name": "bk-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -1107,16 +1087,6 @@
             {
               "description": "When the privacy toggle is used. Detail: `{ hidden: boolean }`.",
               "name": "bk-privacy-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -1644,16 +1614,6 @@
             {
               "description": "When the unit changes. Detail: `{ unit }`.",
               "name": "bk-unit-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -1932,16 +1892,6 @@
             {
               "description": "A wrong answer. Detail: `{ position: number }` (1-based word number).",
               "name": "bk-fail"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -2040,18 +1990,7 @@
           "tagName": "bk-badge",
           "customElement": true,
           "summary": "Small status label.",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "events": []
         }
       ],
       "exports": [
@@ -2287,18 +2226,7 @@
           "tagName": "bk-balance-card",
           "customElement": true,
           "summary": "Wallet balance with fiat value, pending amount, privacy toggle and an actions slot\nfor Send / Receive buttons.",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "events": []
         }
       ],
       "exports": [
@@ -2498,16 +2426,6 @@
             {
               "description": "Native click (suppressed while disabled or loading).",
               "name": "click"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -2895,16 +2813,6 @@
             {
               "description": "When the modal closes.",
               "name": "bk-close"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -3164,18 +3072,7 @@
           "tagName": "bk-confirmation-progress",
           "customElement": true,
           "summary": "On-chain confirmation progress using the Bitcoin Icons confirmation glyphs, with a\ntext label and an estimated time remaining (~10 minutes per block).",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "events": []
         }
       ],
       "exports": [
@@ -3302,16 +3199,6 @@
             {
               "description": "When copying fails. Detail: `{ error: unknown }`.",
               "name": "bk-copy-error"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -3532,16 +3419,6 @@
             {
               "description": "After the dialog closes. Detail: `{ reason }`.",
               "name": "bk-close"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -3776,16 +3653,6 @@
             {
               "description": "Before the checkout opens. Detail: `{ amount: bigint, message: string }`.",
               "name": "bk-donate"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -4055,16 +3922,6 @@
             {
               "description": "Detail: `FeeSelection`.",
               "name": "bk-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -4148,143 +4005,6 @@
           "declaration": {
             "name": "BkFeeSelector",
             "module": "src/components/fee-selector/fee-selector.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/icon/icon.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "ICON_NAMES",
-          "default": "Object.keys(ICONS)"
-        },
-        {
-          "kind": "function",
-          "name": "iconSvg",
-          "parameters": [
-            {
-              "name": "name",
-              "type": {
-                "text": "IconName"
-              }
-            }
-          ],
-          "description": "Render an icon SVG (for use inside other components' templates)."
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkIcon",
-          "cssProperties": [
-            {
-              "description": "Icon size. Default `1.25em`.",
-              "name": "--bk-icon-size"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The SVG element.",
-              "name": "svg"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "name",
-              "privacy": "public",
-              "type": {
-                "text": "IconName"
-              },
-              "description": "Icon name, e.g. `copy`, `lightning`, `qr-code`.",
-              "default": "'bitcoin'",
-              "attribute": "name",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Accessible label. When omitted the icon is decorative (hidden from assistive tech).",
-              "attribute": "label"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "name",
-              "type": {
-                "text": "IconName"
-              },
-              "description": "Icon name, e.g. `copy`, `lightning`, `qr-code`.",
-              "default": "'bitcoin'",
-              "fieldName": "name"
-            },
-            {
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Accessible label. When omitted the icon is decorative (hidden from assistive tech).",
-              "fieldName": "label"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-icon",
-          "customElement": true,
-          "summary": "An icon from the Bitcoin Icons set (bitcoinicons.com).",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "IconName",
-          "declaration": {
-            "name": "IconName",
-            "module": "src/components/icon/icon.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ICON_NAMES",
-          "declaration": {
-            "name": "ICON_NAMES",
-            "module": "src/components/icon/icon.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "iconSvg",
-          "declaration": {
-            "name": "iconSvg",
-            "module": "src/components/icon/icon.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "BkIcon",
-          "declaration": {
-            "name": "BkIcon",
-            "module": "src/components/icon/icon.ts"
           }
         }
       ]
@@ -4454,18 +4174,7 @@
           "tagName": "bk-icon-button",
           "customElement": true,
           "summary": "Square button showing only an icon. `label` is required for accessibility and is\nalso shown as a native tooltip.",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "events": []
         }
       ],
       "exports": [
@@ -4475,6 +4184,132 @@
           "declaration": {
             "name": "BkIconButton",
             "module": "src/components/icon-button/icon-button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/icon.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "ICON_NAMES",
+          "default": "Object.keys(ICONS)"
+        },
+        {
+          "kind": "function",
+          "name": "iconSvg",
+          "parameters": [
+            {
+              "name": "name",
+              "type": {
+                "text": "IconName"
+              }
+            }
+          ],
+          "description": "Render an icon SVG (for use inside other components' templates)."
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkIcon",
+          "cssProperties": [
+            {
+              "description": "Icon size. Default `1.25em`.",
+              "name": "--bk-icon-size"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The SVG element.",
+              "name": "svg"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "IconName"
+              },
+              "description": "Icon name, e.g. `copy`, `lightning`, `qr-code`.",
+              "default": "'bitcoin'",
+              "attribute": "name",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible label. When omitted the icon is decorative (hidden from assistive tech).",
+              "attribute": "label"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "IconName"
+              },
+              "description": "Icon name, e.g. `copy`, `lightning`, `qr-code`.",
+              "default": "'bitcoin'",
+              "fieldName": "name"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Accessible label. When omitted the icon is decorative (hidden from assistive tech).",
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-icon",
+          "customElement": true,
+          "summary": "An icon from the Bitcoin Icons set (bitcoinicons.com).",
+          "events": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "IconName",
+          "declaration": {
+            "name": "IconName",
+            "module": "src/components/icon/icon.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ICON_NAMES",
+          "declaration": {
+            "name": "ICON_NAMES",
+            "module": "src/components/icon/icon.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "iconSvg",
+          "declaration": {
+            "name": "iconSvg",
+            "module": "src/components/icon/icon.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BkIcon",
+          "declaration": {
+            "name": "BkIcon",
+            "module": "src/components/icon/icon.ts"
           }
         }
       ]
@@ -4828,16 +4663,6 @@
             {
               "description": "When the value is committed (blur/enter). Detail: `{ value: string }`.",
               "name": "bk-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -5099,16 +4924,6 @@
             {
               "description": "When the countdown reaches zero.",
               "name": "bk-expired"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -5163,203 +4978,6 @@
           "declaration": {
             "name": "BkInvoiceDisplay",
             "module": "src/components/invoice-display/invoice-display.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/mnemonic-display/mnemonic-display.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BkMnemonicDisplay",
-          "cssParts": [
-            {
-              "description": "Container.",
-              "name": "base"
-            },
-            {
-              "description": "Warning box.",
-              "name": "warning"
-            },
-            {
-              "description": "Word grid.",
-              "name": "words"
-            },
-            {
-              "description": "Each word.",
-              "name": "word"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Replace the default warning text.",
-              "name": "warning"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "words",
-              "privacy": "public",
-              "type": {
-                "text": "string[]"
-              },
-              "description": "The recovery words (property only).",
-              "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "revealed",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Whether the words are visible.",
-              "default": "false",
-              "attribute": "revealed",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "allowCopy",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Allow selecting/copying the words. Default false (clipboards are readable by other apps).",
-              "default": "false",
-              "attribute": "allow-copy"
-            },
-            {
-              "kind": "field",
-              "name": "columns",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "description": "Grid columns. Default 3.",
-              "default": "3",
-              "attribute": "columns"
-            },
-            {
-              "kind": "field",
-              "name": "autoHideMs",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "description": "Hide again after this many ms (0 = never). Default 120000.",
-              "default": "120_000",
-              "attribute": "auto-hide-ms"
-            },
-            {
-              "kind": "method",
-              "name": "reveal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Show the words."
-            },
-            {
-              "kind": "method",
-              "name": "hide",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Hide the words."
-            },
-            {
-              "kind": "method",
-              "name": "clear",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Drop references to the words. JavaScript strings are immutable, so this cannot zero memory,\nbut it removes every reference this component holds so they can be garbage-collected."
-            }
-          ],
-          "events": [
-            {
-              "description": "When the phrase is shown.",
-              "name": "bk-reveal"
-            },
-            {
-              "description": "When the phrase is hidden.",
-              "name": "bk-hide"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "revealed",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Whether the words are visible.",
-              "default": "false",
-              "fieldName": "revealed"
-            },
-            {
-              "name": "allow-copy",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Allow selecting/copying the words. Default false (clipboards are readable by other apps).",
-              "default": "false",
-              "fieldName": "allowCopy"
-            },
-            {
-              "name": "columns",
-              "type": {
-                "text": "number"
-              },
-              "description": "Grid columns. Default 3.",
-              "default": "3",
-              "fieldName": "columns"
-            },
-            {
-              "name": "auto-hide-ms",
-              "type": {
-                "text": "number"
-              },
-              "description": "Hide again after this many ms (0 = never). Default 120000.",
-              "default": "120_000",
-              "fieldName": "autoHideMs"
-            }
-          ],
-          "superclass": {
-            "name": "BitkitElement",
-            "module": "/src/internal/base.js"
-          },
-          "tagName": "bk-mnemonic-display",
-          "customElement": true,
-          "summary": "SECURITY-SENSITIVE. Shows a recovery phrase on demand. Words are set via the `words`\nproperty only (never an attribute), are not rendered into the DOM while hidden, cannot be\ncopied unless `allow-copy` is set, and are hidden automatically when the page is hidden.\nNothing is stored or sent anywhere. Call `clear()` when done."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BkMnemonicDisplay",
-          "declaration": {
-            "name": "BkMnemonicDisplay",
-            "module": "src/components/mnemonic-display/mnemonic-display.ts"
           }
         }
       ]
@@ -5519,18 +5137,7 @@
           "tagName": "bk-lightning-address-card",
           "customElement": true,
           "summary": "Shareable card for a Lightning Address (LUD-16): avatar, name, copy, QR code (LNURL)\nand open-in-wallet. Optionally fetches LNURL-pay metadata (off by default for privacy).",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "events": []
         }
       ],
       "exports": [
@@ -5546,89 +5153,187 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/network-badge/network-badge.ts",
+      "path": "src/components/mnemonic-display/mnemonic-display.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "BkNetworkBadge",
+          "name": "BkMnemonicDisplay",
           "cssParts": [
             {
-              "description": "The badge.",
+              "description": "Container.",
               "name": "base"
+            },
+            {
+              "description": "Warning box.",
+              "name": "warning"
+            },
+            {
+              "description": "Word grid.",
+              "name": "words"
+            },
+            {
+              "description": "Each word.",
+              "name": "word"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Replace the default warning text.",
+              "name": "warning"
             }
           ],
           "members": [
             {
               "kind": "field",
-              "name": "network",
+              "name": "words",
               "privacy": "public",
               "type": {
-                "text": "Network | undefined"
+                "text": "string[]"
               },
-              "description": "Network; defaults to the global config network.",
-              "attribute": "network",
+              "description": "The recovery words (property only).",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "revealed",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the words are visible.",
+              "default": "false",
+              "attribute": "revealed",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "hideMainnet",
+              "name": "allowCopy",
               "privacy": "public",
               "type": {
                 "text": "boolean"
               },
-              "description": "Render nothing on mainnet (show only for test networks).",
+              "description": "Allow selecting/copying the words. Default false (clipboards are readable by other apps).",
               "default": "false",
-              "attribute": "hide-mainnet"
+              "attribute": "allow-copy"
+            },
+            {
+              "kind": "field",
+              "name": "columns",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Grid columns. Default 3.",
+              "default": "3",
+              "attribute": "columns"
+            },
+            {
+              "kind": "field",
+              "name": "autoHideMs",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Hide again after this many ms (0 = never). Default 120000.",
+              "default": "120_000",
+              "attribute": "auto-hide-ms"
+            },
+            {
+              "kind": "method",
+              "name": "reveal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Show the words."
+            },
+            {
+              "kind": "method",
+              "name": "hide",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Hide the words."
+            },
+            {
+              "kind": "method",
+              "name": "clear",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Drop references to the words. JavaScript strings are immutable, so this cannot zero memory,\nbut it removes every reference this component holds so they can be garbage-collected."
+            }
+          ],
+          "events": [
+            {
+              "description": "When the phrase is shown.",
+              "name": "bk-reveal"
+            },
+            {
+              "description": "When the phrase is hidden.",
+              "name": "bk-hide"
             }
           ],
           "attributes": [
             {
-              "name": "network",
-              "type": {
-                "text": "Network | undefined"
-              },
-              "description": "Network; defaults to the global config network.",
-              "fieldName": "network"
-            },
-            {
-              "name": "hide-mainnet",
+              "name": "revealed",
               "type": {
                 "text": "boolean"
               },
-              "description": "Render nothing on mainnet (show only for test networks).",
+              "description": "Whether the words are visible.",
               "default": "false",
-              "fieldName": "hideMainnet"
+              "fieldName": "revealed"
+            },
+            {
+              "name": "allow-copy",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Allow selecting/copying the words. Default false (clipboards are readable by other apps).",
+              "default": "false",
+              "fieldName": "allowCopy"
+            },
+            {
+              "name": "columns",
+              "type": {
+                "text": "number"
+              },
+              "description": "Grid columns. Default 3.",
+              "default": "3",
+              "fieldName": "columns"
+            },
+            {
+              "name": "auto-hide-ms",
+              "type": {
+                "text": "number"
+              },
+              "description": "Hide again after this many ms (0 = never). Default 120000.",
+              "default": "120_000",
+              "fieldName": "autoHideMs"
             }
           ],
           "superclass": {
             "name": "BitkitElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-network-badge",
+          "tagName": "bk-mnemonic-display",
           "customElement": true,
-          "summary": "Shows which Bitcoin network is in use. Test networks are highlighted so users never\nconfuse test coins with real ones.",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "summary": "SECURITY-SENSITIVE. Shows a recovery phrase on demand. Words are set via the `words`\nproperty only (never an attribute), are not rendered into the DOM while hidden, cannot be\ncopied unless `allow-copy` is set, and are hidden automatically when the page is hidden.\nNothing is stored or sent anywhere. Call `clear()` when done."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "BkNetworkBadge",
+          "name": "BkMnemonicDisplay",
           "declaration": {
-            "name": "BkNetworkBadge",
-            "module": "src/components/network-badge/network-badge.ts"
+            "name": "BkMnemonicDisplay",
+            "module": "src/components/mnemonic-display/mnemonic-display.ts"
           }
         }
       ]
@@ -5741,16 +5446,6 @@
             {
               "description": "Detail: `MnemonicInputDetail` (never includes the words).",
               "name": "bk-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -5811,241 +5506,78 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/payment-status/payment-status.ts",
+      "path": "src/components/network-badge/network-badge.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "BkPaymentStatus",
+          "name": "BkNetworkBadge",
           "cssParts": [
             {
-              "description": "Container.",
+              "description": "The badge.",
               "name": "base"
-            },
-            {
-              "description": "Status icon.",
-              "name": "icon"
-            },
-            {
-              "description": "Headline.",
-              "name": "title"
-            },
-            {
-              "description": "Explanation.",
-              "name": "body"
-            },
-            {
-              "description": "Confirmation progress bar.",
-              "name": "progress"
             }
           ],
           "members": [
             {
               "kind": "field",
-              "name": "status",
+              "name": "network",
               "privacy": "public",
               "type": {
-                "text": "PaymentStatus"
+                "text": "Network | undefined"
               },
-              "default": "'pending'",
-              "attribute": "status",
+              "description": "Network; defaults to the global config network.",
+              "attribute": "network",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "confirmations",
+              "name": "hideMainnet",
               "privacy": "public",
               "type": {
-                "text": "number | undefined"
+                "text": "boolean"
               },
-              "attribute": "confirmations"
-            },
-            {
-              "kind": "field",
-              "name": "requiredConfirmations",
-              "privacy": "public",
-              "type": {
-                "text": "number | undefined"
-              },
-              "attribute": "required-confirmations"
-            },
-            {
-              "kind": "field",
-              "name": "amountReceived",
-              "privacy": "public",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Sats received so far (under/overpayment messages).",
-              "attribute": "amount-received"
-            },
-            {
-              "kind": "field",
-              "name": "amountDue",
-              "privacy": "public",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Sats requested.",
-              "attribute": "amount-due"
-            },
-            {
-              "kind": "field",
-              "name": "method",
-              "privacy": "public",
-              "type": {
-                "text": "'lightning' | 'onchain' | undefined"
-              },
-              "attribute": "method"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "privacy": "public",
-              "type": {
-                "text": "'compact' | 'large'"
-              },
-              "description": "`compact` (inline row) or `large` (centered, for success screens).",
-              "default": "'compact'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "heading",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Override the headline.",
-              "attribute": "heading"
-            },
-            {
-              "kind": "field",
-              "name": "message",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Override the explanation.",
-              "attribute": "message"
-            },
-            {
-              "kind": "field",
-              "name": "locale",
-              "privacy": "public",
-              "type": {
-                "text": "string | undefined"
-              },
-              "attribute": "locale"
+              "description": "Render nothing on mainnet (show only for test networks).",
+              "default": "false",
+              "attribute": "hide-mainnet"
             }
           ],
           "attributes": [
             {
-              "name": "status",
+              "name": "network",
               "type": {
-                "text": "PaymentStatus"
+                "text": "Network | undefined"
               },
-              "default": "'pending'",
-              "fieldName": "status"
+              "description": "Network; defaults to the global config network.",
+              "fieldName": "network"
             },
             {
-              "name": "confirmations",
+              "name": "hide-mainnet",
               "type": {
-                "text": "number | undefined"
+                "text": "boolean"
               },
-              "fieldName": "confirmations"
-            },
-            {
-              "name": "required-confirmations",
-              "type": {
-                "text": "number | undefined"
-              },
-              "fieldName": "requiredConfirmations"
-            },
-            {
-              "name": "amount-received",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Sats received so far (under/overpayment messages).",
-              "fieldName": "amountReceived"
-            },
-            {
-              "name": "amount-due",
-              "type": {
-                "text": "bigint | undefined"
-              },
-              "description": "Sats requested.",
-              "fieldName": "amountDue"
-            },
-            {
-              "name": "method",
-              "type": {
-                "text": "'lightning' | 'onchain' | undefined"
-              },
-              "fieldName": "method"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'compact' | 'large'"
-              },
-              "description": "`compact` (inline row) or `large` (centered, for success screens).",
-              "default": "'compact'",
-              "fieldName": "size"
-            },
-            {
-              "name": "heading",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Override the headline.",
-              "fieldName": "heading"
-            },
-            {
-              "name": "message",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Override the explanation.",
-              "fieldName": "message"
-            },
-            {
-              "name": "locale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "fieldName": "locale"
+              "description": "Render nothing on mainnet (show only for test networks).",
+              "default": "false",
+              "fieldName": "hideMainnet"
             }
           ],
           "superclass": {
             "name": "BitkitElement",
             "module": "/src/internal/base.js"
           },
-          "tagName": "bk-payment-status",
+          "tagName": "bk-network-badge",
           "customElement": true,
-          "summary": "Shows where a payment is in its lifecycle: pending, detected, confirming (n/N), paid,\nunderpaid/overpaid, expired, failed or cancelled. Announced to screen readers; animations\nrespect reduced motion.",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "summary": "Shows which Bitcoin network is in use. Test networks are highlighted so users never\nconfuse test coins with real ones.",
+          "events": []
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "BkPaymentStatus",
+          "name": "BkNetworkBadge",
           "declaration": {
-            "name": "BkPaymentStatus",
-            "module": "src/components/payment-status/payment-status.ts"
+            "name": "BkNetworkBadge",
+            "module": "src/components/network-badge/network-badge.ts"
           }
         }
       ]
@@ -6334,18 +5866,7 @@
           "tagName": "bk-pay-button",
           "customElement": true,
           "summary": "Drop-in \"Pay with bitcoin\" button. Give it an amount and an adapter; clicking opens\nthe checkout in a modal. All checkout events (`bk-paid`, `bk-status-change`, …) bubble out.\n\n```html\n<bk-pay-button amount=\"21000\" adapter=\"mock\" description=\"Coffee\"></bk-pay-button>\n```",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "events": []
         }
       ],
       "exports": [
@@ -6355,6 +5876,236 @@
           "declaration": {
             "name": "BkPayButton",
             "module": "src/components/pay-button/pay-button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/payment-status/payment-status.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BkPaymentStatus",
+          "cssParts": [
+            {
+              "description": "Container.",
+              "name": "base"
+            },
+            {
+              "description": "Status icon.",
+              "name": "icon"
+            },
+            {
+              "description": "Headline.",
+              "name": "title"
+            },
+            {
+              "description": "Explanation.",
+              "name": "body"
+            },
+            {
+              "description": "Confirmation progress bar.",
+              "name": "progress"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "status",
+              "privacy": "public",
+              "type": {
+                "text": "PaymentStatus"
+              },
+              "default": "'pending'",
+              "attribute": "status",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "confirmations",
+              "privacy": "public",
+              "type": {
+                "text": "number | undefined"
+              },
+              "attribute": "confirmations"
+            },
+            {
+              "kind": "field",
+              "name": "requiredConfirmations",
+              "privacy": "public",
+              "type": {
+                "text": "number | undefined"
+              },
+              "attribute": "required-confirmations"
+            },
+            {
+              "kind": "field",
+              "name": "amountReceived",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Sats received so far (under/overpayment messages).",
+              "attribute": "amount-received"
+            },
+            {
+              "kind": "field",
+              "name": "amountDue",
+              "privacy": "public",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Sats requested.",
+              "attribute": "amount-due"
+            },
+            {
+              "kind": "field",
+              "name": "method",
+              "privacy": "public",
+              "type": {
+                "text": "'lightning' | 'onchain' | undefined"
+              },
+              "attribute": "method"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "'compact' | 'large'"
+              },
+              "description": "`compact` (inline row) or `large` (centered, for success screens).",
+              "default": "'compact'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "heading",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Override the headline.",
+              "attribute": "heading"
+            },
+            {
+              "kind": "field",
+              "name": "message",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Override the explanation.",
+              "attribute": "message"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "locale"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "status",
+              "type": {
+                "text": "PaymentStatus"
+              },
+              "default": "'pending'",
+              "fieldName": "status"
+            },
+            {
+              "name": "confirmations",
+              "type": {
+                "text": "number | undefined"
+              },
+              "fieldName": "confirmations"
+            },
+            {
+              "name": "required-confirmations",
+              "type": {
+                "text": "number | undefined"
+              },
+              "fieldName": "requiredConfirmations"
+            },
+            {
+              "name": "amount-received",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Sats received so far (under/overpayment messages).",
+              "fieldName": "amountReceived"
+            },
+            {
+              "name": "amount-due",
+              "type": {
+                "text": "bigint | undefined"
+              },
+              "description": "Sats requested.",
+              "fieldName": "amountDue"
+            },
+            {
+              "name": "method",
+              "type": {
+                "text": "'lightning' | 'onchain' | undefined"
+              },
+              "fieldName": "method"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'compact' | 'large'"
+              },
+              "description": "`compact` (inline row) or `large` (centered, for success screens).",
+              "default": "'compact'",
+              "fieldName": "size"
+            },
+            {
+              "name": "heading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Override the headline.",
+              "fieldName": "heading"
+            },
+            {
+              "name": "message",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Override the explanation.",
+              "fieldName": "message"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "locale"
+            }
+          ],
+          "superclass": {
+            "name": "BitkitElement",
+            "module": "/src/internal/base.js"
+          },
+          "tagName": "bk-payment-status",
+          "customElement": true,
+          "summary": "Shows where a payment is in its lifecycle: pending, detected, confirming (n/N), paid,\nunderpaid/overpaid, expired, failed or cancelled. Announced to screen readers; animations\nrespect reduced motion.",
+          "events": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BkPaymentStatus",
+          "declaration": {
+            "name": "BkPaymentStatus",
+            "module": "src/components/payment-status/payment-status.ts"
           }
         }
       ]
@@ -6514,18 +6265,7 @@
           "tagName": "bk-qr-code",
           "customElement": true,
           "summary": "Renders a value as a QR code (SVG, fully client-side). Colors stay dark-on-light in\nevery theme for scanner reliability. Put an image in the `logo` slot to overlay a logo (error\ncorrection is raised to H automatically).",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "events": []
         }
       ],
       "exports": [
@@ -6641,16 +6381,6 @@
             {
               "description": "On camera errors. Detail: `{ code: 'denied' | 'unavailable' | 'unsupported' }`.",
               "name": "bk-error"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -6934,16 +6664,6 @@
             {
               "description": "When the selection changes. Detail: `{ value: string }`.",
               "name": "bk-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -7150,18 +6870,7 @@
           "tagName": "bk-skeleton",
           "customElement": true,
           "summary": "Placeholder shimmer shown while content loads. Hidden from assistive technology;\npair it with a `bk-spinner` or `aria-busy` on the region being loaded.",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "events": []
         }
       ],
       "exports": [
@@ -7228,18 +6937,7 @@
           "tagName": "bk-spinner",
           "customElement": true,
           "summary": "Indeterminate loading indicator. Announces its label politely to screen readers.",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "events": []
         }
       ],
       "exports": [
@@ -7303,16 +7001,6 @@
             {
               "description": "When the selected tab changes. Detail: `{ value: string }`.",
               "name": "bk-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -7423,16 +7111,6 @@
             {
               "description": "When the toast is dismissed.",
               "name": "bk-close"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -7483,18 +7161,7 @@
           "tagName": "bk-toaster",
           "customElement": true,
           "summary": "Fixed region that stacks toasts. Created automatically by `toast()`.",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "events": []
         },
         {
           "kind": "function",
@@ -7618,18 +7285,7 @@
           "tagName": "bk-tooltip",
           "customElement": true,
           "summary": "Tooltip for the slotted trigger. Opens on hover and keyboard focus, stays open while\nhovered, and closes on Escape (WCAG 1.4.13). The text is exposed to assistive technology as\nthe trigger's description via a light-DOM element, so it works across shadow roots.",
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "events": []
         }
       ],
       "exports": [
@@ -7842,16 +7498,6 @@
             {
               "description": "When activated. Detail: `{ id }`.",
               "name": "bk-select"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -8164,16 +7810,6 @@
             {
               "description": "When \"Load more\" is pressed.",
               "name": "bk-load-more"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -8384,16 +8020,6 @@
             {
               "description": "Detail: `{ selected: string[] (outpoints), total: bigint }`.",
               "name": "bk-change"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -8549,16 +8175,6 @@
             {
               "description": "Detail: `{ message }`.",
               "name": "bk-error"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
             }
           ],
           "attributes": [
@@ -8628,14 +8244,7 @@
           "description": "Base class for every bitkit-ui element.",
           "name": "BitkitElement",
           "members": [],
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
+          "events": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
@@ -8873,18 +8482,7 @@
             "name": "BitkitElement",
             "module": "/src/internal/base.js"
           },
-          "events": [
-            {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "inheritedFrom": {
-                "name": "BitkitElement",
-                "module": "src/internal/base.ts"
-              }
-            }
-          ]
+          "events": []
         }
       ],
       "exports": [

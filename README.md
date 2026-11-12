@@ -10,7 +10,7 @@ framework.
 [![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 [![WCAG 2.2 AA](https://img.shields.io/badge/WCAG-2.2%20AA-success)](https://your-org.github.io/bitkit-ui/docs/guides/accessibility/)
 
-[Documentation](https://your-org.github.io/bitkit-ui/) · [Components](https://your-org.github.io/bitkit-ui/docs/components/checkout/) · [Playground](https://your-org.github.io/bitkit-ui/playground/) · [Templates](https://your-org.github.io/bitkit-ui/templates/)
+[Documentation](https://your-org.github.io/bitkit-ui/) · [Components](https://your-org.github.io/bitkit-ui/docs/components/checkout/) · [Playground](https://your-org.github.io/bitkit-ui/playground/) · [Templates](https://your-org.github.io/bitkit-ui/templates/) · [llms-full.txt (for AI tools)](https://your-org.github.io/bitkit-ui/llms-full.txt)
 
 ![The landing page with a live checkout: 21,000 sats, unified QR code, Lightning and on-chain tabs](./docs/assets/hero.png)
 

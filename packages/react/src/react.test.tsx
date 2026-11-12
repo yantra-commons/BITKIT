@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { describe, expect, it, vi } from 'vitest';
@@ -16,6 +19,15 @@ function mount(node: React.ReactNode) {
 }
 
 describe('@bitkit-ui/react', () => {
+  it('only maps real events (no phantom "name" event from BitkitElement#emit)', () => {
+    // happy-dom replaces the global URL, so resolve the path with node:url instead.
+    const here = dirname(fileURLToPath(import.meta.url));
+    const src = readFileSync(join(here, 'generated.ts'), 'utf8');
+    const mapped = [...src.matchAll(/"on[A-Z]\w*":"([^"]+)"/g)].map((m) => m[1] ?? '');
+    expect(mapped.length).toBeGreaterThan(30);
+    expect(mapped.filter((e) => !/^bk-[a-z-]+$/.test(e) && e !== 'click')).toEqual([]);
+  });
+
   it('passes bigint props through as properties', async () => {
     const { host } = mount(<AmountDisplay amount={21000n} unit="btc" />);
     const el = host.querySelector('bk-amount-display') as BkAmountDisplay;

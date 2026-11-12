@@ -7,7 +7,7 @@ test.describe('plain HTML + CDN bundle', () => {
   test('pay button opens a checkout that completes on the mock adapter', async ({ page }) => {
     const errors: string[] = [];
     page.on('pageerror', (e) => errors.push(e.message));
-    await page.goto('http://localhost:4321/');
+    await page.goto('http://localhost:4310/');
 
     await page.getByRole('button', { name: /pay with bitcoin/i }).click();
     const dialog = page.getByRole('dialog', { name: 'Pay with bitcoin' });
@@ -27,7 +27,7 @@ test.describe('plain HTML + CDN bundle', () => {
   });
 
   test('dialog traps focus, closes on Escape and restores focus', async ({ page }) => {
-    await page.goto('http://localhost:4321/');
+    await page.goto('http://localhost:4310/');
     const opener = page.getByRole('button', { name: /pay with bitcoin/i });
     // Keyboard activation: WebKit (like Safari) does not focus buttons on mouse click, and focus
     // restoration is what keyboard users rely on.
@@ -49,7 +49,7 @@ test.describe('plain HTML + CDN bundle', () => {
   });
 
   test('donation widget is keyboard operable', async ({ page }) => {
-    await page.goto('http://localhost:4321/');
+    await page.goto('http://localhost:4310/');
     const group = page.getByRole('radiogroup', { name: 'Donation amount' });
     await group.getByRole('radio', { checked: true }).focus();
     await page.keyboard.press('ArrowRight');
@@ -61,7 +61,7 @@ test.describe('plain HTML + CDN bundle', () => {
   });
 
   test('page has no accessibility violations (incl. contrast)', async ({ page }) => {
-    await page.goto('http://localhost:4321/');
+    await page.goto('http://localhost:4310/');
     await page.waitForTimeout(500);
     await expectNoA11yViolations(page);
   });

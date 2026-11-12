@@ -13,3 +13,6 @@ next-env.d.ts
 apps/website/dist
 playwright-report
 test-results
+# Regenerated from custom-elements.json on every build
+packages/react/src/generated.ts
+packages/vue/src/generated.ts

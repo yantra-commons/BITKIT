@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 // End-to-end + real-browser accessibility tests. Run `pnpm build` first.
+// The vanilla example uses 4310, not 4321, so it never collides with `astro dev`.
 export default defineConfig({
   testDir: 'e2e',
   timeout: 45_000,
@@ -17,7 +18,7 @@ export default defineConfig({
   webServer: [
     {
       command: 'node apps/examples/vanilla/serve.mjs',
-      port: 4321,
+      port: 4310,
       reuseExistingServer: !process.env.CI,
     },
     {
