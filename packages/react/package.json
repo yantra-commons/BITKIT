@@ -1,7 +1,7 @@
 {
   "name": "@orange-ui/react",
   "description": "Typed React components for orange-ui (generated from the custom elements manifest).",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,

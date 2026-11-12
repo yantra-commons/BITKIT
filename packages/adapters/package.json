@@ -1,6 +1,6 @@
 {
   "name": "@orange-ui/adapters",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Provider-agnostic payment adapters (mock, BTCPay Server, LNbits, NWC, OpenNode, HTTP) and rate/fee sources for orange-ui.",
   "license": "MIT",
   "type": "module",
