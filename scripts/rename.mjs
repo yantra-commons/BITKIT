@@ -38,8 +38,11 @@ const next = {
   displayName: args.display ?? cur.displayName,
   repo: args.repo ?? cur.repo.replace(cur.name, args.name),
 };
-next.siteBase = `/${next.repo.split('/')[1]}`;
-next.siteUrl = `https://${next.repo.split('/')[0]}.github.io`;
+// Only GitHub Pages URLs follow the repo; a custom host (e.g. Cloudflare) is kept as-is.
+if (cur.siteUrl.endsWith('.github.io')) {
+  next.siteBase = `/${next.repo.split('/')[1]}`;
+  next.siteUrl = `https://${next.repo.split('/')[0]}.github.io`;
+}
 
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
 const pascal = (s) => s.charAt(0).toUpperCase() + s.slice(1);

@@ -8,9 +8,9 @@ framework.
 [![npm](https://img.shields.io/npm/v/@bitkit-ui/elements?label=%40bitkit-ui%2Felements)](https://www.npmjs.com/package/@bitkit-ui/elements)
 [![bundle](https://img.shields.io/badge/CDN%20bundle-67%20kB%20brotli-informational)](./.size-limit.json)
 [![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
-[![WCAG 2.2 AA](https://img.shields.io/badge/WCAG-2.2%20AA-success)](https://yantra-commons.github.io/BITKIT/docs/guides/accessibility/)
+[![WCAG 2.2 AA](https://img.shields.io/badge/WCAG-2.2%20AA-success)](https://bitkit.dvsv2004.workers.dev/docs/guides/accessibility/)
 
-[Documentation](https://yantra-commons.github.io/BITKIT/) · [Components](https://yantra-commons.github.io/BITKIT/docs/components/checkout/) · [Playground](https://yantra-commons.github.io/BITKIT/playground/) · [Templates](https://yantra-commons.github.io/BITKIT/templates/) · [llms-full.txt (for AI tools)](https://yantra-commons.github.io/BITKIT/llms-full.txt)
+[Documentation](https://bitkit.dvsv2004.workers.dev/) · [Components](https://bitkit.dvsv2004.workers.dev/docs/components/checkout/) · [Playground](https://bitkit.dvsv2004.workers.dev/playground/) · [Templates](https://bitkit.dvsv2004.workers.dev/templates/) · [llms-full.txt (for AI tools)](https://bitkit.dvsv2004.workers.dev/llms-full.txt)
 
 ![The landing page with a live checkout: 21,000 sats, unified QR code, Lightning and on-chain tabs](./docs/assets/hero.png)
 

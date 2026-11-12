@@ -6,4 +6,4 @@ Headless Bitcoin + Lightning logic: exact bigint amounts, address validation (BI
 import { parsePaymentInput, formatAmount, toMsat } from '@bitkit-ui/core';
 ```
 
-Documentation: https://yantra-commons.github.io/BITKIT/ · License: MIT
+Documentation: https://bitkit.dvsv2004.workers.dev/ · License: MIT

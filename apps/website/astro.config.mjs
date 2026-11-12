@@ -59,7 +59,7 @@ const componentSidebar = Object.entries(GROUPS).map(([label, names]) => ({
 
 export default defineConfig({
   site: kit.siteUrl,
-  base: kit.siteBase,
+  base: kit.siteBase || '/',
   trailingSlash: 'always',
   integrations: [
     starlight({

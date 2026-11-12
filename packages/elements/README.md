@@ -10,4 +10,4 @@
 <bk-pay-button amount="21000" adapter="mock"></bk-pay-button>
 ```
 
-Documentation: https://yantra-commons.github.io/BITKIT/ · License: MIT
+Documentation: https://bitkit.dvsv2004.workers.dev/ · License: MIT

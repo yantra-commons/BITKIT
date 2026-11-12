@@ -6,4 +6,4 @@ Typed React 18/19 components for every Bitkit UI element. Properties are set as 
 import { Checkout } from '@bitkit-ui/react';
 ```
 
-Documentation: https://yantra-commons.github.io/BITKIT/ · License: MIT
+Documentation: https://bitkit.dvsv2004.workers.dev/ · License: MIT
