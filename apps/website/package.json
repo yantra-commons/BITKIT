@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@astrojs/starlight": "~0.42.10",
-    "astro": "~6.4.8",
+    "astro": "~7.4.8",
     "@orange-ui/adapters": "workspace:*",
     "@orange-ui/core": "workspace:*",
     "@orange-ui/elements": "workspace:*",

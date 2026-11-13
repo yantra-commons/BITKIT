@@ -35,14 +35,25 @@ test.describe('plain HTML + CDN bundle', () => {
     await page.keyboard.press('Enter');
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible();
-    for (let i = 0; i < 25; i++) await page.keyboard.press('Tab');
-    // Focus never leaves the modal dialog.
-    const inside = await page.evaluate(() => {
-      let el: Element | null = document.activeElement;
-      while (el?.shadowRoot?.activeElement) el = el.shadowRoot.activeElement;
-      return !!el?.closest('ou-dialog, dialog') || el?.getRootNode() !== document;
-    });
-    expect(inside).toBe(true);
+    // Where focus is: inside the dialog, in browser UI (activeElement falls back to body), or
+    // on page content behind the dialog, which must never happen.
+    const focusAt = () =>
+      page.evaluate(() => {
+        let el: Element | null = document.activeElement;
+        while (el?.shadowRoot?.activeElement) el = el.shadowRoot.activeElement;
+        if (!el || el === document.body || el === document.documentElement) return 'browser';
+        return el.closest('ou-dialog, dialog') || el.getRootNode() !== document ? 'dialog' : 'page';
+      });
+    // Focus moves into the dialog a frame after it opens in some engines.
+    await expect.poll(focusAt).toBe('dialog');
+    // Native modal dialogs let Tab reach the browser's own UI (by design), but never the page.
+    for (let i = 0; i < 25; i++) {
+      await page.keyboard.press('Tab');
+      expect(await focusAt()).not.toBe('page');
+    }
+    // Escape only reaches the dialog when focus is in the page, so tab back in if needed.
+    for (let i = 0; i < 5 && (await focusAt()) !== 'dialog'; i++) await page.keyboard.press('Tab');
+    expect(await focusAt()).toBe('dialog');
     await page.keyboard.press('Escape');
     await expect(dialog).toBeHidden();
     await expect(opener).toBeFocused();

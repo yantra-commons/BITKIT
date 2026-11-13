@@ -5,6 +5,13 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 10
+    ignore:
+      # typescript-eslint does not support TypeScript 7 yet; lift once it does.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+      # Types track the minimum supported runtime (Node 22, see .nvmrc).
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
     groups:
       dev-tooling:
         dependency-type: development
