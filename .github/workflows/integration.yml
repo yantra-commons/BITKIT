@@ -1,0 +1,37 @@
+name: Live adapter tests
+
+# Real BTCPay Server, LNbits and Alby Hub (NWC) on a throwaway regtest network: catches
+# provider API changes that the mocked unit tests can't.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * 1' # weekly, Monday 06:00 UTC
+  pull_request:
+    paths:
+      - 'packages/adapters/**'
+      - 'packages/core/src/lightning/**'
+      - 'integration/**'
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm integration:up
+      - run: pnpm integration:test
+      - name: Provider logs on failure
+        if: failure()
+        working-directory: integration
+        run: docker compose logs --tail=200 lnbits btcpay albyhub lnd-merchant
+      - if: always()
+        run: pnpm integration:down

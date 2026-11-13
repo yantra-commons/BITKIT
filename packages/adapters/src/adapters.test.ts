@@ -285,6 +285,45 @@ describe('LnbitsAdapter', () => {
     await expect(a.createInvoice({})).rejects.toThrow(/amount/);
   });
 
+  it('reads expiry from LNbits 1.x responses without local state (e.g. after a restart)', async () => {
+    // Shapes recorded from LNbits 1.7.1 (see integration/live.test.ts).
+    const future = new Date(Date.now() + 600_000).toISOString().replace(/\.\d+Z$/, 'Z');
+    const { fn } = fakeFetch({
+      'GET /api/v1/payments/expired': () => ({
+        paid: false,
+        status: 'failed',
+        preimage: null,
+        details: { status: 'failed', expiry: '2026-11-13T19:45:48Z', labels: ['expired'] },
+      }),
+      'GET /api/v1/payments/past': () => ({
+        paid: false,
+        status: 'pending',
+        details: { status: 'pending', expiry: '2020-01-01T00:00:00', labels: [] },
+      }),
+      'GET /api/v1/payments/open': () => ({
+        paid: false,
+        status: 'pending',
+        preimage: null,
+        details: { status: 'pending', expiry: future, labels: [], preimage: 'merchant-secret' },
+      }),
+      'GET /api/v1/payments/failed': () => ({
+        paid: false,
+        status: 'failed',
+        details: { status: 'failed', expiry: future, labels: [] },
+      }),
+      'GET /api/v1/payments/unix': () => ({ paid: false, details: { expiry: 1 } }),
+    });
+    const a = new LnbitsAdapter({ baseUrl: 'https://l', fetch: fn });
+    expect((await a.getStatus('expired')).status).toBe('expired');
+    expect((await a.getStatus('past')).status).toBe('expired');
+    expect((await a.getStatus('failed')).status).toBe('failed');
+    expect((await a.getStatus('unix')).status).toBe('expired');
+    const open = await a.getStatus('open');
+    expect(open.status).toBe('pending');
+    // Never leak the preimage of an unpaid invoice.
+    expect(open.preimage).toBeUndefined();
+  });
+
   it('errors when no payment request is returned', async () => {
     const { fn } = fakeFetch({ 'POST /api/v1/payments': () => ({ payment_hash: 'x' }) });
     await expect(

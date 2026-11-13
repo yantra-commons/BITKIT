@@ -2,6 +2,7 @@ packages:
   - packages/*
   - apps/*
   - apps/examples/*
+  - integration
 allowBuilds:
   esbuild: true
   rs-module-lexer: false

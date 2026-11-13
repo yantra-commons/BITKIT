@@ -1,0 +1,19 @@
+{
+  "name": "@orange-ui/integration",
+  "private": true,
+  "type": "module",
+  "description": "Live adapter tests against real BTCPay Server, LNbits and Alby Hub (NWC) on a local regtest network.",
+  "scripts": {
+    "up": "node bootstrap.mjs",
+    "test:live": "vitest run",
+    "down": "docker compose down -v",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@orange-ui/adapters": "workspace:*",
+    "@orange-ui/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@getalby/sdk": "^9.0.0"
+  }
+}

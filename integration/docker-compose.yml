@@ -1,0 +1,175 @@
+# Local regtest stack for live adapter tests. Regtest coins are created locally and have no
+# value; nothing here touches mainnet or testnet. Credentials below are for this throwaway
+# network only.
+#
+#   pnpm integration:up      # start + bootstrap (writes integration/.env.integration)
+#   pnpm integration:test    # run the live adapter tests
+#   pnpm integration:down    # stop and delete all data
+name: orange-ui-regtest
+
+x-lnd: &lnd
+  image: lightninglabs/lnd:v0.21.8-beta
+  restart: unless-stopped
+  depends_on: [bitcoind]
+
+services:
+  bitcoind:
+    image: polarlightning/bitcoind:30.0
+    restart: unless-stopped
+    command:
+      - bitcoind
+      - -regtest=1
+      - -server=1
+      - -rpcuser=orange
+      - -rpcpassword=orange
+      - -rpcbind=0.0.0.0
+      - -rpcallowip=0.0.0.0/0
+      - -rpcport=18443
+      - -port=18444
+      - -listen=1
+      - -dnsseed=0
+      - -txindex=1
+      - -fallbackfee=0.0002
+      - -zmqpubrawblock=tcp://0.0.0.0:28334
+      - -zmqpubrawtx=tcp://0.0.0.0:28335
+      - -blockfilterindex=1
+      - -peerblockfilters=1
+    volumes: [bitcoind:/home/bitcoin/.bitcoin]
+
+  # Receives payments (backs LNbits, BTCPay and Alby Hub).
+  lnd-merchant:
+    <<: *lnd
+    command:
+      - --alias=merchant
+      - --externalip=lnd-merchant
+      - --tlsextradomain=lnd-merchant
+      - --noseedbackup
+      - --trickledelay=1000
+      - --listen=0.0.0.0:9735
+      - --rpclisten=0.0.0.0:10009
+      - --restlisten=0.0.0.0:8080
+      - --tlsextradomain=localhost
+      - --bitcoin.active
+      - --bitcoin.regtest
+      - --bitcoin.node=bitcoind
+      - --bitcoind.rpchost=bitcoind
+      - --bitcoind.rpcuser=orange
+      - --bitcoind.rpcpass=orange
+      - --bitcoind.zmqpubrawblock=tcp://bitcoind:28334
+      - --bitcoind.zmqpubrawtx=tcp://bitcoind:28335
+      - --gossip.sub-batch-delay=1s
+    volumes: [lnd-merchant:/root/.lnd]
+
+  # Pays invoices, like a customer's wallet.
+  lnd-payer:
+    <<: *lnd
+    command:
+      - --alias=payer
+      - --externalip=lnd-payer
+      - --tlsextradomain=lnd-payer
+      - --noseedbackup
+      - --trickledelay=1000
+      - --listen=0.0.0.0:9735
+      - --rpclisten=0.0.0.0:10009
+      - --restlisten=0.0.0.0:8080
+      - --tlsextradomain=localhost
+      - --bitcoin.active
+      - --bitcoin.regtest
+      - --bitcoin.node=bitcoind
+      - --bitcoind.rpchost=bitcoind
+      - --bitcoind.rpcuser=orange
+      - --bitcoind.rpcpass=orange
+      - --bitcoind.zmqpubrawblock=tcp://bitcoind:28334
+      - --bitcoind.zmqpubrawtx=tcp://bitcoind:28335
+      - --gossip.sub-batch-delay=1s
+    volumes: [lnd-payer:/root/.lnd]
+
+  lnbits:
+    image: lnbits/lnbits:v1.7.1
+    restart: unless-stopped
+    depends_on: [lnd-merchant]
+    environment:
+      HOST: 0.0.0.0
+      PORT: '5000'
+      LNBITS_DATA_FOLDER: /app/data
+      LNBITS_ADMIN_UI: 'false'
+      LNBITS_ALLOW_NEW_ACCOUNTS: 'true'
+      AUTH_ALLOWED_METHODS: '["user-id-only"]'
+      LNBITS_BACKEND_WALLET_CLASS: LndRestWallet
+      LND_REST_ENDPOINT: https://lnd-merchant:8080/
+      LND_REST_CERT: /lnd/tls.cert
+      LND_REST_MACAROON: /lnd/data/chain/bitcoin/regtest/admin.macaroon
+    volumes: [lnd-merchant:/lnd:ro, lnbits:/app/data]
+    ports: ['127.0.0.1:5101:5000']
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes: [postgres:/var/lib/postgresql/data]
+
+  nbxplorer:
+    image: nicolasdorier/nbxplorer:2.6.23
+    restart: unless-stopped
+    depends_on: [bitcoind, postgres]
+    environment:
+      NBXPLORER_NETWORK: regtest
+      NBXPLORER_CHAINS: btc
+      NBXPLORER_BIND: 0.0.0.0:32838
+      NBXPLORER_NOAUTH: '1'
+      NBXPLORER_BTCRPCURL: http://bitcoind:18443/
+      NBXPLORER_BTCRPCUSER: orange
+      NBXPLORER_BTCRPCPASSWORD: orange
+      NBXPLORER_BTCNODEENDPOINT: bitcoind:18444
+      NBXPLORER_POSTGRES: User ID=postgres;Host=postgres;Port=5432;Database=nbxplorer
+    volumes: [nbxplorer:/datadir]
+
+  btcpay:
+    image: btcpayserver/btcpayserver:2.4.7
+    restart: unless-stopped
+    depends_on: [nbxplorer, lnd-merchant]
+    environment:
+      BTCPAY_NETWORK: regtest
+      BTCPAY_CHAINS: btc
+      BTCPAY_BIND: 0.0.0.0:49392
+      BTCPAY_ROOTPATH: /
+      BTCPAY_PROTOCOL: http
+      BTCPAY_POSTGRES: User ID=postgres;Host=postgres;Port=5432;Database=btcpay
+      BTCPAY_EXPLORERPOSTGRES: User ID=postgres;Host=postgres;Port=5432;Database=nbxplorer
+      BTCPAY_BTCEXPLORERURL: http://nbxplorer:32838/
+      BTCPAY_BTCLIGHTNING: type=lnd-rest;server=https://lnd-merchant:8080/;macaroonfilepath=/lnd/data/chain/bitcoin/regtest/admin.macaroon;allowinsecure=true
+      BTCPAY_DISABLE-REGISTRATION: 'false'
+    volumes: [lnd-merchant:/lnd:ro, btcpay:/datadir]
+    ports: ['127.0.0.1:5102:49392']
+
+  relay:
+    image: scsibug/nostr-rs-relay:0.9.0
+    restart: unless-stopped
+    ports: ['127.0.0.1:5104:8080']
+
+  albyhub:
+    image: ghcr.io/getalby/hub:v1.10.1
+    restart: unless-stopped
+    depends_on: [lnd-merchant, relay]
+    environment:
+      WORK_DIR: /data
+      PORT: '8080'
+      RELAY: ws://relay:8080
+      LN_BACKEND_TYPE: LND
+      LND_ADDRESS: lnd-merchant:10009
+      LND_CERT_FILE: /lnd/tls.cert
+      LND_MACAROON_FILE: /lnd/data/chain/bitcoin/regtest/admin.macaroon
+      NETWORK: regtest
+    volumes: [lnd-merchant:/lnd:ro, albyhub:/data]
+    ports: ['127.0.0.1:5103:8080']
+
+volumes:
+  bitcoind:
+  lnd-merchant:
+  lnd-payer:
+  lnbits:
+  postgres:
+  nbxplorer:
+  btcpay:
+  albyhub:

@@ -34,8 +34,26 @@ interface LnbitsCreated {
 
 interface LnbitsStatus {
   paid: boolean;
-  preimage?: string;
-  details?: { expiry?: number; status?: string; pending?: boolean };
+  /** LNbits >= 1.0: "pending" | "success" | "failed" (an expired invoice is "failed"). */
+  status?: string;
+  preimage?: string | null;
+  details?: {
+    /** ISO date string in LNbits >= 1.0, unix seconds in older versions. */
+    expiry?: string | number | null;
+    status?: string;
+    pending?: boolean;
+    labels?: string[];
+  };
+}
+
+/** Parse LNbits' expiry (ISO string or unix seconds) to unix ms. */
+function parseExpiry(v: string | number | null | undefined): number | undefined {
+  if (typeof v === 'number') return v * 1000;
+  if (typeof v === 'string' && v) {
+    const ms = Date.parse(/[zZ]|[+-]\d\d:?\d\d$/.test(v) ? v : `${v}Z`);
+    return Number.isNaN(ms) ? undefined : ms;
+  }
+  return undefined;
 }
 
 /** LNbits (Lightning-only) adapter. Invoice id = payment hash. */
@@ -100,15 +118,20 @@ export class LnbitsAdapter implements PaymentAdapter {
     const s = await this.#req<LnbitsStatus>(`/api/v1/payments/${encodeURIComponent(invoiceId)}`, {
       signal: opts.signal,
     });
-    const expiresAt = this.#expiries.get(invoiceId);
+    // Prefer what LNbits reports, so a fresh adapter (e.g. after a server restart) agrees with one
+    // that created the invoice.
+    const expiresAt = parseExpiry(s.details?.expiry) ?? this.#expiries.get(invoiceId);
+    const state = s.status ?? s.details?.status;
     const expired =
       !s.paid &&
-      (s.details?.status === 'expired' || (expiresAt !== undefined && Date.now() > expiresAt));
+      (state === 'expired' ||
+        Boolean(s.details?.labels?.includes('expired')) ||
+        (expiresAt !== undefined && Date.now() > expiresAt));
     return {
       invoiceId,
-      status: s.paid ? 'paid' : expired ? 'expired' : 'pending',
+      status: s.paid ? 'paid' : expired ? 'expired' : state === 'failed' ? 'failed' : 'pending',
       method: 'lightning',
-      preimage: s.paid ? s.preimage : undefined,
+      preimage: s.paid ? (s.preimage ?? undefined) : undefined,
       updatedAt: Date.now(),
     };
   }

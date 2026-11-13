@@ -74,6 +74,10 @@ const btcpay = new BtcPayAdapter({
 });
 ```
 
+Create the API key with only those two permissions for the store. Add
+`btcpay.store.canmanageinvoicestatus` only if your server calls `btcpay.cancel(id)`; the
+components never do. Without it, `cancel()` rejects with an `AdapterError` whose `status` is 403.
+
 ## LNbits and OpenNode
 
 ```ts

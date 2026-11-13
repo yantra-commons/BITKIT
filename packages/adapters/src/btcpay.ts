@@ -197,6 +197,10 @@ export class BtcPayAdapter implements PaymentAdapter {
     return pollStatus((signal) => this.getStatus(invoiceId, { signal }), onUpdate, opts);
   }
 
+  /**
+   * Mark the invoice invalid. Needs the extra `btcpay.store.canmanageinvoicestatus` permission,
+   * which the components never require (they don't call cancel()).
+   */
   async cancel(invoiceId: string, opts: RequestOptions = {}): Promise<void> {
     await this.#req<void>(`/invoices/${encodeURIComponent(invoiceId)}/status`, {
       method: 'POST',

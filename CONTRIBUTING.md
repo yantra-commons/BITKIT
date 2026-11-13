@@ -15,6 +15,7 @@ pnpm exec playwright install   # once, for e2e
 | Everything CI runs             | `pnpm check` (format, build, lint, typecheck, test) |
 | End-to-end + real-browser a11y | `pnpm e2e`                                          |
 | Bundle-size budgets            | `pnpm size`                                         |
+| Live adapter tests (Docker)    | `pnpm integration:up && pnpm integration:test`      |
 | Component workbench            | `pnpm storybook`                                    |
 | Docs site                      | `pnpm --filter @orange-ui/website dev`              |
 
