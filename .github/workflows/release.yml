@@ -26,7 +26,7 @@ jobs:
       - run: pnpm build && pnpm test
       # Opens a "Version packages" PR while changesets are pending; publishes all
       # @orange-ui/* packages together once that PR is merged.
-      - uses: changesets/action@v1
+      - uses: changesets/action@v2
         with:
           version: pnpm version-packages
           publish: pnpm changeset publish
