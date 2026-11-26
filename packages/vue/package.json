@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@orange-ui/adapters": "workspace:*",
-    "vue": "^3.5.45"
+    "vue": "^3.5.46"
   },
   "repository": {
     "type": "git",
